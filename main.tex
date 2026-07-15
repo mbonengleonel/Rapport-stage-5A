@@ -1,0 +1,129 @@
+\documentclass{CoursENSAM}
+
+\begin{document}
+
+%----------- Informations du rapport ---------
+
+\ecole{Polytech Clermont / EUPI} %Nom de l'ecole
+\titre{Stage d'Intégration et de Tests Terrain pour le Challenge MOBILEX} %Titre du fichier
+\sujet{Rapport de stage de fin d'études : Année académique 2025-2026}
+\UE{Polytech Clermont : Département S3ER / EUPI : Master PAR} %Nom de la UE
+\enseignant{\emph{\textbf{Enseignant Référent :}}\\ Romuald AUFRERE\\[0.8cm]
+\emph{\textbf{Tuteur de Stage :}}\\ Thomas BARBIER} %Nom de l'enseignant
+
+\eleve{\emph{\textbf{Élève :}}\\
+Leonel \textsc{MBONENG}\\[0.3cm]
+\emph{\textbf{Dates de stage :}}\\Du 16/03/2026 au 21/08/2026\\[0.3cm]
+\emph{\textbf{Entreprise d'accueil :}}\\SHERPA Engineering} %Nom des élèves
+
+%----------- Initialisation -------------------
+        
+\fairemargesintro %Afficher les marges
+\fairepagedegarde %Créer la page de garde
+\fairemarges
+
+%------------ Debut du rapport ----------------
+
+%------------------- Table des matières --------------------------------
+\renewcommand{\thesection}{\Roman{section}}
+\renewcommand{\thesubsection}{\hspace*{0.1cm} \arabic{subsection}}
+\renewcommand{\thesubsubsection}{\hspace*{0.2cm} \arabic{subsection}.\arabic{subsubsection}} %¨Permet d'obtenir la numérotation de section en lettres romaines
+\DeclareTOCStyleEntries[
+dynnumwidth]{tocline}{section,subsection,subsubsection,paragraph} %Permet l'espacement entre le numéro et le nom de la (sous-)section
+
+
+%------------------ Couleurs des sections & sous sections ----------------------------
+
+%Couleur des titres de section (violetAM)
+\sectionfont{\color{cyan}{}}
+
+%Couleur des titres de section (orangeAM)
+\subsectionfont{\color{black}{}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\pagenumbering{roman} %Numerotation chiffre romains jusqu'a l'introduction
+
+%\begin{abstract}
+%    Si vous voulez mettre un abstract décommentez cette partie
+%\end{abstract}
+%\newpage
+\renewcommand{\thepage}{}
+\renewcommand{\abstractname}{Résumé}
+\begin{abstract}
+Ce rapport vise à présenter le travail réalisé durant mon stage au sein du projet MOBITER, mené par SHERPA Engineering, qui a pour but de développer de nouvelles techniques de navigation permettant à un véhicule de se déplacer de manière autonome dans un environnement inconnu, déstructuré, et dont la fiabilité des capteurs n'est pas garantie.\\\\
+\indent L'approche développée repose sur un modèle numérique d'élévation créé à partir d'une fusion d'informations provennant d'un LIDAR 3D 64 nappes, d'un GNSS, d'un ultrasons et d'une sémantique caméra obtenue grâce à un réseau de neurones Yolo Efficient SAM, avec possibilité de mise à jour avec une méthode SLAM, une planification globale A* et une planification locale prédictive DWA.\\\\
+\indent Les résultats actuels sont que le robot est capable de naviguer à basse vitesse (2m/s) et de cartographier en toute autonomie dans un environnement déstructuré pouvant contenir des obstacles positifs et négatifs.
+\end{abstract}
+
+\renewcommand{\abstractname}{Mots-clés}
+\begin{abstract}
+\begin{center}
+    Navigation autonome en milieu déstructuré - Modèle Numérique d'Élévation - Cartographie SLAM - Yolo World - Efficient SAM - Planification globale A* - Planification locale DWA - ROS
+\end{center}
+\end{abstract}
+\vspace{1.6cm}
+\renewcommand{\abstractname}{Abstract}
+\begin{abstract}
+This report aims to present the work carried out during my internship within the MOBITER project, directed by SHERPA Engineering, which aims to develop new robotics techniques to enable a vehicle to move autonomously in an unknown, unstructured environment where sensor reliability is not guaranteed.\\\\
+\indent The developed approach is based on a digital elevation model created from a fusion of LIDAR, GPS, and ultrasound information, and camera semantics obtained using a Yolo World Efficient SAM neural network, with the possibility of updating using a SLAM method, A* global planning, and DWA predictive local planning.\\\\
+\indent The current results show that the robot is able to navigate at low speed (2 m/s) and map autonomously in an unstructured environment that may contain positive and negative obstacles.
+\end{abstract}
+
+\renewcommand{\abstractname}{Keywords}
+\begin{abstract}
+\begin{center}
+    Autonomous navigation in unstructured environment - Digital Elevation Model (DEM) - Mapping SLAM - Yolo World - Efficient SAM - A* global planning - DWA predictive local planning - ROS
+\end{center}
+\end{abstract}
+\newpage
+\renewcommand{\abstractname}{Remerciements}
+\begin{abstract}
+En premier lieu, je souhaiterais exprimer ma gratitude envers mon tuteur de stage, Thomas Barbier, ainsi que notre référent technique sur le projet Xavier Dauptain, et Richard Arnaud de l'équipe de Nantes qui m’ont apporté un encadrement de qualité. J’ai beaucoup apprécié les longues discussions où nous prenions le temps de poser et d’approfondir un sujet à travers nos idées. Ils ont su me faire confiance en me donnant beaucoup de liberté et d’autonomie. Étant donné leurs grandes connaissances et compétences en robotique mobile, j’ai eu la chance de pouvoir apprendre beaucoup d'eux tout au long de mon séjour chez Sherpa Engineering.\\\\
+Ensuite, j’aimerais remercier l'ensemble de l'équipe UPercEa. J'ai sincèrement adoré travailler à vos côtés, de par la bonne ambiance qui règne au sein de l'équipe et par l'entraide que vous vous apportez.\\\\
+J'aimerais également remercier Hubert Villeneuve de l'INRAE avec qui j'ai réalisé l'ensemble de mes tests sur le terrain. Il m'a donné beaucoup de conseils pour effectuer les tests de manière efficace.\\\\
+D’autre part, je tiens à remercier Roland Chapuis, mon référent Polytech, pour son aide lors de points théoriques bloquants et pour le temps qu'il m'a accordé sur toutes sortes de sujets.\\\\
+Enfin, j’aimerais remercier Myriam Doghmi qui m'a donné des conseils dans la rédaction de ce rapport.
+\end{abstract}
+
+\newpage
+\renewcommand{\thepage}{}
+\sectionfont{\centering\color{cyan}{}}
+%Commenter la ou les listes dont vous n'avez pas besoin
+\shorttoc{Sommaire}{2} % Only sections and subsections
+\newpage
+\listoffigures
+\newpage
+\glsaddall
+\vspace*{-1.5cm}\printglossary[title=Glossaire]
+\vspace{1cm}
+\textit{Tous les mots suivis d'un astérisque sont définis dans le lexique.}
+\newpage
+% Générer la table d'abréviations
+\printglossary[type=\acronymtype, title=Table des abréviations]
+\sectionfont{\color{cyan}{}}
+
+
+%------------ Corps du rapport ----------------
+
+\newpage
+\pagestyle{fancy}
+%\fairemarges
+\pagenumbering{arabic} %Début de numerotation avec nombres arabes
+
+%penser a changer les input si vous changez les noms des dossiers
+\input{Introduction/Intro}
+\newpage
+\input{Corps_rapport/Corps}
+%\newpage
+%\input{Conclusion/Conclusion}
+%\newpage
+%\input{bibliography/bib}
+\newpage
+\renewcommand{\thepage}{}
+\sectionfont{\centering\color{cyan}{}}
+\setcounter{tocdepth}{4}
+\tableofcontents
+\sectionfont{\color{cyan}{}}
+\newpage
+\input{Appendix/appendix}
+\end{document}

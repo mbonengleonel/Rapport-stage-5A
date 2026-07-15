@@ -1,0 +1,544 @@
+\section{Le stage}
+\subsection{Les missions}
+J'ai été recruté comme stagiaire chez SHERPA Engineering afin d'apporter une aide à l'intégration et aux tests terrain pour compte du défi 3 du Challenge MOBILEX*.\\\\
+\indent Ma mission principale consiste à participer aux tests des différentes briques logicielles développées sur le robot. Les tests se font d'abord en simulation, puis, lorsque les résultats sont concluants, sur le terrain. Lors des tests terrains, il est nécessaire de prévoir une série de tests pertinents pour mettre à l'épreuve les briques sous test et de communiquer avec l'équipe de l'INRAE pour programmer une date et prévoir la disponibilité du matériel à utiliser pour les tests. Une fois les tests réalisés, un compte-rendu est fait à l'équipe de développement.\\\\
+\indent En cas de problèmes lors des tests, il est impératif de noter les circonstances dans lesquelles ils sont apparus, trouver des scénarios reproduisant ces derniers, réaliser des diagnostics, isoler la cause et, dans la mesure du possible, proposer une solution de résolution.\\\\
+\indent En dehors des sessions de tests planifiées, mes missions se sont articulées autour de deux axes principaux : \\
+
+\begin{itemize}
+\renewcommand{\labelitemi}{$\bullet$}
+    \item \textbf{L'automatisation du post-traitement} : J'ai développé un générateur automatique de rapports d'essais. Cet outil synthétise les données d'exécution afin de fournir une analyse visuelle et rapide du déroulement des tests.
+    \item \textbf{La standardisation des procédures} : J'ai mis sur pied un protocole et un plan de test rigoureux. Ce cadre méthodologique vise d'une part à évaluer la conformité du système vis-à-vis des exigences fonctionnelles spécifiées par la DGA pour le Défi 3, et d'autre part à garantir la répétabilité des scénarios d'essai, indépendamment de l'ingénieur chargé de l'exécution.\\
+\end{itemize}
+    
+\indent Enfin, mon avis est attendu lors des questionnements stratégiques.
+
+
+\subsection{Présentation des travaux réalisés}
+\subsubsection{Prise en main du projet}
+Lors de mon arrivée à SHERPA Engineering, il a été indispensable pour moi de prendre en main un projet débuté depuis plus de deux ans.\\\\
+\indent Mon premier objectif a consisté à cloner le dépôt Git de l'ensemble du projet Mobiter sur notre poste de travail. Ce dernier fonctionne sous Ubuntu 22.04 et intègre Distrobox, un outil de conteneurisation permettant d'exécuter une surcouche logicielle sous un autre système d'exploitation — en l'occurrence Ubuntu 20.04. Cette configuration est indispensable pour utiliser ROS Noetic. En effet, l'intégralité de la brique logicielle MOBILEX a été développée sous cette version de ROS, qui s'avère incompatible avec la distribution native Ubuntu 22.04. \\\\
+\indent Une fois le simulateur fonctionnel, j'ai alors pu me familiariser avec l'utilisation de l'IHM et les différents modes de conduite disponibles. Puis afin de pouvoir proposer des tests pertinents et comprendre l'architecture logicielle de la brique MOBILEX*, aussi bien d'un point de vue théorique que technique, il m'a fallut consulter l'ensemble des codes.
+
+\subsubsection{Intégration et évaluation du slam DLIO}
+
+Au début de mon stage, l'équipe Mobiter avait engagé des travaux de refonte du module de SLAM (Simultaneous Localization and Mapping). Lors des défis précédents, la solution logicielle reposait exclusivement sur le Kitware SLAM, une approche purement LiDAR. Celle-ci présentait de graves limites dans les environnements très dégagés (comme les grands espaces extérieurs), où la rareté des caractéristiques géométriques et des retours LiDAR nuisait à la qualité de la localisation. De plus, ce composant représentait l'une des charges computationnelles les plus lourdes de la pile logicielle du projet. Afin de pallier ces défauts, le SLAM DLIO (Direct LiDAR-Inertial Odometry), combinant les données LiDAR et une centrale inertielle (IMU), a été choisi comme une alternative plus robuste pour la navigation en milieux ouverts.\\\\ 
+\indent C’est dans ce contexte que j'ai participé à l'intégration du SLAM DLIO au sein de la brique MOBILEX*, puis de contribuer à son évaluation sur le terrain. Une fois cette intégration logicielle finalisée, nous avons mené une campagne de tests afin de valider son bon fonctionnement et de quantifier ses performances (en matière de dérive et de charge CPU) par rapport au Kitware SLAM et à la vérité terrain.(\hyperref[fig27]{Figure 26})\\
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{Corps_rapport/Comparaison map DLIO vs GNSS.png}
+    \captionof{figure}{Comparaison de cartographie en GNSS RTK VS en DLIO}
+    \label{fig26}
+\end{center}
+
+\indent Afin d'évaluer les performances du SLAM DLIO, des essais ont été menés sur le site de l'INRAE en comparant les trajectoires générées par ce dernier et par le Kitware SLAM avec la vérité terrain fournie par un système GNSS RTK. La méthodologie a consisté, dans un premier temps, à enregistrer un fichier de données (ROS bag) lors d'une séquence de suivi de waypoints avec le SLAM DLIO actif, tout en enregistrant la position de référence renvoyée par la centrale de navigation SBG Systems. Dans un second temps, ce bag a été rejoué hors ligne afin d'exécuter le Kitware SLAM et de générer un enregistrement unique centralisant les trois modes de localisation (GNSS RTK, DLIO et Kitware). Enfin, l'utilisation des outils de la bibliothèque EVO nous a permis de comparer et d'évaluer précisément les performances des deux algorithmes de SLAM par rapport à la vérité terrain.(\hyperref[fig27]{Figure 27} et \hyperref[fig28]{Figure 28}) \\
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{Corps_rapport/Traj Dlio vs kitware.png}
+    \captionof{figure}{Comparaison des trajectoires en DLIO / Kitware par rapport à la vérité terrain}
+    \label{fig27}
+\end{center}
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{Corps_rapport/RPE DLIO vs Kitware.png}
+    \captionof{figure}{Comparaison des erreurs relatives de position en DLIO vs en Kitware}
+    \label{fig28}
+\end{center}
+
+\subsubsection{Évaluation de la dérive du SLAM DLIO par rapport à la vérité terrain}
+
+La bibliotheque python EVO utilise l'algorithme de Kabsch-Umeyama \cite{Kabsch} pour aligner les trajectoires avant comparaison et evaluation. Cet algorithme permet de trouver la meilleure transformation rigide (rotation et translation) qui minimise l'écart quadratique moyen (RMSD) entre deux ensembles de points appariés. Il est utile pour l'alignement d'ensembles de points en infographie, ainsi qu'en chimio-informatique et en bio-informatique pour comparer des structures moléculaires et protéiques. \\\\
+\indent Cette étape de transformation est cruciale pour s'assurer que les trajectoires sont comparées dans le même référentiel, éliminant ainsi les effets de décalage initial ou de rotation. Une fois les nuage de points alignés, EVO compare les trajectoires et retourne les métriques suivantes: \\\\
+
+\begin{itemize}
+\renewcommand{\labelitemi}{$\bullet$}
+    \item \textbf{max}: c'est la valeur de l'erreur la plus élevée enregistrée sur l'ensemble de la trajectoire.
+    \item \textbf{mean}: c'est la moyenne arithmétique simple de toutes les erreurs de pose calculées.
+    \item \textbf{median}: c'est la valeur centrale. Exactement la moitié des poses ont une erreur inférieure à la médiane, et l'autre moitié a une erreur supérieure.
+    \item \textbf{min}: c'est la valeur de l'erreur la plus faible enregistrée sur l'ensemble de la trajectoire.
+    \item \textbf{rmse} (Root Mean Square Error - Erreur Quadratique Moyenne): c'est la racine carrée de la moyenne des carrés des erreurs.
+    \item \textbf{sse} (Sum of Squared Errors - Somme des Erreurs Quadratiques): c'est la somme de toutes les erreurs individuelles élevées au carré.
+    \item \textbf{std} (Standard Deviation - Écart Type) : c'est une mesure de la dispersion des erreurs autour de la moyenne (mean).\\
+\end{itemize}
+
+\indent Afin de qualifier les performances du SLAM DLIO, il etait indispensable d'évaluer sa dérive par rapport à la vérité terrain en fonction de la distance parcourue. Pour cela, à partir d'un bag de données ROS contenant les trajectoires (SLAM et vérité terrain) enregistrées lors d'essais réels, nous avons implémenté un script qui calcule l'erreur euclidienne de position, la distance réelle parcourue puis la dérive du SLAM à chaque instant. La dérive est donnée en pourcentage par la formule suivante \eqref{eq5}: 
+
+\begin{equation} \label{eq5}
+    \text{Dérive}[k] = \frac{100 \cdot \sqrt{(x_{\text{slam}}[k]-x_{\text{sbg}}[k])^2+(y_{\text{slam}}[k]-y_{\text{sbg}}[k])^2+(z_{\text{slam}}[k]-z_{\text{sbg}}[k])^2}}{\text{d}[k]}
+\end{equation}
+$\ $
+
+avec $x_{\text{slam}}[k]$, $y_{\text{slam}}[k]$, $z_{\text{slam}}[k]$ les coordonnées de la position estimée par le SLAM à l'instant $k$, $x_{\text{sbg}}[k]$, $y_{\text{sbg}}[k]$, $z_{\text{sbg}}[k]$ les coordonnées de la vérité terrain fournie par la centrale SBG, et $\text{d}[k]$ la distance cumulée parcourue jusqu'à l'instant $k$, calculée de manière incrémentale selon la formule \eqref{eq6} : avec $\text{d}[0] = 0$.
+
+\begin{equation} \label{eq6}
+    \scalebox{0.9}{$\displaystyle\text{d}[k] = \text{d}[k-1] + \sqrt{(x_{\text{sbg}}[k]-x_{\text{sbg}}[k-1])^2+(y_{\text{sbg}}[k]-y_{\text{sbg}}[k-1])^2+(z_{\text{sbg}}[k]-z_{\text{sbg}}[k-1])^2}$}
+\end{equation}
+$\ $
+ 
+\indent Une étape primordiale avant d'appliquer le calcul de la dérive consistait à s'assurer que les trajectoires SLAM et SBG (vérité terrain) soient dans le même repère et que, pour chaque instant $k$ (timestamp), les positions estimées par le SLAM et la vérité terrain soient appariées. Or, les deux trajectoires enregistrées dans le bag n'étaient pas parfaitement synchronisées ; nous avons donc dû les synchroniser en utilisant une fonction d'interpolation linéaire entre deux points successifs \eqref{eq7}. Cette fonction permet d'interpoler les données d'une trajectoire pour obtenir des valeurs correspondantes aux timestamps de l'autre trajectoire. Ainsi, nous avons pu aligner les deux ensembles de données et garantir que chaque position estimée par le SLAM correspondait à une position de vérité terrain à un instant donné.
+
+\begin{equation} \label{eq7}
+    f(t) = f(t_k) + \frac{t - t_k}{t_{k+1} - t_k} \cdot \bigl(f(t_{k+1}) - f(t_k)\bigr), \quad t_k \leq t \leq t_{k+1}
+\end{equation}
+$\ $
+
+avec $f(t)$ la valeur interpolée à l'instant $t$, $t_k$ et $t_{k+1}$ les deux timestamps successifs encadrant $t$, et $f(t_k)$, $f(t_{k+1})$ les valeurs connues aux instants $t_k$ et $t_{k+1}$. Cette formule est appliquée indépendamment sur chaque coordonnée ($x$, $y$, $z$).\\
+
+\indent La figure \hyperref[fig29]{Figure 29} illustre l'évolution de la dérive du SLAM DLIO par rapport à la vérité terrain en fonction de la distance parcourue. On observe que la dérive reste relativement faible, avec une valeur maximale d'environ 1,5\% sur l'ensemble de la trajectoire. Cette performance est significativement meilleure que celle du Kitware SLAM, qui présente une dérive plus importante, surtout dans les zones dégagées où les caractéristiques géométriques sont rares. Ces résultats confirment que le SLAM DLIO est une solution plus robuste et fiable pour la navigation en milieux ouverts, offrant une meilleure précision de localisation et une charge computationnelle réduite.\\ 
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{Corps_rapport/euclidean_error_vs_distance.png}
+    \captionof{figure}{Évolution de la dérive du SLAM DLIO par rapport à la vérité terrain en fonction de la distance parcourue}
+    \label{fig29}
+\end{center} 
+$\ $\
+
+
+
+\subsubsection{Mise en oeuvre du générateur automatique de rapports d'essais}
+
+L'une de mes missions principales a été de développer un générateur automatique de rapports d'essais. Cet outil vise à synthétiser les données d'exécution des tests pour fournir une analyse visuelle et rapide du déroulement des essais afin de faciliter les diagnostics.\\\\
+\indent Le générateur de rapports d'essais a été conçu pour assurer un traitement offline des fichiers de données (ROS bag) enregistrés lors des tests. Il extrait les informations pertinentes, telles que les trajectoires, les vitesses, les erreurs de localisation, les événements critiques, les images de cartes construites et de visualisation, puis génère un rapport structuré comprenant des graphiques, des informations de diagnostic et des vidéos.\\\\
+\indent Apres discussion avec l'ensemble de l'équipe, une liste d'éléments pertinents à inclure dans le rapport de test a été établie. Cette liste comprend notamment:\\
+
+\begin{itemize}
+\renewcommand{\labelitemi}{$\bullet$}
+    \item La liste des diagnostics (avec timestamps) retournés sur l'IHM durant toute la durée des tests : sous forme de figure facilement interpretable puis sous forme de test plus descriptif contenant le message d'erreur associé à chaque disgnostic.
+    \item Le mode de control du robot (téléopération, suivie de waypoint, ...) ainsi que le mode de localisation (GNSS, SLAM) du robot à chaque timestamps sous forme de figure.
+    \item Un tracé des positions linéaires et angulaires du robot.
+    \item Un tracé de la trajectoire du robot en slam et en GNSS RTK avec les waypoints à raliés, ainsi qu'une évaluation des erreurs de localisation.
+    \item Un tracé de la trajectoire du robot avec les waypoints à raliés ainsi qu'une representation du mode de localisation sur chaque section de la trajectoire.
+    \item Un tracé des erreurs de vitesses linéaires sur toute la tarjectoire par rapport aux vitesses de consigne souhaitée.
+    \item Des vidéos synchronisées par rapport aux timestamps des bag, montrant la construction du MNE(Modele Numerique d'Elevation), de la planification globale, de la planification locale, de la carte des gradients ainsi que du retour vidéo sur l'IHM.\\
+\end{itemize}
+
+\indent L'outil a été développé en Python et utilise des bibliothèques telles que Matplotlib pour la visualisation des données, Pandas pour le traitement des données et OpenCV pour la manipulation d'images et de vidéos. A partir du bag ROS, le rapport final est généré au format html sous demande des membres de l'équipe. L'organigramme de l'outil est présenté dans la (\hyperref[fig30]{Figure 30}):\\
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{Corps_rapport/org_bag_explorer.png}
+    \captionof{figure}{Organigramme de l'outil de génération automatique de rapport de test}
+    \label{fig30}
+\end{center}
+$\ $\
+
+
+\paragraph{Extraction et génération des diagnostics de l'IHM}
+
+L'objectif principal de ce module est d'obtenir une vision consolidée et exhaustive de l'ensemble des diagnostics émis par l'interface homme-machine (IHM) sur la totalité de la plage temporelle de l'essai. Cette approche permet notamment de capturer et de consigner les événements transitoires (des alertes fugaces qui apparaissent et disparaissent rapidement), évitant ainsi qu'ils ne soient omis par l'opérateur lors du déroulement du test en temps réel. Pour ce faire, l'outil génère plusieurs représentations graphiques, dont une frise chronologique (timeline) des diagnostics (\hyperref[fig31]{Figure 31}), indexée par identifiant d'alerte. Cette visualisation temporelle permet d'identifier immédiatement les éléments où des anomalies sont survenues, puis de fournir un resumé sur ces diagnostics anormaux détectés. Au sein de la pile logicielle (stack) MOBITER, les diagnostics sont hiérarchisés et catégorisés en quatre grands groupes fonctionnels (niveau) :\\
+
+\begin{itemize}
+\renewcommand{\labelitemi}{$\bullet$}
+    \item \textbf{OK} : qui indique que tout fonctionne correctement.
+    \item \textbf{WARNING} : qui indique un avertissement ou un problème potentiel.
+    \item \textbf{ERROR} : qui indique une erreur nécessitant une attention immédiate.
+    \item \textbf{STALE} : qui indique que les informations ne sont plus à jour.\\
+\end{itemize}
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{Corps_rapport/diagnostics_timeline_by_name.png}
+    \captionof{figure}{Timeline des diagnostics de l'IHM par nom de diagnostic}
+    \label{fig31}
+\end{center}
+$\ $\
+
+\indent Deplus, pour des soucis de débug il est souvent interessant de savoir à quel moment le robot a changé de mode de contrôle (téléopération, suivis de waypoint, suivis de lisiere) ou de localisation (GNSS ou SLAM). L'outil génère donc également des timelines des changements de mode de contrôle et de localisation (\hyperref[fig32]{Figure 32} et \hyperref[fig33]{Figure 33}).\\
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{Corps_rapport/control_mode_switches.png}
+    \captionof{figure}{Timeline des changements de mode de contrôle}
+    \label{fig32}
+\end{center}
+$\ $\
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{Corps_rapport/localization_mode_switches.png}
+    \captionof{figure}{Timeline des changements de mode de localisation}
+    \label{fig33}
+\end{center}
+$\ $\
+
+\indent Le processus débute par l'analyse du fichier d'enregistrement (bag file), dont l'objectif est d'extraire l'ensemble des topics de type \textbf{DiagnosticArray}. Si une liste restrictive de topics est fournie en paramètre, l'extraction se limite à ces derniers ; dans le cas contraire, l'intégralité des flux de type DiagnosticArray est récupérée par défaut. Une fois l'extraction effectuée, les informations utiles sont structurées et stockées chronologiquement au sein d'un dictionnaire indexé par horodatage (timestamp). À partir de cette structure de données, des scripts exploitant des library Python (pandas, numpy, matplotlib) génèrent automatiquement l'ensemble des figures d'analyse présentées précédemment, ainsi qu'un rapport de synthèse textuel (format .txt). Enfin, afin de mettre en relation les anomalies matérielles ou logicielles avec l'état opérationnel du robot, l'outil extrait également les messages du topic \textbf{nav\_stack/control\_mux/mode}. L'analyse de ces données permet de tracer et de corréler précisément les changements de modes de contrôle du système au cours de l'essai. La figure (\hyperref[fig34]{Figure 34}) suivante illustre l'organigramme de cet outil:\\
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{Corps_rapport/org diag extractor.drawio.png}
+    \captionof{figure}{Organigramme de l'outil d'extraction et de génération des diagnostics}
+    \label{fig34}
+\end{center}
+$\ $\
+
+
+\paragraph{Extraction et génération des visualisation de trajectoires et d'erreurs de localisation}
+
+Ce module a pour objectif principal de fournir une représentation visuelle et quantitative des trajectoires du robot (estimées par le SLAM et la centrale inertielle SBG Ellipse) au regard des waypoints (points de passage) à rallier. Afin d'évaluer et de comparer objectivement ces profils de déplacement, la bibliothèque Python EVO (Evaluation of Odometry and SLAM) a été intégrée à l'architecture de test.\\
+
+\indent L'outil automatisé exploite cette bibliothèque pour générer plusieurs types de livrables graphiques :\\
+
+\begin{itemize}
+\renewcommand{\labelitemi}{$\bullet$}
+    \item \textbf{Des analyses temporelles} : l'évolution des positions linéaires et angulaires du robot au fil du temps.(\hyperref[fig34]{Figure 34})
+    \item \textbf{Des comparaisons spatiales} : la superposition des trajectoires issues du SLAM et de la centrale inertielle SBG.(\hyperref[fig35]{Figure 35})
+    \item  \textbf{Des métriques d'erreur} : le calcul et l'affichage de l'erreur de position relative (RPE — Relative Pose Error) pour quantifier la dérive locale du système.\\
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.46\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Corps_rapport/evo_trajectory_analysis_xyz.png}        
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.46\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Corps_rapport/evo_trajectory_analysis_rpy.png}
+    \end{subfigure}
+    \caption{Visualisation et comparaison des positions linéaires et angulaires du robot}
+    \label{fig34}
+\end{figure}
+$\ $\
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.46\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Corps_rapport/trajectory_gnss_vs_slam.png}        
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.5\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Corps_rapport/trajectory_speed_error.png}
+    \end{subfigure}
+    \caption{Evaluation des portions GNSS et SLAM de la trajectoire et erreur de vitesse le long de la trajectoire}
+    \label{fig35}
+\end{figure}
+$\ $\ 
+ 
+\indent Ces visualisations synthétiques permettent d'identifier rapidement les écarts géométriques entre les différentes méthodes de localisation et d'analyser finement les performances de la brique de navigation selon les scénarios de test. Il convient toutefois de souligner que la pertinence de ces indicateurs de performance (KPI) reste conditionnée à la validité de la vérité terrain (ground truth). Celle-ci nécessite une continuité absolue des données de positionnement, ce qui implique l'absence de masquage ou de perte du signal GNSS RTK durant l'acquisition des données.\\
+
+\indent Afin d'optimiser ce traitement, l'architecture de cet outil a été subdivisée en deux modules distincts :\\
+
+\begin{itemize}
+\renewcommand{\labelitemi}{$\bullet$}
+    \item Le module d'extraction et de sérialisation : Cette première partie est chargée d'extraire les informations pertinentes des topics du fichier bag, puis de les enregistrer dans un fichier CSV. Les données y sont structurées sous forme de tableau indexé par horodatage (timestamp), où chaque colonne correspond à un attribut spécifique et exploitable du message d'origine.
+    \item Le module d'analyse et de visualisation : Cette seconde partie assure la lecture du fichier CSV et prend en charge la génération des différentes figures d'analyse.\\
+\end{itemize}
+
+\indent Cette conception modulaire et découplée présente un double intérêt opérationnel. D'une part, elle évite de réexécuter la phase d'extraction des données du bag (processus généralement lourd et chronophage) lors d'un simple ajustement graphique ou d'une modification des figures d'analyse. D'autre part, elle permet de générer un fichier CSV intermédiaire. Ce support, considérablement plus léger qu'un fichier bag, assure la persistance de données pré-traitées et facilement exploitables pour des analyses ultérieures.\\
+
+\indent Pour la première partie du traitement, l'outil génère ainsi un fichier CSV indexé par horodatage contenant les colonnes associées aux différents champs des messages pour les topics de type :\\
+
+\begin{itemize}
+\renewcommand{\labelitemi}{$\bullet$}
+    \item \textbf{geometry\_msgs/TwistStamped} : Champ linéaire et angulaire de la vitesse afin d'avoir les vitesses de consigne envoyées au robot à chaque instant
+    \item \textbf{nav\_msgs/Odometry} : Pose du robot dans les différents modes de localisation (SLAM, SBG) pour des tracés de trajectoires.
+    \item \textbf{nav\_msgs/Path} : Liste et coordonnées des waypoints à rallier par le robot pour les tracés sur trajectoires.
+    \item \textbf{sensor\_msgs/Imu} : Mesures inertielle pour les tracés d'orientation du robot tout au long de la trajectoire.\\
+\end{itemize} 
+
+\indent Pour la seconde partie du traitement, l'outil exploite les données sdu CSV pour générer une série de visualisations détaillées, complétée par des métriques d'évaluation standardisées. Ces livrables graphiques se divisent en deux catégories principales :\\
+
+\subparagraph{a. Les figures d'analyse dynamique et comportementale}:
+
+Ces tracés permettent de caractériser finement le comportement cinématique et l'état du système tout au long de son parcours : \\
+
+\begin{itemize}
+\renewcommand{\labelitemi}{$\bullet$}
+    \item \textbf{Analyse spatiale et trajectographie} : Superposition et comparaison des trajectoires estimées par le SLAM et par la centrale inertielle (SBG Systems), avec projection des points de passage (waypoints) cibles.   
+    \item \textbf{Modes de localisation} : Visualisation temporelle et géographique du mode de localisation actif (SLAM ou GNSS RTK) sur les différentes portions de la trajectoire.
+    \item \textbf{Attitude du châssis} : Évolution des angles d'orientation de roulis (roll) et de tangage (pitch) du robot le long du tracé, permettant d'identifier d'éventuelles perturbations liées au relief.
+    \item \textbf{Suivi de consigne en vitesse} : Confrontation des vitesses linéaires et angulaires de consigne avec les vitesses réelles mesurées sur le robot.
+    \item \textbf{Analyse des écarts de vitesse} : Évaluation des erreurs de vitesse instantanées par rapport aux vitesses de consigne requises pour le ralliement des waypoints.
+    \item \textbf{Performances temporelles du suivi} : Mesure fine de la durée de ralliement pour chaque waypoint intermédiaire, ainsi que le calcul du temps total d'exécution de la mission de suivi de trajectoire.\\
+\end{itemize}
+
+\subparagraph{b. Les figures d'évaluation géométrique de la trajectoire}:
+
+En complément de ces analyses comportementales, l'outil intègre un module d'évaluation métrologique s'appuyant sur la bibliothèque open-source EVO. Ce module génère automatiquement des figures d'évaluation standardisées, permettant notamment de quantifier l'erreur de pose absolue (APE - Absolute Pose Error) et l'erreur relative de pose (RPE - Relative Pose Error) par rapport à la trajectoire de référence comme présenté dans la section 2.3.\\
+
+\indent Le processus débute par l'analyse du fichier d'enregistrement (bag file), dont l'objectif est d'extraire les topics de localisation SLAM (\textbf{/dlio/odom}) et SBG (\textbf{/sbg/localization}) ainsi que les waypoints à rallier (\textbf{/nav\_stack/function\_waypoints/waypoints\_iterator/path\_in}), mais aussi les commandes en vitesses envoyées au robot afin de les comparer à celle suivis par le robot à chaque instant, . Une fois l'extraction effectuée, les informations utiles sont structurées et stockées chronologiquement au sein d'un dictionnaire indexé par horodatage (timestamp). À partir de cette structure de données, des scripts exploitant des bibliothèques Python (pandas, numpy, matplotlib) génèrent automatiquement l'ensemble des figures d'analyse présentées précédemment. Enfin, afin de mettre en relation les anomalies matérielles ou logicielles avec l'état opérationnel du robot, l'outil extrait également les messages du topic \textbf{nav\_stack/control\_mux/mode}. L'analyse de ces données permet de tracer et de corréler précisément les changements de modes de contrôle du système au cours de l'essai. La figure (\hyperref[fig36]{Figure 36}) suivante illustre l'organigramme de cet outil:\\
+
+
+\paragraph{Extraction et génération des vidéos de l'évolution des cartes et du retour vidéo sur l'IHM}
+
+Ce module a pour objectif principal de fournir une représentation visuelle dynamique (vidéo) de l'évolution du MNE (Modèle Numérique d'Élévation), de la planification globale et locale, ainsi que du retour vidéo sur l'interface homme-machine (IHM). L'outil automatise l'extraction des images de chaque topic images contenues dans le bag puis génère des vidéos associées. Cette vidéo permet d'observer en temps réel la construction de la carte, la planification des trajectoires et la réponse du robot aux commandes, offrant ainsi un aperçu global du comportement du système durant les tests.\\
+
+
+\begin{center}
+    \includegraphics[width=0.7\linewidth]{Corps_rapport/video_aggra.png}
+    \captionof{figure}{Vidéo composite des différentes cartes et du retour vidéo sur l'IHM}
+    \label{fig36}
+\end{center}
+$\ $\
+
+
+
+\paragraph{Structuration modulaire du générateur de rapports}
+
+\indent Une fois le générateur de rapports de test rendu fonctionnel, l'objectif suivant a consisté à lui apporter une structure modulaire. Cette modularité devait permettre à l'utilisateur de sélectionner à la carte les informations à intégrer dans le rapport final, parmi les options suivantes : diagnostics, visualisation de trajectoires et vidéos. Pour ce faire, j'ai suivi les recommandations d'un ingénieur de l'équipe et me suis tourné vers les bibliothèques Rich et Typer. Rich permet d'améliorer l'affichage dans le terminal, rendant l'expérience utilisateur plus attrayante, tandis que Typer facilite la création d'applications en ligne de commande avec la possibilité de passer des arguments pour spécifier les éléments à générer dans le rapport. L'outil se presente comme le montre la figure suivante (\hyperref[fig37]{Figure 37}):\\
+
+\begin{center}
+    \includegraphics[width=0.7\linewidth]{Corps_rapport/presentation_outil_extraction.png}
+    \captionof{figure}{Visualisation terminal de l'outil de génération automatique de rapport de test}
+    \label{fig37}
+\end{center}
+$\ $\
+
+
+
+\subsubsection{Mise en place du plan de test}
+
+
+\subsubsection{Proposition de méthode d'automatisation de la validation de tests en robotique mobile: cas d'application sur Mobiter}
+
+
+\subsubsection{Robustification du mode suivi de lisière : gestion d'obstacles sur le chemin de suivi}
+
+Comme présenté dans la section 2.2, le mode de suivi de lisière est un mode de navigation autonome conçu pour permettre au robot de longer une lisière d'arbres ou de végétation. Cependant, lors des campagnes de tests, ce mode a révélé des limites opérationnelles majeures en présence d'obstacles non franchissables obstruant le chemin de suivi.
+
+En effet, face à un obstacle, le robot s'immobilisait systématiquement. Ce blocage s'explique par le paramétrage de sécurité du planificateur local (local planner) associé à ce mode, configuré pour inhiber les commandes de vitesse générées par le correcteur de pure poursuite (pure pursuit) dès qu'une trajectoire entrait en collision avec un obstacle. Ce comportement passif s'est avéré particulièrement pénalisant et non viable dans le cadre du Défi 3 du challenge.
+
+Pour pallier cette faiblesse, une première approche a consisté à optimiser l'algorithme de détection de lisière en élargissant le rayon du cercle d'analyse. L'objectif était d'intégrer les obstacles proches de la lisière (seuil fixé à 1,5 mètre) afin qu'ils soient directement assimilés à la lisière elle-même, forçant ainsi le robot à la contourner naturellement. Néanmoins, cette solution s'est avérée insuffisante pour deux raisons majeures :
+
+\begin{itemize}
+\renewcommand{\labelitemi}{$\bullet$}
+    \item \textbf{Obstacles isolés} : Elle ne permettait pas de traiter les obstacles situés au centre du chemin de suivi, trop éloignés de la lisière pour entrer dans le rayon d'analyse étendu.
+    \item \textbf{Perte de référence visuelle (Masquage)} : Lors de l'amorce de la manœuvre d'évitement, la trajectoire d'évitement éloignait le robot de sa trajectoire nominale, lui faisant perdre de vue la lisière de référence qu'il suivait initialement.
+\end{itemize}
+
+De plus, l'augmentation arbitraire du rayon du cercle de détection a introduit un effet de bord critique. Cette modification réduit en effet l'aptitude du système à détecter la continuité de la lisière située immédiatement derrière l'obstacle (si celui-ci n'est pas très proche de la lisière), créant ainsi une "zone d'ombre" algorithmique, comme l'illustre la figure ci-dessous (\hyperref[fig38]{Figure 38}): 
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.6\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Corps_rapport/suivi_lisiere_05.png}        
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.25\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Corps_rapport/suivi_lisiere_1.png}
+    \end{subfigure}
+    \caption{Evaluation de la taille du cercle de détection de lisière sur la capacité à détecter la continuité de la lisière derrière un obstacle}
+    \label{fig38}
+\end{figure}
+$\ $\ 
+
+L'idée suivante était de garder un petit cercle et d'introduire un mécanisme de mise à jour intelligent du chemin de suivi. Au début de mon stage, ce chemin était actualisé à chaque nouvelle détection de lisière, ce qui posait des problèmes lors des manœuvres de contournement d'obstacle car un nouveau chemin était calculé à partir de la lisière détectée sur l'obstacle lors de la manœuvre. L'objectif était donc de mettre à jour le chemin courant si et seulement si le nouveau chemin issu de la nouvelle détection de lisière est cohérent. Par cohérent, nous entendons un test de longueur de chemin car la longueur d'une lisière suivie ne baisse pas drastiquement entre deux déplacements élémentaires successifs du robot.
+
+Face aux limites des ajustements purement géométriques, l'approche retenue a consisté à conserver un rayon de détection restreint (garantissant un bon pouvoir de résolution) tout en introduisant un mécanisme de filtrage et de mise à jour dynamique cohérent du chemin de suivi.
+
+Initialement, le chemin de référence du robot était recalculé et écrasé de manière asynchrone à chaque nouvelle détection de lisière. Lors des phases de contournement, ce comportement générait des instabilités critiques : l'algorithme interprétait l'obstacle lui-même comme la nouvelle lisière à suivre, perturbant ainsi la trajectoire globale du robot.
+
+Pour résoudre ce problème, une logique de transition d'état conditionnelle a été implémentée. Désormais, le chemin courant n'est mis à jour par une nouvelle détection que si cette dernière respecte un critère de cohérence spatio-temporelle. Ce filtre repose sur l'hypothèse physique selon laquelle la longueur d'une lisière continue ne peut subir de variation drastique (diminution brutale) entre deux pas de calcul successifs du système (de l'ordre de quelques millisecondes).
+Mathématiquement, soit $L_{t}$ la longueur du chemin issu de la détection à l'instant $t$, et $L_{t-1}$ la longueur du chemin précédemment validé. La mise à jour du chemin de navigation est autorisée si et seulement si la longueur du nouveau chemin respecte l'équation suivante \eqref{eq8}:
+
+\begin{equation}
+\frac{L_{t-1}}{2} \leq L_{t}
+\label{eq8}
+\end{equation}
+    
+
+\begin{itemize}
+\renewcommand{\labelitemi}{$\bullet$}
+    \item En cas de détection cohérente : Si la condition est respectée, le chemin est mis à jour, garantissant l'adaptation du robot aux légères courbures de la lisière.
+    \item En cas d'anomalie ou de masquage : Si la condition n'est pas respectée, la mise à jour est inhibée. Le robot conserve et suit son chemin précédent, ce qui lui permet de franchir la zone de perturbation (l'obstacle).
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{comment}
+
+\subsubsection{Intégration des dernières modifications de la brique de cartographie après refactoring}
+Une fois le projet bien pris en main, une première mission m'a été confiée pour, d'une part, me familiariser avec la méthodologie de versionnement sur Git et, d'autre part, prendre en main la procédure de mise en route du robot et de la Brique MOBILEX*.\\\\
+Le projet venait de subir une refonte complète et la brique de cartographie, qui avait été modifiée sur l'ancienne version afin d'ajouter un filtre de Kalman* permettant de pondérer la mise à jour de la carte en fonction de la confiance accordée aux données provenant des capteurs, devait être intégrée à la nouvelle version de la Brique MOBILEX* puis testée. Cette intégration consistait à revoir le mapping des topics et le nom des paquets appelés, ainsi qu'à ajouter l'installation des nouvelles librairies dans la procédure d'installation du projet et leur appel dans les paquets en modifiant les fichiers CMakeLists utilisés pour la compilation* de ces derniers.\\\\
+Après avoir intégré et testé en simulation le bon fonctionnement de cette dernière, M. Barbier et moi sommes allés la tester à l'INRAE. Le robot n'ayant pas été réutilisé depuis la refonte du projet, il a fallu, dans un premier temps, remettre l'installation au propre. J'ai ensuite pu me familiariser avec la procédure de mise en route du projet sur le robot.\\\\
+Pour tester la brique, nous avons lancé la Brique MOBILEX* complète incluant cette dernière dans des conditions idéales, c'est-à-dire avec une position précise au centimètre fournie par le GNSS RTK. Pour obtenir cette précision, une base fixe dont la position est connue de manière précise compare la position calculée à partir du signal GPS avec sa vraie position et envoie des corrections au récepteur présent sur le robot. Il a alors suffi de couper l'envoi des corrections pour dégrader volontairement la précision de la position afin de s'assurer que la carte ne se dégrade pas trop rapidement.\\\\
+Les résultats ont montré que la carte se mettait moins à jour, ce que nous souhaitions, mais que les mesures imprécises restaient tout de même trop prises en compte, rendant la carte inexploitable au bout de quelques secondes (\hyperref[fig20]{Figure 20} et \hyperref[fig21]{21}).\\
+\begin{center}
+    \includegraphics[width=0.7\linewidth]{Corps_rapport/map_rtk.png}
+    \captionof{figure}{Carte des obstacles avec GNSS RTK}
+    \label{fig20}
+\end{center}
+\begin{center}
+    \includegraphics[width=1\linewidth]{Corps_rapport/map_sans_rtk.png}
+    \captionof{figure}{Carte des obstacles après 5 secondes de perte des corrections du mode RTK}
+    \label{fig21}
+\end{center}
+
+Une solution simple a alors été envisagée. Elle consiste à détecter toute anomalie sur le fonctionnement du GNSS en mode RTK pour ajouter un switch visant à sous-estimer la précision de la position retournée dès lors que la fiabilité de la mesure n'est plus garantie (problème de capteur, d'envoi des corrections, de couverture GPS, etc.).\\\\
+Pour préparer l'ajout de ce switch, il m'a été demandé d'ajouter une fonction Python permettant de vérifier tout un ensemble de paramètres à tout instant et de publier le résultat de la vérification sous la forme d'un flag.
+\subsubsection{Investigations sur un problème de téléopération}
+Lors des tests à l'INRAE, la présence d'une personne de l'institut est obligatoire et un ingénieur a été recruté l'an dernier pour encadrer ces tests.\\\\
+Lors des tests de la nouvelle brique de cartographie, cette personne a constaté que le robot mettait plus de temps à réagir en téléopération à plus de $2\ m.s^{-1}$ qu'avant le refactoring, que lors de tests réalisés par l'INRAE avec leur propre brique de commande ou qu'en le contrôlant avec la télécommande fournie par SHARK Robotics.\\\\
+La téléopération assistée devait être présentée à la DGA lors de la revue d'avancement prévue le mois suivant. M. Barbier et moi avons alors investigué sur ce problème en urgence.\\\\
+La première piste explorée fut un délai potentiel au sein de la chaîne de commande. En remontant l'ensemble de la chaîne de commande, nous n'avons pas trouvé de délai entre la réalisation d'une commande à la manette et sa traduction en vitesses de roues à envoyer au robot. Cependant, en comparant les instants d'envois des commandes au robot et le moment où le robot réagissait à ces dernières, on observait un décalage de l'ordre de $0,5\ s$.\\\\
+L'hypothèse alors formulée était que notre interface du robot programmée en Python faisait appel à des fonctions de communication provoquant ce délai de $0,5$ seconde, là où l'INRAE utilisait une interface en C++ faisant appel à d'autres fonctions pour communiquer avec le robot ne provoquant pas ce délai. Le problème était que les tests réalisés par l'INRAE remontaient à longtemps et qu'ils n'arrivaient pas à remettre en route leurs codes, mais nous ont dit que leur interface était une adaptation de notre interface pour l'intégrer à leur environnement.\\\\
+Nous avons alors décidé de récupérer leur interface pour pouvoir la comparer avec la nôtre et l'intégrer dans notre Brique MOBILEX* pour avoir une interface en C++. Cette réintégration n'a rien changé sur le comportement du robot.\\\\
+En examinant la réponse du robot à l'envoi d'une commande en téléopération, je me suis rendu compte qu'en plus du délai de $0,5$ seconde observé, il y avait des dépassements de l'ordre de 30 \% sur la vitesse angulaire, pouvant causer ces difficultés de contrôle.\\\\
+J'ai alors proposé de refaire le paramétrage du correcteur de taux de lacet.\\\\
+N'ayant pas de modèle du système, nous avons réalisé ce paramétrage à la main comme il est courant de faire pour un correcteur PID. Pour éviter de trop abîmer le terrain, nous avons utilisé des consignes échelons faibles de $0,25\ rad.s^{-1}$.\\\\
+En vérifiant le bon fonctionnement du correcteur lors d'un suivi de waypoints, nous nous sommes rendu compte que le modèle que nous cherchions à asservir n'est pas linéaire car là où il n'y avait aucune anomalie notable à $0,25\ rad.s^{-1}$, on observait des dépassements de 20 \% à $2\ rad.s^{-1}$.\\\\
+Il a alors été proposé de réaliser une linéarisation par partie du correcteur pour atténuer ces phénomènes, mais que cette solution serait étudiée ultérieurement car elle n'interviendrait pas dans l'urgence actuelle de résoudre les problèmes de téléopération avant la revue d'avancement prévue deux semaines plus tard.\\\\
+En inspectant les commandes angulaires fournies par le nœud Joy\_node, nous nous sommes rendu compte que le joystick analogique avait une grande zone morte, faisant passer le joystick de la position nulle à maximale au plus petit mouvement. De plus, les échelles de consignes de vitesse angulaires étaient de $0$ à $3\ rad.s^{-1}$ là où l'INRAE allait de $0$ à $1\ rad.s^{-1}$. L'achat d'un joystick de meilleure qualité et la modification de l'échelle ont permis de grandement améliorer le contrôle du robot lors de virages, mais il restait lent à s'arrêter en comparaison avec le contrôle à la manette fournie par SHARK Robotics.\\\\
+La configuration des pentes d'accélération et de décélération dans l'interface du Barakuda a alors été remise en question car l'ancien ingénieur de SHERPA Engineering qui avait travaillé sur l'interface n'avait pas documenté le choix de la limite d'accélération à $1.38\ m.s^{-2}$. Il se trouve que cette valeur avait été donnée à l'oral par un ingénieur de SHARK Robotics pour protéger les variateurs du robot. Cependant, en mesurant les accélérations réalisées par la télécommande du robot, on s'est rendu compte que les limites d'accélérations utilisées sont supérieures à $2.5\ m.s^{-2}$ et que la décélération est encore plus franche car le robot serre ses freins lors du relâchement du joystick.\\\\
+Lors d'une réunion organisée par la DGA regroupant l'ensemble des consortiums et des représentants de SHARK Robotics, nous avons posé la question de la nécessité de limiter l'accélération du robot à $1.38\ m.s^{-2}$ alors que la télécommande fournie ne l'est pas, et il se trouve qu'aucun autre consortium n'avait reçu cette indication et les représentants de SHARK Robotics n'étaient pas non plus au courant de cette limitation. Nous avons alors décidé d'aligner nos rampes d'accélérations sur celles de la télécommande du robot, soit $2.5\ m.s^{-2}$, ce qui a résolu le problème de contrôle en téléopération et permis au passage de diminuer le temps de prédiction des LUTs de la planification locale, la rendant plus permissive.
+\subsubsection{Installation et test de la sémantique caméra}
+Une fois l'urgence résolue, nous avons pu reprendre les tests des ajouts pour le défi 2. Un des grands enjeux du défi 2 à traiter est la présence d'herbes hautes, de fumée et de brouillard parasitant le LIDAR*. \\\\
+La solution imaginée pour répondre à cette problématique est l'utilisation de la sémantique caméra.\\\\
+La brique de sémantique caméra a alors été développée pour évaluer dans un premier temps la faisabilité de la solution.\\\\
+M. Barbier et moi nous sommes alors occupés d'installer l'ensemble des outils utilisés par cette nouvelle brique sur le robot et avons évalué ses performances lors de la détection du sol et de la fumée.\\\\
+L'évaluation des performances consistait à vérifier la qualité de la détection du sol, y compris dans les herbes hautes, et de la fumée lorsque le robot est à l'extérieur et à l'intérieur de cette dernière, le tout en s'assurant que la charge CPU et GPU induite par la segmentation* ne compromette pas les performances temps-réel de la Brique MOBILEX*.\\\\
+Les résultats obtenus montrent que la segmentation* fonctionne globalement bien pour la détection du sol (\hyperref[fig22]{Figure 22}) malgré certaines frames où le détecteur open-set ne détecte rien, et que les performances temps-réel sont toujours assurées (temps d'inférence* ~60 ms). Cependant, la détection de la fumée n'est quant à elle pas exploitable en l'état. Lorsque le robot est à l'extérieur de la fumée, il ne détecte qu'une partie de cette dernière (\hyperref[fig23]{Figure 23}) et lorsqu'il se situe dans la fumée, le détecteur open-set ne détecte plus rien (\hyperref[fig24]{Figure 24}).\\
+\begin{center}
+    \includegraphics[width=0.8\linewidth]{Corps_rapport/ground.png}
+    \captionof{figure}{Segmentation du sol}
+    \label{fig22}
+\end{center}
+\begin{center}
+    \includegraphics[width=0.8\linewidth]{Corps_rapport/fumee_exterieur.png}
+    \captionof{figure}{Segmentation de la fumée depuis l'extérieur}
+    \label{fig23}
+\end{center}
+\begin{center}
+    \includegraphics[width=0.8\linewidth]{Corps_rapport/fumee.png}
+    \captionof{figure}{Segmentation de la fumée au sein de cette dernière}
+    \label{fig24}
+\end{center}
+\subsubsection{Calibration extrinsèque caméra-LIDAR}
+La phase d'évaluation étant concluante pour la détection du sol, l'utilisation de la sémantique caméra a été retenue pour pouvoir naviguer dans les hautes herbes.\\\\
+Pour pouvoir intégrer cette solution au projet, il a été nécessaire de réaliser la calibration extrinsèque entre la caméra et le LIDAR*, car ces derniers seront voués à être fusionnés lors de la création de la carte. Plus précisément, la solution planifiée serait de se servir du nuage de points produit par la ZED pour d'une part avoir une redondance capteur pour diminuer le manque d'information dans la carte à l'avant du véhicule et anticiper la gestion des pannes capteurs et d'autre part, fournir une information sémantique dans les différentes tuiles de la carte.\\\\
+Étant devenu familier avec la procédure d'utilisation du robot, cette tâche m'a été confiée en toute autonomie.\\\\
+La première idée de calibration était de réaliser la calibration à tâtons en projetant le nuage de points LIDAR* dans l'image caméra et de modifier la transformation entre la caméra et le LIDAR* jusqu'à ce que les points se superposent correctement dans une scène contenant des objets de différentes tailles à différentes distances.\\\\
+Lors des tests de visualisation de la superposition du nuage de points de la caméra avec celui du LIDAR*, les résultats n'étaient pas concluants, ce qui nous a laissé penser que la calibration réalisée n'était pas suffisamment précise.\\\\
+Une calibration plus qualitative a alors été imaginée en réalisant une méthode ICP point-to-plane entre le nuage de points de la caméra et le nuage de points LIDAR*. La méthode ICP point-to-plane est une technique utilisée pour aligner deux nuages de points en trois dimensions. Contrairement à la méthode ICP point-to-point, qui minimise la distance entre les points correspondants des deux nuages, la méthode point-to-plane minimise la distance entre les points d'un nuage et les plans tangents estimés à partir de l'autre nuage de points.\\\\
+Cette méthode est souvent préférée dans les applications où les nuages de points ont des densités différentes ou lorsque l'on souhaite obtenir une meilleure précision dans l'alignement, ce qui est notre cas, car le nuage de points de la caméra est bien plus dense que celui du LIDAR*.\\\\
+Pour réaliser cette méthode ICP, j'ai commencé par créer un nœud ROS* me permettant d'extraire les nuages de points caméra et LIDAR* dans leur repère respectif et de les enregistrer dans des fichiers binaires. Ensuite, j'ai créé un script Python me permettant de lire le contenu de ses fichiers, de filtrer les points et, en me servant de la bibliothèque Open3D, de réaliser la méthode ICP en point à plan et de visualiser le résultat.\\\\
+La calibration par la méthode ICP était sensiblement proche de la précédente et lors de la visualisation avec Open3D (\hyperref[fig25]{Figure 25}) les nuages de points se superposaient bien tandis que lors des tests, la visualisation sur RVIZ était toujours décalée (\hyperref[fig26]{Figure 26}).\\
+\newpage
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.7\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Corps_rapport/ICP_avant_tf.png}
+        \caption{Avant transformation}
+        \label{fig:image5}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.7\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Corps_rapport/ICP_apres_tf.png}
+        \caption{Après transformation}
+        \label{fig:image6}
+    \end{subfigure}
+    \caption{Calibration extrinsèque Caméra-LIDAR par la méthode ICP point to plane}
+    \label{fig25}
+\end{figure}
+\newpage
+\begin{center}
+    \includegraphics[width= 0.6\linewidth]{Corps_rapport/lidar_camera_mv_tf.png}
+    \captionof{figure}{Visualisation de la calibration extrinsèque sous RVIZ}
+    \label{fig26}
+\end{center}
+$\ $\\
+Mes doutes se sont alors penchés sur une mauvaise publication de la transformation entre la caméra et le LIDAR* et après un peu d'inspection, je me suis rendu compte que le problème provenait du driver de la caméra qui écrasait continuellement notre transformation en la remplaçant par une transformation identité.\\\\
+Après modification du fichier launch du driver, les nuages de points caméra et LIDAR* se superposent comme souhaité (\hyperref[fig27]{Figure 27}).\\
+\begin{center}
+    \includegraphics[width=0.8\linewidth]{Corps_rapport/lidar_camera1.png}
+    \captionof{figure}{Visualisation de la calibration extrinsèque sous RVIZ après correction du driver}
+    \label{fig27}
+\end{center}
+\subsubsection{Test du nouveau suivi de lisière}
+Lors du premier défi, deux problèmes avaient été identifiés : un problème de détection de la lisière lors de la présence d'angles droits et un problème concernant la génération de la trajectoire du suivi de lisière avait été constaté. La trajectoire générée pouvait traverser le bas-côté à suivre. Ce problème était cependant masqué par la couche du local planner qui empêchait au robot d'entrer dans le bas-côté, ce qui faisait que le robot arrivait tout de même à suivre les lisières, mais anormalement lentement.\\\\
+Cette génération de trajectoire a alors été modifiée en une translation de la lisière détectée selon la direction de la moyenne des normales de la détection tandis que le problème de détection dans les angles droits a été rectifié en ajustant les paramètres du détecteur.\\\\
+Lors de mes tests de ces modifications, je me suis rendu compte que la lisière fluctuait d'une détection à l'autre, ce qui forçait le correcteur à diminuer sa vitesse pour tenter de s'aligner en permanence à la trajectoire donnée.\\\\
+Pour pallier ce problème, j'ai pris l'initiative d'assouplir les contraintes du correcteur en augmentant la distance du point de visée anticipée et en diminuant l'impact du rayon de courbure de la trajectoire sur la vitesse linéaire. Cela nous donne un correcteur allant bien plus vite moyennant des écarts latéraux à la courbe un peu plus importants.\\\\
+J'ai alors présenté mes résultats à l'équipe qui les a validés.
+\subsubsection{Installation et configuration du réseau avec 2 interfaces}
+ Historiquement, il n'y avait sur le robot et le PC débarqué que les antennes 5 GHz mais, lors des épreuves du premier défi, il y a eu des problèmes de communication lorsque le robot passait derrière des obstacles denses. \\\\
+ Pour pallier ce problème, ces antennes ont d'abord été remplacées par des antennes 2,4 GHz sauf que la télécommande du robot utilise également ce type d'antennes, ce qui provoquait des perturbations et rendait le robot inutilisable. Un compromis a alors été imaginé en remettant les antennes 5 GHz pour faire passer les importants flux de données, majoritairement utilisés pour du débug, et en ajoutant des antennes 868 MHz pour assurer une communication fiable des données nécessaires au fonctionnement du robot, c'est-à-dire l'envoi des commandes et le retour vidéo pour le téléopérateur.\\\\
+ L'ingénieur de tests INRAE et moi avons été chargés d'installer et de configurer les antennes 868 MHz. Un problème s'est rapidement posé, les antennes ne sont pas compatibles POE actif et ne pouvaient donc pas être installées sur les 4 ports POE du calculateur. Il restait alors 2 ports déjà utilisés : le premier par la carte électronique SHERPA et le second par l'antenne 5 GHz.\\\\
+ J'ai alors pensé à une solution faisant intervenir un routeur pour pouvoir rediriger les données provenant du réseau 5 GHz et du réseau 868 MHz à l'interface réseau du robot. J'ai vu qu'il existait des switchs permettant de créer des VLANs et de faire du routage entre ces VLANs, ce qui aurait permis d'avoir les 2 réseaux sur un même switch et de faire le routage vers l'interface du réseau. Malheureusement, l'INRAE ne possédait qu'un switch ne proposant pas cette fonctionnalité.\\\\
+Après quelques recherches, nous nous sommes rendu compte qu'il est possible de donner plusieurs adresses IP à une même interface réseau. En affectant une adresse pour chaque antenne à l'interface, nous avons pu configurer le réseau en n'utilisant qu'une interface du PC embarqué et un switch ordinaire.\\\\
+On obtient alors l'architecture réseau \hyperref[fig28]{Figure 28} :
+\begin{center}
+    \includegraphics[width=0.7\linewidth]{Corps_rapport/PC débarqué.png}
+    \captionof{figure}{Diagramme synoptique de l'architecture réseau du système}
+    \label{fig28}
+\end{center}
+\subsubsection{Configuration et test de l'envoi d'images compressées sur l'antenne 868MHz}
+L'installation double antenne étant fonctionnelle, il a alors fallu configurer le routage des différentes données sur les bonnes interfaces et automatiser à l'aide de scripts bash les opérations nécessaires au choix de l'interface à utiliser.\\\\
+Une mesure de la bande passante des antennes 868 MHz a révélé que cette dernière était bien trop faible (150 ko/s) pour pouvoir transmettre l'image annotée au PC déporté. Une compression de cette dernière en h265 a alors été mise en place, divisant la bande passante nécessaire par plus de 200, la faisant passer de 17Mo/s à 80ko/s, pour une qualité à peine dégradée.\\\\
+La compression h265 nécessite d'encoder l'image du côté du PC embarqué avant de l'envoyer au PC débarqué, ce qui nécessite un décodage du côté de ce dernier. \\\\
+Des tests de fiabilité de la liaison ont alors été réalisés, pour comparer le réseau 5 GHz et le réseau 868 MHz, notamment sur la portée et la résilience lors de la présence d'obstacles (bâtiments et végétation dense) entre le PC débarqué et le robot.\\\\
+Pour ces tests, l'envoi de l'image encodée a été fait sur chaque réseau en temps réel et le décodage a été réalisé par deux nœuds distincts. Nous avons alors pu afficher les deux retours vidéo côte à côte pour les comparer.\\\\
+Les résultats obtenus montrent que l'ajout de la compression sur le retour vidéo a considérablement réduit les problèmes de communication de l'antenne 5 GHz, et que cette dernière était plus fiable, que ce soit en présence d'obstacles ou à grande distance. Nous avons alors conclu que l'ajout de l'antenne 868 MHz n'était pas nécessaire et que l'ajout de la compression ainsi qu'un choix sur les données à transmettre permettent de contrôler le robot à plus de 150 m en présence d'obstacles sans coupures, ce qui sera largement suffisant pour le défi 2.
+\subsubsection{Autres tests réalisés}
+D'autres tests ne rencontrant pas de problèmes particuliers ont été réalisés comme par exemple :\\
+\begin{itemize}
+    \item Une journée de tests à Montoldre pour tester l'ajout de la prise en compte du manque d'information dans la carte comme des obstacles au fur et à mesure que le robot s'en approche et pour évaluer les améliorations apportées par le refactoring sur la stabilité du robot lors de la conduite autonome à 3 m/s. Le seul problème noté ce jour-là était que le robot opérait de gros virages lors du retrait de l'arrêt d'urgence de sa télécommande pour lancer la conduite autonome de ce dernier. Le problème provenait du gain intégral qui commençait à s'accumuler dès lors que la conduite autonome était lancée par le téléopérateur, avant même d'avoir retiré l'arrêt d'urgence.\\
+    \item Le test du mode safety first en téléopération qui ne présenta qu'un léger problème d'affichage dans l'IHM.\\
+    \item Le test d'une nouvelle IHM, avec comme objectif d'évaluer l'amélioration de l'ergonomie pour qu'elle soit utilisable par une personne ne travaillant pas sur le projet. Quelques bugs mineurs ont été constatés dont un problème sur l'ajout de paramètres reconfigurables dynamiquement avec dynamic reconfigure. J'ai finalement réussi à résoudre le problème et ayant trouvé la fonctionnalité intéressante pour faciliter le paramétrage des correcteurs, j'ai modifié les briques contenant des correcteurs Pure Pursuit et longitudinaux ainsi que le correcteur de taux de lacet inclus dans l'interface du Barakuda pour ajouter la possibilité de modifier les gains dynamiquement.\\
+    \item Une assistance lors des tests d'une nouvelle loi de commande avec observateurs de glissement développées par l'INRAE, qui a récemment été abandonnée car son utilisation n'était pas indispensable et que j'avais pointé une incohérence dans le protocole de tests qui était que l'on comparait pour une même trajectoire, l'écart du robot à cette dernière lors de l'utilisation de la loi de commande de l'INRAE et lors de l'utilisation du contrôleur Pure Pursuit et de la régulation longitudinale actuellement utilisés. Le problème était que la loi de commande INRAE ne fait aucune régulation de vitesse à l'approche de virages. Les résultats obtenus auraient donc été en faveur de la loi actuellement utilisée. L'utilisation de la loi de commande INRAE sera revue avec l'ajout d'une régulation longitudinale lorsque nous observerons une incontrôlabilité du robot à cause de glissements, peut-être lorsque nous monterons en vitesse.
+\end{itemize}
+\subsubsection{Intégration d'un planificateur global RRT*}
+Enfin, en parallèle de mes tests, une tâche de fond m'a été proposée pour m'initier à la programmation en C++ lors des périodes de creux. Cette tâche consistait à reprendre un planificateur global RRT* réalisé par un ancien stagiaire l'an dernier sur la Brique MOBILEX* avant refactoring et de l'intégrer à la nouvelle version. Ce planificateur permettrait de s'affranchir de la contrainte de discrétisation du chemin liée à l'échantillonnage du MNE car les nœuds sont générés dans l'espace continu. \\\\
+Le planificateur était une classe héritant d'autres classes qui avaient été modifiées lors du refactoring.\\\\
+J'ai commencé par me former rapidement au concept de programmation orientée objet avec un cours d'OpenClassrooms puis j'ai pu intégrer cette classe en comparant le comportement du planificateur A* avant et après refactoring pour adapter le RRT* afin qu'il fonctionne avec les nouvelles méthodes utilisées.\\\\
+Le RRT* fonctionne mais doit être modifié dans l'objectif de fournir des courbes C2, c'est-à-dire des courbes dont la dérivée seconde est continue.
+\subsection{Travaux à venir}
+Étant à peine plus de la moitié de mon stage, beaucoup de développements ont été réfléchis ou entamés, nécessitant des tests à venir.\\\\
+En voici une liste non exhaustive :
+\subsubsection{Tests de l'intégration de la détection et prise en compte des pentes et dévers}
+Pour détecter et caractériser le caractère franchissable ou non des pentes et dévers, une solution consistant à se resservir du filtre de Sobel utilisé pour la détection des obstacles est envisagée, avec la particularité d'être utilisé sur une version sous-échantillonnée du MNE et avec de nouveaux seuils.\\\\
+Les tests consisteront alors à s'assurer que le robot s'engage dans des pentes et dévers franchissables et contourne celles et ceux qui ne le sont pas.
+\subsubsection{Tests de l'intégration de la couche sémantique dans le MNE}
+Pour pouvoir intégrer les informations sémantiques dans le MNE, la solution retenue est d'attribuer à chaque point du nuage de points de la caméra une information de franchissabilité ou non. Ensuite, lors de la fusion du nuage de la caméra et du nuage LIDAR* pour mettre à jour la carte, cette information serait ajoutée aux tuiles de la carte, uniquement par les points du nuage de la caméra.\\\\
+Les tests consisteront alors à vérifier que le robot puisse s'engager dans des herbes hautes.
+\subsubsection{Tests de l'intégration de la couche ultrasonique dans le MNE}
+Un point dur du défi 2 est la gestion des obstacles transparents car ces derniers ne sont ni détectés par le LIDAR*, ni détectés par la caméra. Une solution en cours d'évaluation serait d'utiliser les capteurs ultrasoniques pour les fusionner avec les nuages de points LIDAR* et caméra dans le MNE.\\\\
+Des premiers tests ont été réalisés pour évaluer l'enveloppe de détection du capteur et la fiabilité des détections.\\\\
+Les résultats obtenus montrent que le capteur pourrait nous permettre de détecter des obstacles d'au moins 50x50 cm jusqu'à 4 mètres, mais que l'orientation de ces derniers pourrait grandement affecter la distance à partir de laquelle ils seraient détectés.\\\\
+Malgré ces résultats mitigés, cette solution a été retenue faute d'autres alternatives et d'autres tests seront à réaliser lors de l'ajout de cette fusion dans le MNE pour s'assurer de la bonne détection des obstacles transparents et de l'absence de fausses détections, notamment à l'approche de pentes et herbes hautes.
+\subsubsection{Tests de l'impact de la fumée après modification du traitement des points LIDAR}
+Pour gérer la présence de fumée, une solution jouant sur le filtrage des points LIDAR* en fonction de l'intensité a commencé à être testée et a donné des résultats prometteurs.\\\\
+Des tests de l'impact de la fumée sur le nuage de points caméra et sur l'ultrason sont à réaliser maintenant que ces derniers sont également utilisés pour mettre à jour le MNE.
+\subsubsection{Tests de la localisation et cartographie par SLAM}
+Comme nous l'avions vu précédemment, la perte du GNSS est actuellement un point critique à résoudre car sans GNSS, la carte ne peut plus être mise à jour correctement.\\\\
+Une solution en cours d'évaluation par l'Institut Pascal serait de fusionner l'odométrie fournie par le GNSS avec une odométrie fournie par un algorithme de SLAM.\\\\
+Les premiers résultats obtenus sont prometteurs mais une crainte se pose sur la capacité à intégrer cette solution à la Brique MOBILEX*.\\\\
+Une solution de secours qui pourrait être envisagée serait de réaliser la fusion d'odométrie non plus avec le SLAM mais avec une odométrie visuelle qui peut être fournie par la caméra.\\\\
+L'évaluation de la qualité de cette odométrie m'a été demandée et est en cours. Si les résultats sont satisfaisants, je serai chargé de réaliser la fusion des odométries. La piste de fusion serait alors l'utilisation d'un filtre de Kalman* codé en Python dont la sortie alimenterait le MNE.
+\subsubsection{Tests de navigation avec des pannes capteurs}
+Pour continuer d'assurer le fonctionnement de la Brique MOBILEX* lors de pannes capteurs, nous avons réfléchi aux difficultés qui seront rencontrées lors de chaque panne capteur et au comportement à donner au robot dans ces conditions :\\\\
+\begin{itemize}
+    \item \textbf{Perte du LIDAR*} : Lors d'une perte LIDAR*, le robot continuera de mettre à jour la carte en utilisant le nuage de points de la caméra et l'ultrason. Une difficulté pourrait être rencontrée lors de la présence de fumée, où le comportement de la caméra et de l'ultrason restent à déterminer.\\
+    \item \textbf{Perte de la caméra} : Comme pour une perte LIDAR*, le robot continuera de mettre à jour la carte en utilisant le nuage de points LIDAR* et l'ultrason. Le robot ne pourra cependant plus rouler dans les hautes herbes si ces dernières n'avaient pas été cartographiées avec l'information sémantique au préalable. Le robot devrait donc les considérer comme des obstacles et les contourner, ou bien s'arrêter jusqu'à la récupération de la caméra.\\
+    \item \textbf{Perte du GNSS} :  Lors d'une perte GNSS, le robot doit détecter la panne pour sous-estimer la covariance du GNSS si celui-ci retourne des valeurs pour que le filtre de Kalman* priorise l'utilisation de la seconde méthode d'odométrie fusionnée (SLAM ou odométrie visuelle de la caméra).\\
+    \item \textbf{Perte d'une antenne de communication} : Lors d'une perte de communication avec le PC débarqué, le robot continuera la mission en cours. Un problème de localisation pourra intervenir car les corrections de la base fixe ne seront plus envoyées au GNSS, ce qui provoquera une anomalie reprenant le comportement en cas de perte de ce dernier. Les antennes 868 MHz étant installées, une piste d'utilisation de ces dernières pour conserver l'envoi des corrections est également en cours de discussion.\\
+\end{itemize}
+Les autres composants ne subiront pas de pannes provoquées.\\\\
+Des tests ont déjà été réalisés avec succès pour détecter la panne des capteurs ci-dessus.
+\subsubsection{Tests hautes vitesses à Montoldre pour les cas du défi 2}
+Lorsque l'ensemble des cas de situations du défi 2 auront été traités, des tests à haute vitesse à Montoldre seront organisés. Ces tests viseront à reproduire le plus fidèlement possible les différents scénarios auxquels nous seront confrontés le jour des épreuves.\\\\
+La mise en place de ces tests m'a été confiée, notamment la réalisation des parcours reproduisant les scénarios et leur ajout dans l'IHM pour ne pas perdre de temps lors de la journée de tests.
+\subsubsection{Tests des modifications du local planner}
+Enfin, lors de tests de suivi de waypoints à différentes vitesses dans le simulateur, je me suis rendu compte de trois problèmes.\\\\
+Le premier est que dans un cas particulier, lors d'un dégagement, le robot s'approche trop près d'un obstacle alors que la planification locale est censée exclure toute commande provoquant cette situation et qu'une fois trop près de l'obstacle, la planification ne trouve plus aucune solution. Après vérification de plusieurs hypothèses, l'hypothèse retenue serait que le modèle cinématique du robot serait imparfait, ce qui pourrait le faire dévier de la trajectoire planifiée. Cette hypothèse est confortée par l'observation de glissements du robot dans le simulateur, probablement dus à une mauvaise modélisation du contact roue/sol.\\\\
+Le second intervient lors de la procédure de dégagement. Lorsque le robot, en se dégageant, trouve que la solution optimale est quasiment identique au chemin aller, il se met alors à faire des allers-retours sur place, les mêmes conditions provoquant les mêmes calculs de commande.\\\\
+La résolution de ces problèmes demanderait de refaire certaines parties de la planification locale, ce qui risquerait de prendre beaucoup de temps sans garantie de résultats car le choix et le paramétrage de la fonction coût est délicat. Ces modifications ne seraient alors étudiées uniquement lorsque les autres points auront été validés.
+
+\end{comment}
