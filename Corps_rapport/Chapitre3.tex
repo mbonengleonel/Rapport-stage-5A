@@ -292,19 +292,19 @@ $\ $\
 
 \subsubsection{Robustification du mode suivi de lisière : gestion d'obstacles sur le chemin de suivi}
 
-Comme présenté dans la section 2.2, le mode de suivi de lisière est un mode de navigation autonome conçu pour permettre au robot de longer une lisière d'arbres ou de végétation. Cependant, lors des campagnes de tests, ce mode a révélé des limites opérationnelles majeures en présence d'obstacles non franchissables obstruant le chemin de suivi.
+Comme présenté dans la section 2.2, le mode de suivi de lisière est un mode de navigation autonome conçu pour permettre au robot de longer une lisière d'arbres ou de végétation. Cependant, lors des campagnes de tests, ce mode a révélé des limites opérationnelles majeures en présence d'obstacles non franchissables obstruant le chemin de suivi.\\
 
-En effet, face à un obstacle, le robot s'immobilisait systématiquement. Ce blocage s'explique par le paramétrage de sécurité du planificateur local (local planner) associé à ce mode, configuré pour inhiber les commandes de vitesse générées par le correcteur de pure poursuite (pure pursuit) dès qu'une trajectoire entrait en collision avec un obstacle. Ce comportement passif s'est avéré particulièrement pénalisant et non viable dans le cadre du Défi 3 du challenge.
+\indent En effet, face à un obstacle, le robot s'immobilisait systématiquement. Ce blocage s'explique par le paramétrage de sécurité du planificateur local (local planner) associé à ce mode, configuré pour inhiber les commandes de vitesse générées par le correcteur de pure poursuite (pure pursuit) dès qu'une trajectoire entrait en collision avec un obstacle. Ce comportement passif s'est avéré particulièrement pénalisant et non viable dans le cadre du Défi 3 du challenge.\\
 
-Pour pallier cette faiblesse, une première approche a consisté à optimiser l'algorithme de détection de lisière en élargissant le rayon du cercle d'analyse. L'objectif était d'intégrer les obstacles proches de la lisière (seuil fixé à 1,5 mètre) afin qu'ils soient directement assimilés à la lisière elle-même, forçant ainsi le robot à la contourner naturellement. Néanmoins, cette solution s'est avérée insuffisante pour deux raisons majeures :
+\indent Pour pallier cette faiblesse, une première approche a consisté à optimiser l'algorithme de détection de lisière en élargissant le rayon du cercle d'analyse. L'objectif était d'intégrer les obstacles proches de la lisière (seuil fixé à 1,5 mètre) afin qu'ils soient directement assimilés à la lisière elle-même, forçant ainsi le robot à la contourner naturellement. Néanmoins, cette solution s'est avérée insuffisante pour deux raisons majeures :\\
 
 \begin{itemize}
 \renewcommand{\labelitemi}{$\bullet$}
     \item \textbf{Obstacles isolés} : Elle ne permettait pas de traiter les obstacles situés au centre du chemin de suivi, trop éloignés de la lisière pour entrer dans le rayon d'analyse étendu.
-    \item \textbf{Perte de référence visuelle (Masquage)} : Lors de l'amorce de la manœuvre d'évitement, la trajectoire d'évitement éloignait le robot de sa trajectoire nominale, lui faisant perdre de vue la lisière de référence qu'il suivait initialement.
+    \item \textbf{Perte de référence visuelle (Masquage)} : Lors de l'amorce de la manœuvre d'évitement, la trajectoire d'évitement éloignait le robot de sa trajectoire nominale, lui faisant perdre de vue la lisière de référence qu'il suivait initialement.\\
 \end{itemize}
 
-De plus, l'augmentation arbitraire du rayon du cercle de détection a introduit un effet de bord critique. Cette modification réduit en effet l'aptitude du système à détecter la continuité de la lisière située immédiatement derrière l'obstacle (si celui-ci n'est pas très proche de la lisière), créant ainsi une "zone d'ombre" algorithmique, comme l'illustre la figure ci-dessous (\hyperref[fig38]{Figure 38}): 
+\indent De plus, l'augmentation arbitraire du rayon du cercle de détection a introduit un effet de bord critique. Cette modification réduit en effet l'aptitude du système à détecter la continuité de la lisière située immédiatement derrière l'obstacle (si celui-ci n'est pas très proche de la lisière), créant ainsi une "zone d'ombre" algorithmique, comme l'illustre la figure ci-dessous (\hyperref[fig38]{Figure 38}): \\
 
 \begin{figure}[H]
     \centering
@@ -322,20 +322,16 @@ De plus, l'augmentation arbitraire du rayon du cercle de détection a introduit 
 \end{figure}
 $\ $\ 
 
-L'idée suivante était de garder un petit cercle et d'introduire un mécanisme de mise à jour intelligent du chemin de suivi. Au début de mon stage, ce chemin était actualisé à chaque nouvelle détection de lisière, ce qui posait des problèmes lors des manœuvres de contournement d'obstacle car un nouveau chemin était calculé à partir de la lisière détectée sur l'obstacle lors de la manœuvre. L'objectif était donc de mettre à jour le chemin courant si et seulement si le nouveau chemin issu de la nouvelle détection de lisière est cohérent. Par cohérent, nous entendons un test de longueur de chemin car la longueur d'une lisière suivie ne baisse pas drastiquement entre deux déplacements élémentaires successifs du robot.
+\indent L'idée suivante était de garder un petit cercle et d'introduire un mécanisme de mise à jour intelligent du chemin de suivi. Au début de mon stage, ce chemin était actualisé à chaque nouvelle détection de lisière, ce qui posait des problèmes lors des manœuvres de contournement d'obstacle car un nouveau chemin était calculé à partir de la lisière détectée sur l'obstacle lors de la manœuvre. L'objectif était donc de mettre à jour le chemin courant si et seulement si le nouveau chemin issu de la nouvelle détection de lisière est cohérent. Par cohérent, nous entendons un test de longueur de chemin car la longueur d'une lisière suivie ne baisse pas drastiquement entre deux déplacements élémentaires successifs du robot.\\
 
-Face aux limites des ajustements purement géométriques, l'approche retenue a consisté à conserver un rayon de détection restreint (garantissant un bon pouvoir de résolution) tout en introduisant un mécanisme de filtrage et de mise à jour dynamique cohérent du chemin de suivi.
+\indent Face aux limites des ajustements purement géométriques, l'approche retenue a consisté à conserver un rayon de détection restreint (garantissant un bon pouvoir de résolution) tout en introduisant un mécanisme de filtrage et de mise à jour dynamique cohérent du chemin de suivi. Initialement, le chemin de référence du robot était recalculé et écrasé de manière asynchrone à chaque nouvelle détection de lisière. Lors des phases de contournement, ce comportement générait des instabilités critiques : l'algorithme interprétait l'obstacle lui-même comme la nouvelle lisière à suivre, perturbant ainsi la trajectoire globale du robot.\\
 
-Initialement, le chemin de référence du robot était recalculé et écrasé de manière asynchrone à chaque nouvelle détection de lisière. Lors des phases de contournement, ce comportement générait des instabilités critiques : l'algorithme interprétait l'obstacle lui-même comme la nouvelle lisière à suivre, perturbant ainsi la trajectoire globale du robot.
-
-Pour résoudre ce problème, une logique de transition d'état conditionnelle a été implémentée. Désormais, le chemin courant n'est mis à jour par une nouvelle détection que si cette dernière respecte un critère de cohérence spatio-temporelle. Ce filtre repose sur l'hypothèse physique selon laquelle la longueur d'une lisière continue ne peut subir de variation drastique (diminution brutale) entre deux pas de calcul successifs du système (de l'ordre de quelques millisecondes).
-Mathématiquement, soit $L_{t}$ la longueur du chemin issu de la détection à l'instant $t$, et $L_{t-1}$ la longueur du chemin précédemment validé. La mise à jour du chemin de navigation est autorisée si et seulement si la longueur du nouveau chemin respecte l'équation suivante \eqref{eq8}:
+\indent Pour résoudre ce problème, une logique de transition d'état conditionnelle a été implémentée. Désormais, le chemin courant n'est mis à jour par une nouvelle détection que si cette dernière respecte un critère de cohérence spatio-temporelle. Ce filtre repose sur l'hypothèse physique selon laquelle la longueur d'une lisière continue ne peut subir de variation drastique (diminution brutale) entre deux pas de calcul successifs du système (de l'ordre de quelques millisecondes). Mathématiquement, soit $L_{t}$ la longueur du chemin issu de la détection à l'instant $t$, et $L_{t-1}$ la longueur du chemin précédemment validé. La mise à jour du chemin de navigation est autorisée si et seulement si la longueur du nouveau chemin respecte l'équation suivante \eqref{eq8}:
 
 \begin{equation}
 \frac{L_{t-1}}{2} \leq L_{t}
 \label{eq8}
 \end{equation}
-    
 
 \begin{itemize}
 \renewcommand{\labelitemi}{$\bullet$}
