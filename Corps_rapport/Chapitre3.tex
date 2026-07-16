@@ -141,7 +141,7 @@ L'objectif principal de ce module est d'obtenir une vision consolidée et exhaus
 \end{center}
 $\ $\
 
-\indent Deplus, pour des soucis de débug il est souvent interessant de savoir à quel moment le robot a changé de mode de contrôle (téléopération, suivis de waypoint, suivis de lisiere) ou de localisation (GNSS ou SLAM). L'outil génère donc également des timelines des changements de mode de contrôle et de localisation (\hyperref[fig32]{Figure 32} et \hyperref[fig33]{Figure 33}).\\
+\indent Deplus, pour des soucis de débug il est souvent interessant de savoir à quel moment le robot a changé de mode de contrôle (téléopération, suivis de waypoint, suivis de lisiere) ou de localisation (GNSS ou SLAM). L'outil génère donc également des timelines de ces changements de mode de contrôle et de localisation (\hyperref[fig32]{Figure 32} et \hyperref[fig33]{Figure 33}).\\
 
 \begin{center}
     \includegraphics[width=1\linewidth]{Corps_rapport/control_mode_switches.png}
@@ -157,10 +157,10 @@ $\ $\
 \end{center}
 $\ $\
 
-\indent Le processus débute par l'analyse du fichier d'enregistrement (bag file), dont l'objectif est d'extraire l'ensemble des topics de type \textbf{DiagnosticArray}. Si une liste restrictive de topics est fournie en paramètre, l'extraction se limite à ces derniers ; dans le cas contraire, l'intégralité des flux de type DiagnosticArray est récupérée par défaut. Une fois l'extraction effectuée, les informations utiles sont structurées et stockées chronologiquement au sein d'un dictionnaire indexé par horodatage (timestamp). À partir de cette structure de données, des scripts exploitant des library Python (pandas, numpy, matplotlib) génèrent automatiquement l'ensemble des figures d'analyse présentées précédemment, ainsi qu'un rapport de synthèse textuel (format .txt). Enfin, afin de mettre en relation les anomalies matérielles ou logicielles avec l'état opérationnel du robot, l'outil extrait également les messages du topic \textbf{nav\_stack/control\_mux/mode}. L'analyse de ces données permet de tracer et de corréler précisément les changements de modes de contrôle du système au cours de l'essai. La figure (\hyperref[fig34]{Figure 34}) suivante illustre l'organigramme de cet outil:\\
+\indent Le processus débute par l'analyse du fichier d'enregistrement (bag file), dont l'objectif est d'extraire l'ensemble des topics de type \textbf{DiagnosticArray}. Si une liste restrictive de topics est fournie en paramètre, l'extraction se limite à ces derniers ; dans le cas contraire, l'intégralité des flux de type DiagnosticArray est récupérée par défaut. Une fois l'extraction effectuée, les informations utiles sont structurées et stockées chronologiquement au sein d'un dictionnaire indexé par horodatage (timestamp). À partir de cette structure de données, des scripts exploitant des library Python (pandas, numpy, matplotlib) génèrent automatiquement l'ensemble des figures d'analyse présentées précédemment, ainsi qu'un rapport de synthèse textuel (format .txt). De plus, afin de mettre en relation les anomalies matérielles ou logicielles avec l'état opérationnel du robot, l'outil extrait également les messages du topic \textbf{nav\_stack/control\_mux/mode}. L'analyse de ce topic permet de tracer et de corréler précisément les changements de modes de contrôle du système au cours de l'essai. Enfin, l'outil donne également un rapide aperçu des fréquences de publication des topics du bag par rapport celles de réference, permettant ainsi d'identifier les éventuels problèmes de communication ou de perte de données. La figure (\hyperref[fig34]{Figure 34}) suivante illustre l'organigramme de cet outil d'extraction de diagnostic:\\
 
 \begin{center}
-    \includegraphics[width=1\linewidth]{Corps_rapport/org diag extractor.drawio.png}
+    \includegraphics[width=1\linewidth]{Corps_rapport/org diag extractor.png}
     \captionof{figure}{Organigramme de l'outil d'extraction et de génération des diagnostics}
     \label{fig34}
 \end{center}
@@ -175,8 +175,8 @@ Ce module a pour objectif principal de fournir une représentation visuelle et q
 
 \begin{itemize}
 \renewcommand{\labelitemi}{$\bullet$}
-    \item \textbf{Des analyses temporelles} : l'évolution des positions linéaires et angulaires du robot au fil du temps.(\hyperref[fig34]{Figure 34})
-    \item \textbf{Des comparaisons spatiales} : la superposition des trajectoires issues du SLAM et de la centrale inertielle SBG.(\hyperref[fig35]{Figure 35})
+    \item \textbf{Des analyses temporelles} : l'évolution des positions linéaires et angulaires du robot au fil du temps.(\hyperref[fig35]{Figure 35})
+    \item \textbf{Des comparaisons spatiales} : la superposition des trajectoires issues du SLAM et de la centrale inertielle SBG.(\hyperref[fig36]{Figure 36})
     \item  \textbf{Des métriques d'erreur} : le calcul et l'affichage de l'erreur de position relative (RPE — Relative Pose Error) pour quantifier la dérive locale du système.\\
 \end{itemize}
 
@@ -192,7 +192,7 @@ Ce module a pour objectif principal de fournir une représentation visuelle et q
         \includegraphics[width=\textwidth]{Corps_rapport/evo_trajectory_analysis_rpy.png}
     \end{subfigure}
     \caption{Visualisation et comparaison des positions linéaires et angulaires du robot}
-    \label{fig34}
+    \label{fig35}
 \end{figure}
 $\ $\
 
@@ -208,7 +208,7 @@ $\ $\
         \includegraphics[width=\textwidth]{Corps_rapport/trajectory_speed_error.png}
     \end{subfigure}
     \caption{Evaluation des portions GNSS et SLAM de la trajectoire et erreur de vitesse le long de la trajectoire}
-    \label{fig35}
+    \label{fig36}
 \end{figure}
 $\ $\ 
  
@@ -222,7 +222,7 @@ $\ $\
     \item Le module d'analyse et de visualisation : Cette seconde partie assure la lecture du fichier CSV et prend en charge la génération des différentes figures d'analyse.\\
 \end{itemize}
 
-\indent Cette conception modulaire et découplée présente un double intérêt opérationnel. D'une part, elle évite de réexécuter la phase d'extraction des données du bag (processus généralement lourd et chronophage) lors d'un simple ajustement graphique ou d'une modification des figures d'analyse. D'autre part, elle permet de générer un fichier CSV intermédiaire. Ce support, considérablement plus léger qu'un fichier bag, assure la persistance de données pré-traitées et facilement exploitables pour des analyses ultérieures.\\
+\indent Cette conception modulaire et découplée présente un double intérêt opérationnel. D'une part, elle évite de réexécuter la phase d'extraction des données du bag (processus généralement lourd et chronophage) lors d'un simple ajustement graphique ou d'une modification des figures d'analyse. D'autre part, elle permet de générer un fichier CSV intermédiaire. Ce support, considérablement plus léger qu'un fichier bag, assure la persistance de données pré-traitées et exploitables pour des analyses ultérieures.\\
 
 \indent Pour la première partie du traitement, l'outil génère ainsi un fichier CSV indexé par horodatage contenant les colonnes associées aux différents champs des messages pour les topics de type :\\
 
@@ -231,10 +231,11 @@ $\ $\
     \item \textbf{geometry\_msgs/TwistStamped} : Champ linéaire et angulaire de la vitesse afin d'avoir les vitesses de consigne envoyées au robot à chaque instant
     \item \textbf{nav\_msgs/Odometry} : Pose du robot dans les différents modes de localisation (SLAM, SBG) pour des tracés de trajectoires.
     \item \textbf{nav\_msgs/Path} : Liste et coordonnées des waypoints à rallier par le robot pour les tracés sur trajectoires.
-    \item \textbf{sensor\_msgs/Imu} : Mesures inertielle pour les tracés d'orientation du robot tout au long de la trajectoire.\\
+    \item \textbf{sensor\_msgs/Imu} : Mesures inertielle pour les tracés d'orientation du robot tout au long de la trajectoire.
+    \item \textbf{diagnostic\_msgs/DiagnosticArray} : Diagnostics de l'IHM pour l'identification des changements de mode de localisation afin de les superposer sur les tracés de trajectoires.\\ 
 \end{itemize} 
 
-\indent Pour la seconde partie du traitement, l'outil exploite les données sdu CSV pour générer une série de visualisations détaillées, complétée par des métriques d'évaluation standardisées. Ces livrables graphiques se divisent en deux catégories principales :\\
+\indent Pour la seconde partie du traitement, l'outil exploite les données du CSV pour générer une série de visualisations détaillées, complétée par des métriques d'évaluation standardisées. Ces livrables graphiques se divisent en deux catégories principales :\\
 
 \subparagraph{a. Les figures d'analyse dynamique et comportementale}:
 
@@ -244,7 +245,7 @@ Ces tracés permettent de caractériser finement le comportement cinématique et
 \renewcommand{\labelitemi}{$\bullet$}
     \item \textbf{Analyse spatiale et trajectographie} : Superposition et comparaison des trajectoires estimées par le SLAM et par la centrale inertielle (SBG Systems), avec projection des points de passage (waypoints) cibles.   
     \item \textbf{Modes de localisation} : Visualisation temporelle et géographique du mode de localisation actif (SLAM ou GNSS RTK) sur les différentes portions de la trajectoire.
-    \item \textbf{Attitude du châssis} : Évolution des angles d'orientation de roulis (roll) et de tangage (pitch) du robot le long du tracé, permettant d'identifier d'éventuelles perturbations liées au relief.
+    \item \textbf{Attitude du châssis} : Évolution des angles d'orientation de roulis (roll) et de tangage (pitch) du robot le long de la trajectoire, permettant d'identifier d'éventuelles orientations dangereuses liées au relief.
     \item \textbf{Suivi de consigne en vitesse} : Confrontation des vitesses linéaires et angulaires de consigne avec les vitesses réelles mesurées sur le robot.
     \item \textbf{Analyse des écarts de vitesse} : Évaluation des erreurs de vitesse instantanées par rapport aux vitesses de consigne requises pour le ralliement des waypoints.
     \item \textbf{Performances temporelles du suivi} : Mesure fine de la durée de ralliement pour chaque waypoint intermédiaire, ainsi que le calcul du temps total d'exécution de la mission de suivi de trajectoire.\\
@@ -254,12 +255,35 @@ Ces tracés permettent de caractériser finement le comportement cinématique et
 
 En complément de ces analyses comportementales, l'outil intègre un module d'évaluation métrologique s'appuyant sur la bibliothèque open-source EVO. Ce module génère automatiquement des figures d'évaluation standardisées, permettant notamment de quantifier l'erreur de pose absolue (APE - Absolute Pose Error) et l'erreur relative de pose (RPE - Relative Pose Error) par rapport à la trajectoire de référence comme présenté dans la section 2.3.\\
 
-\indent Le processus débute par l'analyse du fichier d'enregistrement (bag file), dont l'objectif est d'extraire les topics de localisation SLAM (\textbf{/dlio/odom}) et SBG (\textbf{/sbg/localization}) ainsi que les waypoints à rallier (\textbf{/nav\_stack/function\_waypoints/waypoints\_iterator/path\_in}), mais aussi les commandes en vitesses envoyées au robot afin de les comparer à celle suivis par le robot à chaque instant, . Une fois l'extraction effectuée, les informations utiles sont structurées et stockées chronologiquement au sein d'un dictionnaire indexé par horodatage (timestamp). À partir de cette structure de données, des scripts exploitant des bibliothèques Python (pandas, numpy, matplotlib) génèrent automatiquement l'ensemble des figures d'analyse présentées précédemment. Enfin, afin de mettre en relation les anomalies matérielles ou logicielles avec l'état opérationnel du robot, l'outil extrait également les messages du topic \textbf{nav\_stack/control\_mux/mode}. L'analyse de ces données permet de tracer et de corréler précisément les changements de modes de contrôle du système au cours de l'essai. La figure (\hyperref[fig36]{Figure 36}) suivante illustre l'organigramme de cet outil:\\
+\indent Le processus débute par l'analyse du fichier d'enregistrement (bag file), dont l'objectif est d'extraire et de sauvegarder dans un CSV les valeurs des champs d'un ensemble de topics : \\
+
+\begin{itemize}
+\renewcommand{\labelitemi}{$\bullet$}
+    \item \textbf{/dlio/odom} et \textbf{/sbg/localization} : Pour la localisation SLAM et GNSS du robot.
+    \item \textbf{/nav\_stack/function\_waypoints/waypoints\_iterator/path\_in} : Pour l'ensemble des waypoints à rallier par le robot.
+    \item \textbf{/barakuda/cmd\_vel} : Pour les commandes / consignes en vitesses envoyées au robot.
+    \item \textbf{/main\_odometry} : Pour extraire les vitesses réelles suivies par le robot peu importe le mode de localisation.
+    \item \textbf{/nav\_stack/function\_waypoints/waypoints\_iterator/next\_waypoint\_speed} : Pour extraire les vitesses de consigne souhaitées par le robot pour le ralliement des waypoints.
+    \item \textbf{/sherpa\_board/xsens\_mti/imu} : Pour extraire les angles d'orientation du robot (roulis et tangage) à chaque instant.
+    \item \textbf{/diagnostics} : Pour extraire les diagnostics de l'IHM et identifier les changements de mode de localisation.\\
+\end{itemize}
+
+Une fois le CSV généré, l'outil exploite ces données pour produire automatiquement des figures resultant de tracé de colonnes vs colonnes ou de colonnes vs timestamps, ainsi que des figures d'évaluation standardisées (APE et RPE) à l'aide de la bibliothèque EVO. Ces visualisations permettent d'obtenir une vue d'ensemble du comportement du robot, de ses performances de localisation et de son suivi de trajectoire, facilitant ainsi l'identification des anomalies et l'optimisation des algorithmes de navigation. La figure (\hyperref[fig37]{Figure 37}) suivante illustre l'organigramme de cet outil:\\
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{Corps_rapport/org viz extractor.png}
+    \captionof{figure}{Organigramme de l'outil d'extraction et de génération des visualisations}
+    \label{fig37}
+\end{center}
+$\ $\
+
 
 
 \paragraph{Extraction et génération des vidéos de l'évolution des cartes et du retour vidéo sur l'IHM}
 
-Ce module a pour objectif principal de fournir une représentation visuelle dynamique (vidéo) de l'évolution du MNE (Modèle Numérique d'Élévation), de la planification globale et locale, ainsi que du retour vidéo sur l'interface homme-machine (IHM). L'outil automatise l'extraction des images de chaque topic images contenues dans le bag puis génère des vidéos associées. Cette vidéo permet d'observer en temps réel la construction de la carte, la planification des trajectoires et la réponse du robot aux commandes, offrant ainsi un aperçu global du comportement du système durant les tests.\\
+Ce module a pour objectif principal de fournir une représentation visuelle dynamique (vidéo) de l'évolution du MNE (Modèle Numérique d'Élévation), de la planification globale et locale, ainsi que du retour vidéo sur l'interface homme-machine (IHM). L'outil automatise l'extraction des données de tous les topics Images et CompressedImage contenues dans le bag si aucun nom de topic Image ne lui est passé en parametre. Puis apres décodage des images, génère des vidéos synchronisées associées à chaqu'un des topics. Vu que tous ses topics images n'ont pas la meme fréquence de publication, l'outil se charge de synchroniser les images en fonction du timestamp. Ceci en determinant d'abord le pas de timestamps commun à prendre en compte pour chaque topic sur la base du topic image ayant la plus faible fréquence de publication. Ainsi certain topic images se verons prendre 1 image sur 2 voire meme 1 image sur 4 afin de réaliser leur vidéo. Afin de s'assurer également que toutes les videos générés démarre et s'arrete au meme timestamps, l'outil determine un timestamp de offset en dessous duquel toutes les frame images du bag seront ignorées; ce timestamp de offset est determiner sous la base du  \\
+
+Cette vidéo permet d'observer en temps réel la construction de la carte, la planification des trajectoires et la réponse du robot aux commandes, offrant ainsi un aperçu global du comportement du système durant les tests.\\
 
 
 \begin{center}
