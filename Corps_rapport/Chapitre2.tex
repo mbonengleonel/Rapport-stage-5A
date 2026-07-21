@@ -11,7 +11,7 @@ Les développements logiciels se font sous le middleware ROS* (noetic), ce qui p
 \end{itemize}
 \indent Il est à noter que l'ensemble des fonctions publient également des diagnostics, non représentés ici par souci de lisibilité.
 \begin{center}
-    \includegraphics[width=1.05 \linewidth]{Corps_rapport/architecture_logicielle.png}
+    \includegraphics[width=1.05 \linewidth]{Corps_rapport/architecture logicielle.png}
     \captionof{figure}{Diagramme synoptique de l'architecture logicielle du système}
     \label{fig13}
 \end{center}
@@ -19,7 +19,7 @@ $\ $\
 \subsection{Briques de perception de l'environnement}
 Les briques de perception de l'environnement ont pour objectif de récolter des données provenant de capteurs majoritairement extéroceptifs pour pouvoir en concevoir une modélisation.
 \subsubsection{Modèle Numérique d'Élévation}
-La brique de cartographie selon un MNE se compose de deux parties : une librairie en C++ permettant de générer le MNE et un noeud ROS* permettant d'utiliser le MNE pour concevoir des cartes d'élévations correspondant aux modalités du Challenge.\\
+La brique de cartographie selon un MNE (Modèle Numérique d'Élévation) se compose de deux parties : une librairie en C++ permettant de générer le MNE et un noeud ROS* permettant d'utiliser le MNE pour concevoir des cartes d'élévations correspondant aux modalités du Challenge.\\
 
 \indent Le MNE permet de concevoir une représentation en vue de dessus de l'élévation de l'environnement sous la forme d'une carte de chaleur discrète (\hyperref[fig14]{Figure 14}) d'une résolution de 10x10cm. Il est construit à partir des données de position du robot, de ses vitesses 3D et des points LIDAR*. Ces données sont reçues de façon asynchrone et mises dans des tampons. Pour chaque nouvelle donnée, une partie de la carte, de 40x40m centrée autour de la position du robot, est publiée. Le MNE est mis à jour sur reception d'un scan LIDAR*, provoquant un ensemble d'interpolations pour trouver la vitesse et la position exacte du robot au moment exact du début du scan. Le nuage de points fourni par le LIDAR* est ainsi corrigé en distorsion en utilisant le début du scan comme référence et replacé dans le repère monde. Chaque point du nuage ainsi constitué sert alors à actualiser les valeurs d'élévations maximales présentes dans les tuiles de la carte grâce à un filtrage de Kalman* se servant de la position du robot et de la position des impacts LIDAR* et de leurs covariances associées.\\
 \begin{center}
@@ -151,29 +151,28 @@ Le suivi de lisière se compose de deux modules séquentiels : un module de dét
 \indent La méthode de détection active de lisière implémentée repose sur l'adaptation de la détection de forme Snake contour et l'algorithme « Ball-Pivoting ». Cette approche permet de capturer uniquement les contours extérieurs des structures les plus proches du robot. La carte d'occupation peut avoir une certaine épaisseur pour des structures non "pleines", comme une haie clairsemée. Dans ce cas, extraire uniquement le contour extérieur permet d'éviter le traitement des points internes et de prévenir l'influence de points d'arrière-plan plus denses.\\\\
 \indent L’algorithme de détection commence par la détection du départ de la lisière à gauche et à droite du robot. Pour cela, on translate un cercle jusqu’à ce que celui-ci intersecte un point. Ce point correspond au premier point de la lisière (\hyperref[fig19]{Figure 19}) :\\
 \begin{center}
-    \includegraphics[width=0.5\linewidth]{Corps_rapport/lisiere1.png}
+    \includegraphics[width=0.3\linewidth]{Corps_rapport/lisiere1.png}
     \captionof{figure}{Détection du premier point}
     \label{fig19}
 \end{center}
 $\ $\
 \indent Ensuite, on fait pivoter le cercle pour capturer l'ensemble des points de contour de la lisière (\hyperref[fig20]{Figure 20}) :\\
  \begin{center}
-    \includegraphics[width=0.5\linewidth]{Corps_rapport/lisiere2.png}
+    \includegraphics[width=0.3\linewidth]{Corps_rapport/lisiere2.png}
     \captionof{figure}{Détection du contour de la lisière}
     \label{fig20}
 \end{center}
 $\ $\
 \indent Une fois les points de contour identifiés, des points intermédiaires sont ajoutés pour créer un nuage de points de chaque côté, formant une structure serpentine. Ces "serpents" représentent les bords estimés des lisières scannées (\hyperref[fig21]{Figure 21}) :\\
  \begin{center}
-    \includegraphics[width=0.5\linewidth]{Corps_rapport/lisiere3.png}
+    \includegraphics[width=0.3\linewidth]{Corps_rapport/lisiere3.png}
     \captionof{figure}{Création du "serpent" à partir des points de contacts du cercle et des points intermédiaires}
     \label{fig21}
 \end{center}
 $\ $\
 
 \indent L’algorithme de détection de lisière est paramétrable. La taille du cercle a un grand impact sur la capacité de détection. Un cercle de petit diamètre permet d’obtenir un contour précis mais fonctionne mal avec les lisières naturelles qui possèdent de nombreuses aspérités. A l'inverse, un cercle de plus grande taille permet de passer au-dessus des aspérités et d’obtenir des lisières plus rectilignes. Les incréments de translation et de rotation du cercle sur le nuage de points permettent de maîtriser la précision du contour final. On peut également limiter la rotation du cercle sur le contour avec un angle maximal, afin d’éviter de détecter l’arrière de la lisière à la fin de cette dernière. Enfin, on limite la taille maximale du snake afin d’éviter des fausses détections et se concentrer sur la lisière en cours.\\\\
-\indent Une fois les lisières détectées, elles sont décalées suivant leur direction normale moyenne et envoyées à l’algorithme de suivi comme trajectoires à suivre.\\\\
-\indent Le module de suivi de trajectoire met en jeu un algorithme de suivi de chemin permettant une régulation latérale et longitudinale.\\\\
+\indent Une fois les lisières détectées, elles sont décalées suivant leur direction normale moyenne et envoyées à l’algorithme de suivi comme trajectoires à suivre. Le module de suivi de trajectoire met en jeu un algorithme de suivi de chemin permettant une régulation latérale et longitudinale.\\\\
 \indent La régulation latérale est réalisée par un correcteur Pure-Pursuit. Ce correcteur a pour objectif de calculer un taux de lacet à partir d'un arc de cercle reliant le centre du repère du robot à un point mobile P placé sur le chemin, en avance de phase du projeté orthogonal H du point O sur le chemin. Pour augmenter la stabilité de la régulation et réduire les oscillations à haute vitesse, le point de visée anticipée P est placé à une distance curviligne l du point H, où l est proportionnel à la vitesse de suivi.\\\\
 \indent La régulation longitudinale est réalisée par un contrôleur qui détermine la vitesse de suivi en fonction de la vitesse consigne, de la distance à la fin du chemin et de la courbure du chemin en avance de phase. Cela permet de diminuer la vitesse à l'approche de virages ou de l'objectif.\\\\
 \indent Cette régulation est implémentée comme une étape de minimisation d'un critère \eqref{eq3} formulé comme une somme pondérée du carré de la différence de vitesse à la vitesse de référence et de la moyenne de l'accélération centripète sur une portion du chemin à parcourir.\\
@@ -181,7 +180,9 @@ $\ $\
     J(v)=\mu_1.(v_{max}-v)^2+\mu_2\frac{1}{n}\sum_{k=1}^n\frac{v^2}{R_{curv}(k)}
 \end{equation}
 $\ $\\
-avec $v$ la vitesse à optimiser en $m.s^{-1}$, $v_{max}$ la vitesse de consigne en $m.s^{-1}$, $n$ le nombre de points de la portion de chemin et $R_{curv}(k)$ le rayon de courbure en $m$ du chemin au point k.
+avec $v$ la vitesse à optimiser en $m.s^{-1}$, $v_{max}$ la vitesse de consigne en $m.s^{-1}$, $n$ le nombre de points de la portion de chemin et $R_{curv}(k)$ le rayon de courbure en $m$ du chemin au point k.\\\\
+
+\indent Cette brique répondant parfaitement aux attentes du défi 2 qui ne prévoyait pas la présence d'obstacles sur le chemin, elle sera modifiée de manière à ce que le chemin de suivi de lisière généré s'adapte aux obstacles détectés par le MNE et que le robot puisse les contourner. Cette modification sera faite dans le cadre du défi 3.
 
 \subsection{Briques de contrôle}
 L'objectif des briques de contrôle est de retourner des commandes, ici de vitesses linéaires et angulaires, pour suivre un chemin donné en entrée en tenant compte de certains critères.
@@ -189,6 +190,12 @@ L'objectif des briques de contrôle est de retourner des commandes, ici de vites
 \subsubsection{Retour sur traces et rejeu de trajectoire}
 Le retour sur traces et le rejeu de trajectoire sont assurés par la même brique, permettant d'enregistrer en temps réel la trajectoire du robot pour ensuite l'envoyer en entrée du même module de contrôle utilisé par le suivi de lisière avec un paramétrage spécifique pour fournir les commandes de déplacement à la brique de supervision.\\\\
 \indent Pour assurer le déplacement dans un sens ou dans l'autre, il suffit d'inverser ou non les points du chemin, les consignes de vitesse et le cap du robot.
+
+
+
+
+
+
 
 \subsubsection{Planification locale}
 La planification locale se fait dans l’espace de la commande projetée en vue de dessus $(v_{2d},\dot{\alpha}_z)$, $v_{2d}$ étant la vitesse linéaire et $\dot{\alpha_z}$ la vitesse angulaire selon l'axe Z en 2D, en se servant de la carte de gradients seuillée pour les obstacles non franchissables.\\\\
@@ -219,6 +226,15 @@ $\ $\
 
 
 
+
+
+
+
+
+
+
+\begin{comment}
+
 \subsubsection{Asservissement du taux de lacet}
 \indent Le Barakuda est contrôlé en fournissant une consigne de vitesse identique aux roues d'un même côté, lui conférant ainsi une cinématique de type "skid steer". Avec ce type de cinématique, les roues avant et arrières dérapent nécessairement pour que le robot puisse tourner, contrairement à une cinématique à deux roues différentielles et une roue libre majoritairement employée en robotique indoor. Par conséquent, on ne peut pas faire l’hypothèse que le robot réalise vraiment le taux de rotation souhaité avec les vitesses de roue envoyées à gauche et droite en utilisant les équations d’un modèle cinématique différentiel à 2 roues sans glissement.\\\\
 \indent Une solution simple et couramment employée pour résoudre ce problème consiste à asservir le taux de lacet pour que ce dernier corresponde bien aux commandes de haut niveau. Pour ce faire, on utilise les données odométriques fournie par le capteur INS pour obtenir le taux de lacet à tout instant. \\\\
@@ -226,22 +242,28 @@ $\ $\
 \indent Avec un modèle linéarisé $H(s)$ du Barakuda, il serait théoriquement possible 
 d’augmenter les performances en régulation et ainsi réduire l’erreur de traînage (pour une consigne dynamique) sur le taux de lacet en remplaçant ce correcteur par un correcteur de type RST \cite{RST} que nous pourrions paramétrer pour obtenir un comportement souhaité de manière plus précise.
 
+\end{comment}
+
 \subsection{Autres briques}
 
 \subsubsection{Interface avec le Barakuda}
-Cette brique est responsable de la communication avec le Barakuda via les trames UDP. D’une part, les informations remontées par le robot sont distribuées au reste du système sous forme de diagnostics. D’autre part, les consignes corrigées par le correcteur cinématique sont envoyées au robot, selon les formules habituelles \eqref{eq4} :\\
+Cette brique est responsable de la communication avec le Barakuda via des trames UDP. D’une part, elle fait remonter les informations provenant du robot au reste du système sous forme de diagnostics et, d’autre part, elle lui envoie les consignes de contrôle.
+
+\begin{comment}
+D’autre part, les consignes corrigées par le correcteur cinématique sont envoyées au robot, selon les formules habituelles \eqref{eq4} :\\
+
 \begin{equation} \label{eq4}
     \Omega_{roues}=S\left(v_x\pm\omega_z\frac{L}{2}\right)
 \end{equation}
 $\ $\\
 avec $\Omega_{roues}$ la vitesse de rotation des variateurs en $rpm$, $v_x$ la vitesse linéaire souhaitée en $m.s^{-1}$, $\omega_z$ la vitesse angulaire souhaitée en $rad.s^{-1}$, $L$ la voie (largeur) du véhicule en $m$ (ici, 0.95 m), et $S$ un facteur d’échelle dépendant des variateurs (ici, 1000 $rpm.s.m^{-1}$). 
+\end{comment}
 
 \subsubsection{Téléopération à la manette}
 Cette simple brique lit et convertit les positions du joystick en commandes linéaires et angulaires avec un facteur d'échelle pour les envoyer directement au robot. L'ajout de la planification locale avec une configuration particulière entre cette brique et le robot permet de réaliser le mode safety first, empêchant le robot d'entrer dans des obstacles en modifiant légèrements les commandes problématiques transmises ou en arrêtant le robot.
 
 \subsubsection{Brique de supervision}
-Cette brique récupère l'ensemble des commandes fournies par les fonctions de pilotage et permet à l'opérateur de choisir laquelle est envoyée au robot via une liste déroulante dans l'IHM.\\\\
-\indent Cette brique est également responsable d'une partie de la sécurité du robot puisqu'elle peut limiter la vitesse de ce dernier tout en gardant la même trajectoire lorsque la commande reçue provoque un dépassement du seuil de l'accélération centrifuge autorisé ou encore provoquer l'arrêt et le serrage des freins lors d'un dysfonctionnement grave retourné par une brique. La commande vérifiée ou limitée est ensuite envoyée au correcteur de taux de lacet.
+Cette brique récupère l'ensemble des commandes fournies par les fonctions de pilotage et permet à l'opérateur de choisir laquelle est envoyée au robot via une liste déroulante dans l'IHM. Elle est également responsable d'une partie de la sécurité du robot puisqu'elle peut limiter la vitesse de ce dernier tout en gardant la même trajectoire lorsque la commande reçue provoque un dépassement du seuil de l'accélération centrifuge autorisé ou encore provoquer l'arrêt et le serrage des freins lors d'un dysfonctionnement grave retourné par une brique. La commande vérifiée ou limitée est ensuite envoyée au robot.
 
 \subsubsection{Retour visuel annoté pour l'opérateur}
 Cette brique utilise le retour image de la caméra frontale du système de perception pour y superposer différentes informations, éventuellement agrégées à partir des autres modules. \\\\
@@ -258,24 +280,20 @@ informations suivantes sont superposées au flux image : \\
     \item Compas\\
 \end{itemize}
 
-\indent La projection dans l’image des informations définies dans le repère monde a été réalisée à l'aide de la calibration intrinsèque de la caméra ainsi que de la calibration extrinsèque caméra/LIDAR* réalisée auparavant et du système de transformations tf de ROS* permettant de définir une matrice de transformation homogène 4x4 pour projeter les éléments du repère monde vers le repère image. Cette transformation est utilisée pour la représentation des obstacles, des waypoints, des flaques d'eau, des végétations traversables et des chemins.\\\\
-\indent On obtient alors le retour annoté \hyperref[fig23]{Figure 23} :
-\begin{center}
-    \includegraphics[width=1\linewidth]{Corps_rapport/viz.png}
-    \captionof{figure}{Retour visuel annoté en simulation}
-    \label{fig23}
-\end{center}
+\indent La projection dans l’image des informations définies dans le repère monde a été réalisée à l'aide de la calibration intrinsèque de la caméra ainsi que de la calibration extrinsèque caméra/LIDAR* réalisée auparavant et du système de transformations tf de ROS* permettant de définir une matrice de transformation homogène 4x4 pour projeter les éléments du repère monde vers le repère image. Cette transformation est utilisée pour la représentation des obstacles, des waypoints, des flaques d'eau, des végétations traversables et des chemins afin d'obtenir le retour annoté (\hyperref[fig23]{Figure 23}).\\
+
 \subsubsection{IHM}
-Enfin, la brique de l'IHM fournit une interface graphique (\hyperref[fig24]{Figure 24}) sur le PC débarqué à l'aide du framework ROS* RQT, permettant au téléopérateur d'accéder au retour visuel annoté, de donner des ordres de mission au robot tout en pouvant modifier les paramètres à sa guise, de sauvegarder des trajectoires pour les réutiliser lors des modes rejeu et retour sur traces, de pouvoir entrer des coordonnées de points à atteindre et accéder à un ensemble de données et de diagnostics pour du debug.\\
+Enfin, la brique IHM fournit une interface graphique (\hyperref[fig23]{Figure 23}) sur le PC débarqué à l'aide du framework ROS RQT. Elle permet au téléopérateur d'accéder au retour visuel annoté, d'envoyer des ordres de mission tout en ajustant les paramètres à sa guise, et d'enregistrer des trajectoires pour les modes « rejeu » et « retour sur traces ». Elle offre également la possibilité de saisir des coordonnées de points à atteindre, de consulter un ensemble de données et de diagnostics pour le débogage, ainsi que de définir et charger des paramètres pour les modes dégradés (hautes herbes, brouillard, etc.).\\
 \begin{center}
     \includegraphics[width=1\linewidth]{Corps_rapport/rqt.png}
     \captionof{figure}{Interface RQT}
-    \label{fig24}
+    \label{fig23}
 \end{center}
 
-\indent En parallèle de l'interface RQT, une visualisation RVIZ (\hyperref[fig25]{Figure 25}) peut être lancée, permettant de visualiser les différentes cartes générées par la brique du MNE, les chemins planifiés et permettant de renseigner un point à atteindre directement sur la carte.\\
+\indent En parallèle de l'interface RQT, une visualisation RVIZ (\hyperref[fig24]{Figure 24}) peut être lancée. Elle permet d'afficher les différentes cartes générées par la brique MNE, d'observer les chemins planifiés et d'indiquer un point cible directement sur la carte. Une légende y est associée afin d'en faciliter la compréhension.
+
 \begin{center}
     \includegraphics[width=1\linewidth]{Corps_rapport/rviz.png}
     \captionof{figure}{Visualisation RVIZ}
-    \label{fig25}
+    \label{fig24}
 \end{center}

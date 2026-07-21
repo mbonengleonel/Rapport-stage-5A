@@ -10,17 +10,6 @@ Comme mentionné précédemment, le Challenge MOBILEX* vise à accélérer la re
   \label{fig3}
 \end{figure}
 
-% \begin{itemize}
-% \renewcommand{\labelitemi}{$\bullet$}
-%     \item \textbf{ASTRA}, d'\textbf{ESIGELEC IRSEEM} en partenariat avec la \textbf{Société d'innovations technologiques industrielles avancées (SITIA)}.\\
-%     \item \textbf{MEEDIAN}, de \textbf{Safran Electronics \& Defense} en partenariat avec l'\textbf{Ecole nationale supérieure des mines de Paris CAOR}.\\
-%     \item \textbf{NAVIR}, de \textbf{HawAI.tech} en partenariat avec \textbf{INRIA Grenoble - Rhône-Alpes}.\\
-%     \item \textbf{PANAME}, de l'\textbf{ONERA} en partenariat avec \textbf{NGX Robotics}.\\
-%     \item \textbf{REFLEX}, de \textbf{MAGELLIUM} en partenariat avec le \textbf{CEA-List le laboratoire du CEA}.\\
-%     \item \textbf{TAURUS}, du \textbf{Computer Science and Systems Engineering Laboratory (U2IS) de l'ENSTA Paris} en partenariat avec \textbf{EXAIL Robotics}.\\
-%     \item \textbf{MOBITER}, de \textbf{SHERPA Engineering} en partenariat avec l'\textbf{INRAE} et L'\textbf{Institut Pascal}.
-% \end{itemize}
-
 \subsection{Les attendus du challenge}
 \subsubsection{Organisation générale}
 Le Challenge Mobilex est organisé par les acteurs suivant (\hyperref[fig4]{Figure 4}) :
@@ -33,7 +22,7 @@ Le Challenge Mobilex est organisé par les acteurs suivant (\hyperref[fig4]{Figu
 \end{figure}
 
 \indent Il se déroule sur trois années et est composé de trois défis de difficulté croissante, à savoir un défi par annnée. Les modalités de ces défis ne sont communiquées aux équipes qu'au début de chaque défi \cite{anr2023mobilex}. À la fin de chaque année, toutes les équipes sont convoquées sur un site de la DGA pour y être évaluées sur leurs propositions en réponse aux situations rencontrées lors du défi.\\\\
-L'organisation de chaque défi se déroule comme suit (\hyperref[fig5]{Figure 5}) :
+\indent L'organisation de chaque défi se déroule comme suit (\hyperref[fig5]{Figure 5}) :
 
 \begin{figure}[H] % Utilisez [H] au lieu de [htb]
   \centering % Utilisez \centering au lieu de \makebox
@@ -82,6 +71,7 @@ Et se sont vue rajoutés les nouvelles fonctions suivantes :\\
 \renewcommand{\labelitemi}{$\bullet$}
     \item Gestion des pentes et dévers avec obstacles franchissables ou non.
     \item Gestion de la végétation et des flaques d'eau.
+    \item Suivi de bas-côtés (positif et négatif) avec gestion d'obstacles sur la trajectoire.
     \item Gestion des situations dégradées (perte des donnés gnss, perte de communication avec le poste de téléoperation, ...).
 \end{itemize}
 
@@ -114,7 +104,8 @@ $>30$ cm & \textcolor{red}{Non franchissable} & \textcolor{red}{Non franchissabl
 \end{figure}
 
 \paragraph{Détection et gestion des bas-côtés}
-Les bas-côtés (haies, murs, fossés, barrières, etc.) d'une hauteur de plus de 30 cm (positive ou négative) sont détectés à tout instant, quel que soit le mode de pilotage. Le suivi d'un bas-côté doit se faire à une distance fixe paramétrable de manière autonome.
+Les bas-côtés (haies, murs, fossés, barrières, lisière, etc.) d'une hauteur de plus de 30 cm (positive ou négative) sont détectés à tout instant, quel que soit le mode de pilotage. Le suivi d'un bas-côté doit se faire à une distance fixe paramétrable de manière autonome tout en s'adaptant à la présence d'obstacles (franchissable ou non) sur la trajectoire.
+
 \paragraph{Détection et gestion des pentes et dévers avec obstacles}
 Les pentes et dévers de plus de 20° sont considérées comme non franchissables et sont détectées à tout instant, quel que soit le mode de pilotage. Les pentes correspondent à des inclinaisons du sol dans le sens de la trajectoire du robot, les roues à l'avant ont donc une altitude différente de celles à l'arrière. Les dévers quant'à eux correspondent à des inclinaisons transversales du sol par rapport au sens de la trajectoire du robot. Les roues d'un côté du robot ont donc une altitude différente de celles du côté opposé. Le franchissement des penstes et dévers avec obstacles est régits comme suit (\hyperref[fig7]{Figure 7}) :
 
@@ -136,7 +127,8 @@ La Brique MOBILEX* doit être robuste aux pannes capteurs individuelles brèves 
     \item Caméra
     \item LIDAR*\\
 \end{itemize}
-\indent Au cour du défi 2, ces pannes deuvaient pouvoir être simulées en coupant momentanément les capteurs souhaités par contre cette fonction n'est plus évaluer lors du défi 3. En cas de panne, les fonctions doivent toujours pouvoir être réalisées.
+
+\indent Au cours du défi 2, ces pannes devaient pouvoir être simulées en coupant momentanément les capteurs souhaités. En revanche, cette fonction n’est plus évaluée lors du défi 3.
 
 \paragraph{Points de passage imposés}
 L'IHM doit permettre au téléopérateur de renseigner des points de passage imposés par les organisateurs. Le robot doit obligatoirement passer par chacun des points de passage renseignés en respectant l'ordre imposé. Ces points de passage sont définis par leurs coordonnées géographiques, en unités cartésiennes par projection UTM 31 dans le système géodésique WGS 84 avec une précision décimétrique.
