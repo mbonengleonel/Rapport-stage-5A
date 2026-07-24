@@ -26,29 +26,44 @@ Au début de mon stage, l'équipe Mobiter avait engagé des travaux de refonte d
 \indent C’est dans ce contexte que j'ai participé à l'intégration du SLAM DLIO au sein de la brique MOBILEX*, puis de contribuer à son évaluation sur le terrain. Une fois cette intégration logicielle finalisée, nous avons mené une campagne de tests afin de valider son bon fonctionnement et de quantifier ses performances (en matière de dérive et de charge CPU) par rapport au Kitware SLAM et à la vérité terrain.(\hyperref[fig27]{Figure 26})\\
 
 \begin{center}
-    \includegraphics[width=1\linewidth]{Corps_rapport/Comparaison map DLIO vs GNSS.png}
+    \includegraphics[width=1\linewidth]{Corps_rapport/Comparaison_map_DLIO_vs_GNSS.png}
     \captionof{figure}{Comparaison de cartographie en GNSS RTK VS en DLIO}
     \label{fig26}
 \end{center}
 
-\indent Afin d'évaluer les performances du SLAM DLIO, des essais ont été menés sur le site de l'INRAE en comparant les trajectoires générées par ce dernier et par le Kitware SLAM avec la vérité terrain fournie par un système GNSS RTK. La méthodologie a consisté, dans un premier temps, à enregistrer un fichier de données (ROS bag) lors d'une séquence de suivi de waypoints avec le SLAM DLIO actif, tout en enregistrant la position de référence renvoyée par la centrale de navigation SBG Systems. Dans un second temps, ce bag a été rejoué hors ligne afin d'exécuter le Kitware SLAM et de générer un enregistrement unique centralisant les trois modes de localisation (GNSS RTK, DLIO et Kitware). Enfin, l'utilisation des outils de la bibliothèque EVO nous a permis de comparer et d'évaluer précisément les performances des deux algorithmes de SLAM par rapport à la vérité terrain.(\hyperref[fig27]{Figure 27} et \hyperref[fig28]{Figure 28}) \\
+\indent Comme le montre la figure ci-dessus, la carte générée par le SLAM DLIO est de bonne qualité et garantit une navigation fiable lorsqu'on la compare à la vérité terrain fournie par le GNSS RTK. Nous avons par la suite évalué les performances du SLAM DLIO en comparant sa trajectoire à la vérité terrain ainsi qu'à celle générée par le SLAM Kitware. C'est dans cette optique que des essais ont été menés sur les sites de l'INRAE d'Aubière et de Montoldre. La méthodologie a consisté, dans un premier temps, à enregistrer un fichier de données (rosbag) lors d'un déplacement en téléopération avec le SLAM DLIO actif, tout en enregistrant la position de référence renvoyée par la centrale de navigation SBG. Dans un second temps, ce bag a été rejoué hors ligne afin d'exécuter le SLAM Kitware et de générer un fichier unique centralisant les trois sources de localisation (GNSS RTK, DLIO et Kitware). Enfin, l'utilisation des outils de la bibliothèque EVO nous a permis de comparer et d'évaluer précisément les performances des deux algorithmes de SLAM par rapport à la vérité terrain (\hyperref[fig27]{Figure 27} et \hyperref[fig28]{Figure 28}).\\
 
 \begin{center}
-    \includegraphics[width=1\linewidth]{Corps_rapport/Traj Dlio vs kitware.png}
-    \captionof{figure}{Comparaison des trajectoires en DLIO / Kitware par rapport à la vérité terrain}
+    \includegraphics[width=0.8\linewidth]{Corps_rapport/dlio_vs_kitware_vs_Sbg_montoldre.png}
+    \captionof{figure}{Comparaison des trajectoires DLIO vs Kitware vs vérité terrain en zone dégagée}
     \label{fig27}
 \end{center}
 
-\begin{center}
-    \includegraphics[width=1\linewidth]{Corps_rapport/RPE DLIO vs Kitware.png}
-    \captionof{figure}{Comparaison des erreurs relatives de position en DLIO vs en Kitware}
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Corps_rapport/dlio_APE_plot_raw.png}
+        \caption{Erreur absolue de position en DLIO}
+        \label{fig:image1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Corps_rapport/kitware_APE_plot_raw.png}
+        \caption{Erreur absolue de position en Kitware}
+        \label{fig:image2}
+    \end{subfigure}    
+    \caption{Comparaison des erreurs absolues de position en DLIO vs en Kitware}
     \label{fig28}
-\end{center}
+\end{figure}
+$\ $\
+Au regard des figures (\hyperref[fig27]{Figure 27} et \hyperref[fig28]{Figure 28}) ci-dessus, on constate que le SLAM DLIO, grâce à son couplage inertiel-LiDAR, garantit une très bonne localisation, même en milieu dégagé. Ce n'est pas le cas du SLAM Kitware, qui montre des limites évidentes dans ces conditions. De plus, le SLAM DLIO présente une erreur de position maximale d'environ 1,5 mètre, tandis que celle du SLAM Kitware atteint environ 80 mètres sur un parcours de 1 km. Ces résultats confortent notre choix de changer de SLAM dans le cadre du défi 3.\\
 
 \subsubsection{Évaluation de la dérive du SLAM DLIO par rapport à la vérité terrain}
 
-La bibliotheque python EVO utilise l'algorithme de Kabsch-Umeyama \cite{Kabsch} pour aligner les trajectoires avant comparaison et evaluation. Cet algorithme permet de trouver la meilleure transformation rigide (rotation et translation) qui minimise l'écart quadratique moyen (RMSD) entre deux ensembles de points appariés. Il est utile pour l'alignement d'ensembles de points en infographie, ainsi qu'en chimio-informatique et en bio-informatique pour comparer des structures moléculaires et protéiques. \\\\
-\indent Cette étape de transformation est cruciale pour s'assurer que les trajectoires sont comparées dans le même référentiel, éliminant ainsi les effets de décalage initial ou de rotation. Une fois les nuage de points alignés, EVO compare les trajectoires et retourne les métriques suivantes: \\\\
+La bibliothèque python EVO, très employée pour l'évaluation de techniques de SLAM, utilise l'algorithme de Kabsch-Umeyama \cite{Kabsch} pour aligner les trajectoires avant comparaison et évaluation. Cet algorithme permet de trouver la meilleure transformation rigide (rotation et translation) qui minimise l'écart quadratique moyen (RMSD) entre deux ensembles de points appariés. Il est utile pour l'alignement d'ensembles de points en infographie, ainsi qu'en chimio-informatique et en bio-informatique pour comparer des structures moléculaires et protéiques. \\\\
+\indent Cette étape de transformation est cruciale pour s'assurer que les trajectoires sont comparées dans le même référentiel, éliminant ainsi les effets de décalage initial ou de rotation. Une fois les nuage de points alignés, EVO compare les trajectoires et retourne les métriques suivantes: \\
 
 \begin{itemize}
 \renewcommand{\labelitemi}{$\bullet$}
@@ -61,7 +76,7 @@ La bibliotheque python EVO utilise l'algorithme de Kabsch-Umeyama \cite{Kabsch} 
     \item \textbf{std} (Standard Deviation - Écart Type) : c'est une mesure de la dispersion des erreurs autour de la moyenne (mean).\\
 \end{itemize}
 
-\indent Afin de qualifier les performances du SLAM DLIO, il etait indispensable d'évaluer sa dérive par rapport à la vérité terrain en fonction de la distance parcourue. Pour cela, à partir d'un bag de données ROS contenant les trajectoires (SLAM et vérité terrain) enregistrées lors d'essais réels, nous avons implémenté un script qui calcule l'erreur euclidienne de position, la distance réelle parcourue puis la dérive du SLAM à chaque instant. La dérive est donnée en pourcentage par la formule suivante \eqref{eq5}: 
+\indent Afin de qualifier les performances du SLAM DLIO, il etait indispensable d'évaluer et visualiser sa dérive par rapport à la vérité terrain en fonction de la distance parcourue, chose qu'EVO ne permettait pas de faire. Pour cela, à partir d'un bag de données ROS contenant les trajectoires (SLAM et vérité terrain) enregistrées lors d'essais réels, nous avons implémenté un script qui calcule l'erreur euclidienne de position, la distance réelle parcourue puis la dérive du SLAM à chaque instant. La dérive étant donnée en pourcentage par la formule suivante \eqref{eq5}: 
 
 \begin{equation} \label{eq5}
     \text{Dérive}[k] = \frac{100 \cdot \sqrt{(x_{\text{slam}}[k]-x_{\text{sbg}}[k])^2+(y_{\text{slam}}[k]-y_{\text{sbg}}[k])^2+(z_{\text{slam}}[k]-z_{\text{sbg}}[k])^2}}{\text{d}[k]}
@@ -93,7 +108,36 @@ avec $f(t)$ la valeur interpolée à l'instant $t$, $t_k$ et $t_{k+1}$ les deux 
 \end{center} 
 $\ $\
 
+Au regard de la figure ci-dessus, le SLAM DLIO présente une dérive particulièrement faible sur un parcours dégagé de 1 km, restant en dessous du seuil de 5 \% présenté par l'état de l'art dès 150 mètres parcourues. Ces résultats confirment définitivement son intégration pour la suite du challenge.\\
 
+
+
+\subsubsection{Mise en place du plan de test}
+
+Durant mon stage, il était attendu de moi la conception d'un plan de test rigoureux et reproductible afin d'évaluer les performances de la brique MOBILEX vis-à-vis des exigences du défi 3. Ce protocole vise à garantir la conformité des fonctionnalités du système avec les spécifications de la DGA, tout en assurant la répétabilité des essais, indépendamment de l'ingénieur chargé de leur exécution. Le terrain d'essais retenu pour le déroulement des tests est le site de l'INRAE Aubière du fait de sa proximité contrairement à celui de Montoldre. Il s'agissait ainsi de définir un ensemble de scénarios de test permettant la validation des exigences réglementaires fixées par la DGA (\ref{annex3:scenarios_DGA}).\\
+
+\indent À la suite d'échanges avec mon tuteur, nous avons opté pour le développement d'une carte géographique dynamique. Au sein de celle-ci, le positionnement des obstacles, des points de passage (waypoints) et des trajectoires s'adapte automatiquement au scénario sélectionné par l'opérateur. L'analyse topographique du terrain nous a permis d'identifier les zones propices au déroulement des différents essais. En nous appuyant sur des waypoints connus, nous avons délibérément choisi d'intégrer des obstacles (franchissables ou non) ainsi que des zones d'exclusion sur le site. Le résultat obtenu est illustré par la figure \ref{fig30} (\hyperref[fig30]{Figure 30}).\\
+
+\begin{center}
+\includegraphics[width=1\linewidth]{Corps_rapport/plan_de_test_defi3.png}
+\captionof{figure}{Plan de test graphique pour le défi 3}
+\label{fig30}
+\end{center} 
+$\ $\
+
+Cette carte dynamique a été développée en HTML et s'appuie sur la bibliothèque JavaScript Leaflet, dédiée à la création de cartes interactives. Elle permet de charger et d'afficher des données géospatiales issues de différentes sources, telles que des tuiles cartographiques ou des services de cartographie en ligne. L'interface utilisateur développée offre la possibilité de sélectionner divers scénarios de test ; la carte se met alors à jour automatiquement pour afficher les obstacles, les points de passage (waypoints) et les zones d'exclusion associés, tout en actualisant le descriptif de la mission dans la zone inférieure gauche.\\
+
+\indent Une fois le plan de test graphique répétable établi, il a été nécessaire de mettre en place une checklist unique de propriétés à vérifier en ligne (lors du test) et hors ligne (après le test). Ce plan de test et cette checklist ont été conçus pour être utilisés par n'importe quel membre de l'équipe, garantissant ainsi la reproductibilité des tests et la comparaison des performances et résultats après chaque nouveau test. Elle comprend des points de contrôle précis subdivisé en 2 catégories: \\
+
+\begin{itemize}
+\renewcommand{\labelitemi}{$\bullet$}
+    \item \textbf{Propriétés à vérifier en ligne} : Ces propriétés sont vérifiées en temps réel par l'opérateur lors de l'exécution du test. Elles incluent notamment la vérification de l'empatement du marquage au sol autour des waypoints, l'appui sur l'arrêt d'urgence durant le test, la reprise en téléopération du robot en cours de mission de suivi de waypoints, le ralentissement lors du franchissement d'obstacles ou de flaques d'eau ou de passage en mode SLAM, la perte de communication du robot avec le PCC, l'apparition d'accouts incessants lors du déplacement du robot et l'adéquation de la sémantique associée au retour vidéo de l'IHM avec l'environnement de test.
+    \item \textbf{Propriétés à vérifier hors ligne} : Ces propriétés sont vérifiées après le test à partir des données enregistrées (ROS bag). Elles incluent notamment la vérification des trajectoires suivies par le robot, le respect des vitesses de commandes envoyées au robot, l'analyse de l'orientation (roll et pitch) du robot, et l'analyse des diagnostics émis sur l'IHM.\\
+\end{itemize}
+
+\indent Cette checklist présentée en annexe \ref{annex4:test_checklist} n'étant pas exhaustive, elle a été complétée par des points de contrôle pertinents supplémentaires en fonction des besoins et des observations faites lors des tests.\\
+
+\indent Afin d'analyser efficacement les propriétés à vérifier hors ligne (après les essais), un générateur automatique de rapports a été développé. Cet outil synthétise les données d'exécution et fournit une analyse visuelle synthétique du déroulement des tests, facilitant ainsi le diagnostic et la prise de décision.\\
 
 \subsubsection{Mise en oeuvre du générateur automatique de rapports d'essais}
 
@@ -119,8 +163,6 @@ L'une de mes missions principales a été de développer un générateur automat
     \captionof{figure}{Organigramme de l'outil de génération automatique de rapport de test}
     \label{fig30}
 \end{center}
-$\ $\
-
 
 \paragraph{Extraction et génération des diagnostics de l'IHM}
 
@@ -139,7 +181,6 @@ L'objectif principal de ce module est d'obtenir une vision consolidée et exhaus
     \captionof{figure}{Timeline des diagnostics de l'IHM par nom de diagnostic}
     \label{fig31}
 \end{center}
-$\ $\
 
 \indent Deplus, pour des soucis de débug il est souvent interessant de savoir à quel moment le robot a changé de mode de contrôle (téléopération, suivis de waypoint, suivis de lisiere) ou de localisation (GNSS ou SLAM). L'outil génère donc également des timelines de ces changements de mode de contrôle et de localisation (\hyperref[fig32]{Figure 32} et \hyperref[fig33]{Figure 33}).\\
 
@@ -148,19 +189,17 @@ $\ $\
     \captionof{figure}{Timeline des changements de mode de contrôle}
     \label{fig32}
 \end{center}
-$\ $\
 
 \begin{center}
     \includegraphics[width=1\linewidth]{Corps_rapport/localization_mode_switches.png}
     \captionof{figure}{Timeline des changements de mode de localisation}
     \label{fig33}
 \end{center}
-$\ $\
 
 \indent Le processus débute par l'analyse du fichier d'enregistrement (bag file), dont l'objectif est d'extraire l'ensemble des topics de type \textbf{DiagnosticArray}. Si une liste restrictive de topics est fournie en paramètre, l'extraction se limite à ces derniers ; dans le cas contraire, l'intégralité des flux de type DiagnosticArray est récupérée par défaut. Une fois l'extraction effectuée, les informations utiles sont structurées et stockées chronologiquement au sein d'un dictionnaire indexé par horodatage (timestamp). À partir de cette structure de données, des scripts exploitant des library Python (pandas, numpy, matplotlib) génèrent automatiquement l'ensemble des figures d'analyse présentées précédemment, ainsi qu'un rapport de synthèse textuel (format .txt). De plus, afin de mettre en relation les anomalies matérielles ou logicielles avec l'état opérationnel du robot, l'outil extrait également les messages du topic \textbf{nav\_stack/control\_mux/mode}. L'analyse de ce topic permet de tracer et de corréler précisément les changements de modes de contrôle du système au cours de l'essai. Enfin, l'outil donne également un rapide aperçu des fréquences de publication des topics du bag par rapport celles de réference, permettant ainsi d'identifier les éventuels problèmes de communication ou de perte de données. La figure (\hyperref[fig34]{Figure 34}) suivante illustre l'organigramme de cet outil d'extraction de diagnostic:\\
 
 \begin{center}
-    \includegraphics[width=1\linewidth]{Corps_rapport/org diag extractor.png}
+    \includegraphics[width=1\linewidth]{Corps_rapport/org_diag_extractor.png}
     \captionof{figure}{Organigramme de l'outil d'extraction et de génération des diagnostics}
     \label{fig34}
 \end{center}
@@ -271,7 +310,7 @@ En complément de ces analyses comportementales, l'outil intègre un module d'é
 Une fois le CSV généré, l'outil exploite ces données pour produire automatiquement des figures resultant de tracé de colonnes vs colonnes ou de colonnes vs timestamps, ainsi que des figures d'évaluation standardisées (APE et RPE) à l'aide de la bibliothèque EVO. Ces visualisations permettent d'obtenir une vue d'ensemble du comportement du robot, de ses performances de localisation et de son suivi de trajectoire, facilitant ainsi l'identification des anomalies et l'optimisation des algorithmes de navigation. La figure (\hyperref[fig37]{Figure 37}) suivante illustre l'organigramme de cet outil:\\
 
 \begin{center}
-    \includegraphics[width=1\linewidth]{Corps_rapport/org viz extractor.png}
+    \includegraphics[width=1\linewidth]{Corps_rapport/org_viz_extractor.png}
     \captionof{figure}{Organigramme de l'outil d'extraction et de génération des visualisations}
     \label{fig37}
 \end{center}
@@ -307,8 +346,6 @@ $\ $\
 $\ $\
 
 
-
-\subsubsection{Mise en place du plan de test}
 
 
 \subsubsection{Proposition de méthode d'automatisation de la validation de tests en robotique mobile: cas d'application sur Mobiter}

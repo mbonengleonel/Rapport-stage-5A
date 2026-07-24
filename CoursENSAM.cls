@@ -106,6 +106,7 @@
 \usepackage{tkz-tab} %Permet de créer des tableaux de variation
 \usepackage{wrapfig}
 \usepackage{colortbl}
+\usepackage{pdfpages}
 %\usepackage{amsfonts} %permet l'écriture propre des ensemble (\mathbb)
 \usepackage{tocbasic}
 \usepackage{sectsty} %Permet d'avoir les sections et les sous sections en couleurs

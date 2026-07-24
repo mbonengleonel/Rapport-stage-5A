@@ -12,7 +12,9 @@
 \sectionfont{\color{cyan}{}}
 \noindent
 \hyperref[sec:annexe1]{Annexe 1 : RQT Graph du simulateur Gazebo} \dotfill \pageref{annexe1}\\
-\hyperref[sec:annexe2]{Annexe 2 : Checklist du rapport} \dotfill \pageref{annexe2}
+\hyperref[sec:annexe2]{Annexe 2 : Checklist du rapport} \dotfill \pageref{annexe2}\\
+\hyperref[sec:annexe3]{Annexe 3 : Scénario défi 3 DGA} \dotfill \pageref{annex3:scenarios_DGA}\\
+\hyperref[sec:annexe4]{Annexe 4 : Plan de test - Checklist} \dotfill \pageref{annex4:test_checklist}
 
 \newpage
 \pagestyle{fancy}
@@ -23,6 +25,7 @@
     \includegraphics[scale=0.28,angle=90, origin=c]{Appendix/gazebo_sim_graph.png}
     \label{annexe1}
 \end{figure}
+
 \newpage
 \section*{Annexe 2 : Checklist du rapport}
 \begin{figure}[h]
@@ -30,3 +33,23 @@
     \includegraphics[width=1 \linewidth]{Appendix/checklist.png}
     \label{annexe2}
 \end{figure}
+
+\newpage
+\section*{Annexe 3 : Scénario défi 3 DGA}
+\label{annex3:scenarios_DGA}
+
+\begin{center}
+    \includegraphics[width=\linewidth, height=0.45\textheight, keepaspectratio]{Appendix/scenario1.png}
+\end{center}
+\begin{center}
+    \includegraphics[width=\linewidth, height=0.5\textheight, keepaspectratio]{Appendix/scenario2.png}
+\end{center}
+\begin{center}
+    \includegraphics[width=\linewidth, height=0.45\textheight, keepaspectratio]{Appendix/scenario3.png}
+\end{center}
+\begin{center}
+    \includegraphics[width=\linewidth, height=0.5\textheight, keepaspectratio]{Appendix/scenarioM.png}
+\end{center}
+
+\includepdf[pages=1, pagecommand={\thispagestyle{fancy}\section*{Annexe 4 : Plan de test - Checklist}\label{annex4:test_checklist}}]{Appendix/test_checklist.pdf}
+\includepdf[pages=2-]{Appendix/test_checklist.pdf}
