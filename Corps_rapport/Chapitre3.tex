@@ -11,7 +11,7 @@ J'ai été recruté comme stagiaire chez SHERPA Engineering afin d'apporter une 
     \item \textbf{La standardisation des procédures} : J'ai mis sur pied un protocole et un plan de test rigoureux. Ce cadre méthodologique vise d'une part à évaluer la conformité du système vis-à-vis des exigences fonctionnelles spécifiées par la DGA pour le Défi 3, et d'autre part à garantir la répétabilité des scénarios d'essai, indépendamment de l'ingénieur chargé de l'exécution.\\
 \end{itemize}
     
-\indent Enfin, mon avis est attendu lors des questionnements stratégiques.
+\indent Enfin, j'ai travaillé sur l'amélioration de la fonctionnalité de suivi de lisière en y intégrant une prise en compte des obstacles sur le chemin.
 
 
 \subsection{Présentation des travaux réalisés}
@@ -20,10 +20,102 @@ Lors de mon arrivée à SHERPA Engineering, il a été indispensable pour moi de
 \indent Mon premier objectif a consisté à cloner le dépôt Git de l'ensemble du projet Mobiter sur notre poste de travail. Ce dernier fonctionne sous Ubuntu 22.04 et intègre Distrobox, un outil de conteneurisation permettant d'exécuter une surcouche logicielle sous un autre système d'exploitation — en l'occurrence Ubuntu 20.04. Cette configuration est indispensable pour utiliser ROS Noetic. En effet, l'intégralité de la brique logicielle MOBILEX a été développée sous cette version de ROS, qui s'avère incompatible avec la distribution native Ubuntu 22.04. \\\\
 \indent Une fois le simulateur fonctionnel, j'ai alors pu me familiariser avec l'utilisation de l'IHM et les différents modes de conduite disponibles. Puis afin de pouvoir proposer des tests pertinents et comprendre l'architecture logicielle de la brique MOBILEX*, aussi bien d'un point de vue théorique que technique, il m'a fallut consulter l'ensemble des codes.
 
-\subsubsection{Intégration et évaluation du slam DLIO}
+\subsubsection{Migration et évaluation du SLAM (Simultaneous Localization and Mapping)}
 
+La pile logicielle (stack) MOBITER nécessite une estimation de pose précise et continue. Si la disponibilité permanente du GNSS RTK lors du défi 1 garantissait ces conditions, l'introduction de coupures GNSS temporaires lors du défi 2 ($< 2\text{ min}$) a imposé l'intégration d'une solution alternative. Un algorithme de SLAM LiDAR (\textbf{Kitware}), couplé à une extrapolation IMU pour augmenter la fréquence d'échantillonnage, a été déployé conjointement avec un module d'arbitrage chargé d'assurer la transition entre les sources de localisation. Bien que fonctionnelle pour le défi 2, cette architecture a révélé deux limitations majeures : \\
+
+\begin{itemize}
+    \item \textbf{Une dérive spatiale critique} : Fortement dépendante de la structure géométrique de l'environnement, la dérive intrinsèque du SLAM kitware engendrait des discontinuités de pose (sauts de localisation) trop importantes lors de la réacquisition du signal GNSS. Pour prévenir tout comportement instable, le module interdisait le basculement si l'écart mesuré dépassait un seuil critique, contraignant le robot à poursuivre sa navigation en mode SLAM dégradé jusqu'à la fin de la mission.
+    \item \textbf{Une charge computationnelle élevée} : Le SLAM de Kitware constituait le processus le plus budgétivore en ressources calcul de la stack, risquant d'induire des verrous de performance avec l'ajout de nouvelles fonctionnalités.\\
+\end{itemize}
+
+Face à l'allongement prévisible des masquages GNSS lors du défi 3, le SLAM LiDAR de Kitware a été remplacé par l'approche \textbf{DLIO} (Direct LiDAR-Inertial Odometry), caractérisée par une dérive significativement plus faible. Parallèlement, un gestionnaire de discontinuité de localisation a été ajouté pour faire face à la discontinuité de pose lors des transitions SLAM$\rightarrow$GNSS, garantissant le réengagement du GNSS RTK quelle que soit la dérive cumulée tout en maintenant le suivi du scénario.\\
+
+\begin{comment}
 Au début de mon stage, l'équipe Mobiter avait engagé des travaux de refonte du module de SLAM (Simultaneous Localization and Mapping). Lors des défis précédents, la solution logicielle reposait exclusivement sur le Kitware SLAM, une approche purement LiDAR. Celle-ci présentait de graves limites dans les environnements très dégagés (comme les grands espaces extérieurs), où la rareté des caractéristiques géométriques et des retours LiDAR nuisait à la qualité de la localisation. De plus, ce composant représentait l'une des charges computationnelles les plus lourdes de la pile logicielle du projet. Afin de pallier ces défauts, le SLAM DLIO (Direct LiDAR-Inertial Odometry), combinant les données LiDAR et une centrale inertielle (IMU), a été choisi comme une alternative plus robuste pour la navigation en milieux ouverts.\\\\ 
-\indent C’est dans ce contexte que j'ai participé à l'intégration du SLAM DLIO au sein de la brique MOBILEX*, puis de contribuer à son évaluation sur le terrain. Une fois cette intégration logicielle finalisée, nous avons mené une campagne de tests afin de valider son bon fonctionnement et de quantifier ses performances (en matière de dérive et de charge CPU) par rapport au Kitware SLAM et à la vérité terrain.(\hyperref[fig27]{Figure 26})\\
+\end{comment}
+
+\indent C’est dans ce contexte du défi 3 que j'ai participé à l'évaluation et aux tests du SLAM DLIO en simulation et sur terrain au sein de la brique MOBILEX*. Une fois son intégration logicielle finalisée, nous avons mené une campagne de tests afin de valider son bon fonctionnement et de quantifier ses performances (en matière de dérive et de charge CPU) par rapport au Kitware SLAM et à la vérité terrain.(\hyperref[fig27]{Figure 26})
+ 
+
+
+
+\subparagraph{a. Fonctionnement du Kitware SLAM}
+
+Le \textit{Kitware SLAM} repose sur l'algorithme LOAM (\textit{LiDAR Odometry And Mapping in Real-time}) \cite{loam2014}, qui se décompose en trois étapes principales :\\
+\begin{enumerate}
+    \item Le prétraitement et l'extraction des caractéristiques géométriques du nuage de points LiDAR ;
+    \item L'estimation de l'odométrie LiDAR ;
+    \item La construction de la carte et l'optimisation spatiale.
+\end{enumerate}
+
+\subsubparagraph{Prétraitement et extraction des caractéristiques géométriques}
+La première étape consiste à prétraiter le nuage de points LiDAR afin d'atténuer les distorsions subies lors du mouvement du véhicule pendant l'acquisition, puis d'extraire les éléments géométriques nécessaires au recalage. Contrairement aux approches traitant l'intégralité des points du scan, LOAM sélectionne uniquement les points présentant une information géométrique forte. Cette sélection réduit la charge computationnelle tout en préservant les contraintes physiques indispensables à l'estimation de pose.\\
+
+Deux types de caractéristiques sont principalement extraits :
+\begin{itemize}
+    \item \textbf{Les points d'arêtes (\textit{edge features}) :} ils correspondent aux zones présentant une forte variation de courbure. Ils permettent de contraindre le déplacement autour des structures linéaires (angles de bâtiments, contours d'obstacles).
+    \item \textbf{Les points plans (\textit{surface features}) :} ils identifient les zones de faible courbure, représentatives de surfaces régulières (sol, murs, façades).
+\end{itemize}
+
+Ces caractéristiques sont ensuite exploitées lors des phases de recalage afin de calculer la transformation rigide entre deux acquisitions successives.
+
+\subsubparagraph{Estimation de l'odométrie LiDAR}
+La deuxième étape vise à évaluer le déplacement relatif du robot entre deux scans consécutifs. Pour cela, LOAM réalise un recalage \textit{scan-to-scan} entre les caractéristiques extraites de l'acquisition courante et celles de la précédente.\\
+
+L'estimation de la transformation spatiale est obtenue par la minimisation de deux métriques d'erreur :\\
+\begin{itemize}
+    \item Une distance point-droite pour les caractéristiques d'arêtes ;
+    \item Une distance point-plan pour les caractéristiques de surface.\\
+\end{itemize}
+
+L'optimisation sous ces contraintes fournit la transformation à une fréquence supérieure à celle de la cartographie. Néanmoins, ce traitement reste sujet à la dérive par accumulation des erreurs de recalage.
+
+\subsubparagraph{Construction de la carte et optimisation}
+La troisième étape reconstruit progressivement la carte globale de l'environnement tout en corrigeant la dérive accumulée par l'odométrie.
+
+À l'inverse de l'étape précédente, le recalage s'effectue cette fois entre le scan courant et la carte locale (\textit{scan-to-map}). Les caractéristiques du nouveau nuage de points sont alignées avec la carte préexistante afin d'affiner l'estimation de pose, garantissant ainsi la cohérence spatiale à long terme.\\
+
+
+Bien que la documentation détaillée du \textit{Kitware SLAM} soit restreinte, cet algorithme intègre un système d'optimisation par graphe de poses \cite{kitware_slam}, capable de réajuster l'ensemble de la carte lors d'une fermeture de boucle (\textit{loop closure}). Il propose également une extraction enrichie de caractéristiques, incluant la détection de ruptures d'intensité lumineuse ou d'amas de points (\textit{blobs}).
+De plus, le module offre la possibilité d'injecter des données exogènes issues d'autres capteurs (IMU, GNSS, INS, odométrie des roues, caméras RGB pour balises visuelles). Toutefois, les essais expérimentaux menés n'ont pas révélé de gain de performance significatif lors de l'intégration directe de l'IMU au sein du SLAM. Cela a justifié le choix de conserver une version exclusivement LiDAR pour le SLAM et de coupler l'IMU de manière externe afin d'élever la fréquence de la localisation. Enfin, certaines fonctionnalités avancées ont dû être restreintes afin d'assurer le respect des contraintes temps réel de la pile logicielle (\textit{stack}).
+
+
+
+\subparagraph{b. Fonctionnement du DLIO SLAM}
+
+L'algorithme DLIO \cite{dlio2023} est une méthode d'odométrie LiDAR-inertielle sobre en calcul et adaptée aux mouvements brusques. Contrairement aux approches fondées sur l'extraction de primitives géométriques (LOAM, Kitware SLAM), DLIO adopte une approche directe opérant directement sur le nuage de points dense.
+
+Son traitement repose sur quatre étapes clés : \\
+\begin{enumerate}
+    \item \textbf{Prétraitement dense :} Alignement spatio-temporel des données LiDAR ($10\text{--}20\text{ Hz}$) et IMU ($100\text{--}500\text{ Hz}$) sans sous-échantillonnage agressif ni extraction de descripteurs.
+    \item \textbf{Correction de mouvement (\textit{deskewing}) :} Compensation analytique des distorsions de balayage par une approche \textit{coarse-to-fine} (intégration IMU et interpolation en forme fermée), générant l'estimation \textit{a priori} $\hat{\mathbf{T}}_{\text{prior}}^{\mathcal{W}}$.
+    \item \textbf{Recalage géométrique (GICP) :} Alignement direct \textit{scan-to-map} du nuage corrigé sur une sous-carte locale d'images-clés (\textit{keyframes}) par minimisation de la distance de Mahalanobis \cite{gicp2009}.
+    \item \textbf{Fusion et mise à jour d'état :} Observateur géométrique non linéaire à convergence garantie, fusionnant le recalage GICP et les mesures IMU pour estimer l'état complet :
+    \begin{equation}
+        \hat{\mathbf{x}}_k = \begin{bmatrix} \mathbf{p}^{\mathcal{W}} & \mathbf{q}^{\mathcal{W}} & \mathbf{v}^{\mathcal{W}} & \mathbf{b}_a & \mathbf{b}_\omega \end{bmatrix}^\top
+    \end{equation}
+    comprenant la position, l'orientation, la vitesse et les biais de l'IMU.
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \begin{center}
     \includegraphics[width=1\linewidth]{Corps_rapport/Comparaison_map_DLIO_vs_GNSS.png}
@@ -171,7 +263,7 @@ L'objectif principal de ce module est d'obtenir une vision consolidée et exhaus
 \indent Le processus débute par l'analyse du fichier d'enregistrement (bag file), dont l'objectif est d'extraire l'ensemble des topics de type \textbf{DiagnosticArray}. Si une liste restrictive de topics est fournie en paramètre, l'extraction se limite à ces derniers ; dans le cas contraire, l'intégralité des flux de type DiagnosticArray est récupérée par défaut. Une fois l'extraction effectuée, les informations utiles sont structurées et stockées chronologiquement au sein d'un dictionnaire indexé par horodatage (timestamp). À partir de cette structure de données, des scripts exploitant des library Python (pandas, numpy, matplotlib) génèrent automatiquement l'ensemble des figures d'analyse présentées précédemment, ainsi qu'un rapport de synthèse textuel (format .txt). De plus, afin de mettre en relation les anomalies matérielles ou logicielles avec l'état opérationnel du robot, l'outil extrait également les messages du topic \textbf{nav\_stack/control\_mux/mode}. L'analyse de ce topic permet de tracer et de corréler précisément les changements de modes de contrôle du système au cours de l'essai. Enfin, l'outil donne également un rapide aperçu des fréquences de publication des topics du bag par rapport celles de réference, permettant ainsi d'identifier les éventuels problèmes de communication ou de perte de données. La figure (\hyperref[fig31]{Figure 31}) suivante illustre l'organigramme de cet outil d'extraction de diagnostic:\\
 
 \begin{center}
-    \includegraphics[width=1\linewidth]{Corps_rapport/org_diag_extractor.png}
+    \includegraphics[width=0.7\linewidth]{Corps_rapport/org_diag_extractor.png}
     \captionof{figure}{Organigramme de l'outil d'extraction et de génération des diagnostics}
     \label{fig31}
 \end{center}
@@ -277,10 +369,10 @@ En complément de ces analyses comportementales, l'outil intègre un module d'é
     \item \textbf{/diagnostics} : Pour extraire les diagnostics de l'IHM et identifier les changements de mode de localisation.\\
 \end{itemize}
 
-Une fois le CSV généré, l'outil exploite ces données pour produire automatiquement des figures resultant de tracé de colonnes vs colonnes ou de colonnes vs timestamps, ainsi que des figures d'évaluation standardisées (APE et RPE) à l'aide de la bibliothèque EVO. Ces visualisations permettent d'obtenir une vue d'ensemble du comportement du robot, de ses performances de localisation et de son suivi de trajectoire, facilitant ainsi l'identification des anomalies et l'optimisation des algorithmes de navigation. La figure (\hyperref[fig35]{Figure 35}) suivante illustre l'organigramme de cet outil:\\
+Une fois le CSV généré, l'outil exploite ces données pour produire automatiquement des figures resultant de tracé de colonnes vs colonnes ou de colonnes vs timestamps, ainsi que des figures d'évaluation standardisées (APE et RPE) à l'aide de la bibliothèque EVO. Ces visualisations permettent d'obtenir une vue d'ensemble du comportement du robot, de ses performances de localisation et de son suivi de trajectoire, facilitant ainsi l'identification des anomalies et l'optimisation des algorithmes de navigation. La figure (\hyperref[fig35]{Figure 35}) suivante illustre l'organigramme de cet outil:
 
 \begin{center}
-    \includegraphics[width=1\linewidth]{Corps_rapport/org_viz_extractor.png}
+    \includegraphics[width=0.7\linewidth]{Corps_rapport/org_viz_extractor.png}
     \captionof{figure}{Organigramme de l'outil d'extraction et de génération des visualisations}
     \label{fig35}
 \end{center}
@@ -327,15 +419,16 @@ Comme résultat, l'outil génère plusieurs graphiques dont les figures (\hyperr
 
 \paragraph{Extraction et génération des vidéos de l'évolution des cartes et du retour vidéo sur l'IHM}
 
-Ce module a pour objectif principal de fournir une représentation visuelle dynamique (vidéo) de l'évolution du MNE (Modèle Numérique d'Élévation), de la planification globale et locale, ainsi que du retour vidéo affiché sur l'interface homme-machine (IHM). S'il n'est pas spécifié de topic particulier en paramètre, l'outil automatise l'extraction des données de l'ensemble des topics sensor\_msgs/Image et sensor\_msgs/CompressedImage présents dans le rosbag. Après décodage des trames, une vidéo synchronisée est générée pour chaque topic au moyen de la bibliothèque OpenCV. Les différents topics d'images ne publiant pas à la même fréquence, l'outil effectue un rééchantillonnage temporel basé sur le timestamp des messages. Un pas temporel commun est calculé en se basant sur le topic possédant la fréquence d'échantillonnage la plus basse. Ainsi, selon leur fréquence d'origine, certains topics ne conservent qu'une image sur deux, voire une image sur quatre pour l'assemblage de leur vidéo respective. Afin d'aligner le début et la fin de l'ensemble des vidéos générées, un offset temporel est appliqué. Ce timestamp d'origine est déterminé par le topic d'image dont la première publication est la plus tardive ; toutes les trames antérieures à cet offset sont ignorées. L'outil génère ainsi un ensemble de vidéos parfaitement synchronisées. Enfin, ces flux sont unifiés au sein d'une vidéo composite (\hyperref[fig38]{Figure 38}) par un assemblage image par image (frame-by-frame).\\
+Ce module a pour objectif principal de fournir une représentation visuelle dynamique (vidéo) de l'évolution du MNE (Modèle Numérique d'Élévation), de la planification globale et locale, ainsi que du retour vidéo affiché sur l'interface homme-machine (IHM). S'il n'est pas spécifié de topic particulier en paramètre, l'outil automatise l'extraction des données de l'ensemble des topics \textbf{sensor\_msgs/Image} et \textbf{sensor\_msgs/CompressedImage} présents dans le rosbag. Après décodage des trames, une vidéo synchronisée est générée pour chaque topic au moyen de la bibliothèque OpenCV. Les différents topics d'images ne publiant pas à la même fréquence, l'outil effectue un rééchantillonnage temporel basé sur le timestamp des messages. Un pas temporel commun est calculé en se basant sur le topic possédant la fréquence d'échantillonnage la plus basse. Ainsi, selon leur fréquence d'origine, certains topics ne conservent qu'une image sur deux, voire une image sur quatre pour l'assemblage de leur vidéo respective. Afin d'aligner le début et la fin de l'ensemble des vidéos générées, un offset temporel est appliqué. Ce timestamp d'origine est déterminé par le topic d'image dont la première publication est la plus tardive ; toutes les trames antérieures à cet offset sont ignorées. L'outil génère ainsi un ensemble de vidéos parfaitement synchronisées. Enfin, ces flux sont unifiés au sein d'une vidéo composite par un assemblage image par image (frame-by-frame).  La figure (\hyperref[fig38]{Figure 38}) suivante illustre l'organigramme de cet outil:\\
 
 \begin{center}
-    \includegraphics[width=0.7\linewidth]{Corps_rapport/video_aggra.png}
-    \captionof{figure}{Vidéo composite des différentes cartes et du retour vidéo sur l'IHM}
+    \includegraphics[width=0.7\linewidth]{Corps_rapport/org_video_extractor.png}
+    \captionof{figure}{Organigramme de l'outil d'extraction et de génération de vidéos}
     \label{fig38}
 \end{center}
+$\ $\
 
-\indent Cette vidéo composite permet d'observer, dans l'ordre de lecture (de gauche à droite et de haut en bas) :\\
+\indent La figure (\hyperref[fig39]{Figure 39}) suivante illustre un exemple de vidéo composite générée par l'outil, montrant l'évolution des cartes et du retour vidéo sur l'IHM. Cette vidéo composite offre ainsi une vue d'ensemble du comportement du système durant les essais et permet d'observer, dans l'ordre de lecture (de gauche à droite et de haut en bas) :\\
 
 \begin{itemize}
 \renewcommand{\labelitemi}{$\bullet$}
@@ -347,7 +440,11 @@ Ce module a pour objectif principal de fournir une représentation visuelle dyna
     \item la vue annotée de l'IHM. \\
 \end{itemize}
 
-\indent Cet assemblage offre ainsi une vue d'ensemble du comportement du système durant les essais.
+\begin{center}
+    \includegraphics[width=0.7\linewidth]{Corps_rapport/video_aggra.png}
+    \captionof{figure}{Vidéo composite des différentes cartes et du retour vidéo sur l'IHM}
+    \label{fig39}
+\end{center}
 
 
 \paragraph{Structuration modulaire du générateur de rapports}

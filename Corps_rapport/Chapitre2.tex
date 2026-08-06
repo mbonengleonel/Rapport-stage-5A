@@ -11,11 +11,11 @@ Les développements logiciels se font sous le middleware ROS* (noetic), ce qui p
 \end{itemize}
 \indent Il est à noter que l'ensemble des fonctions publient également des diagnostics, non représentés ici par souci de lisibilité.
 \begin{center}
-    \includegraphics[width=1.05 \linewidth]{Corps_rapport/architecture_logicielle.png}
+    \includegraphics[width=1 \linewidth]{Corps_rapport/architecture_logicielle.png}
     \captionof{figure}{Diagramme synoptique de l'architecture logicielle du système}
     \label{fig13}
 \end{center}
-$\ $\
+
 \subsection{Briques de perception de l'environnement}
 Les briques de perception de l'environnement ont pour objectif de récolter des données provenant de capteurs majoritairement extéroceptifs pour pouvoir en concevoir une modélisation.
 \subsubsection{Modèle Numérique d'Élévation}
@@ -23,7 +23,7 @@ La brique de cartographie selon un MNE (Modèle Numérique d'Élévation) se com
 
 \indent Le MNE permet de concevoir une représentation en vue de dessus de l'élévation de l'environnement sous la forme d'une carte de chaleur discrète (\hyperref[fig14]{Figure 14}) d'une résolution de 10x10cm. Il est construit à partir des données de position du robot, de ses vitesses 3D et des points LIDAR*. Ces données sont reçues de façon asynchrone et mises dans des tampons. Pour chaque nouvelle donnée, une partie de la carte, de 40x40m centrée autour de la position du robot, est publiée. Le MNE est mis à jour sur reception d'un scan LIDAR*, provoquant un ensemble d'interpolations pour trouver la vitesse et la position exacte du robot au moment exact du début du scan. Le nuage de points fourni par le LIDAR* est ainsi corrigé en distorsion en utilisant le début du scan comme référence et replacé dans le repère monde. Chaque point du nuage ainsi constitué sert alors à actualiser les valeurs d'élévations maximales présentes dans les tuiles de la carte grâce à un filtrage de Kalman* se servant de la position du robot et de la position des impacts LIDAR* et de leurs covariances associées.\\
 \begin{center}
-    \includegraphics[width=0.5\linewidth]{Corps_rapport/MNE.png}
+    \includegraphics[width=0.4\linewidth]{Corps_rapport/MNE.png}
     \captionof{figure}{Extrait du Modèle Numérique d’Élévation sous forme d’une carte de chaleur}
     \label{fig14}
 \end{center}
@@ -32,7 +32,7 @@ $\ $\
 \indent Le noeud ROS* associé au MNE récupère la carte de 40x40m centrée autour du robot pour construire une carte de gradients, en utilisant un filtre de Sobel de taille 3x3 tuiles (30x30cm). Le Filtre de Sobel est un opérateur utilisé en traitement d'image pour faire de la détection de contours. Il permet de calculer le gradient d'intensité de chaque pixel ce qui indique la direction de la variation ainsi que son intensité, ce qui permet de faire ressortir les contours d'une image. En détournant cet usage sur notre carte d'élévation où la couleur nous donne une information sur la hauteur, on obtient une information sur les variations de hauteur pour chaque tuile.\\\\
 \indent On vient ensuite seuiller notre carte de gradients afin d'obtenir une information correspondant aux différentes hauteurs d’obstacles à différencier pour le défi. La superposition de ces cartes permet d'obtenir une représentation des obstacles autour du robot comme illustré (\hyperref[fig15]{Figure 15}) :\\
 \begin{center}
-    \includegraphics[width=0.5\linewidth]{Corps_rapport/Carte_obstacles.png}
+    \includegraphics[width=0.4\linewidth]{Corps_rapport/Carte_obstacles.png}
     \captionof{figure}{Représentation des obstacles autour du robot}
     \label{fig15}
 \end{center}
@@ -79,17 +79,18 @@ La brique de planification globale se sert des cartes de coûts générées par 
 
 \indent Cet algorithme est une amélioration de l'algorithme de Dijkstra \cite{dijkstra1959note} qui permet de trouver le chemin optimal selon un critère donné dans un graphe. \\
 
-\indent Pour trouver ce chemin, l'algorithme de Dijkstra attribue à son noeud de départ un coût de 0 et attribue aux chemins vers les noeuds voisins des poids, par exemple la distance à vol d'oiseau. Le coût d'un noeud voisin correspond à la somme entre le coût du noeud précédent et le poids du chemin pour rejoindre le nouveau noeud (équation \eqref{eq1}).\\
+\indent Pour trouver ce chemin, l'algorithme de Dijkstra attribue à son noeud de départ un coût de 0 et attribue aux chemins vers les noeuds voisins des poids, par exemple la distance à vol d'oiseau. Le coût d'un noeud voisin correspond à la somme entre le coût du noeud précédent et le poids du chemin pour rejoindre le nouveau noeud (équation \eqref{eq1}).
 
 \begin{equation} \label{eq1}
     c(n)=c(k)+p(k,a)
 \end{equation}
-$\ $\\
 
 où $n$ est le noeud exploré, $k$ est le noeud précédent et $a$ est l'action de déplacement utilisée depuis le noeud $k$.\\
+
 \indent Il explore alors le noeud dont le coût est le plus faible en ajoutant les poids des chemins voisins ainsi que le coût des noeuds voisins et répète l'exploration jusqu'à atteindre l'objectif.\\
 
 \indent La \hyperref[fig17]{Figure 17} est une représentation étape par étape de l'exploration d'une carte par l'algorithme de Dijkstra. Seuls les mouvements (haut, bas, gauche, droite) sont admissibles. La case bleue est le point de départ de l'algorithme, la case verte l'objectif à atteindre et le cercle jaune le noeud en cours d'exploration :
+
 \newpage
 
 \begin{figure}[h]
@@ -124,24 +125,22 @@ où $n$ est le noeud exploré, $k$ est le noeud précédent et $a$ est l'action 
     \caption{Fonctionnement de l'algorithme de Dijkstra}
     \label{fig17}
 \end{figure}
-$\ $\
 
 \indent Face au probleme d'exploration aveugle (brute-force) dont fait face l'algorithme de Dijkstra, l'amélioration apportée par l'algorithme A* est d'ajouter un terme appelé l'heuristique dans le coût d'un noeud qui fournit une estimation du coût pour rejoindre l'objectif depuis ce noeud.\\\\
 \indent Le coût utilisé lors de la sélection du noeud à explorer suit alors l'équation \eqref{eq2} :\\
 \begin{equation} \label{eq2}
     f(n)=c(n)+h(n)
 \end{equation}
-$\ $\\
+
 où $c(n)$ est la somme des poids pour atteindre le noeud $n$ (comme dans l'algorithme de Dijkstra) et $h(n)$ est l'heuristique ajoutée pour aiguiller l'exploration vers l'objectif.\\\\
 \indent Cette modification provoque une exploration plus rapide du graphe dès lors que l'heuristique est correctement choisie. Ce qui entrainne une reduction de la charge computationnelle dans le temps, ainsi qu'une plus faible mobilisation et consommation de ressources.\\\\
 \indent Dans notre cas, l'heuristique est la distance à vol d'oiseau entre le noeud et l'objectif tandis que le poids entre deux noeuds est une somme entre la distance parcourue, un critère sur la similitude par rapport à la planification précédente sur les premiers mètres du chemin (afin d'éviter des oscillations) et un critère pondéré lié à la carte de coût du MNE. Le niveau de risque acceptable par le robot peut ainsi être choisi en modifiant la pondération de ce dernier coût, une faible pondération impliquant un chemin pouvant plus se rapprocher des obstacles détectés.\\\\
 \indent La carte de coût utilisée (\hyperref[fig18]{Figure 18}) est similaire à une CostMap de ROS*, avec une zone critique définie autour de chaque obstacle correspondant aux zones où l'on considère que le robot va entrer en collision, une zone de danger où l'on considère que selon l'orientation le robot peut entrer en collision et un champ de potentiel décroissant avec la distance à l'obstacle.\\
 \begin{center}
-    \includegraphics[width=0.6 \linewidth]{Corps_rapport/costmap.png}
+    \includegraphics[width=0.4 \linewidth]{Corps_rapport/costmap.png}
     \captionof{figure}{Carte de coût utilisée par la planification globale}
     \label{fig18}
 \end{center}
-$\ $\
 
 \indent Les zones critiques sont par définition impossibles à traverser tandis que les zones de dangers sont fortement pénalisées car il peut y avoir collision selon l'orientation du robot et sont donc souvent considérées uniquement lorsqu'il n'y a pas de solution alternative. Etant donné le manque de prise en compte de l'orientation du robot et l'absence de prise en compte de son modèle d'évolution, les chemins traversant des zones de danger pourraient ne pas être valides au sens de la traversabilité mais la brique de contrôle en aval, la planification locale, qui elle prend en compte l'orientation et l'enveloppe réelle (rectangulaire) du robot peut quand même trouver une solution à partir de ce chemin. Le surcoût computationnel qui interviendrait si l'on modifiait la carte de coûts en fonction de l'orientation du robot a encouragé à choisir ce compromis, en sachant que seuls les premiers mètres du chemin nous intéressent pour trouver une direction de déplacement privilégiée.\\\\
 \indent Les algorithmes de Dijkstra et A* fournissent une solution optimale pour la situation donnée : carte échantillonnée et heuristique donnée pour l'A*. Il existe d'autres algorithmes de planification permettant de s'affranchir de la limitation de l'échantillonnage et permettant d'explorer l'environnement plus rapidement en générant des noeuds aléatoirement dans la carte et en essayant de les relier pour former un chemin jusqu'à l'objectif comme la Probalistic RoadMap \cite{prm1996}, le RRT \cite{rrt2000} et le RRT* \cite{rrtstar2011}. Les chemins générés ne sont plus optimaux et peuvent ne pas fournir de solution alors qu'il en existe une du fait du caractère aléatoire mais permettent de générer des chemins pouvant tenir compte de la cinématique du robot en appliquant une règle particulière lors de la génération des noeuds.
@@ -181,7 +180,7 @@ $\ $\
     J(v)=\mu_1.(v_{max}-v)^2+\mu_2\frac{1}{n}\sum_{k=1}^n\frac{v^2}{R_{curv}(k)}
 \end{equation}
 $\ $\\
-avec $v$ la vitesse à optimiser en $m.s^{-1}$, $v_{max}$ la vitesse de consigne en $m.s^{-1}$, $n$ le nombre de points de la portion de chemin et $R_{curv}(k)$ le rayon de courbure en $m$ du chemin au point k.\\\\
+avec $v$ la vitesse à optimiser en $m.s^{-1}$, $v_{max}$ la vitesse de consigne en $m.s^{-1}$, $n$ le nombre de points de la portion de chemin et $R_{curv}(k)$ le rayon de courbure en $m$ du chemin au point k.\\
 
 \indent Cette brique répondant parfaitement aux attentes du défi 2 qui ne prévoyait pas la présence d'obstacles sur le chemin, elle sera modifiée de manière à ce que le chemin de suivi de lisière généré s'adapte aux obstacles détectés par le MNE et que le robot puisse les contourner. Cette modification sera faite dans le cadre du défi 3.
 
@@ -205,11 +204,10 @@ La planification locale se fait dans l’espace de la commande projetée en vue 
 \indent Des primitives de déplacement de type “arc” en vue de dessus sont évaluées sur un horizon temporel de $2\ s$.  Chaque arc est paramétré par une paire de vitesses $(v_{2d},\dot{\alpha}_z)$ constantes sur la fenêtre temporelle.\\
 
 \begin{center}
-    \includegraphics[width=0.4\linewidth]{Corps_rapport/DWA_illustration.png}
+    \includegraphics[width=0.3\linewidth]{Corps_rapport/DWA_illustration.png}
     \captionof{figure}{Illustration des trajectoires évaluées par la planification locale DWA}
     \label{fig22}
 \end{center}
-$\ $\
 
 \indent Le principe de base de l'algorithme « Dynamic Window Approach » (DWA) est le suivant :\\
 \begin{itemize}
