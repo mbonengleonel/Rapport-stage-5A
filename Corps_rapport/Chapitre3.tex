@@ -35,74 +35,148 @@ Face à l'allongement prévisible des masquages GNSS lors du défi 3, le SLAM Li
 Au début de mon stage, l'équipe Mobiter avait engagé des travaux de refonte du module de SLAM (Simultaneous Localization and Mapping). Lors des défis précédents, la solution logicielle reposait exclusivement sur le Kitware SLAM, une approche purement LiDAR. Celle-ci présentait de graves limites dans les environnements très dégagés (comme les grands espaces extérieurs), où la rareté des caractéristiques géométriques et des retours LiDAR nuisait à la qualité de la localisation. De plus, ce composant représentait l'une des charges computationnelles les plus lourdes de la pile logicielle du projet. Afin de pallier ces défauts, le SLAM DLIO (Direct LiDAR-Inertial Odometry), combinant les données LiDAR et une centrale inertielle (IMU), a été choisi comme une alternative plus robuste pour la navigation en milieux ouverts.\\\\ 
 \end{comment}
 
-\indent C’est dans ce contexte du défi 3 que j'ai participé à l'évaluation et aux tests du SLAM DLIO en simulation et sur terrain au sein de la brique MOBILEX*. Une fois son intégration logicielle finalisée, nous avons mené une campagne de tests afin de valider son bon fonctionnement et de quantifier ses performances (en matière de dérive et de charge CPU) par rapport au Kitware SLAM et à la vérité terrain.(\hyperref[fig27]{Figure 26})
- 
+\indent C’est dans ce contexte du défi 3 que j'ai participé à l'évaluation et aux tests du SLAM DLIO en simulation et sur terrain au sein de la brique MOBILEX*. Une fois son intégration logicielle finalisée, nous avons mené une campagne de tests afin de valider son bon fonctionnement et de quantifier ses performances (en matière de dérive et de charge CPU) par rapport au Kitware SLAM et à la vérité terrain.(\hyperref[fig27]{Figure 26})\\
 
 
 
-\subparagraph{a. Fonctionnement du Kitware SLAM}
+\subparagraph{a. Fonctionnement du Kitware SLAM}:
 
-Le \textit{Kitware SLAM} repose sur l'algorithme LOAM (\textit{LiDAR Odometry And Mapping in Real-time}) \cite{loam2014}, qui se décompose en trois étapes principales :\\
-\begin{enumerate}
-    \item Le prétraitement et l'extraction des caractéristiques géométriques du nuage de points LiDAR ;
-    \item L'estimation de l'odométrie LiDAR ;
-    \item La construction de la carte et l'optimisation spatiale.
-\end{enumerate}
+Le \textbf{Kitware SLAM} repose sur l'algorithme LOAM (\textit{LiDAR Odometry And Mapping in Real-time}) \cite{loam2014}, qui se décompose en trois étapes principales :\\
 
-\subsubparagraph{Prétraitement et extraction des caractéristiques géométriques}
-La première étape consiste à prétraiter le nuage de points LiDAR afin d'atténuer les distorsions subies lors du mouvement du véhicule pendant l'acquisition, puis d'extraire les éléments géométriques nécessaires au recalage. Contrairement aux approches traitant l'intégralité des points du scan, LOAM sélectionne uniquement les points présentant une information géométrique forte. Cette sélection réduit la charge computationnelle tout en préservant les contraintes physiques indispensables à l'estimation de pose.\\
+\begin{description}
+    \item \textbf{Le prétraitement et l'extraction des caractéristiques géométriques du nuage de points LiDAR} :\\
+La première étape consiste à prétraiter le nuage de points LiDAR afin d'atténuer les distorsions subies lors du mouvement du véhicule pendant l'acquisition, puis d'extraire les éléments géométriques nécessaires au recalage. Contrairement aux approches traitant l'intégralité des points du scan, LOAM sélectionne uniquement les points présentant une information géométrique forte. Cette sélection réduit la charge computationnelle tout en préservant les contraintes physiques indispensables à l'estimation de pose. Deux types de caractéristiques sont principalement extraits :
 
-Deux types de caractéristiques sont principalement extraits :
 \begin{itemize}
     \item \textbf{Les points d'arêtes (\textit{edge features}) :} ils correspondent aux zones présentant une forte variation de courbure. Ils permettent de contraindre le déplacement autour des structures linéaires (angles de bâtiments, contours d'obstacles).
-    \item \textbf{Les points plans (\textit{surface features}) :} ils identifient les zones de faible courbure, représentatives de surfaces régulières (sol, murs, façades).
+    \item \textbf{Les points plans (\textit{surface features}) :} ils identifient les zones de faible courbure, représentatives de surfaces régulières (sol, murs, façades).\\
 \end{itemize}
 
-Ces caractéristiques sont ensuite exploitées lors des phases de recalage afin de calculer la transformation rigide entre deux acquisitions successives.
+Ces caractéristiques sont ensuite exploitées lors des phases de recalage afin de calculer la transformation rigide entre deux acquisitions successives.\\
 
-\subsubparagraph{Estimation de l'odométrie LiDAR}
-La deuxième étape vise à évaluer le déplacement relatif du robot entre deux scans consécutifs. Pour cela, LOAM réalise un recalage \textit{scan-to-scan} entre les caractéristiques extraites de l'acquisition courante et celles de la précédente.\\
-
-L'estimation de la transformation spatiale est obtenue par la minimisation de deux métriques d'erreur :\\
+    \item \textbf{L'estimation de l'odométrie LiDAR} :\\
+La deuxième étape vise à évaluer le déplacement relatif du robot entre deux scans consécutifs. Pour cela, LOAM réalise un recalage \textbf{scan-to-scan} entre les caractéristiques extraites de l'acquisition courante et celles de la précédente. L'estimation de la transformation spatiale est obtenue par la minimisation de deux métriques d'erreur :
+ 
 \begin{itemize}
-    \item Une distance point-droite pour les caractéristiques d'arêtes ;
+    \item Une distance point-droite pour les caractéristiques d'arêtes.
     \item Une distance point-plan pour les caractéristiques de surface.\\
+\end{itemize}  
+
+L'optimisation sous ces contraintes fournit la transformation à une fréquence supérieure à celle de la cartographie. Néanmoins, ce traitement reste sujet à la dérive par accumulation des erreurs de recalage.\\
+
+    \item \textbf{La construction de la carte et l'optimisation spatiale} :\\
+La troisième étape reconstruit progressivement la carte globale de l'environnement tout en corrigeant la dérive accumulée par l'odométrie. À l'inverse de l'étape précédente, le recalage s'effectue cette fois entre le scan courant et la carte locale (\textbf{scan-to-map}). Les caractéristiques du nouveau nuage de points sont alignées avec la carte préexistante afin d'affiner l'estimation de pose, garantissant ainsi la cohérence spatiale à long terme.\\
+
+\end{description}
+
+Bien que la documentation détaillée du \textbf{Kitware SLAM} soit restreinte, cet algorithme intègre un système d'optimisation par graphe de poses \cite{kitware_slam}, capable de réajuster l'ensemble de la carte lors d'une fermeture de boucle (\textbf{loop closure}). Il propose également une extraction enrichie de caractéristiques, incluant la détection de ruptures d'intensité lumineuse ou d'amas de points (\textbf{blobs}).
+De plus, le module offre la possibilité d'injecter des données exogènes issues d'autres capteurs (IMU, GNSS, INS, odométrie des roues, caméras RGB pour balises visuelles). Toutefois, les essais expérimentaux menés n'ont pas révélé de gain de performance significatif lors de l'intégration directe de l'IMU au sein du SLAM. Cela a justifié le choix de conserver (dans le cadre du défi 2) une version exclusivement LiDAR pour le SLAM et de coupler l'IMU de manière externe afin d'élever la fréquence de la localisation. Enfin, certaines fonctionnalités avancées ont dû être restreintes afin d'assurer le respect des contraintes temps réel de la pile logicielle (\textbf{stack}).\\
+
+
+\subparagraph{b. Fonctionnement du DLIO SLAM}:
+
+DLIO (Direct LiDAR-Inertial Odometry) \cite{dlio2023} est un algorithme d'odométrie LiDAR-inertielle sobre en calcul et conçu pour maintenir une localisation précise et construire une carte 3D dense même lors de mouvements agressifs ou dans des environnements peu structurés. Contrairement aux approches fondées sur l'extraction de primitives géométriques (LOAM, Kitware SLAM) et le recalage intermédiaire \textbf{scan-to-scan}, DLIO adopte une approche directe opérant directement sur le nuage de points dense. Il réalise un recalage direct \textbf{scan-to-map} grace aux garanties de convergence formelles de son observateur d'état. Son traitement repose sur quatre étapes clés : \\
+
+\begin{description}
+    \item \textbf{Prétraitement et conditionnement des données denses}:\\
+La première étape consiste à réaliser un alignement spatio-temporel des données LiDAR ($10\text{--}20\text{ Hz}$) et IMU ($100\text{--}500\text{ Hz}$) dans le repère du robot sans sous-échantillonnage agressif (par grille de voxel) ni extraction de primitives (arêtes, plans, etc.). Sur le nuage de points dense est appliqué un simple filtrage spatial de proximité destiné à éliminer les points appartenant à la structure propre du robot. L'algorithme offre aussi la possibilité d’ajouter un léger sous-échantillonnage (0.05 à 0.1m) pour les LiDARs très denses.\\
+    
+    \item \textbf{Correction de mouvement}:\\
+Pendant la durée du balayage LiDAR, les mouvements du robot induisent des distorsions spatiales importantes. Pour éliminer ces déformations sans recourir aux simplifications classiques (vitesse constante) ni au coût de calcul élevé d’autres méthodes d’interpolation, DLIO introduit une approche séquentielle de type \textbf{coarse-to-fine} décrite comme suit :\\
+
+\begin{itemize}
+    \item \textbf{Coarse step} : Les mesures IMU comprises entre deux scans LiDAR successifs sont intégrées numériquement sous l’hypothèse d’un modèle de mouvement d’ordre supérieur à secousse linéaire et accélération angulaire constantes. Cela permet d’obtenir une estimation de l’état du robot à chaque nouvelle valeur IMU.
+    \item \textbf{Fine step} : Pour chaque point du nuage acquis à l’instant relatif $t_n$, DLIO se sert des deux états estimés par l’IMU encadrant $t_n$ pour résoudre un jeu d’équations analytiques sous forme close paramétré uniquement par l’horodatage $t_n$. Ce calcul exact et parallélisable corrige la distorsion (\textbf{deskewing}) et projette le nuage dans le repère monde $\mathcal{W}$, générant une estimation de l'état \textit{a priori} $\hat{\mathbf{T}}_{\text{prior}}^{\mathcal{W}}$ pour le recalage géométrique.\\
 \end{itemize}
+    
+    \item \textbf{Recalage géométrique (GICP : Generalized Iterative Closest Point)}:\\
+Grâce à la précision de l'estimation initiale, DLIO s'affranchit du recalage scan-to-scan et effectue directement un alignement scan-to-map. Le nuage corrigé $\hat{\mathcal{P}}_k^{\mathcal{W}}$ est aligné sur une sous-carte locale $\hat{\mathcal{S}}_k^{\mathcal{W}}$ constituée d'images-clés (keyframes). Cet alignement s'appuie sur l'algorithme GICP \cite{gicp2009}, qui modélise la surface locale par des matrices de covariance et minimise la distance de Mahalanobis (correspondance plan-à-plan). L'optimisation produit la transformation $\Delta \hat{\mathbf{T}}_k$, affinant ainsi la pose globale $\hat{\mathbf{T}}_k^{\mathcal{W}}$.\\
 
-L'optimisation sous ces contraintes fournit la transformation à une fréquence supérieure à celle de la cartographie. Néanmoins, ce traitement reste sujet à la dérive par accumulation des erreurs de recalage.
+    \item \textbf{Fusion et mise à jour d'état}: \\
+Pour fusionner les données LiDAR et IMU, DLIO intègre un observateur géométrique non linéaire hiérarchique. Il combine la pose affinée par le GICP aux mesures IMU haute fréquence afin d'estimer l'état complet du système :
 
-\subsubparagraph{Construction de la carte et optimisation}
-La troisième étape reconstruit progressivement la carte globale de l'environnement tout en corrigeant la dérive accumulée par l'odométrie.
+\begin{equation}
+    \hat{\mathbf{x}}_k = \begin{bmatrix} \mathbf{p}^{\mathcal{W}} & \mathbf{q}^{\mathcal{W}} & \mathbf{v}^{\mathcal{W}} & \mathbf{b}_a & \mathbf{b}_\omega \end{bmatrix}^\top
+\end{equation}
+représentant respectivement la position, l'orientation, la vitesse et les biais de l'IMU. Fondé sur la théorie de la contraction, cet observateur garantit une convergence globale théorique. Les états estimés sont réinjectés dans les intégrations IMU ultérieures, fermant ainsi la boucle d'estimation.
 
-À l'inverse de l'étape précédente, le recalage s'effectue cette fois entre le scan courant et la carte locale (\textit{scan-to-map}). Les caractéristiques du nouveau nuage de points sont alignées avec la carte préexistante afin d'affiner l'estimation de pose, garantissant ainsi la cohérence spatiale à long terme.\\
-
-
-Bien que la documentation détaillée du \textit{Kitware SLAM} soit restreinte, cet algorithme intègre un système d'optimisation par graphe de poses \cite{kitware_slam}, capable de réajuster l'ensemble de la carte lors d'une fermeture de boucle (\textit{loop closure}). Il propose également une extraction enrichie de caractéristiques, incluant la détection de ruptures d'intensité lumineuse ou d'amas de points (\textit{blobs}).
-De plus, le module offre la possibilité d'injecter des données exogènes issues d'autres capteurs (IMU, GNSS, INS, odométrie des roues, caméras RGB pour balises visuelles). Toutefois, les essais expérimentaux menés n'ont pas révélé de gain de performance significatif lors de l'intégration directe de l'IMU au sein du SLAM. Cela a justifié le choix de conserver une version exclusivement LiDAR pour le SLAM et de coupler l'IMU de manière externe afin d'élever la fréquence de la localisation. Enfin, certaines fonctionnalités avancées ont dû être restreintes afin d'assurer le respect des contraintes temps réel de la pile logicielle (\textit{stack}).
-
-
-
-\subparagraph{b. Fonctionnement du DLIO SLAM}
-
-L'algorithme DLIO \cite{dlio2023} est une méthode d'odométrie LiDAR-inertielle sobre en calcul et adaptée aux mouvements brusques. Contrairement aux approches fondées sur l'extraction de primitives géométriques (LOAM, Kitware SLAM), DLIO adopte une approche directe opérant directement sur le nuage de points dense.
-
-Son traitement repose sur quatre étapes clés : \\
-\begin{enumerate}
-    \item \textbf{Prétraitement dense :} Alignement spatio-temporel des données LiDAR ($10\text{--}20\text{ Hz}$) et IMU ($100\text{--}500\text{ Hz}$) sans sous-échantillonnage agressif ni extraction de descripteurs.
-    \item \textbf{Correction de mouvement (\textit{deskewing}) :} Compensation analytique des distorsions de balayage par une approche \textit{coarse-to-fine} (intégration IMU et interpolation en forme fermée), générant l'estimation \textit{a priori} $\hat{\mathbf{T}}_{\text{prior}}^{\mathcal{W}}$.
-    \item \textbf{Recalage géométrique (GICP) :} Alignement direct \textit{scan-to-map} du nuage corrigé sur une sous-carte locale d'images-clés (\textit{keyframes}) par minimisation de la distance de Mahalanobis \cite{gicp2009}.
-    \item \textbf{Fusion et mise à jour d'état :} Observateur géométrique non linéaire à convergence garantie, fusionnant le recalage GICP et les mesures IMU pour estimer l'état complet :
-    \begin{equation}
-        \hat{\mathbf{x}}_k = \begin{bmatrix} \mathbf{p}^{\mathcal{W}} & \mathbf{q}^{\mathcal{W}} & \mathbf{v}^{\mathcal{W}} & \mathbf{b}_a & \mathbf{b}_\omega \end{bmatrix}^\top
-    \end{equation}
-    comprenant la position, l'orientation, la vitesse et les biais de l'IMU.
-\end{enumerate}
+\end{description}
 
 
+\subparagraph{c. Comparaison expérimentale DLIO vs Kitware SLAM}:
+
+Afin de comparer la qualité de la localisation des 2 SLAM, nous avons mené une série de tests expérimentaux sur différents terrains. Sur une trajectoire de 320 mètres réalisée dans un environnement naturel relativement riche en obstacles (\hyperref[fig27]{Figure 27}), nous avons obtenu les parcours présenté en annexe \hyperref[annexe5]{[INRAE]} et les courbes suivantes (\hyperref[fig28]{Figure 28} et \hyperref[fig29]{Figure 29}) représentant les positions et orientations estimées par chaque SLAM par rapport à la vérité terrain donnée par le GNSS RTK.\\
+
+\begin{center}
+    \includegraphics[width=0.5\linewidth]{Corps_rapport/inrae.png}
+    \captionof{figure}{Terrain d’essais de l’INRAE Aubière}
+    \label{fig27}
+\end{center}
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Corps_rapport/kitware_position_inrae.png}
+        \caption{position évaluée par kitware}
+        \label{fig:image1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Corps_rapport/dlio_position_inrae.png}
+        \caption{position évaluée par DLIO}
+        \label{fig:image2}
+    \end{subfigure}    
+    \caption{Comparaison des positions Kitware vs DLIO vs vérité terrain}
+    \label{fig28}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Corps_rapport/kitware_RPY_inrae.png}
+        \caption{orientation évaluée par kitware}
+        \label{fig:image1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Corps_rapport/dlio_RPY_inrae.png}
+        \caption{orientation évaluée par DLIO}
+        \label{fig:image2}
+    \end{subfigure}    
+    \caption{Comparaison des orientations Kitware vs DLIO vs vérité terrain}
+    \label{fig29}
+\end{figure}
+
+Au regard des courbes précedentes, on peut constater que les 2 SLAM offrent en environnement structuré des trajectoires alignées avec la vérité terrain. Cependant, le SLAM DLIO présente des erreurs de pose bien plus faible que le SLAM Kitware comme le témoigne la figure (\hyperref[fig30]{Figure 30}) ci-dessous.
+
+\begin{center}
+    \includegraphics[width=1.0\linewidth]{Corps_rapport/Kitware_vs_dlio_metrics.png}
+    \captionof{figure}{Comparaison des erreurs de pose sur le terrain d’essais de l’INRAE Aubière}
+    \label{fig30}
+\end{center}
+
+Puis sur une plus longue trajectoire de près de 1 km réalisée dans un environnement naturel fortement dégagé (\hyperref[fig31]{Figure 31}), nous avons obtenu les parcours présenté en figure ((\hyperref[fig32]{Figure 32})) representants les poses estimées par chaque SLAM par rapport à la vérité terrain donnée par le GNSS RTK.\\
+
+\begin{center}
+    \includegraphics[width=0.5\linewidth]{Corps_rapport/montoldre.png}
+    \captionof{figure}{Terrain d’essais de Montoldre}
+    \label{fig31}
+\end{center}
+
+\begin{center}
+    \includegraphics[width=0.8\linewidth]{Corps_rapport/dlio_vs_kitware_vs_Sbg_montoldre.png}
+    \captionof{figure}{Comparaison des trajectoires DLIO vs Kitware vs vérité terrain en zone dégagée}
+    \label{fig32}
+\end{center}
+
+Au regard de la figure précedente, on constate que le SLAM DLIO, grâce à son couplage inertiel-LiDAR, garantit une très bonne localisation, même en milieu dégagé. Ce n'est pas le cas du SLAM Kitware, qui montre des limites évidentes dans ces conditions. De plus, comme le montre l'annexe \hyperref[annexe6]{[montoldre]}, le SLAM DLIO présente une erreur de position maximale d'environ 1,5 mètre, tandis que celle du SLAM Kitware atteint environ 80 mètres sur un parcours de 1 km. Ces résultats confortent notre choix de changer de SLAM dans le cadre du défi 3.\\
 
 
-
-
+\subparagraph{d. Modifications apportées à DLIO SLAM}:
 
 
 
@@ -125,32 +199,20 @@ Son traitement repose sur quatre étapes clés : \\
 
 \indent Comme le montre la figure ci-dessus, la carte générée par le SLAM DLIO est de bonne qualité et garantit une navigation fiable lorsqu'on la compare à la vérité terrain fournie par le GNSS RTK. Nous avons par la suite évalué les performances du SLAM DLIO en comparant sa trajectoire à la vérité terrain ainsi qu'à celle générée par le SLAM Kitware. C'est dans cette optique que des essais ont été menés sur les sites de l'INRAE d'Aubière et de Montoldre. La méthodologie a consisté, dans un premier temps, à enregistrer un fichier de données (rosbag) lors d'un déplacement en téléopération avec le SLAM DLIO actif, tout en enregistrant la position de référence renvoyée par la centrale de navigation SBG. Dans un second temps, ce bag a été rejoué hors ligne afin d'exécuter le SLAM Kitware et de générer un fichier unique centralisant les trois sources de localisation (GNSS RTK, DLIO et Kitware). Enfin, l'utilisation des outils de la bibliothèque EVO nous a permis de comparer et d'évaluer précisément les performances des deux algorithmes de SLAM par rapport à la vérité terrain (\hyperref[fig27]{Figure 27} et \hyperref[fig28]{Figure 28}).\\
 
-\begin{center}
-    \includegraphics[width=0.8\linewidth]{Corps_rapport/dlio_vs_kitware_vs_Sbg_montoldre.png}
-    \captionof{figure}{Comparaison des trajectoires DLIO vs Kitware vs vérité terrain en zone dégagée}
-    \label{fig27}
-\end{center}
 
-\begin{figure}[h]
-    \centering
-    \begin{subfigure}[b]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{Corps_rapport/dlio_APE_plot_raw.png}
-        \caption{Erreur absolue de position en DLIO}
-        \label{fig:image1}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{Corps_rapport/kitware_APE_plot_raw.png}
-        \caption{Erreur absolue de position en Kitware}
-        \label{fig:image2}
-    \end{subfigure}    
-    \caption{Comparaison des erreurs absolues de position en DLIO vs en Kitware}
-    \label{fig28}
-\end{figure}
-$\ $\
-Au regard des figures (\hyperref[fig27]{Figure 27} et \hyperref[fig28]{Figure 28}) ci-dessus, on constate que le SLAM DLIO, grâce à son couplage inertiel-LiDAR, garantit une très bonne localisation, même en milieu dégagé. Ce n'est pas le cas du SLAM Kitware, qui montre des limites évidentes dans ces conditions. De plus, le SLAM DLIO présente une erreur de position maximale d'environ 1,5 mètre, tandis que celle du SLAM Kitware atteint environ 80 mètres sur un parcours de 1 km. Ces résultats confortent notre choix de changer de SLAM dans le cadre du défi 3.\\
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \subsubsection{Évaluation de la dérive du SLAM DLIO par rapport à la vérité terrain}
 
@@ -227,7 +289,7 @@ Cette carte dynamique a été développée en HTML et s'appuie sur la bibliothè
     \item \textbf{Propriétés à vérifier hors ligne} : Ces propriétés sont vérifiées après le test à partir des données enregistrées (ROS bag). Elles incluent notamment la vérification des trajectoires suivies par le robot, le respect des vitesses de commandes envoyées au robot, l'analyse de l'orientation (roll et pitch) du robot, et l'analyse des diagnostics émis sur l'IHM.\\
 \end{itemize}
 
-\indent Cette checklist présentée en annexe \ref{annex4:test_checklist} n'étant pas exhaustive, elle a été complétée par des points de contrôle pertinents supplémentaires en fonction des besoins et des observations faites lors des tests.\\
+\indent Cette checklist présentée en annexe  \hyperref[annexe4]{[test_checklist]} n'étant pas exhaustive, elle a été complétée par des points de contrôle pertinents supplémentaires en fonction des besoins et des observations faites lors des tests.\\
 
 \indent Afin d'analyser efficacement les propriétés à vérifier hors ligne (après les essais), un générateur automatique de rapports a été développé. Cet outil synthétise les données d'exécution et fournit une analyse visuelle synthétique du déroulement des tests, facilitant ainsi le diagnostic et la prise de décision.\\
 

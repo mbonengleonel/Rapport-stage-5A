@@ -36,7 +36,7 @@
 
 \newpage
 \section*{Annexe 3 : Scénario défi 3 DGA}
-\label{annex3:scenarios_DGA}
+\label{annexe3}
 
 \begin{center}
     \includegraphics[width=\linewidth, height=0.45\textheight, keepaspectratio]{Appendix/scenario1.png}
@@ -51,5 +51,34 @@
     \includegraphics[width=\linewidth, height=0.5\textheight, keepaspectratio]{Appendix/scenarioM.png}
 \end{center}
 
-\includepdf[pages=1, pagecommand={\thispagestyle{fancy}\section*{Annexe 4 : Plan de test - Checklist}\label{annex4:test_checklist}}]{Appendix/test_checklist.pdf}
+\includepdf[pages=1, pagecommand={\thispagestyle{fancy}\section*{Annexe 4 : Plan de test - Checklist}\label{annexe4}}]{Appendix/test_checklist.pdf}
 \includepdf[pages=2-]{Appendix/test_checklist.pdf}
+
+\newpage
+\section*{Annexe 5 : Trajectoire de test INRAE Aubière des SLAM DLIO et Kitware}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1 \linewidth]{Appendix/Traj_Dlio_vs_kitware.png}
+    \label{annexe5}
+\end{figure}
+
+\newpage
+\section*{Annexe 6 : Erreur de position des SLAM DLIO et Kitware sur la boucle de test montoldre}
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Appendix/dlio_APE_plot_raw.png}
+        \caption{Erreur absolue de position en DLIO}
+        \label{fig:image1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Appendix/kitware_APE_plot_raw.png}
+        \caption{Erreur absolue de position en Kitware}
+        \label{fig:image2}
+    \end{subfigure}    
+    \caption{Comparaison des erreurs absolues de position en DLIO vs en Kitware}
+    \label{annexe6}
+\end{figure}
