@@ -1,0 +1,25 @@
+{
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "latexmk (pdflatex + makeglossaries auto)",
+            "tools": ["latexmk"]
+        }
+    ],
+    "latex-workshop.latex.tools": [
+        {
+            "name": "latexmk",
+            "command": "latexmk",
+            "args": [
+                "-pdf",
+                "-f",
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "%DOC%"
+            ]
+        }
+    ],
+    "latex-workshop.latex.autoBuild.run": "onSave"
+    //"latex-workshop.latex.autoBuild.run": "never"
+}
+}

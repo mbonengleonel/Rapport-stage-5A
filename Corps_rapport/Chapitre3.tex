@@ -29,7 +29,7 @@ La pile logicielle (stack) MOBITER nécessite une estimation de pose précise et
     \item \textbf{Une charge computationnelle élevée} : Le SLAM de Kitware constituait le processus le plus budgétivore en ressources calcul de la stack, risquant d'induire des verrous de performance avec l'ajout de nouvelles fonctionnalités.\\
 \end{itemize}
 
-Face à l'allongement prévisible des masquages GNSS lors du défi 3, le SLAM LiDAR de Kitware a été remplacé par l'approche \textbf{DLIO} (Direct LiDAR-Inertial Odometry), caractérisée par une dérive significativement plus faible. Parallèlement, un gestionnaire de discontinuité de localisation a été ajouté pour faire face à la discontinuité de pose lors des transitions SLAM$\rightarrow$GNSS, garantissant le réengagement du GNSS RTK quelle que soit la dérive cumulée tout en maintenant le suivi du scénario.\\
+Face à l'allongement prévisible des masquages GNSS lors du défi 3, le SLAM LiDAR de Kitware a été remplacé par l'approche \textbf{DLIO*} (Direct LiDAR-Inertial Odometry), caractérisée par une dérive significativement plus faible. Parallèlement, un gestionnaire de discontinuité de localisation a été ajouté pour faire face à la discontinuité de pose lors des transitions SLAM$\rightarrow$GNSS, garantissant le réengagement du GNSS RTK quelle que soit la dérive cumulée tout en maintenant le suivi du scénario.\\
 
 \begin{comment}
 Au début de mon stage, l'équipe Mobiter avait engagé des travaux de refonte du module de SLAM (Simultaneous Localization and Mapping). Lors des défis précédents, la solution logicielle reposait exclusivement sur le Kitware SLAM, une approche purement LiDAR. Celle-ci présentait de graves limites dans les environnements très dégagés (comme les grands espaces extérieurs), où la rareté des caractéristiques géométriques et des retours LiDAR nuisait à la qualité de la localisation. De plus, ce composant représentait l'une des charges computationnelles les plus lourdes de la pile logicielle du projet. Afin de pallier ces défauts, le SLAM DLIO (Direct LiDAR-Inertial Odometry), combinant les données LiDAR et une centrale inertielle (IMU), a été choisi comme une alternative plus robuste pour la navigation en milieux ouverts.\\\\ 
@@ -41,7 +41,7 @@ Au début de mon stage, l'équipe Mobiter avait engagé des travaux de refonte d
 
 \subparagraph{a. Fonctionnement du Kitware SLAM}:
 
-Le \textbf{Kitware SLAM} repose sur l'algorithme LOAM (\textit{LiDAR Odometry And Mapping in Real-time}) \cite{loam2014}, qui se décompose en trois étapes principales :\\
+Le \textbf{Kitware SLAM} repose sur l'algorithme LOAM* (\textit{LiDAR Odometry And Mapping in Real-time}) \cite{LOAM}, qui se décompose en trois étapes principales :\\
 
 \begin{description}
     \item \textbf{Le prétraitement et l'extraction des caractéristiques géométriques du nuage de points LiDAR} :\\
@@ -73,9 +73,9 @@ Bien que la documentation détaillée du \textbf{Kitware SLAM} soit restreinte, 
 De plus, le module offre la possibilité d'injecter des données exogènes issues d'autres capteurs (IMU, GNSS, INS, odométrie des roues, caméras RGB pour balises visuelles). Toutefois, les essais expérimentaux menés n'ont pas révélé de gain de performance significatif lors de l'intégration directe de l'IMU au sein du SLAM. Cela a justifié le choix de conserver (dans le cadre du défi 2) une version exclusivement LiDAR pour le SLAM et de coupler l'IMU de manière externe afin d'élever la fréquence de la localisation. Enfin, certaines fonctionnalités avancées ont dû être restreintes afin d'assurer le respect des contraintes temps réel de la pile logicielle (\textbf{stack}).\\
 
 
-\subparagraph{b. Fonctionnement du DLIO SLAM}:
+\subparagraph{b. Fonctionnement du DLIO* SLAM}:
 
-DLIO (Direct LiDAR-Inertial Odometry) \cite{dlio2023} est un algorithme d'odométrie LiDAR-inertielle sobre en calcul et conçu pour maintenir une localisation précise et construire une carte 3D dense même lors de mouvements agressifs ou dans des environnements peu structurés. Contrairement aux approches fondées sur l'extraction de primitives géométriques (LOAM, Kitware SLAM) et le recalage intermédiaire \textbf{scan-to-scan}, DLIO adopte une approche directe opérant directement sur le nuage de points dense. Il réalise un recalage direct \textbf{scan-to-map} grace aux garanties de convergence formelles de son observateur d'état. Son traitement repose sur quatre étapes clés : \\
+DLIO* (Direct LiDAR-Inertial Odometry) \cite{dlio_slam} est un algorithme d'odométrie LiDAR-inertielle sobre en calcul et conçu pour maintenir une localisation précise et construire une carte 3D dense même lors de mouvements agressifs ou dans des environnements peu structurés. Contrairement aux approches fondées sur l'extraction de primitives géométriques (LOAM, Kitware SLAM) et le recalage intermédiaire \textbf{scan-to-scan}, DLIO adopte une approche directe opérant directement sur le nuage de points dense. Il réalise un recalage direct \textbf{scan-to-map} grace aux garanties de convergence formelles de son observateur d'état. Son traitement repose sur quatre étapes clés : \\
 
 \begin{description}
     \item \textbf{Prétraitement et conditionnement des données denses}:\\
@@ -89,8 +89,8 @@ Pendant la durée du balayage LiDAR, les mouvements du robot induisent des disto
     \item \textbf{Fine step} : Pour chaque point du nuage acquis à l’instant relatif $t_n$, DLIO se sert des deux états estimés par l’IMU encadrant $t_n$ pour résoudre un jeu d’équations analytiques sous forme close paramétré uniquement par l’horodatage $t_n$. Ce calcul exact et parallélisable corrige la distorsion (\textbf{deskewing}) et projette le nuage dans le repère monde $\mathcal{W}$, générant une estimation de l'état \textit{a priori} $\hat{\mathbf{T}}_{\text{prior}}^{\mathcal{W}}$ pour le recalage géométrique.\\
 \end{itemize}
     
-    \item \textbf{Recalage géométrique (GICP : Generalized Iterative Closest Point)}:\\
-Grâce à la précision de l'estimation initiale, DLIO s'affranchit du recalage scan-to-scan et effectue directement un alignement scan-to-map. Le nuage corrigé $\hat{\mathcal{P}}_k^{\mathcal{W}}$ est aligné sur une sous-carte locale $\hat{\mathcal{S}}_k^{\mathcal{W}}$ constituée d'images-clés (keyframes). Cet alignement s'appuie sur l'algorithme GICP \cite{gicp2009}, qui modélise la surface locale par des matrices de covariance et minimise la distance de Mahalanobis (correspondance plan-à-plan). L'optimisation produit la transformation $\Delta \hat{\mathbf{T}}_k$, affinant ainsi la pose globale $\hat{\mathbf{T}}_k^{\mathcal{W}}$.\\
+    \item \textbf{Recalage géométrique (GICP* : Generalized Iterative Closest Point)}:\\
+Grâce à la précision de l'estimation initiale, DLIO s'affranchit du recalage scan-to-scan et effectue directement un alignement scan-to-map. Le nuage corrigé $\hat{\mathcal{P}}_k^{\mathcal{W}}$ est aligné sur une sous-carte locale $\hat{\mathcal{S}}_k^{\mathcal{W}}$ constituée d'images-clés (keyframes). Cet alignement s'appuie sur l'algorithme GICP \cite{gicp}, qui modélise la surface locale par des matrices de covariance et minimise la distance de Mahalanobis (correspondance plan-à-plan). L'optimisation produit la transformation $\Delta \hat{\mathbf{T}}_k$, affinant ainsi la pose globale $\hat{\mathbf{T}}_k^{\mathcal{W}}$.\\
 
     \item \textbf{Fusion et mise à jour d'état}: \\
 Pour fusionner les données LiDAR et IMU, DLIO intègre un observateur géométrique non linéaire hiérarchique. Il combine la pose affinée par le GICP aux mesures IMU haute fréquence afin d'estimer l'état complet du système :
@@ -268,7 +268,7 @@ Au regard de la figure ci-dessus, le SLAM DLIO présente une dérive particuliè
 
 \subsubsection{Mise en place du plan de test}
 
-Durant mon stage, il était attendu de moi la conception d'un plan de test rigoureux et reproductible afin d'évaluer les performances de la brique MOBILEX vis-à-vis des exigences du défi 3. Ce protocole vise à garantir la conformité des fonctionnalités du système avec les spécifications de la DGA, tout en assurant la répétabilité des essais, indépendamment de l'ingénieur chargé de leur exécution. Le terrain d'essais retenu pour le déroulement des tests est le site de l'INRAE Aubière du fait de sa proximité contrairement à celui de Montoldre. Il s'agissait ainsi de définir un ensemble de scénarios de test permettant la validation des exigences réglementaires fixées par la DGA (\ref{annex3:scenarios_DGA}).\\
+Durant mon stage, il était attendu de moi la conception d'un plan de test rigoureux et reproductible afin d'évaluer les performances de la brique MOBILEX vis-à-vis des exigences du défi 3. Ce protocole vise à garantir la conformité des fonctionnalités du système avec les spécifications de la DGA, tout en assurant la répétabilité des essais, indépendamment de l'ingénieur chargé de leur exécution. Le terrain d'essais retenu pour le déroulement des tests est le site de l'INRAE Aubière du fait de sa proximité contrairement à celui de Montoldre. Il s'agissait ainsi de définir un ensemble de scénarios de test permettant la validation des exigences réglementaires fixées par la DGA (\hyperref[annexe3]{[règlementation DGA]}).\\
 
 \indent À la suite d'échanges avec mon tuteur, nous avons opté pour le développement d'une carte géographique dynamique. Au sein de celle-ci, le positionnement des obstacles, des points de passage (waypoints) et des trajectoires s'adapte automatiquement au scénario sélectionné par l'opérateur. L'analyse topographique du terrain nous a permis d'identifier les zones propices au déroulement des différents essais. En nous appuyant sur des waypoints connus, nous avons délibérément choisi d'intégrer des obstacles (franchissables ou non) ainsi que des zones d'exclusion sur le site. Le résultat obtenu est illustré par la figure \ref{fig30} (\hyperref[fig30]{Figure 30}).\\
 

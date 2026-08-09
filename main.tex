@@ -47,60 +47,65 @@ dynnumwidth]{tocline}{section,subsection,subsubsection,paragraph} %Permet l'espa
 %    Si vous voulez mettre un abstract décommentez cette partie
 %\end{abstract}
 %\newpage
-\renewcommand{\thepage}{}
+\rfoot{} % Suppress page number display without breaking \thepage
 \renewcommand{\abstractname}{Résumé}
 \begin{abstract}
-Ce rapport vise à présenter le travail réalisé durant mon stage au sein du projet MOBITER, mené par SHERPA Engineering, qui a pour but de développer de nouvelles techniques de navigation permettant à un véhicule de se déplacer de manière autonome dans un environnement inconnu, déstructuré, et dont la fiabilité des capteurs n'est pas garantie.\\\\
-\indent L'approche développée repose sur un modèle numérique d'élévation créé à partir d'une fusion d'informations provennant d'un LIDAR 3D 64 nappes, d'un GNSS, d'un ultrasons et d'une sémantique caméra obtenue grâce à un réseau de neurones Yolo Efficient SAM, avec possibilité de mise à jour avec une méthode SLAM, une planification globale A* et une planification locale prédictive DWA.\\\\
-\indent Les résultats actuels sont que le robot est capable de naviguer à basse vitesse (2m/s) et de cartographier en toute autonomie dans un environnement déstructuré pouvant contenir des obstacles positifs et négatifs.
+Ce rapport présente les travaux réalisés dans le cadre du projet MOBITER, porté par SHERPA Engineering, dont l'objectif est de développer de nouvelles méthodes de navigation autonome pour des véhicules évoluant en environnement inconnu, non structuré et sujet à des dégradations ou indisponibilités de perception capteur.\\\\
+\indent L'approche développée repose sur l'élaboration d'un Modèle Numérique d'Élévation (MNE) issu de la fusion de données provenant d'un LiDAR 3D 64 nappes, d'un GNSS, de capteurs à ultrasons et d'une segmentation sémantique d'images (classes : sol, herbe, eau) réalisée par le réseau de neurones SegFormer. L'architecture logicielle intègre un mode de localisation par SLAM DLIO, associé à un planificateur global A* et un planificateur local prédictif de type DWA (\textit{Dynamic Window Approach}).\\\\
+\indent Les résultats expérimentaux démontrent la capacité du robot à cartographier son environnement et à naviguer en toute autonomie à basse vitesse ($3\text{ m/s}$) au sein d'un milieu non structuré comportant des obstacles positifs et négatifs, de la végétation haute (traversable ou pas) ainsi que des flaques d'eau.
 \end{abstract}
 
 \renewcommand{\abstractname}{Mots-clés}
 \begin{abstract}
 \begin{center}
-    Navigation autonome en milieu déstructuré - Modèle Numérique d'Élévation - Cartographie SLAM - Yolo World - Efficient SAM - Planification globale A* - Planification locale DWA - ROS
+    Navigation autonome en milieu déstructuré - Modèle Numérique d'Élévation - Cartographie SLAM - Segformer - Planification globale A* - Planification locale DWA - ROS
 \end{center}
 \end{abstract}
 \vspace{1.6cm}
+
 \renewcommand{\abstractname}{Abstract}
 \begin{abstract}
-This report aims to present the work carried out during my internship within the MOBITER project, directed by SHERPA Engineering, which aims to develop new robotics techniques to enable a vehicle to move autonomously in an unknown, unstructured environment where sensor reliability is not guaranteed.\\\\
-\indent The developed approach is based on a digital elevation model created from a fusion of LIDAR, GPS, and ultrasound information, and camera semantics obtained using a Yolo World Efficient SAM neural network, with the possibility of updating using a SLAM method, A* global planning, and DWA predictive local planning.\\\\
-\indent The current results show that the robot is able to navigate at low speed (2 m/s) and map autonomously in an unstructured environment that may contain positive and negative obstacles.
-\end{abstract}
+This report presents the work carried out within the framework of the MOBITER project, led by SHERPA Engineering, which aims to develop novel autonomous navigation methods for vehicles operating in unknown, unstructured environments subject to sensor perception degradations or outages.\\\\
+\indent The proposed approach relies on the construction of a Digital Elevation Model (DEM) derived from data fusion across a 64-channel 3D LiDAR, GNSS, ultrasonic sensors, and image semantic segmentation (classes: ground, grass, water) performed by the SegFormer neural network. The software architecture incorporates a localization mode using DLIO SLAM, coupled with an A* global planner and a predictive DWA (\textit{Dynamic Window Approach}) local planner.\\\\
+\indent Experimental results demonstrate the robot's ability to map its environment and navigate fully autonomously at low speeds ($3\text{ m/s}$) within an unstructured environment containing positive and negative obstacles, tall vegetation (traversable or non-traversable), as well as water puddles.
+    \end{abstract}
 
 \renewcommand{\abstractname}{Keywords}
 \begin{abstract}
 \begin{center}
-    Autonomous navigation in unstructured environment - Digital Elevation Model (DEM) - Mapping SLAM - Yolo World - Efficient SAM - A* global planning - DWA predictive local planning - ROS
+    Autonomous navigation in unstructured environment - Digital Elevation Model (DEM) - Mapping SLAM - SegFormer - A* global planning - DWA predictive local planning - ROS
 \end{center}
 \end{abstract}
 \newpage
 \renewcommand{\abstractname}{Remerciements}
 \begin{abstract}
-En premier lieu, je souhaiterais exprimer ma gratitude envers mon tuteur de stage, Thomas Barbier, ainsi que notre référent technique sur le projet Xavier Dauptain, et Richard Arnaud de l'équipe de Nantes qui m’ont apporté un encadrement de qualité. J’ai beaucoup apprécié les longues discussions où nous prenions le temps de poser et d’approfondir un sujet à travers nos idées. Ils ont su me faire confiance en me donnant beaucoup de liberté et d’autonomie. Étant donné leurs grandes connaissances et compétences en robotique mobile, j’ai eu la chance de pouvoir apprendre beaucoup d'eux tout au long de mon séjour chez Sherpa Engineering.\\\\
-Ensuite, j’aimerais remercier l'ensemble de l'équipe UPercEa. J'ai sincèrement adoré travailler à vos côtés, de par la bonne ambiance qui règne au sein de l'équipe et par l'entraide que vous vous apportez.\\\\
-J'aimerais également remercier Hubert Villeneuve de l'INRAE avec qui j'ai réalisé l'ensemble de mes tests sur le terrain. Il m'a donné beaucoup de conseils pour effectuer les tests de manière efficace.\\\\
-D’autre part, je tiens à remercier Roland Chapuis, mon référent Polytech, pour son aide lors de points théoriques bloquants et pour le temps qu'il m'a accordé sur toutes sortes de sujets.\\\\
-Enfin, j’aimerais remercier Myriam Doghmi qui m'a donné des conseils dans la rédaction de ce rapport.
+En premier lieu, je souhaite exprimer ma sincère gratitude envers mon tuteur de stage, Thomas Barbier, ainsi qu'envers Xavier Dauptain, de l'équipe de Nantes, pour la qualité de leur encadrement et leur suivi régulier. J'ai particulièrement apprécié nos échanges approfondis sur les problématiques liées à mes différentes missions, ainsi que la confiance qu'ils m'ont accordée en me confiant une grande autonomie.\\\\
+\indent Grâce à l'expertise reconnue des membres de l'équipe MOBITER en robotique mobile, j'ai pu enrichir considérablement mes connaissances tout au long de mon immersion chez Sherpa Engineering, et plus spécifiquement lors des campagnes d'essais sur le terrain.\\\\
+\indent Je remercie également l'ensemble de l'équipe UPercEa. Ce fut un réel plaisir de travailler à leurs côtés au quotidien, dans un environnement caractérisé par une excellente ambiance et une forte entraide. J'adresse un remerciement particulier à Yoan Douare (équipe UPercEa Clermont-Ferrand) pour son accompagnement précieux et ses conseils avisés lors de l'exécution des tests sur le terrain.\\\\
+\indent Ma reconnaissance va aussi à l'ensemble des membres de l'équipe MOBITER avec lesquels j'ai eu l'occasion de collaborer, pour leur accueil et leur bienveillance lors des réunions hebdomadaires et des différents échanges.\\\\
+\indent Enfin, je tiens à remercier chaleureusement Romuald Aufrère, mon enseignant-référent à Polytech, pour son suivi tout au long de mon projet.
 \end{abstract}
 
 \newpage
 \renewcommand{\thepage}{}
+\rfoot{} % Suppress page number display without breaking \thepage
 \sectionfont{\centering\color{cyan}{}}
 %Commenter la ou les listes dont vous n'avez pas besoin
-\shorttoc{Sommaire}{2} % Only sections and subsections
+\shorttoc{Sommaire}{2} % Sections, subsections
+
 \newpage
 \listoffigures
+
 \newpage
-\glsaddall
-\vspace*{-1.5cm}\printglossary[title=Glossaire]
-\vspace{1cm}
-\textit{Tous les mots suivis d'un astérisque sont définis dans le lexique.}
+\vspace*{-1.5cm}\printglossary[title=Glossaire, nonumberlist]
+
+
 \newpage
 % Générer la table d'abréviations
-\printglossary[type=\acronymtype, title=Table des abréviations]
+\printglossary[type=\acronymtype, title=Table des abréviations, nonumberlist]
 \sectionfont{\color{cyan}{}}
+\vspace{1cm}
+\textit{Tous les mots suivis d'un astérisque sont définis dans le lexique.}
 
 
 %------------ Corps du rapport ----------------
@@ -109,21 +114,29 @@ Enfin, j’aimerais remercier Myriam Doghmi qui m'a donné des conseils dans la 
 \pagestyle{fancy}
 %\fairemarges
 \pagenumbering{arabic} %Début de numerotation avec nombres arabes
+\rfoot{\thepage} % Restore page number display
+\glsaddall % Ajouter toutes les entrées avec des numéros de page valides
+\vspace{-1.5cm}
 
 %penser a changer les input si vous changez les noms des dossiers
 \input{Introduction/Intro}
+
 \newpage
 \input{Corps_rapport/Corps}
-%\newpage
-%\input{Conclusion/Conclusion}
-%\newpage
-%\input{bibliography/bib}
+
 \newpage
-\renewcommand{\thepage}{}
+\input{Conclusion/Conclusion}
+
+\newpage
+\input{bibliography/bib}
+
+\newpage
+\rfoot{} % Suppress page number for TOC page
 \sectionfont{\centering\color{cyan}{}}
 \setcounter{tocdepth}{4}
 \tableofcontents
 \sectionfont{\color{cyan}{}}
+
 \newpage
 \input{Appendix/appendix}
 \end{document}
