@@ -17,6 +17,7 @@
 \hyperref[sec:annexe4]{Annexe 4 : Plan de test - Checklist} \dotfill \pageref{annexe4}\\
 \hyperref[sec:annexe5]{Annexe 5 : Trajectoire de test INRAE Aubière des SLAM DLIO et Kitware} \dotfill \pageref{annexe5}\\
 \hyperref[sec:annexe6]{Annexe 6 : Erreur de position des SLAM DLIO et Kitware sur la boucle de test montoldre} \dotfill \pageref{annexe6}\\
+\hyperrref[sec:annexe7]{Annexe 7 : Comparaison de la pose estimée par le GICP et l'observateur géométrique de DLIO en fonction de l'IMU utilisée} \dotfill \pageref{annexe7}\\
 
 \newpage
 \pagestyle{fancy}
@@ -68,14 +69,14 @@
 \section*{Annexe 6 : Erreur de position des SLAM DLIO et Kitware sur la boucle de test montoldre}
 \begin{figure}[h]
     \centering
-    \begin{subfigure}[b]{0.48\textwidth}
+    \begin{subfigure}[b]{0.5\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Appendix/dlio_APE_plot_raw.png}
         \caption{Erreur absolue de position en DLIO}
         \label{fig:image1}
     \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.48\textwidth}
+    \vfill
+    \begin{subfigure}[b]{0.5\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Appendix/kitware_APE_plot_raw.png}
         \caption{Erreur absolue de position en Kitware}
@@ -83,3 +84,25 @@
     \end{subfigure}    
     \label{annexe6}
 \end{figure}
+
+\newpage
+\section*{Annexe 7 : Comparaison de la pose estimée par le GICP et l'observateur géométrique de DLIO en fonction de l'IMU utilisée}
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Appendix/ouster_cmp_z.png}
+        \caption{Position en Z de DLIO estimée avec l’IMU du Ouster}
+        \label{fig:image1}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}[b]{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Appendix/xsens_cmp_z.png}
+        \caption{Position en Z de DLIO estimée avec l’IMU de la Xsens}
+        \label{fig:image2}
+    \end{subfigure}    
+    \label{annexe7}
+\end{figure}
+
+*\textit{La courbe bleue représente la sortie brute de l'observateur géométrique de DLIO, la courbe verte illustre la sortie brute du GICP, et la courbe rouge correspond à la vérité terrain fournie par la centrale SBG.}
