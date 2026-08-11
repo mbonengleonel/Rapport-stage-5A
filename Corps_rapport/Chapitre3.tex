@@ -574,62 +574,92 @@ Comme présenté dans la section 2.2, le mode de suivi de lisière est un mode d
 
 Malgré plusieurs ajustements fins (\textit{fine-tuning}) des paramètres du planificateur local et du contrôleur \textit{Pure Pursuit} — notamment l'augmentation de l'horizon de planification, la réduction du coût de rotation autour de l'axe $z$ pour le planificateur et l'accroissement de la distance de visée (\textit{lookahead distance}) du contrôleur —, le robot ne parvenait pas à contourner les obstacles présents sur la trajectoire de suivi. Il a été conclu que le contrôleur \textit{Pure Pursuit} n'offrait pas une liberté suffisante au planificateur local de type DWA (\textit{Dynamic Window Approach}). Ce dernier, agissant dans l'espace des commandes, ne pouvait pas modifier suffisamment les consignes de vitesse pour écarter le robot des obstacles. Une solution efficace consistait donc à déformer le chemin généré par l'algorithme de détection de lisière en amont du contrôleur \textit{Pure Pursuit}.\\
 
-À cette fin, nous avons choisi d'implémenter un premier planificateur local dans l'espace de la tâche. Ce module prend en entrée le chemin issu de la détection de lisière ainsi que le nuage de points obstacles au tour du robot. Il génère une nouvelle trajectoire qui garantit le suivi de la lisière à la distance souhaitée tout en évitant les obstacles. Ce nouveau chemin est ensuite transmis au contrôleur \textit{Pure Pursuit}, dont les commandes de vitesse (linéaire et angulaire) sont vérifiées puis ajustées, si nécessaire, par le second planificateur local de type DWA avant d'être envoyées au robot.\\
+À cette fin, nous avons choisi d'implémenter un premier planificateur local dans l'espace de la tâche. Ce module prend en entrée le chemin issu de la détection de lisière ainsi que le nuage de points obstacles au tour du robot. Il génère une nouvelle trajectoire qui garantit le suivi de la lisière à la distance souhaitée tout en évitant les obstacles. Ce nouveau chemin est ensuite transmis au contrôleur \textit{Pure Pursuit}, dont les commandes de vitesse (linéaire et angulaire) sont vérifiées puis ajustées, si nécessaire, par le second planificateur local de type DWA avant d'être envoyées au robot.(\hyperref[fig49]{Figure 49})\\
 
-Après concertation avec mon tuteur et d'autres membres de l'équipe, l'algorithme \textit{Elastic Band} (bandes élastiques) \cite{eband} a été choisi pour réaliser ce planificateur dans l'espace de la tâche.
+Après concertation avec mon tuteur et d'autres membres de l'équipe, l'algorithme \textit{Elastic Band} (bandes élastiques) \cite{eband} a été choisi pour réaliser ce planificateur dans l'espace de la tâche.\\
 
-\paragraph{Fonctionnement du plannificateur Elastic Band}
+\begin{center}
+    \includegraphics[width=1.0\linewidth]{Corps_rapport/org_review_border_follow.png}
+    \captionof{figure}{Flowchart du mode de suivi de lisière revu}
+    \label{fig49}
+\end{center}
 
+Dans la figure ci-dessus, sont représentés en bleu les modules déjà existants dans la stack MOBITER et en jaune le module à rajouter.
 
+\paragraph{Fonctionnement du planificateur Elastic Band}
 
-2. Le concept des Bulles (Bubbles)
+L'approche par \textbf{bandes élastiques} articule la planification globale et le contrôle réactif en temps réel en modélisant une trajectoire initiale sans collision sous la forme d'une structure flexible soumise à des forces virtuelles. En s'ajustant dynamiquement aux flux de données capteurs, la bande se déforme pour générer un parcours fluide et sécurisé face aux obstacles fixes ou mobiles, tout en minimisant localement sa longueur et en conservant la topologie du chemin d'origine. L'intérêt majeur de cette méthode réside dans son optimisation incrémentale : la qualité de la trajectoire s'affine continuellement à mesure que le robot progresse, tout en maintenant une charge de calcul minimale à chaque itération.\\
 
-Pour fonctionner à des fréquences compatibles avec le contrôle temps réel ($\approx 10\text{ Hz}$ à $100\text{ Hz}$), l'algorithme évite le calcul coûteux de l'espace de configuration libre ($C\text{-space}$) global. Il introduit la notion de bulle de liberté locale $B(b)$.  
+L’approche des bandes élastiques telle que proposée à l'origine se compose principalement de deux étapes : 
 
-Définition géométrique (cas holonome 2D) : Pour une configuration $b$, si $p(b)$ représente la distance minimale absolue entre le robot et l'obstacle le plus proche, la bulle $B(b)$ est définie par le disque :$$B(b) = \{q : \Vert{}b - q\Vert{} < p(b)\}$$
-Tout point situé à l'intérieur de cette bulle garantit l'absence de collision avec l'environnement.  
-
-Condition de continuité de la bande : La bande élastique est constituée d'une chaîne discrète de postures (via-points) associées à leurs bulles respectives. Pour garantir l'existence d'une trajectoire continue sans collision, deux bulles consécutives $B(b_i)$ et $B(b_{i+1})$ doivent obligatoirement se chevaucher ($\text{Overlap} \neq \emptyset$).  
-
-Adaptabilité spatiale : La densité de discrétisation varie automatiquement : en zone dégagée, les bulles sont grandes et espacées ; à proximité des obstacles, les bulles rétrécissent, augmentant la résolution locale du chemin.  
-
-Extension aux robots orientables (3 DDL : $x, y, \theta$) : La métrique de distance intègre la rotation via le rayon maximal $r_{\max}$ de la géométrie du robot par rapport à son centre :
-  $$D(\Delta b) = \sqrt{\Delta b_x^2 + \Delta b_y^2} + r_{\max} \vert{}\Delta b_\theta\vert{}$$
-La bulle 3D s'exprime alors comme $B(b) = \{q : D(b - q) < p(b)\}$. 
-
-
-
-
-3. Modélisation de la déformation par forces artificielles
-
-La forme du chemin est régie par un système de forces artificielles appliquées à chaque bulle $b_i$, cherchant un état d'équilibre quasi-statique. 
-
-\textbf{Force interne de contraction ($f_c$)} : Elle simule la tension mécanique d'un élastique pour raccourcir le chemin et supprimer le mou (slack) provoqué par les contours inutiles :
-  $$f_c = k_c \left( \frac{b_{i-1} - b_i}{\Vert{}b_{i-1} - b_i\Vert{}} + \frac{b_{i+1} - b_i}{\Vert{}b_{i+1} - b_i\Vert{}} \right)$$
-où $k_c$ est le gain de tension interne. Les forces sont normalisées pour maintenir une tension uniforme le long de la chaîne.  
-
-\textbf{Force externe de répulsion ($f_r$)} : Elle repousse la bande hors des zones à haut risque pour maximiser la marge de sécurité autour des obstacles :
-  $$f_r = \begin{cases}  k_r (\rho_0 - p) \dfrac{\partial p}{\partial b} & \text{si } p < \rho_0 \\  0 & \text{si } p \ge \rho_0  \end{cases}$$
-où $k_r$ est le gain de répulsion et $\rho_0$ représente le rayon d'influence de l'obstacle. Le gradient $\frac{\partial p}{\partial b}$ est estimé par différences finies locales.  
-
-\textbf{Force modifiée et stabilité ($f^*$)} : Afin d'éviter le glissement longitudinal indésirable des bulles le long de la bande (ce qui provoquerait des cycles infinis de création/suppression de points), la force totale subie par une bulle est projetée sur l'axe orthogonal à la trajectoire :
-  $$f^* = f - \frac{f \cdot (b_{i-1} - b_{i+1})}{\Vert{}b_{i-1} - b_{i+1}\Vert{}^2} (b_{i-1} - b_{i+1})$$
-
-
-Lors du déplacement du robot ou des obstacles, la bande ajuste sa structure topologique par ré-échantillonnage :  
 \begin{itemize}
-    \item Insertion de bulles : Si l'écartement entre deux bulles adjacentes devient trop grand au point de rompre leur chevauchement, une nouvelle bulle est insérée au milieu pour restaurer l'intégrité topologique du chemin. Si l'insertion échoue à rétablir le recouvrement, le déplacement est invalidé (signal d'échec nécessitant une re-planification globale).  
-    \item Suppression de bulles : Si la bulle $B(b_i)$ devient redondante (i.e. si ses deux voisines $B(b_{i-1})$ et $B(b_{i+1})$ se chevauchent directement), la bulle $B(b_i)$ est supprimée pour alléger la charge de calcul.
+\renewcommand{\labelitemi}{$\bullet$}
+    \item \textbf{raffinement de la bande} : Cette étape consiste à supprimer les bulles inutiles et à combler les lacunes de la bande afin de réduire la charge de calcul.
+    \item \textbf{optimisation de la bande} : Cette étape consiste à calculer les forces internes et externes et à modifier les positions des bulles en conséquence.
 \end{itemize}
- 
 
+
+\subparagraph{a. Le concept des Bulles (Bubbles)}:
+
+Pour fonctionner à des fréquences compatibles avec le contrôle temps réel ($\approx 10\text{ Hz}$ à $100\text{ Hz}$), l'algorithme évite le calcul coûteux de l'espace de configuration libre ($C\text{-space}$) global. Il introduit la notion de bulle de liberté locale $B(b)$.\\
+
+\begin{itemize}
+
+    \item \textbf{Définition géométrique (cas holonome 2D)} : Pour une configuration $b$, si $p(b)$ représente la distance minimale absolue entre le robot et l'obstacle le plus proche, la bulle $B(b)$ est définie par le disque :$$B(b) = \{q : \Vert{}b - q\Vert{} < p(b)\}$$
+    Tout point situé à l'intérieur de cette bulle garantit l'absence de collision avec l'environnement. \\
+
+    \item \textbf{Extension aux robots orientables (3 DDL : $x, y, \theta$)} : La métrique de distance intègre la rotation via le rayon maximal $r_{\max}$ de la géométrie du robot par rapport à son centre :
+    $$D(\Delta b) = \sqrt{\Delta b_x^2 + \Delta b_y^2} + r_{\max} \vert{}\Delta b_\theta\vert{}$$
+    La bulle 3D s'exprime alors comme $B(b) = \{q : D(b - q) < p(b)\}$. \\
+
+    \item \textbf{Condition de continuité de la bande} : La bande élastique est constituée d'une chaîne discrète de postures (via-points) associées à leurs bulles respectives. Pour garantir l'existence d'une trajectoire continue sans collision, deux bulles consécutives $B(b_i)$ et $B(b_{i+1})$ doivent obligatoirement se chevaucher ($\text{Overlap} \neq \emptyset$).\\
+
+    \item \textbf{Adaptabilité spatiale} : La densité de discrétisation varie automatiquement. En zone dégagée, les bulles sont grandes et espacées, tandis qu'à proximité des obstacles, les bulles rétrécissent, augmentant la résolution locale du chemin.
+
+\end{itemize}
+
+
+\subparagraph{b. Modélisation de la déformation par forces artificielles}:
+
+La forme du chemin est régie par un système de forces artificielles appliquées à chaque bulle $b_i$, cherchant un état d'équilibre quasi-statique. \\
+
+\begin{itemize}
+
+    \item \textbf{Force totale ($f$)} : La force totale appliquée à la bulle $b_i$ est la somme vectorielle des forces internes de contraction et des forces externes de répulsion :
+    $$f = f_c + f_r$$ \\
+
+    \item \textbf{Force interne de contraction ($f_c$)} : Elle simule la tension mécanique d'un élastique pour raccourcir le chemin et supprimer le mou (slack) provoqué par les contours inutiles :
+    $$f_c = k_c \left( \frac{b_{i-1} - b_i}{\Vert{}b_{i-1} - b_i\Vert{}} + \frac{b_{i+1} - b_i}{\Vert{}b_{i+1} - b_i\Vert{}} \right)$$
+    où $k_c$ est le gain de tension interne. Les forces sont normalisées pour maintenir une tension uniforme le long de la chaîne. \\
+
+    \item \textbf{Force externe de répulsion ($f_r$)} : Elle repousse la bande hors des zones à haut risque pour maximiser la marge de sécurité autour des obstacles :
+    $$f_r = \begin{cases}  k_r (\rho_0 - p) \dfrac{\partial p}{\partial b} & \text{si } p < \rho_0 \\  0 & \text{si } p \ge \rho_0  \end{cases}$$
+    où $k_r$ est le gain de répulsion et $\rho_0$ représente le rayon d'influence de l'obstacle. Le gradient $\frac{\partial p}{\partial b}$ est estimé par différences finies locales. \\
+
+    \item \textbf{Force modifiée et stabilité ($f^*$)} : Afin d'éviter le glissement longitudinal indésirable des bulles le long de la bande (ce qui provoquerait des cycles infinis de création/suppression de points), la force totale subie par une bulle est projetée sur l'axe orthogonal à la trajectoire :
+    $$f^* = f - \frac{f \cdot (b_{i-1} - b_{i+1})}{\Vert{}b_{i-1} - b_{i+1}\Vert{}^2} (b_{i-1} - b_{i+1})$$ \\
+
+\end{itemize}
+
+Lors du déplacement du robot ou des obstacles, la bande ajuste sa structure topologique par ré-échantillonnage :  \\
+\begin{itemize}
+\renewcommand{\labelitemi}{$\rightarrow$}
+    \item Insertion de bulles : Si l'écartement entre deux bulles adjacentes devient trop grand au point de rompre leur chevauchement, une nouvelle bulle est insérée au milieu pour restaurer l'intégrité topologique du chemin. Si l'insertion échoue à rétablir le recouvrement, le déplacement est invalidé (signal d'échec nécessitant une re-planification globale).  
+    \item Suppression de bulles : Si la bulle $B(b_i)$ devient redondante (i.e. si ses deux voisines $B(b_{i-1})$ et $B(b_{i+1})$ se chevauchent directement), la bulle $B(b_i)$ est supprimée pour alléger la charge de calcul.\\
+\end{itemize}
+
+ 
+\begin{comment}
 Garantit la continuité $C^1$ de la trajectoire (ex. via splines sous contrainte de bulles), éliminant les arrêts aux angles morts. 
 Calcul local basé uniquement sur la distance à l'obstacle le plus proche $p(b)$, dispensant de construire la map $C\text{-space}$ globale.  
 Absorbe les bruits de perception et les obstacles imprévus en déformant la trajectoire sans recalculer un plan complet.  
 La chaîne de bulles fournit une preuve géométrique formelle que la trajectoire déformée reste strictement sans collision.
+\end{comment}
+
+La trajectoire locale modifiée qui en résulte est ensuite transmise à un suiveur de trajectoire local qui calcule le point d’intersection entre la séquence de lignes reliant les centres des bulles et la circonférence de la bulle autour du robot. Le suiveur de trajectoire fait varier la vitesse en fonction de la taille des bulles et calcule enfin une vitesse sûre en tenant compte des limites de vitesse du robot et des bulles suivantes.
 
 
-
+\paragraph{Résultat de l'implémentateur de  l'Elastic Band sur le mode de suivi de lisière}
 
 
 \begin{comment}
