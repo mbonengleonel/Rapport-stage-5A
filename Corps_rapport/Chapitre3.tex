@@ -517,7 +517,136 @@ Ce module a pour objectif principal de fournir une représentation visuelle dyna
 \end{center}
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \subsubsection{Proposition de méthode d'automatisation de la validation de tests en robotique mobile: cas d'application sur Mobiter}
+
+La validation des systèmes autonomes (robots agricoles, drones, véhicules autonomes, robots sous-marins) repose traditionnellement sur des expérimentations sur le terrain. Bien qu'indispensables, ces essais réels présentent de fortes contraintes : un coût financier élevé, des risques matériels et humains, ainsi qu'une répétabilité limitée en raison de la variabilité des conditions environnementales.  
+
+Pour répondre à ces limites, le test en simulation s'est imposé comme une démarche complémentaire majeure. Il permet d'exécuter de façon intensive des suites de tests à moindre coût et en toute sécurité. Les architectures logicielles de simulation se déclinent principalement sous trois formes :  \\
+
+\begin{itemize}
+    \item Model-in-the-Loop (MiL) : vérification précoce sur des modèles abstraits (ex. Simulink).
+    \item Software-in-the-Loop (SiL) : intégration du logiciel embarqué réel dans un environnement virtuel simulant capteurs et actionneurs.
+    \item Hardware-in-the-Loop (HiL) / Vehicle-in-the-Loop (ViL) : exécution sur le matériel physique connecté à des composants virtuels.\\
+\end{itemize}
+
+L'automatisation complète de la chaîne de validation soulevait trois verrous scientifiques et techniques fondamentaux : la spécification d'un oracle de test automatisé, la génération de cas de test contraints et variés, et la prise en compte du non-déterminisme.
+
+\paragraph{Méthode basée sur la spécification et l'automatisation des oracles de test}
+
+Le problème de l'oracle de test consiste à déterminer automatiquement si le comportement observé lors d'une exécution correspond au comportement attendu. En robotique autonome, la définition d'un oracle est complexe en raison de l'effet « boule de neige » des décisions logicielles, du volume massif de données produites et de l'absence de spécification complète.
+
+\subparagraph{Oracles basés sur des invariants et propriétés de sûreté}:
+
+Pour contourner la difficulté de prédiction exacte de la trajectoire d'un robot, une approche privilégiée consiste à définir des oracles spécifiés reposant sur des invariants fonctionnels et de sécurité.\cite{2021TOU30119b}  \\
+
+Dans les travaux portant sur le robot agricole Oz et le robot sous-marin REMI, les oracles ont été formalisés autour d'une classification de propriétés :  \\
+
+\begin{itemize}
+    \item Propriétés liées aux phases de mission : contrôle du respect de la séquence d'étapes (ex. suivi de ligne, manœuvre de demi-tour, transition vers l'inter-rang suivant).
+    \item Seuils physiques et cinématiques : vérification des vitesses maximales, des angles de braquage ou des accélérations par rapport aux limites de sécurité fixées.
+    \item Événements catastrophiques et sécurité : détection de collisions, franchissement des limites du terrain, déclenchement inapproprié des arrêts d'urgence ou dépassement des seuils de batterie.
+    \item Gestion des erreurs et perception : vérification de la cohérence des messages d'erreur et de la bonne détection des repères visuels ou laser (ex. piquets de fin de rang).  \\
+\end{itemize}
+
+Ces oracles peuvent fournir un verdict binaire (Pass/Fail) ou un score quantifié (ex. degré d'écart par rapport à une consigne), permettant de cerner les défaillances par niveau de sévérité.
+
+
+
+
+\subparagraph{Oracles métamorphiques}:
+
+Lorsque la spécification exacte est absente, les oracles peuvent reposer sur des relations métamorphiques. Cela consiste à vérifier la cohérence des sorties entre plusieurs exécutions liées par des transformations géométriques ou environnementales (ex. invariance du comportement sous rotation ou translation du terrain).
+
+
+
+
+\paragraph{Méthodes basées sur la génération automatique de cas de test contraints}
+
+Pour alimenter les campagnes de tests en simulation, il est nécessaire de générer automatiquement des environnements virtuels complexes (topographie, obstacles, conditions de mission).\cite{2021TOU30119b} 
+
+\subparagraph{Approches existantes : Reproduction vs Génération procédurale}:
+
+Reproduction de cas réels : extraction de scènes virtuelles à partir de données réelles enregistrées (cartes GPS, nuages de points). Très utilisée dans l'automobile, cette méthode est limitée par la faible diversité des scènes rejouées. 
+
+Génération procédurale : création synthétique reposant sur des algorithmes stochastiques (ex. bruit de Perlin pour les cartes de hauteur/relief). Elle assure une forte diversité, mais peine à respecter strictement des règles métiers complexes.  
+
+\subparagraph{Approche déclarative hybride : Le framework TAF (Testing Automation Framework)}:
+
+Pour surmonter les limites des approches traditionnelles de type generate-then-filter (inaptes aux environnements très contraints), Clément Robert propose le framework TAF. TAF repose sur un langage spécifique au domaine basé sur XML (XML-TAF) combinant un modèle de données purement déclaratif et la gestion de contraintes complexes.  
+
+L'architecture de TAF met en œuvre une méthode de résolution hybride :\\
+
+\begin{itemize}
+    \item Modélisation abstraite : description des entités de la scène (légumes, rangées, obstacles, paramètres de mission) sous forme de nœuds et de paramètres régis par des distributions statistiques.
+    \item Résolution par couche et solveur SMT : utilisation d'un solveur SMT (ex. Z3) pour résoudre les contraintes logiques et arithmétiques inter-variables, couplée à un échantillonnage aléatoire pour préserver la diversité des données générées.\\
+\end{itemize}
+
+Évalué sur plusieurs cas d'étude (dont la génération de champs de légumes pour le robot Oz), TAF démontre des performances supérieures ou compétitives par rapport à des outils comme PLEDGE, tout en garantissant un haut niveau de couverture de l'espace de test. 
+
+
+\paragraph{Prise en compte du non-déterminisme et tests de non-régression}
+
+L'application des tests de non-régression en robotique mobile se heurte au non-déterminisme intrinsèque des systèmes autonomes.
+
+\subparagraph{Origines du non-déterminisme}:
+
+Le comportement d'un robot varie entre deux exécutions d'un même cas de test. Ce phénomène découle de plusieurs facteurs :  \\
+
+\begin{itemize}
+    \item L'architecture logicielle multithread et les communications asynchrones en best-effort (ex. middlewares comme ROS).
+    \item L'utilisation d'algorithmes décisionnels approchés (heuristiques de planification de trajectoire).
+    \item Les décalages horlogers et concurrences propres à la plate-forme de simulation elle-même.\\
+\end{itemize}
+
+\subparagraph{Stratégie de répétition vs exploration}:
+
+Pour qu'un test de non-régression fournisse un verdict fiable (éviter les faux positifs ou négatifs dûs au non-déterminisme), les travaux de [Robert et al., IRC 2020] préconisent d'évaluer l'impact du nombre de répétitions. En exécutant de façon répétée une suite de tests ($X_{N,M}$ exécutions), l'étude démontre que :  \\
+
+\begin{itemize}
+    \item Une exécution unique est insuffisante pour garantir la détection d'une défaillance intermittente.  
+    \item Un compromis optimal entre coût de calcul et fiabilité de détection permet de fixer un nombre minimal de répétitions (ex. 5 répétitions par cas de test) pour stabiliser le verdict d'oracle.  
+\end{itemize}
+
+
+
+\paragraph{Synthèse et perspectives} 
+
+L'automatisation du test en robotique mobile repose sur une chaîne outillée intégrée : \\
+
+\begin{itemize}
+    \item Modélisation déclarative et génération SMT (TAF) pour créer des environnements structurés, variés et physiquement valides.
+    \item Exécution en simulation SiL (Gazebo/ROS) répétée plusieurs fois pour absorber le non-déterminisme du système.
+    \item Analyse automatisée par oracles basés sur des invariants pour porter un verdict binaire ou quantifié sans intervention humaine.\\
+\end{itemize}
+
+Ces recherches démontrent que le test en simulation ne doit plus être considéré comme un simple outil de prototypage, mais comme un pilier rigoureux et automatisé du processus de qualification et de non-régression des logiciels autonomes critiques.
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -605,11 +734,22 @@ Pour fonctionner à des fréquences compatibles avec le contrôle temps réel ($
 
 \begin{itemize}
 
-    \item \textbf{Définition géométrique (cas holonome 2D)} : Pour une configuration $b$, si $p(b)$ représente la distance minimale absolue entre le robot et l'obstacle le plus proche, la bulle $B(b)$ est définie par le disque :$$B(b) = \{q : \Vert{}b - q\Vert{} < p(b)\}$$
+    \item \textbf{Définition géométrique (cas holonome 2D)} : Pour une configuration $b$, si $p(b)$ représente la distance minimale absolue entre le robot et l'obstacle le plus proche, la bulle $B(b)$ est définie par le disque centré sur $b$ et de rayon $q$ tel que:
+    
+    \begin{equation}
+        B(b) = \{q : \Vert{}b - q\Vert{} < p(b)\}  
+        \label{eq9}
+    \end{equation}
+
     Tout point situé à l'intérieur de cette bulle garantit l'absence de collision avec l'environnement. \\
 
     \item \textbf{Extension aux robots orientables (3 DDL : $x, y, \theta$)} : La métrique de distance intègre la rotation via le rayon maximal $r_{\max}$ de la géométrie du robot par rapport à son centre :
-    $$D(\Delta b) = \sqrt{\Delta b_x^2 + \Delta b_y^2} + r_{\max} \vert{}\Delta b_\theta\vert{}$$
+    
+    \begin{equation}
+        D(\Delta b) = \sqrt{\Delta b_x^2 + \Delta b_y^2} + r_{\max} \vert{}\Delta b_\theta\vert{}
+        \label{eq10}
+    \end{equation}
+
     La bulle 3D s'exprime alors comme $B(b) = \{q : D(b - q) < p(b)\}$. \\
 
     \item \textbf{Condition de continuité de la bande} : La bande élastique est constituée d'une chaîne discrète de postures (via-points) associées à leurs bulles respectives. Pour garantir l'existence d'une trajectoire continue sans collision, deux bulles consécutives $B(b_i)$ et $B(b_{i+1})$ doivent obligatoirement se chevaucher ($\text{Overlap} \neq \emptyset$).\\
@@ -626,18 +766,36 @@ La forme du chemin est régie par un système de forces artificielles appliquée
 \begin{itemize}
 
     \item \textbf{Force totale ($f$)} : La force totale appliquée à la bulle $b_i$ est la somme vectorielle des forces internes de contraction et des forces externes de répulsion :
-    $$f = f_c + f_r$$ \\
+    
+    \begin{equation}
+        f = f_c + f_r
+        \label{eq11}
+    \end{equation}
 
     \item \textbf{Force interne de contraction ($f_c$)} : Elle simule la tension mécanique d'un élastique pour raccourcir le chemin et supprimer le mou (slack) provoqué par les contours inutiles :
-    $$f_c = k_c \left( \frac{b_{i-1} - b_i}{\Vert{}b_{i-1} - b_i\Vert{}} + \frac{b_{i+1} - b_i}{\Vert{}b_{i+1} - b_i\Vert{}} \right)$$
+    
+    \begin{equation}
+        f_c = k_c \left( \frac{b_{i-1} - b_i}{\Vert{}b_{i-1} - b_i\Vert{}} + \frac{b_{i+1} - b_i}{\Vert{}b_{i+1} - b_i\Vert{}} \right)
+        \label{eq12}
+    \end{equation}
+
     où $k_c$ est le gain de tension interne. Les forces sont normalisées pour maintenir une tension uniforme le long de la chaîne. \\
 
     \item \textbf{Force externe de répulsion ($f_r$)} : Elle repousse la bande hors des zones à haut risque pour maximiser la marge de sécurité autour des obstacles :
-    $$f_r = \begin{cases}  k_r (\rho_0 - p) \dfrac{\partial p}{\partial b} & \text{si } p < \rho_0 \\  0 & \text{si } p \ge \rho_0  \end{cases}$$
+    
+    \begin{equation}
+        f_r = \begin{cases}  k_r (\rho_0 - p) \dfrac{\partial p}{\partial b} & \text{si } p < \rho_0 \\  0 & \text{si } p \ge \rho_0  \end{cases}
+        \label{eq13}
+    \end{equation}    
+    
     où $k_r$ est le gain de répulsion et $\rho_0$ représente le rayon d'influence de l'obstacle. Le gradient $\frac{\partial p}{\partial b}$ est estimé par différences finies locales. \\
 
     \item \textbf{Force modifiée et stabilité ($f^*$)} : Afin d'éviter le glissement longitudinal indésirable des bulles le long de la bande (ce qui provoquerait des cycles infinis de création/suppression de points), la force totale subie par une bulle est projetée sur l'axe orthogonal à la trajectoire :
-    $$f^* = f - \frac{f \cdot (b_{i-1} - b_{i+1})}{\Vert{}b_{i-1} - b_{i+1}\Vert{}^2} (b_{i-1} - b_{i+1})$$ \\
+    
+    \begin{equation}
+        f^* = f - \frac{f \cdot (b_{i-1} - b_{i+1})}{\Vert{}b_{i-1} - b_{i+1}\Vert{}^2} (b_{i-1} - b_{i+1})
+        \label{eq14}
+    \end{equation}
 
 \end{itemize}
 
@@ -659,7 +817,62 @@ La chaîne de bulles fournit une preuve géométrique formelle que la trajectoir
 La trajectoire locale modifiée qui en résulte est ensuite transmise à un suiveur de trajectoire local qui calcule le point d’intersection entre la séquence de lignes reliant les centres des bulles et la circonférence de la bulle autour du robot. Le suiveur de trajectoire fait varier la vitesse en fonction de la taille des bulles et calcule enfin une vitesse sûre en tenant compte des limites de vitesse du robot et des bulles suivantes.
 
 
-\paragraph{Résultat de l'implémentateur de  l'Elastic Band sur le mode de suivi de lisière}
+\paragraph{Résultats de l'implémentateur de  l'Elastic Band sur le mode de suivi de lisière}
+
+Une fois le rajout de l'algorithme de bandes élastiques implémenté \cite{eband_planner} dans la stack, la modification du chemin de suivi de lisière a été testée en simulation. Les résultats ont montré que le robot était désormais capable de contourner les obstacles présents sur la trajectoire de suivi à condition que ces obstacles ne se trouvent pas directement sur le chemin de suivi car ceci résulte en un échec de l'optimiseur de l'algorithme de bandes élastiques qui se retrouve coincé dans un minimum local. La \hyperref[fig50]{Figure 50} suivante illustre bien cet echec : \\
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Corps_rapport/eband_3.png}   
+        \caption{Contournement réussi d'un obstacle proche du chemin de suivi sans compression des bulles}
+        \label{fig:image1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Corps_rapport/eband_2.png}
+        \caption{Contournement réussi d'un obstacle proche du chemin de suivi avec compression des bulles}
+        \label{fig:image2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Corps_rapport/eband_1.png}
+        \caption{Échec du contournement d'un obstacle placé directement sur le chemin de suivi}
+        \label{fig:image3}
+    \end{subfigure}
+    \caption{Résultats de l'implémentation de l'algorithme original de bandes élastiques sur le suivi de lisière}
+    \label{fig50}
+\end{figure}
+
+La \hyperref[fig:image3]{Figure 50(c)} illustre un échec de contournement lorsque l'obstacle est placé directement sur le chemin de suivi. Ce ci est logique car l'optimiseur de l'algorithme de bandes élastiques se retrouve coincé dans un minimum local. En effet, d'apres l'equation \eqref{eq13}, la gradient $\frac{\partial p}{\partial b}$ est nul lorsque le point representatif du robot se trouve sur l'obstacle et $p$ devient nulle, ce qui empêche l'optimiseur de se déplacer vers une position plus sûre car aucune force répulsive n'est générée.\\
+
+La \hyperref[fig:image3]{Figure 50(c)} illustre un échec de contournement lorsque l'obstacle est placé directement sur le chemin de suivi. Ce comportement s'explique par le fait que l'optimiseur de l'algorithme des bandes élastiques se retrouve coincé dans un minimum local. En effet, d'après l'équation \eqref{eq13}, le gradient $\frac{\partial p}{\partial b}$ s'annule lorsque le point représentatif du robot se situe exactement sur l'obstacle et que la distance $p$ devient nulle. Cela empêche l'optimiseur de dévier la trajectoire vers une position plus sûre, aucune force répulsive n'étant alors générée.\\
+
+
+
+\paragraph{Modification de l'optimiseur de l'algorithme de bandes élastiques}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \begin{comment}
