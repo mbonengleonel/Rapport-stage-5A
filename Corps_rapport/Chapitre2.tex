@@ -1,6 +1,6 @@
 \section{Présentation des briques logicielles du robot}
 Les développements logiciels se font sous le middleware ROS* (noetic), ce qui permet de développer sur une base standardisée offrant de nombreuses fonctionnalités et outils pour faciliter l'intégration des apports des différents acteurs à la Brique MOBILEX*. L'utilisation de ce middleware nous permet d'organiser le code comme un ensemble de briques élémentaires effectuant des fonctions bien définies prenant des données en entrées et retournant les résultats en sortie. L'assemblage de ces différentes briques constitue notre Brique MOBILEX*. Cette organisation permet si nécessaire d'ajouter, retirer ou remplacer des fonctions élémentaires sans avoir à modifier le reste des fonctions. De plus, les fonctions intensives en calcul sont développées en C++ pour répondre à des contraintes de temps réel et les autres en Python car plus rapide à développer.\\\\
-\indent Un schéma synoptique de l'architecture du système est donné ci-dessous (\hyperref[fig13]{Figure 13}):\\
+\indent Un schéma synoptique de l'architecture du système est donné ci-dessous (Figure \ref{fig13}):\\
 \begin{itemize}
 \renewcommand{\labelitemi}{$\bullet$}
     \item Les modules et données de bas-niveau et hardware sont représentés en rouge.
@@ -21,7 +21,7 @@ Les briques de perception de l'environnement ont pour objectif de récolter des 
 \subsubsection{Modèle Numérique d'Élévation}
 La brique de cartographie selon un MNE (Modèle Numérique d'Élévation) se compose de deux parties : une librairie en C++ permettant de générer le MNE et un noeud ROS* permettant d'utiliser le MNE pour concevoir des cartes d'élévations correspondant aux modalités du Challenge.\\
 
-\indent Le MNE permet de concevoir une représentation en vue de dessus de l'élévation de l'environnement sous la forme d'une carte de chaleur discrète (\hyperref[fig14]{Figure 14}) d'une résolution de 10x10cm. Il est construit à partir des données de position du robot, de ses vitesses 3D et des points LIDAR*. Ces données sont reçues de façon asynchrone et mises dans des tampons. Pour chaque nouvelle donnée, une partie de la carte, de 40x40m centrée autour de la position du robot, est publiée. Le MNE est mis à jour sur reception d'un scan LIDAR*, provoquant un ensemble d'interpolations pour trouver la vitesse et la position exacte du robot au moment exact du début du scan. Le nuage de points fourni par le LIDAR* est ainsi corrigé en distorsion en utilisant le début du scan comme référence et replacé dans le repère monde. Chaque point du nuage ainsi constitué sert alors à actualiser les valeurs d'élévations maximales présentes dans les tuiles de la carte grâce à un filtrage de Kalman* se servant de la position du robot et de la position des impacts LIDAR* et de leurs covariances associées.\\
+\indent Le MNE permet de concevoir une représentation en vue de dessus de l'élévation de l'environnement sous la forme d'une carte de chaleur discrète (Figure \ref{fig14}) d'une résolution de 10x10cm. Il est construit à partir des données de position du robot, de ses vitesses 3D et des points LIDAR*. Ces données sont reçues de façon asynchrone et mises dans des tampons. Pour chaque nouvelle donnée, une partie de la carte, de 40x40m centrée autour de la position du robot, est publiée. Le MNE est mis à jour sur reception d'un scan LIDAR*, provoquant un ensemble d'interpolations pour trouver la vitesse et la position exacte du robot au moment exact du début du scan. Le nuage de points fourni par le LIDAR* est ainsi corrigé en distorsion en utilisant le début du scan comme référence et replacé dans le repère monde. Chaque point du nuage ainsi constitué sert alors à actualiser les valeurs d'élévations maximales présentes dans les tuiles de la carte grâce à un filtrage de Kalman* se servant de la position du robot et de la position des impacts LIDAR* et de leurs covariances associées.\\
 \begin{center}
     \includegraphics[width=0.4\linewidth]{Corps_rapport/MNE.png}
     \captionof{figure}{Extrait du Modèle Numérique d’Élévation sous forme d’une carte de chaleur}
@@ -30,7 +30,7 @@ La brique de cartographie selon un MNE (Modèle Numérique d'Élévation) se com
 $\ $\
 
 \indent Le noeud ROS* associé au MNE récupère la carte de 40x40m centrée autour du robot pour construire une carte de gradients, en utilisant un filtre de Sobel de taille 3x3 tuiles (30x30cm). Le Filtre de Sobel est un opérateur utilisé en traitement d'image pour faire de la détection de contours. Il permet de calculer le gradient d'intensité de chaque pixel ce qui indique la direction de la variation ainsi que son intensité, ce qui permet de faire ressortir les contours d'une image. En détournant cet usage sur notre carte d'élévation où la couleur nous donne une information sur la hauteur, on obtient une information sur les variations de hauteur pour chaque tuile.\\\\
-\indent On vient ensuite seuiller notre carte de gradients afin d'obtenir une information correspondant aux différentes hauteurs d’obstacles à différencier pour le défi. La superposition de ces cartes permet d'obtenir une représentation des obstacles autour du robot comme illustré (\hyperref[fig15]{Figure 15}) :\\
+\indent On vient ensuite seuiller notre carte de gradients afin d'obtenir une information correspondant aux différentes hauteurs d’obstacles à différencier pour le défi. La superposition de ces cartes permet d'obtenir une représentation des obstacles autour du robot comme illustré (Figure \ref{fig15}) :\\
 \begin{center}
     \includegraphics[width=0.4\linewidth]{Corps_rapport/Carte_obstacles.png}
     \captionof{figure}{Représentation des obstacles autour du robot}
@@ -49,7 +49,10 @@ $\ $\
 
 
 \subsubsection{Segmentation d'image}
-La brique de segmentation d'image* permet d'extraire des informations sémantiques à partir d'une image caméra. Pour ce faire, elle utilise une combinaison de deux réseaux de neurones : un détecteur open-set, YOLO World \cite{yoloworld2024}, et un réseau de segmentation*, Efficient SAM \cite{efficientsam2024}.\\\\
+La brique de segmentation d'image* permet d'extraire des informations sémantiques à partir des images caméra. Elle a subi une modification complète par rapport aux années précédentes du défi. La combinaison des deux réseaux de neurones (détecteur open-set, YOLO World \cite{yoloworld2024} et un réseau de segmentation*, Efficient SAM \cite{efficientsam2024}) employée lors du défi 2 a été remplacée par un réseau de segmentation unique Segformer \cite{segformer}.\\
+
+
+\begin{comment}
 \indent Le détecteur open-set YOLO World est un réseau de neurones qui prend en entrée une image ainsi qu'un texte décrivant l'objet à détecter et à localiser. Il fournit en sortie des boîtes englobantes représentant les zones où les objets ont été détectés.\\\\
 \indent Ce détecteur est dit open-set car, contrairement aux autres modèles YOLO, il est capable de détecter des objets qui ne figuraient pas dans son jeu de données d'entraînement initial. Cela est rendu possible grâce à l'intégration de techniques avancées d'apprentissage automatique et de traitement du langage naturel, permettant au modèle de comprendre et d'interpréter une large gamme d'objets à partir de descriptions textuelles.\\\\
 \indent Une fois les objets détectés dans l'image, la sortie de YOLO World est utilisée comme entrée pour Efficient SAM, une version optimisée pour l'embarqué du réseau de neurones SAM \cite{segmentanything2023}. Efficient SAM se charge de segmenter précisément les objets en coloriant les pixels au sein des boîtes englobantes, ce qui nous donne le résultat (\hyperref[fig16]{Figure 16}) : \\
@@ -61,7 +64,12 @@ La brique de segmentation d'image* permet d'extraire des informations sémantiqu
 $\ $\
 
 \indent Pour assurer un fonctionnement en temps réel, ces réseaux sont optimisés en supprimant les poids dont la valeur est proche de zéro, réduisant ainsi le nombre de paramètres. Cette optimisation est réalisée avec TensorRT. Une optimisation plus performante également envisagée serait d'utiliser des réseaux de neurones plus précis comme SAM et de réaliser une distillation de connaissances en entraînant un réseau de neurones constitué de moins de paramètres et spécialisé pour notre cas d'application à l'aide des sorties du réseau plus important.\\\\
-\indent L'objectif à terme est de fusionner cette information sémantique dans la brique du Modèle Numérique d'Environnement (MNE) pour ajouter une notion de traversabilité aux obstacles de la carte.
+
+\end{comment}
+
+\indent SegFormer est une architecture de réseau de neurones dédiée à la segmentation sémantique d'images. À partir d'une image en entrée, il génère une carte de segmentation attribuant chaque pixel à une classe spécifique — dans notre cas : sol, hautes herbes et eau. Le réseau a d'abord été pré-entraîné sur le jeu de données public COCO, qui regroupe une large variété d'images annotées, puis affiné (fine-tuning) sur une base de données d'images propriétaires du groupe MOBITER. Ces données ont été acquises via la caméra ZED du robot lors de campagnes de collecte (ciblant les hautes herbes traversables et les flaques d'eau) réalisées sur les sites INRAE d'Aubière et de Montoldre.\\
+
+\indent L'objectif est de fusionner cette information sémantique (sol, hautes herbes et eau) dans la brique du Modèle Numérique d'Environnement (MNE) pour ajouter une notion de traversabilité aux obstacles haute herbes et eau de la carte en mode dégradé. Et ainsi répondre aux exigences du défi 3.
 
 
 
@@ -89,7 +97,7 @@ où $n$ est le noeud exploré, $k$ est le noeud précédent et $a$ est l'action 
 
 \indent Il explore alors le noeud dont le coût est le plus faible en ajoutant les poids des chemins voisins ainsi que le coût des noeuds voisins et répète l'exploration jusqu'à atteindre l'objectif.\\
 
-\indent La \hyperref[fig17]{Figure 17} est une représentation étape par étape de l'exploration d'une carte par l'algorithme de Dijkstra. Seuls les mouvements (haut, bas, gauche, droite) sont admissibles. La case bleue est le point de départ de l'algorithme, la case verte l'objectif à atteindre et le cercle jaune le noeud en cours d'exploration :
+\indent La Figure \ref{fig17} est une représentation étape par étape de l'exploration d'une carte par l'algorithme de Dijkstra. Seuls les mouvements (haut, bas, gauche, droite) sont admissibles. La case bleue est le point de départ de l'algorithme, la case verte l'objectif à atteindre et le cercle jaune le noeud en cours d'exploration :
 
 \newpage
 
@@ -135,7 +143,7 @@ où $n$ est le noeud exploré, $k$ est le noeud précédent et $a$ est l'action 
 où $c(n)$ est la somme des poids pour atteindre le noeud $n$ (comme dans l'algorithme de Dijkstra) et $h(n)$ est l'heuristique ajoutée pour aiguiller l'exploration vers l'objectif.\\\\
 \indent Cette modification provoque une exploration plus rapide du graphe dès lors que l'heuristique est correctement choisie. Ce qui entrainne une reduction de la charge computationnelle dans le temps, ainsi qu'une plus faible mobilisation et consommation de ressources.\\\\
 \indent Dans notre cas, l'heuristique est la distance à vol d'oiseau entre le noeud et l'objectif tandis que le poids entre deux noeuds est une somme entre la distance parcourue, un critère sur la similitude par rapport à la planification précédente sur les premiers mètres du chemin (afin d'éviter des oscillations) et un critère pondéré lié à la carte de coût du MNE. Le niveau de risque acceptable par le robot peut ainsi être choisi en modifiant la pondération de ce dernier coût, une faible pondération impliquant un chemin pouvant plus se rapprocher des obstacles détectés.\\\\
-\indent La carte de coût utilisée (\hyperref[fig18]{Figure 18}) est similaire à une CostMap de ROS*, avec une zone critique définie autour de chaque obstacle correspondant aux zones où l'on considère que le robot va entrer en collision, une zone de danger où l'on considère que selon l'orientation le robot peut entrer en collision et un champ de potentiel décroissant avec la distance à l'obstacle.\\
+\indent La carte de coût utilisée (Figure \ref{fig18}) est similaire à une CostMap de ROS*, avec une zone critique définie autour de chaque obstacle correspondant aux zones où l'on considère que le robot va entrer en collision, une zone de danger où l'on considère que selon l'orientation le robot peut entrer en collision et un champ de potentiel décroissant avec la distance à l'obstacle.\\
 \begin{center}
     \includegraphics[width=0.4 \linewidth]{Corps_rapport/costmap.png}
     \captionof{figure}{Carte de coût utilisée par la planification globale}
@@ -149,21 +157,21 @@ où $c(n)$ est la somme des poids pour atteindre le noeud $n$ (comme dans l'algo
 Le suivi de lisière se compose de deux modules séquentiels : un module de détection des lisières issu de l'INRAE \cite{deremetz} et un module de suivi des lisières détectées.\\\\
 \indent Le module de détection prend en entrée la carte de gradients seuillée pour les obstacles infranchissables fournie par le MNE, représentant une carte d'occupation 2D (carte encodant la présence d'obstacles, de manière probabiliste ou binaire), et donne en sortie au maximum deux lisières, une à gauche et une à droite. Il génère ensuite une trajectoire associée à une des deux lisières, en fonction du choix de l’utilisateur (suivre la lisière de droite ou de gauche) et l'envoie au module de suivi pour le calcul des commandes et leur envoi à la brique de supervision.\\\\
 \indent La méthode de détection active de lisière implémentée repose sur l'adaptation de la détection de forme Snake contour et l'algorithme « Ball-Pivoting ». Cette approche permet de capturer uniquement les contours extérieurs des structures les plus proches du robot. La carte d'occupation peut avoir une certaine épaisseur pour des structures non "pleines", comme une haie clairsemée. Dans ce cas, extraire uniquement le contour extérieur permet d'éviter le traitement des points internes et de prévenir l'influence de points d'arrière-plan plus denses.\\\\
-\indent L’algorithme de détection commence par la détection du départ de la lisière à gauche et à droite du robot. Pour cela, on translate un cercle jusqu’à ce que celui-ci intersecte un point. Ce point correspond au premier point de la lisière (\hyperref[fig19]{Figure 19}) :\\
+\indent L’algorithme de détection commence par la détection du départ de la lisière à gauche et à droite du robot. Pour cela, on translate un cercle jusqu’à ce que celui-ci intersecte un point. Ce point correspond au premier point de la lisière (Figure \ref{fig19}) :\\
 \begin{center}
     \includegraphics[width=0.3\linewidth]{Corps_rapport/lisiere1.png}
     \captionof{figure}{Détection du premier point}
     \label{fig19}
 \end{center}
 $\ $\
-\indent Ensuite, on fait pivoter le cercle pour capturer l'ensemble des points de contour de la lisière (\hyperref[fig20]{Figure 20}) :\\
+\indent Ensuite, on fait pivoter le cercle pour capturer l'ensemble des points de contour de la lisière (Figure \ref{fig20}) :\\
  \begin{center}
     \includegraphics[width=0.3\linewidth]{Corps_rapport/lisiere2.png}
     \captionof{figure}{Détection du contour de la lisière}
     \label{fig20}
 \end{center}
 $\ $\
-\indent Une fois les points de contour identifiés, des points intermédiaires sont ajoutés pour créer un nuage de points de chaque côté, formant une structure serpentine. Ces "serpents" représentent les bords estimés des lisières scannées (\hyperref[fig21]{Figure 21}) :\\
+\indent Une fois les points de contour identifiés, des points intermédiaires sont ajoutés pour créer un nuage de points de chaque côté, formant une structure serpentine. Ces "serpents" représentent les bords estimés des lisières scannées (Figure \ref{fig21}) :\\
  \begin{center}
     \includegraphics[width=0.3\linewidth]{Corps_rapport/lisiere3.png}
     \captionof{figure}{Création du "serpent" à partir des points de contacts du cercle et des points intermédiaires}
@@ -201,7 +209,7 @@ Le retour sur traces et le rejeu de trajectoire sont assurés par la même briqu
 La planification locale se fait dans l’espace de la commande projetée en vue de dessus $(v_{2d},\dot{\alpha}_z)$, $v_{2d}$ étant la vitesse linéaire et $\dot{\alpha_z}$ la vitesse angulaire selon l'axe Z en 2D, en se servant de la carte de gradients seuillée pour les obstacles non franchissables.\\\\
 \indent L’algorithme de planification utilisé est une adaptation de la Dynamic Window Approach (DWA) \cite{fox1997dynamic}. La méthode repose sur l'exploration de l'espace de commande afin de découvrir des combinaisons appropriées par la formulation d'un problème d'optimisation sur un horizon temporel glissant, plus étendu que l'intervalle de commande. L'avantage d'une telle approche pour la planification locale réside dans l'admissibilité cinématique des commandes tandis qu'une approche se limitant à l'espace de la tâche peut engendrer des chemins non praticables. Par exemple, l'utilisation de la planification donnée par le A* basée sur un environnement discrétisé et des champs de potentiels peut produire des inflexions abruptes dans un chemin qu'un robot non holonome ne peut suivre : le robot est incapable d'effectuer "un pas de côté" pour éviter un obstacle.\\\\
 \indent D'autres alternatives de la DWA existent \cite{akmandor20203d, ozdemir2018follow} mais les recherches récentes tentent d'intégrer les contraintes de cinématique et la notion de risque directement dans la carte \cite{rummelhard2014probabilistic, laconte2021lambda, laconte2021novel, benrabah2023dual} ou d'utiliser l'apprentissage pour calculer les commandes optimales à exécuter \cite{hill2022online}. Cependant, ces algorithmes sont plus coûteux en temps de calcul.\\\\
-\indent Des primitives de déplacement de type “arc” en vue de dessus sont évaluées sur un horizon temporel de $2\ s$.  Chaque arc est paramétré par une paire de vitesses $(v_{2d},\dot{\alpha}_z)$ constantes sur la fenêtre temporelle.\\
+\indent Des primitives de déplacement de type “arc” en vue de dessus (Figure \ref{fig22}) sont évaluées sur un horizon temporel de $2\ s$.  Chaque arc est paramétré par une paire de vitesses $(v_{2d},\dot{\alpha}_z)$ constantes sur la fenêtre temporelle.\\
 
 \begin{center}
     \includegraphics[width=0.3\linewidth]{Corps_rapport/DWA_illustration.png}
@@ -209,6 +217,8 @@ La planification locale se fait dans l’espace de la commande projetée en vue 
     \label{fig22}
 \end{center}
 
+
+\begin{comment}
 \indent Le principe de base de l'algorithme « Dynamic Window Approach » (DWA) est le suivant :\\
 \begin{itemize}
 \renewcommand{\labelitemi}{$\bullet$}
@@ -218,7 +228,7 @@ La planification locale se fait dans l’espace de la commande projetée en vue 
     \item Choisir la trajectoire ayant obtenu le meilleur score et envoyer la vitesse associée à la base mobile.
     \item Répéter l’opération. \\
 \end{itemize}
-
+\end{comment}
 
 \indent Le critère optimisé est un critère élaboré par SHERPA Engineering, fonction de l'écart par rapport à la vitesse consigne, de la direction / orientation du robot par rapport à l'objectif et de la présence d'obstacles. Il apparaît que selon la configuration d’obstacles, il n’y a aucune raison pour que ce critère soit convexe. Il est donc optimisé avec une approche en force brute de type grid search. Cette approche consiste à discrétiser l'espace de commande et calculer le coût associé à chaque paire de commandes. La paire avec le plus faible coût étant la commande optimale pour la discrétisation donnée. Une fois la paire optimale trouvée, on calcule les commandes à envoyer au robot $(v,\omega_z)$ pour les adapter à la topologie du terrain dans le repère 3D.\\\\ 
 \indent L'évaluation du terme de la présence des obstacles est lourd en calculs car il demande de générer l'empreinte du robot sur $2 s$ pour chaque paire de commandes. L'empreinte pour une paire de commande étant invariante, ces dernières sont générées en amont du lancement de la Brique MOBILEX* et stockées sous forme de Look-Up Tables. Lors du lancement de la brique de planification locale, elles sont chargées en mémoire vive, permettant de gagner un temps considérable pour trouver la commande optimale à appliquer. La superposition de l'empreinte et de la carte d'obstacles dans le repère du robot permet d'évaluer la présence d'obstacles sur la trajectoire générée.
@@ -279,17 +289,17 @@ informations suivantes sont superposées au flux image : \\
     \item Compas\\
 \end{itemize}
 
-\indent La projection dans l’image des informations définies dans le repère monde a été réalisée à l'aide de la calibration intrinsèque de la caméra ainsi que de la calibration extrinsèque caméra/LIDAR* réalisée auparavant et du système de transformations tf de ROS* permettant de définir une matrice de transformation homogène 4x4 pour projeter les éléments du repère monde vers le repère image. Cette transformation est utilisée pour la représentation des obstacles, des waypoints, des flaques d'eau, des végétations traversables et des chemins afin d'obtenir le retour annoté (\hyperref[fig23]{Figure 23}).\\
+\indent La projection dans l’image des informations définies dans le repère monde a été réalisée à l'aide de la calibration intrinsèque de la caméra ainsi que de la calibration extrinsèque caméra/LIDAR* réalisée auparavant et du système de transformations tf de ROS* permettant de définir une matrice de transformation homogène 4x4 pour projeter les éléments du repère monde vers le repère image. Cette transformation est utilisée pour la représentation des obstacles, des waypoints, des flaques d'eau, des végétations traversables et des chemins afin d'obtenir le retour annoté (Figure \ref{fig23}).\\
 
 \subsubsection{IHM}
-Enfin, la brique IHM fournit une interface graphique (\hyperref[fig23]{Figure 23}) sur le PC débarqué à l'aide du framework ROS RQT. Elle permet au téléopérateur d'accéder au retour visuel annoté, d'envoyer des ordres de mission tout en ajustant les paramètres à sa guise, et d'enregistrer des trajectoires pour les modes « rejeu » et « retour sur traces ». Elle offre également la possibilité de saisir des coordonnées de points à atteindre, de consulter un ensemble de données et de diagnostics pour le débogage, ainsi que de définir et charger des paramètres pour les modes dégradés (hautes herbes, brouillard, etc.).\\
+Enfin, la brique IHM fournit une interface graphique (Figure \ref{fig23}) sur le PC débarqué à l'aide du framework ROS RQT. Elle permet au téléopérateur d'accéder au retour visuel annoté, d'envoyer des ordres de mission tout en ajustant les paramètres à sa guise, et d'enregistrer des trajectoires pour les modes « rejeu » et « retour sur traces ». Elle offre également la possibilité de saisir des coordonnées de points à atteindre, de consulter un ensemble de données et de diagnostics pour le débogage, ainsi que de définir et charger des paramètres pour les modes dégradés (hautes herbes, brouillard, etc.).\\
 \begin{center}
     \includegraphics[width=1\linewidth]{Corps_rapport/rqt.png}
     \captionof{figure}{Interface RQT}
     \label{fig23}
 \end{center}
 
-\indent En parallèle de l'interface RQT, une visualisation RVIZ (\hyperref[fig24]{Figure 24}) peut être lancée. Elle permet d'afficher les différentes cartes générées par la brique MNE, d'observer les chemins planifiés et d'indiquer un point cible directement sur la carte. Une légende y est associée afin d'en faciliter la compréhension.
+\indent En parallèle de l'interface RQT, une visualisation RVIZ (Figure \ref{fig24}) peut être lancée. Elle permet d'afficher les différentes cartes générées par la brique MNE, d'observer les chemins planifiés et d'indiquer un point cible directement sur la carte. Une légende y est associée afin d'en faciliter la compréhension.
 
 \begin{center}
     \includegraphics[width=1\linewidth]{Corps_rapport/rviz.png}
