@@ -264,7 +264,126 @@ avec $f(t)$ la valeur interpolée à l'instant $t$, $t_k$ et $t_{k+1}$ les deux 
 
 Au regard de la figure ci-dessus, le SLAM DLIO présente une dérive particulièrement faible sur un parcours dégagé de 1 km, restant en dessous du seuil de 5 \% présenté par l'état de l'art dès 150 mètres parcourues. Ces résultats confirment définitivement son intégration pour la suite du challenge.\\
 
-Afin d'évaluer l'adéquation des nouvelles fonctionnalités intégrées au module MOBILEX (notamment la navigation autonome reposant sur le SLAM DLIO) avec les exigences du défi 3 du challenge, un plan de test dédié a été conçu.
+Pour évaluer la conformité des nouvelles fonctionnalités intégrées à la brique MOBILEX (notamment la navigation autonome reposant sur le SLAM DLIO) aux exigences du défi 3 du challenge, tout en assurant la non-régression de la stack logicielle, un plan de test dédié a été élaboré. Afin d'adosser cette démarche à l'état de l'art, nous nous sommes intéressés aux approches d'automatisation de la validation de tests de non-régression adoptées au sein de la communauté robotique.
+
+
+
+
+\subsubsection{Méthodes d'automatisation de la validation de tests de non-régression en robotique mobile: cas d'application sur Mobiter}
+
+La validation des systèmes autonomes (robots agricoles, drones, véhicules autonomes, robots sous-marins) repose majoritairement sur des expérimentations sur le terrain. Bien qu'indispensables, ces essais réels présentent de fortes contraintes : un coût financier élevé, des risques matériels et humains, ainsi qu'une répétabilité limitée en raison de la variabilité des conditions environnementales.\\
+
+Les méthodes de test logiciel classiques se retrouvent inadaptées aux systèmes robotiques autonomes car elles ont été conçues pour des logiciels déterministes, isolés du monde physique. Appliquées à la robotique, elles se heurtent à quatre verrous majeurs \cite{2021TOU30119a} :\\
+
+\begin{itemize}
+    \item \textbf{Non-déterminisme environnemental} : L'interaction avec un milieu réel imprévisible empêche la stricte répétabilité des essais ; des entrées identiques peuvent produire des trajectoires ou comportements divergents.
+    \item \textbf{Multimodalité des données de perception} : La fusion en temps réel de flux sensoriels massifs et hétérogènes (LiDAR, vision, centrales inertielles) rend les critères classiques de couverture de code insuffisants pour valider la décision du robot.
+    \item \textbf{Asynchronisme des architectures distribuées} : Les communications inter-nœuds (modèle publication/abonnement sous ROS) favorisent la propagation d'effets en cascade non-locaux, rendant l'analyse d'impact et l'isolation des bugs extrêmement complexes.
+    \item \textbf{Contraintes temporelles et sécurité physique} : Le test traditionnel ne prend pas en compte le couplage logiciel-matériel, où une simple latence de quelques millisecondes peut provoquer un accident physique grave.\\
+\end{itemize}
+
+Face à ce double constat, l'état de l'art des travaux de recherche se sont articulés selon deux échelles distinctes. D'une part, certaines méthodes se concentrent sur le test de non-régression de briques élémentaires (perception, localisation, navigation) prises isolément, sans prendre en compte leur intégration au sein d'une architecture complexe \cite{2021TOU30119a}. D'autre part, des stratégies d'évaluation globale fondées sur le test en simulation se sont imposées comme une démarche complémentaire majeure: ces approches en simulation permettent d'exécuter de façon intensive des suites de tests à l'échelle du système complet, à moindre coût et en toute sécurité. Dans la suite de cette section, nous avons décidé de nous focaliser sur les méthodes de validation d'ensemble. \\
+
+Les architectures logicielles de simulation associées se déclinent principalement sous trois formes \cite{2021TOU30119b} :\\
+
+\begin{itemize}
+    \item \textbf{Model-in-the-Loop (MiL)} : vérification précoce sur des modèles abstraits (ex. Simulink).
+    \item \textbf{Software-in-the-Loop (SiL)} : intégration du logiciel embarqué réel dans un environnement virtuel simulant capteurs et actionneurs.
+    \item \textbf{Hardware-in-the-Loop (HiL) / Vehicle-in-the-Loop (ViL)} : exécution sur le matériel physique connecté à des composants virtuels.\\
+\end{itemize}
+
+L'automatisation complète de la chaîne de validation soulevait trois verrous scientifiques et techniques fondamentaux : la spécification d'un oracle de test automatisé, la génération de cas de test contraints et variés, et la prise en compte du non-déterminisme.
+
+
+\paragraph{Méthode basée sur la spécification et l'automatisation des oracles de test}
+
+Le problème de l'oracle de test consiste à déterminer automatiquement si le comportement observé lors d'une exécution correspond au comportement attendu. En robotique autonome, la définition d'un oracle est complexe en raison de l'effet « boule de neige » des décisions logicielles, du volume massif de données produites et de l'absence de spécification complète.
+
+\subparagraph{Oracles basés sur des invariants et propriétés de sûreté}:
+
+Pour contourner la difficulté de prédiction exacte de la trajectoire d'un robot, une approche privilégiée consiste à définir des oracles spécifiés reposant sur des invariants fonctionnels et de sécurité.\cite{2021TOU30119b}  \\
+
+Dans les travaux de Clément ROBERT \cite{2021TOU30119a} portant sur le robot agricole Oz et le robot sous-marin REMI, les oracles ont été formalisés autour d'une classification de propriétés :  \\
+
+\begin{itemize}
+    \item \textbf{Propriétés liées aux phases de mission} : contrôle du respect de la séquence d'étapes (ex. suivi de ligne, manœuvre de demi-tour, transition vers l'inter-rang suivant).
+    \item \textbf{Seuils physiques et cinématiques} : vérification des vitesses maximales, des angles de braquage ou des accélérations par rapport aux limites de sécurité fixées.
+    \item \textbf{Événements catastrophiques et sécurité} : détection de collisions, franchissement des limites du terrain, déclenchement inapproprié des arrêts d'urgence ou dépassement des seuils de batterie.
+    \item \textbf{Gestion des erreurs et perception} : vérification de la cohérence des messages d'erreur et de la bonne détection des repères visuels ou laser (ex. piquets de fin de rang).  \\
+\end{itemize}
+
+Ces oracles peuvent fournir un verdict binaire (Pass/Fail) comme présenté en \hyperref[fig48]{Figure 48} ou un score quantifié (ex. degré d'écart par rapport à une consigne), permettant de cerner les défaillances par niveau de sévérité. Quelques fois il n'est pas possible d'automatiser la validation d'une propriété d'oracle, dans ce cas l'oracle est considéré comme partiellement automatisé et un verdict humain est requis pour compléter l'analyse.
+
+\begin{center}
+    \includegraphics[width=0.6\linewidth]{Corps_rapport/oracle_test.png}
+    \captionof{figure}{Vue schématique du test à base d'oracle basé sur des propriétés}
+    \label{fig48}
+\end{center}
+
+\subparagraph{Oracles métamorphiques}:
+
+Lorsque la spécification exacte est absente, les oracles peuvent reposer sur des relations métamorphiques. Cela consiste à vérifier la cohérence des sorties entre plusieurs exécutions liées par des transformations géométriques ou environnementales (ex. invariance du comportement sous rotation / translation du terrain, altération d’image, ...) comme le montre la \hyperref[fig49]{Figure 49}.
+
+\begin{center}
+    \includegraphics[width=0.8\linewidth]{Corps_rapport/oracle_meta.png}
+    \captionof{figure}{Vue schématique du test à base d'oracle métamorphique}
+    \label{fig49}
+\end{center}
+
+
+\paragraph{Méthodes basées sur la génération automatique de cas de test contraints}
+
+Pour alimenter les campagnes de tests en simulation, il est nécessaire de générer automatiquement des environnements virtuels complexes (topographie, obstacles, conditions de mission).\cite{2021TOU30119b} 
+
+\subparagraph{Approches de Reproduction vs de Génération procédurale}:
+
+Reproduction de cas réels : extraction de scènes virtuelles à partir de données réelles enregistrées (cartes GPS, nuages de points). Très utilisée dans l'automobile, cette méthode est limitée par la faible diversité des scènes rejouées. \\
+
+Génération procédurale : création synthétique d'environnement reposant sur des algorithmes stochastiques (ex. bruit de Perlin pour les cartes de hauteur/relief). Elle assure une forte diversité, mais reste peu développée.
+
+\subparagraph{Approche déclarative hybride : Le framework TAF* (Testing Automation Framework)}:
+
+Pour surmonter les limites des approches traditionnelles de type generate-then-filter (inaptes aux environnements très contraints), Clément ROBERT propose dans sa thèse \cite{2021TOU30119b} le framework TAF* qui repose sur un langage spécifique basé sur XML (XML-TAF) combinant un modèle de données purement déclaratif et la gestion de contraintes complexes. Dans cet outil, l’utilisateur déclare des structures de données ainsi que des contraintes entre ces données via un fichier model, puis génère des données de test valides automatiquement. Comme le montre la \hyperref[fig50]{Figure 50}, le générateur TAF* produit un environnement de test complet (terrain, obstacles, végétation, etc.) à partir d'un modèle abstrait et d'une instance partielle optionnelle. L'outil garantit que les contraintes déclarées sont respectées, tout en assurant une diversité des scénarios générés grâce à l'utilisation d'un solveur SMT et d'un échantillonnage aléatoire.
+
+\begin{center}
+    \includegraphics[width=0.4\linewidth]{Corps_rapport/TAF.png}
+    \captionof{figure}{Vue schématique de la génération d'environnement de test avec le framework TAF}
+    \label{fig50}
+\end{center}
+
+Le fichier modèle est requis pour la génération, il spécifie le modèle de données (robot et environnement) structurées et les contraintes. Le fichier instance partielle est quant à lui optionnel, il permet de guider le générateur en lui donnant une instance partielle des données. L'architecture de TAF repose sur ses 2 étapes :\\
+
+\begin{itemize}
+    \item Modélisation abstraite : description des entités de la scène (légumes, rangées, obstacles, paramètres de mission) sous forme de nœuds et de paramètres régis par des distributions statistiques.
+    \item Résolution par couche et solveur SMT : utilisation d'un solveur SMT (ex. Z3) pour résoudre les contraintes logiques et arithmétiques inter-variables, couplée à un échantillonnage aléatoire pour préserver la diversité des données générées.
+\end{itemize}
+
+
+\paragraph{Prise en compte du non-déterminisme}
+
+L'application des tests de non-régression en robotique mobile se heurte au non-déterminisme intrinsèque des systèmes autonomes.
+
+\subparagraph{Origines du non-déterminisme}:
+
+Le comportement d'un robot varie entre deux exécutions d'un même cas de test. Ce phénomène découle de plusieurs facteurs : l'architecture logicielle multithread et les communications asynchrones en best-effort (ex. middlewares comme ROS), l'utilisation d'algorithmes décisionnels approchés (heuristiques de planification de trajectoire), les décalages horlogers et concurrences propres à la plate-forme de simulation elle-même.
+
+\subparagraph{Stratégie de répétition des tests}:
+
+Pour qu'un test de non-régression fournisse un verdict fiable (éviter les faux positifs ou négatifs dûs au non-déterminisme), les travaux de [Robert] préconisent d'évaluer l'impact du nombre de répétitions. En exécutant de façon répétée une suite de tests ($X_{N,M}$ exécutions), l'étude démontre que :  \\
+
+\begin{itemize}
+    \item Une exécution unique est insuffisante pour garantir la détection d'une défaillance intermittente.  
+    \item Un compromis optimal entre coût de calcul et fiabilité de détection permet de fixer un nombre minimal de répétitions (ex. 5 répétitions par cas de test) pour stabiliser le verdict d'oracle.  
+\end{itemize}
+
+
+\paragraph{Synthèse et perspectives} 
+
+Au regard de l'ensemble de ces travaux, l'automatisation des tests de non-régression en robotique mobile constitue un domaine de recherche particulièrement actif, pour lequel il n'existe pas encore de méthode standard adoptée par la communauté. Si les avancées liées à la spécification d'oracles, à la génération automatique d'environnements et à la prise en compte du non-déterminisme offrent des perspectives prometteuses pour renforcer la robustesse des simulations, plusieurs verrous subsistent. La gestion de la complexité des scénarios, la garantie d'une réelle diversité environnementale, la validation des résultats observés en simulation ainsi que la maîtrise de la charge de calcul sur la machine hôte demeurent autant de défis majeurs à relever pour assurer un passage à l'échelle efficace.\\
+
+Pour la construction de notre plan de test, il a été décidé de s'inspirer de la méthode basée sur la spécification et l'automatisation des oracles de test, en particulier sur la définition d'invariants et de propriétés de sûreté. Cette approche a été jugée rapidement implémentable et plus adaptée à notre contexte, car elle permet de définir des critères de validation clairs et mesurables pour les fonctionnalités du robot, tout en restant flexible face aux variations environnementales rencontrées lors des essais sur le terrain. De plus elle permet de s'affranchir de l'automatisation complète du procédé de validation, qui aurait été bien plus complexe à mettre en œuvre dans le cadre de ce stage.
+
+
 
 \subsubsection{Mise en place du plan de test}
 
@@ -533,111 +652,6 @@ Ce module a pour objectif principal de fournir une représentation visuelle dyna
 
 
 
-\subsubsection{Proposition de méthode d'automatisation de la validation de tests en robotique mobile: cas d'application sur Mobiter}
-
-La validation des systèmes autonomes (robots agricoles, drones, véhicules autonomes, robots sous-marins) repose traditionnellement sur des expérimentations sur le terrain. Bien qu'indispensables, ces essais réels présentent de fortes contraintes : un coût financier élevé, des risques matériels et humains, ainsi qu'une répétabilité limitée en raison de la variabilité des conditions environnementales.  
-
-Pour répondre à ces limites, le test en simulation s'est imposé comme une démarche complémentaire majeure. Il permet d'exécuter de façon intensive des suites de tests à moindre coût et en toute sécurité. Les architectures logicielles de simulation se déclinent principalement sous trois formes :  \\
-
-\begin{itemize}
-    \item Model-in-the-Loop (MiL) : vérification précoce sur des modèles abstraits (ex. Simulink).
-    \item Software-in-the-Loop (SiL) : intégration du logiciel embarqué réel dans un environnement virtuel simulant capteurs et actionneurs.
-    \item Hardware-in-the-Loop (HiL) / Vehicle-in-the-Loop (ViL) : exécution sur le matériel physique connecté à des composants virtuels.\\
-\end{itemize}
-
-L'automatisation complète de la chaîne de validation soulevait trois verrous scientifiques et techniques fondamentaux : la spécification d'un oracle de test automatisé, la génération de cas de test contraints et variés, et la prise en compte du non-déterminisme.
-
-\paragraph{Méthode basée sur la spécification et l'automatisation des oracles de test}
-
-Le problème de l'oracle de test consiste à déterminer automatiquement si le comportement observé lors d'une exécution correspond au comportement attendu. En robotique autonome, la définition d'un oracle est complexe en raison de l'effet « boule de neige » des décisions logicielles, du volume massif de données produites et de l'absence de spécification complète.
-
-\subparagraph{Oracles basés sur des invariants et propriétés de sûreté}:
-
-Pour contourner la difficulté de prédiction exacte de la trajectoire d'un robot, une approche privilégiée consiste à définir des oracles spécifiés reposant sur des invariants fonctionnels et de sécurité.\cite{2021TOU30119b}  \\
-
-Dans les travaux portant sur le robot agricole Oz et le robot sous-marin REMI, les oracles ont été formalisés autour d'une classification de propriétés :  \\
-
-\begin{itemize}
-    \item Propriétés liées aux phases de mission : contrôle du respect de la séquence d'étapes (ex. suivi de ligne, manœuvre de demi-tour, transition vers l'inter-rang suivant).
-    \item Seuils physiques et cinématiques : vérification des vitesses maximales, des angles de braquage ou des accélérations par rapport aux limites de sécurité fixées.
-    \item Événements catastrophiques et sécurité : détection de collisions, franchissement des limites du terrain, déclenchement inapproprié des arrêts d'urgence ou dépassement des seuils de batterie.
-    \item Gestion des erreurs et perception : vérification de la cohérence des messages d'erreur et de la bonne détection des repères visuels ou laser (ex. piquets de fin de rang).  \\
-\end{itemize}
-
-Ces oracles peuvent fournir un verdict binaire (Pass/Fail) ou un score quantifié (ex. degré d'écart par rapport à une consigne), permettant de cerner les défaillances par niveau de sévérité.
-
-
-
-
-\subparagraph{Oracles métamorphiques}:
-
-Lorsque la spécification exacte est absente, les oracles peuvent reposer sur des relations métamorphiques. Cela consiste à vérifier la cohérence des sorties entre plusieurs exécutions liées par des transformations géométriques ou environnementales (ex. invariance du comportement sous rotation ou translation du terrain).
-
-
-
-
-\paragraph{Méthodes basées sur la génération automatique de cas de test contraints}
-
-Pour alimenter les campagnes de tests en simulation, il est nécessaire de générer automatiquement des environnements virtuels complexes (topographie, obstacles, conditions de mission).\cite{2021TOU30119b} 
-
-\subparagraph{Approches existantes : Reproduction vs Génération procédurale}:
-
-Reproduction de cas réels : extraction de scènes virtuelles à partir de données réelles enregistrées (cartes GPS, nuages de points). Très utilisée dans l'automobile, cette méthode est limitée par la faible diversité des scènes rejouées. 
-
-Génération procédurale : création synthétique reposant sur des algorithmes stochastiques (ex. bruit de Perlin pour les cartes de hauteur/relief). Elle assure une forte diversité, mais peine à respecter strictement des règles métiers complexes.  
-
-\subparagraph{Approche déclarative hybride : Le framework TAF (Testing Automation Framework)}:
-
-Pour surmonter les limites des approches traditionnelles de type generate-then-filter (inaptes aux environnements très contraints), Clément Robert propose le framework TAF. TAF repose sur un langage spécifique au domaine basé sur XML (XML-TAF) combinant un modèle de données purement déclaratif et la gestion de contraintes complexes.  
-
-L'architecture de TAF met en œuvre une méthode de résolution hybride :\\
-
-\begin{itemize}
-    \item Modélisation abstraite : description des entités de la scène (légumes, rangées, obstacles, paramètres de mission) sous forme de nœuds et de paramètres régis par des distributions statistiques.
-    \item Résolution par couche et solveur SMT : utilisation d'un solveur SMT (ex. Z3) pour résoudre les contraintes logiques et arithmétiques inter-variables, couplée à un échantillonnage aléatoire pour préserver la diversité des données générées.\\
-\end{itemize}
-
-Évalué sur plusieurs cas d'étude (dont la génération de champs de légumes pour le robot Oz), TAF démontre des performances supérieures ou compétitives par rapport à des outils comme PLEDGE, tout en garantissant un haut niveau de couverture de l'espace de test. 
-
-
-\paragraph{Prise en compte du non-déterminisme et tests de non-régression}
-
-L'application des tests de non-régression en robotique mobile se heurte au non-déterminisme intrinsèque des systèmes autonomes.
-
-\subparagraph{Origines du non-déterminisme}:
-
-Le comportement d'un robot varie entre deux exécutions d'un même cas de test. Ce phénomène découle de plusieurs facteurs :  \\
-
-\begin{itemize}
-    \item L'architecture logicielle multithread et les communications asynchrones en best-effort (ex. middlewares comme ROS).
-    \item L'utilisation d'algorithmes décisionnels approchés (heuristiques de planification de trajectoire).
-    \item Les décalages horlogers et concurrences propres à la plate-forme de simulation elle-même.\\
-\end{itemize}
-
-\subparagraph{Stratégie de répétition vs exploration}:
-
-Pour qu'un test de non-régression fournisse un verdict fiable (éviter les faux positifs ou négatifs dûs au non-déterminisme), les travaux de [Robert et al., IRC 2020] préconisent d'évaluer l'impact du nombre de répétitions. En exécutant de façon répétée une suite de tests ($X_{N,M}$ exécutions), l'étude démontre que :  \\
-
-\begin{itemize}
-    \item Une exécution unique est insuffisante pour garantir la détection d'une défaillance intermittente.  
-    \item Un compromis optimal entre coût de calcul et fiabilité de détection permet de fixer un nombre minimal de répétitions (ex. 5 répétitions par cas de test) pour stabiliser le verdict d'oracle.  
-\end{itemize}
-
-
-
-\paragraph{Synthèse et perspectives} 
-
-L'automatisation du test en robotique mobile repose sur une chaîne outillée intégrée : \\
-
-\begin{itemize}
-    \item Modélisation déclarative et génération SMT (TAF) pour créer des environnements structurés, variés et physiquement valides.
-    \item Exécution en simulation SiL (Gazebo/ROS) répétée plusieurs fois pour absorber le non-déterminisme du système.
-    \item Analyse automatisée par oracles basés sur des invariants pour porter un verdict binaire ou quantifié sans intervention humaine.\\
-\end{itemize}
-
-Ces recherches démontrent que le test en simulation ne doit plus être considéré comme un simple outil de prototypage, mais comme un pilier rigoureux et automatisé du processus de qualification et de non-régression des logiciels autonomes critiques.
-
-
 
 
 
@@ -859,200 +873,3 @@ La \hyperref[fig:image3]{Figure 50(c)} illustre un échec de contournement lorsq
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\begin{comment}
-
-\subsubsection{Intégration des dernières modifications de la brique de cartographie après refactoring}
-Une fois le projet bien pris en main, une première mission m'a été confiée pour, d'une part, me familiariser avec la méthodologie de versionnement sur Git et, d'autre part, prendre en main la procédure de mise en route du robot et de la Brique MOBILEX*.\\\\
-Le projet venait de subir une refonte complète et la brique de cartographie, qui avait été modifiée sur l'ancienne version afin d'ajouter un filtre de Kalman* permettant de pondérer la mise à jour de la carte en fonction de la confiance accordée aux données provenant des capteurs, devait être intégrée à la nouvelle version de la Brique MOBILEX* puis testée. Cette intégration consistait à revoir le mapping des topics et le nom des paquets appelés, ainsi qu'à ajouter l'installation des nouvelles librairies dans la procédure d'installation du projet et leur appel dans les paquets en modifiant les fichiers CMakeLists utilisés pour la compilation* de ces derniers.\\\\
-Après avoir intégré et testé en simulation le bon fonctionnement de cette dernière, M. Barbier et moi sommes allés la tester à l'INRAE. Le robot n'ayant pas été réutilisé depuis la refonte du projet, il a fallu, dans un premier temps, remettre l'installation au propre. J'ai ensuite pu me familiariser avec la procédure de mise en route du projet sur le robot.\\\\
-Pour tester la brique, nous avons lancé la Brique MOBILEX* complète incluant cette dernière dans des conditions idéales, c'est-à-dire avec une position précise au centimètre fournie par le GNSS RTK. Pour obtenir cette précision, une base fixe dont la position est connue de manière précise compare la position calculée à partir du signal GPS avec sa vraie position et envoie des corrections au récepteur présent sur le robot. Il a alors suffi de couper l'envoi des corrections pour dégrader volontairement la précision de la position afin de s'assurer que la carte ne se dégrade pas trop rapidement.\\\\
-Les résultats ont montré que la carte se mettait moins à jour, ce que nous souhaitions, mais que les mesures imprécises restaient tout de même trop prises en compte, rendant la carte inexploitable au bout de quelques secondes (\hyperref[fig20]{Figure 20} et \hyperref[fig21]{21}).\\
-\begin{center}
-    \includegraphics[width=0.7\linewidth]{Corps_rapport/map_rtk.png}
-    \captionof{figure}{Carte des obstacles avec GNSS RTK}
-    \label{fig20}
-\end{center}
-\begin{center}
-    \includegraphics[width=1\linewidth]{Corps_rapport/map_sans_rtk.png}
-    \captionof{figure}{Carte des obstacles après 5 secondes de perte des corrections du mode RTK}
-    \label{fig21}
-\end{center}
-
-Une solution simple a alors été envisagée. Elle consiste à détecter toute anomalie sur le fonctionnement du GNSS en mode RTK pour ajouter un switch visant à sous-estimer la précision de la position retournée dès lors que la fiabilité de la mesure n'est plus garantie (problème de capteur, d'envoi des corrections, de couverture GPS, etc.).\\\\
-Pour préparer l'ajout de ce switch, il m'a été demandé d'ajouter une fonction Python permettant de vérifier tout un ensemble de paramètres à tout instant et de publier le résultat de la vérification sous la forme d'un flag.
-\subsubsection{Investigations sur un problème de téléopération}
-Lors des tests à l'INRAE, la présence d'une personne de l'institut est obligatoire et un ingénieur a été recruté l'an dernier pour encadrer ces tests.\\\\
-Lors des tests de la nouvelle brique de cartographie, cette personne a constaté que le robot mettait plus de temps à réagir en téléopération à plus de $2\ m.s^{-1}$ qu'avant le refactoring, que lors de tests réalisés par l'INRAE avec leur propre brique de commande ou qu'en le contrôlant avec la télécommande fournie par SHARK Robotics.\\\\
-La téléopération assistée devait être présentée à la DGA lors de la revue d'avancement prévue le mois suivant. M. Barbier et moi avons alors investigué sur ce problème en urgence.\\\\
-La première piste explorée fut un délai potentiel au sein de la chaîne de commande. En remontant l'ensemble de la chaîne de commande, nous n'avons pas trouvé de délai entre la réalisation d'une commande à la manette et sa traduction en vitesses de roues à envoyer au robot. Cependant, en comparant les instants d'envois des commandes au robot et le moment où le robot réagissait à ces dernières, on observait un décalage de l'ordre de $0,5\ s$.\\\\
-L'hypothèse alors formulée était que notre interface du robot programmée en Python faisait appel à des fonctions de communication provoquant ce délai de $0,5$ seconde, là où l'INRAE utilisait une interface en C++ faisant appel à d'autres fonctions pour communiquer avec le robot ne provoquant pas ce délai. Le problème était que les tests réalisés par l'INRAE remontaient à longtemps et qu'ils n'arrivaient pas à remettre en route leurs codes, mais nous ont dit que leur interface était une adaptation de notre interface pour l'intégrer à leur environnement.\\\\
-Nous avons alors décidé de récupérer leur interface pour pouvoir la comparer avec la nôtre et l'intégrer dans notre Brique MOBILEX* pour avoir une interface en C++. Cette réintégration n'a rien changé sur le comportement du robot.\\\\
-En examinant la réponse du robot à l'envoi d'une commande en téléopération, je me suis rendu compte qu'en plus du délai de $0,5$ seconde observé, il y avait des dépassements de l'ordre de 30 \% sur la vitesse angulaire, pouvant causer ces difficultés de contrôle.\\\\
-J'ai alors proposé de refaire le paramétrage du correcteur de taux de lacet.\\\\
-N'ayant pas de modèle du système, nous avons réalisé ce paramétrage à la main comme il est courant de faire pour un correcteur PID. Pour éviter de trop abîmer le terrain, nous avons utilisé des consignes échelons faibles de $0,25\ rad.s^{-1}$.\\\\
-En vérifiant le bon fonctionnement du correcteur lors d'un suivi de waypoints, nous nous sommes rendu compte que le modèle que nous cherchions à asservir n'est pas linéaire car là où il n'y avait aucune anomalie notable à $0,25\ rad.s^{-1}$, on observait des dépassements de 20 \% à $2\ rad.s^{-1}$.\\\\
-Il a alors été proposé de réaliser une linéarisation par partie du correcteur pour atténuer ces phénomènes, mais que cette solution serait étudiée ultérieurement car elle n'interviendrait pas dans l'urgence actuelle de résoudre les problèmes de téléopération avant la revue d'avancement prévue deux semaines plus tard.\\\\
-En inspectant les commandes angulaires fournies par le nœud Joy\_node, nous nous sommes rendu compte que le joystick analogique avait une grande zone morte, faisant passer le joystick de la position nulle à maximale au plus petit mouvement. De plus, les échelles de consignes de vitesse angulaires étaient de $0$ à $3\ rad.s^{-1}$ là où l'INRAE allait de $0$ à $1\ rad.s^{-1}$. L'achat d'un joystick de meilleure qualité et la modification de l'échelle ont permis de grandement améliorer le contrôle du robot lors de virages, mais il restait lent à s'arrêter en comparaison avec le contrôle à la manette fournie par SHARK Robotics.\\\\
-La configuration des pentes d'accélération et de décélération dans l'interface du Barakuda a alors été remise en question car l'ancien ingénieur de SHERPA Engineering qui avait travaillé sur l'interface n'avait pas documenté le choix de la limite d'accélération à $1.38\ m.s^{-2}$. Il se trouve que cette valeur avait été donnée à l'oral par un ingénieur de SHARK Robotics pour protéger les variateurs du robot. Cependant, en mesurant les accélérations réalisées par la télécommande du robot, on s'est rendu compte que les limites d'accélérations utilisées sont supérieures à $2.5\ m.s^{-2}$ et que la décélération est encore plus franche car le robot serre ses freins lors du relâchement du joystick.\\\\
-Lors d'une réunion organisée par la DGA regroupant l'ensemble des consortiums et des représentants de SHARK Robotics, nous avons posé la question de la nécessité de limiter l'accélération du robot à $1.38\ m.s^{-2}$ alors que la télécommande fournie ne l'est pas, et il se trouve qu'aucun autre consortium n'avait reçu cette indication et les représentants de SHARK Robotics n'étaient pas non plus au courant de cette limitation. Nous avons alors décidé d'aligner nos rampes d'accélérations sur celles de la télécommande du robot, soit $2.5\ m.s^{-2}$, ce qui a résolu le problème de contrôle en téléopération et permis au passage de diminuer le temps de prédiction des LUTs de la planification locale, la rendant plus permissive.
-\subsubsection{Installation et test de la sémantique caméra}
-Une fois l'urgence résolue, nous avons pu reprendre les tests des ajouts pour le défi 2. Un des grands enjeux du défi 2 à traiter est la présence d'herbes hautes, de fumée et de brouillard parasitant le LIDAR*. \\\\
-La solution imaginée pour répondre à cette problématique est l'utilisation de la sémantique caméra.\\\\
-La brique de sémantique caméra a alors été développée pour évaluer dans un premier temps la faisabilité de la solution.\\\\
-M. Barbier et moi nous sommes alors occupés d'installer l'ensemble des outils utilisés par cette nouvelle brique sur le robot et avons évalué ses performances lors de la détection du sol et de la fumée.\\\\
-L'évaluation des performances consistait à vérifier la qualité de la détection du sol, y compris dans les herbes hautes, et de la fumée lorsque le robot est à l'extérieur et à l'intérieur de cette dernière, le tout en s'assurant que la charge CPU et GPU induite par la segmentation* ne compromette pas les performances temps-réel de la Brique MOBILEX*.\\\\
-Les résultats obtenus montrent que la segmentation* fonctionne globalement bien pour la détection du sol (\hyperref[fig22]{Figure 22}) malgré certaines frames où le détecteur open-set ne détecte rien, et que les performances temps-réel sont toujours assurées (temps d'inférence* ~60 ms). Cependant, la détection de la fumée n'est quant à elle pas exploitable en l'état. Lorsque le robot est à l'extérieur de la fumée, il ne détecte qu'une partie de cette dernière (\hyperref[fig23]{Figure 23}) et lorsqu'il se situe dans la fumée, le détecteur open-set ne détecte plus rien (\hyperref[fig24]{Figure 24}).\\
-\begin{center}
-    \includegraphics[width=0.8\linewidth]{Corps_rapport/ground.png}
-    \captionof{figure}{Segmentation du sol}
-    \label{fig22}
-\end{center}
-\begin{center}
-    \includegraphics[width=0.8\linewidth]{Corps_rapport/fumee_exterieur.png}
-    \captionof{figure}{Segmentation de la fumée depuis l'extérieur}
-    \label{fig23}
-\end{center}
-\begin{center}
-    \includegraphics[width=0.8\linewidth]{Corps_rapport/fumee.png}
-    \captionof{figure}{Segmentation de la fumée au sein de cette dernière}
-    \label{fig24}
-\end{center}
-\subsubsection{Calibration extrinsèque caméra-LIDAR}
-La phase d'évaluation étant concluante pour la détection du sol, l'utilisation de la sémantique caméra a été retenue pour pouvoir naviguer dans les hautes herbes.\\\\
-Pour pouvoir intégrer cette solution au projet, il a été nécessaire de réaliser la calibration extrinsèque entre la caméra et le LIDAR*, car ces derniers seront voués à être fusionnés lors de la création de la carte. Plus précisément, la solution planifiée serait de se servir du nuage de points produit par la ZED pour d'une part avoir une redondance capteur pour diminuer le manque d'information dans la carte à l'avant du véhicule et anticiper la gestion des pannes capteurs et d'autre part, fournir une information sémantique dans les différentes tuiles de la carte.\\\\
-Étant devenu familier avec la procédure d'utilisation du robot, cette tâche m'a été confiée en toute autonomie.\\\\
-La première idée de calibration était de réaliser la calibration à tâtons en projetant le nuage de points LIDAR* dans l'image caméra et de modifier la transformation entre la caméra et le LIDAR* jusqu'à ce que les points se superposent correctement dans une scène contenant des objets de différentes tailles à différentes distances.\\\\
-Lors des tests de visualisation de la superposition du nuage de points de la caméra avec celui du LIDAR*, les résultats n'étaient pas concluants, ce qui nous a laissé penser que la calibration réalisée n'était pas suffisamment précise.\\\\
-Une calibration plus qualitative a alors été imaginée en réalisant une méthode ICP point-to-plane entre le nuage de points de la caméra et le nuage de points LIDAR*. La méthode ICP point-to-plane est une technique utilisée pour aligner deux nuages de points en trois dimensions. Contrairement à la méthode ICP point-to-point, qui minimise la distance entre les points correspondants des deux nuages, la méthode point-to-plane minimise la distance entre les points d'un nuage et les plans tangents estimés à partir de l'autre nuage de points.\\\\
-Cette méthode est souvent préférée dans les applications où les nuages de points ont des densités différentes ou lorsque l'on souhaite obtenir une meilleure précision dans l'alignement, ce qui est notre cas, car le nuage de points de la caméra est bien plus dense que celui du LIDAR*.\\\\
-Pour réaliser cette méthode ICP, j'ai commencé par créer un nœud ROS* me permettant d'extraire les nuages de points caméra et LIDAR* dans leur repère respectif et de les enregistrer dans des fichiers binaires. Ensuite, j'ai créé un script Python me permettant de lire le contenu de ses fichiers, de filtrer les points et, en me servant de la bibliothèque Open3D, de réaliser la méthode ICP en point à plan et de visualiser le résultat.\\\\
-La calibration par la méthode ICP était sensiblement proche de la précédente et lors de la visualisation avec Open3D (\hyperref[fig25]{Figure 25}) les nuages de points se superposaient bien tandis que lors des tests, la visualisation sur RVIZ était toujours décalée (\hyperref[fig26]{Figure 26}).\\
-\newpage
-\begin{figure}[h]
-    \centering
-    \begin{subfigure}[b]{0.7\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{Corps_rapport/ICP_avant_tf.png}
-        \caption{Avant transformation}
-        \label{fig:image5}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.7\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{Corps_rapport/ICP_apres_tf.png}
-        \caption{Après transformation}
-        \label{fig:image6}
-    \end{subfigure}
-    \caption{Calibration extrinsèque Caméra-LIDAR par la méthode ICP point to plane}
-    \label{fig25}
-\end{figure}
-\newpage
-\begin{center}
-    \includegraphics[width= 0.6\linewidth]{Corps_rapport/lidar_camera_mv_tf.png}
-    \captionof{figure}{Visualisation de la calibration extrinsèque sous RVIZ}
-    \label{fig26}
-\end{center}
-$\ $\\
-Mes doutes se sont alors penchés sur une mauvaise publication de la transformation entre la caméra et le LIDAR* et après un peu d'inspection, je me suis rendu compte que le problème provenait du driver de la caméra qui écrasait continuellement notre transformation en la remplaçant par une transformation identité.\\\\
-Après modification du fichier launch du driver, les nuages de points caméra et LIDAR* se superposent comme souhaité (\hyperref[fig27]{Figure 27}).\\
-\begin{center}
-    \includegraphics[width=0.8\linewidth]{Corps_rapport/lidar_camera1.png}
-    \captionof{figure}{Visualisation de la calibration extrinsèque sous RVIZ après correction du driver}
-    \label{fig27}
-\end{center}
-\subsubsection{Test du nouveau suivi de lisière}
-Lors du premier défi, deux problèmes avaient été identifiés : un problème de détection de la lisière lors de la présence d'angles droits et un problème concernant la génération de la trajectoire du suivi de lisière avait été constaté. La trajectoire générée pouvait traverser le bas-côté à suivre. Ce problème était cependant masqué par la couche du local planner qui empêchait au robot d'entrer dans le bas-côté, ce qui faisait que le robot arrivait tout de même à suivre les lisières, mais anormalement lentement.\\\\
-Cette génération de trajectoire a alors été modifiée en une translation de la lisière détectée selon la direction de la moyenne des normales de la détection tandis que le problème de détection dans les angles droits a été rectifié en ajustant les paramètres du détecteur.\\\\
-Lors de mes tests de ces modifications, je me suis rendu compte que la lisière fluctuait d'une détection à l'autre, ce qui forçait le correcteur à diminuer sa vitesse pour tenter de s'aligner en permanence à la trajectoire donnée.\\\\
-Pour pallier ce problème, j'ai pris l'initiative d'assouplir les contraintes du correcteur en augmentant la distance du point de visée anticipée et en diminuant l'impact du rayon de courbure de la trajectoire sur la vitesse linéaire. Cela nous donne un correcteur allant bien plus vite moyennant des écarts latéraux à la courbe un peu plus importants.\\\\
-J'ai alors présenté mes résultats à l'équipe qui les a validés.
-\subsubsection{Installation et configuration du réseau avec 2 interfaces}
- Historiquement, il n'y avait sur le robot et le PC débarqué que les antennes 5 GHz mais, lors des épreuves du premier défi, il y a eu des problèmes de communication lorsque le robot passait derrière des obstacles denses. \\\\
- Pour pallier ce problème, ces antennes ont d'abord été remplacées par des antennes 2,4 GHz sauf que la télécommande du robot utilise également ce type d'antennes, ce qui provoquait des perturbations et rendait le robot inutilisable. Un compromis a alors été imaginé en remettant les antennes 5 GHz pour faire passer les importants flux de données, majoritairement utilisés pour du débug, et en ajoutant des antennes 868 MHz pour assurer une communication fiable des données nécessaires au fonctionnement du robot, c'est-à-dire l'envoi des commandes et le retour vidéo pour le téléopérateur.\\\\
- L'ingénieur de tests INRAE et moi avons été chargés d'installer et de configurer les antennes 868 MHz. Un problème s'est rapidement posé, les antennes ne sont pas compatibles POE actif et ne pouvaient donc pas être installées sur les 4 ports POE du calculateur. Il restait alors 2 ports déjà utilisés : le premier par la carte électronique SHERPA et le second par l'antenne 5 GHz.\\\\
- J'ai alors pensé à une solution faisant intervenir un routeur pour pouvoir rediriger les données provenant du réseau 5 GHz et du réseau 868 MHz à l'interface réseau du robot. J'ai vu qu'il existait des switchs permettant de créer des VLANs et de faire du routage entre ces VLANs, ce qui aurait permis d'avoir les 2 réseaux sur un même switch et de faire le routage vers l'interface du réseau. Malheureusement, l'INRAE ne possédait qu'un switch ne proposant pas cette fonctionnalité.\\\\
-Après quelques recherches, nous nous sommes rendu compte qu'il est possible de donner plusieurs adresses IP à une même interface réseau. En affectant une adresse pour chaque antenne à l'interface, nous avons pu configurer le réseau en n'utilisant qu'une interface du PC embarqué et un switch ordinaire.\\\\
-On obtient alors l'architecture réseau \hyperref[fig28]{Figure 28} :
-\begin{center}
-    \includegraphics[width=0.7\linewidth]{Corps_rapport/PC débarqué.png}
-    \captionof{figure}{Diagramme synoptique de l'architecture réseau du système}
-    \label{fig28}
-\end{center}
-\subsubsection{Configuration et test de l'envoi d'images compressées sur l'antenne 868MHz}
-L'installation double antenne étant fonctionnelle, il a alors fallu configurer le routage des différentes données sur les bonnes interfaces et automatiser à l'aide de scripts bash les opérations nécessaires au choix de l'interface à utiliser.\\\\
-Une mesure de la bande passante des antennes 868 MHz a révélé que cette dernière était bien trop faible (150 ko/s) pour pouvoir transmettre l'image annotée au PC déporté. Une compression de cette dernière en h265 a alors été mise en place, divisant la bande passante nécessaire par plus de 200, la faisant passer de 17Mo/s à 80ko/s, pour une qualité à peine dégradée.\\\\
-La compression h265 nécessite d'encoder l'image du côté du PC embarqué avant de l'envoyer au PC débarqué, ce qui nécessite un décodage du côté de ce dernier. \\\\
-Des tests de fiabilité de la liaison ont alors été réalisés, pour comparer le réseau 5 GHz et le réseau 868 MHz, notamment sur la portée et la résilience lors de la présence d'obstacles (bâtiments et végétation dense) entre le PC débarqué et le robot.\\\\
-Pour ces tests, l'envoi de l'image encodée a été fait sur chaque réseau en temps réel et le décodage a été réalisé par deux nœuds distincts. Nous avons alors pu afficher les deux retours vidéo côte à côte pour les comparer.\\\\
-Les résultats obtenus montrent que l'ajout de la compression sur le retour vidéo a considérablement réduit les problèmes de communication de l'antenne 5 GHz, et que cette dernière était plus fiable, que ce soit en présence d'obstacles ou à grande distance. Nous avons alors conclu que l'ajout de l'antenne 868 MHz n'était pas nécessaire et que l'ajout de la compression ainsi qu'un choix sur les données à transmettre permettent de contrôler le robot à plus de 150 m en présence d'obstacles sans coupures, ce qui sera largement suffisant pour le défi 2.
-\subsubsection{Autres tests réalisés}
-D'autres tests ne rencontrant pas de problèmes particuliers ont été réalisés comme par exemple :\\
-\begin{itemize}
-    \item Une journée de tests à Montoldre pour tester l'ajout de la prise en compte du manque d'information dans la carte comme des obstacles au fur et à mesure que le robot s'en approche et pour évaluer les améliorations apportées par le refactoring sur la stabilité du robot lors de la conduite autonome à 3 m/s. Le seul problème noté ce jour-là était que le robot opérait de gros virages lors du retrait de l'arrêt d'urgence de sa télécommande pour lancer la conduite autonome de ce dernier. Le problème provenait du gain intégral qui commençait à s'accumuler dès lors que la conduite autonome était lancée par le téléopérateur, avant même d'avoir retiré l'arrêt d'urgence.\\
-    \item Le test du mode safety first en téléopération qui ne présenta qu'un léger problème d'affichage dans l'IHM.\\
-    \item Le test d'une nouvelle IHM, avec comme objectif d'évaluer l'amélioration de l'ergonomie pour qu'elle soit utilisable par une personne ne travaillant pas sur le projet. Quelques bugs mineurs ont été constatés dont un problème sur l'ajout de paramètres reconfigurables dynamiquement avec dynamic reconfigure. J'ai finalement réussi à résoudre le problème et ayant trouvé la fonctionnalité intéressante pour faciliter le paramétrage des correcteurs, j'ai modifié les briques contenant des correcteurs Pure Pursuit et longitudinaux ainsi que le correcteur de taux de lacet inclus dans l'interface du Barakuda pour ajouter la possibilité de modifier les gains dynamiquement.\\
-    \item Une assistance lors des tests d'une nouvelle loi de commande avec observateurs de glissement développées par l'INRAE, qui a récemment été abandonnée car son utilisation n'était pas indispensable et que j'avais pointé une incohérence dans le protocole de tests qui était que l'on comparait pour une même trajectoire, l'écart du robot à cette dernière lors de l'utilisation de la loi de commande de l'INRAE et lors de l'utilisation du contrôleur Pure Pursuit et de la régulation longitudinale actuellement utilisés. Le problème était que la loi de commande INRAE ne fait aucune régulation de vitesse à l'approche de virages. Les résultats obtenus auraient donc été en faveur de la loi actuellement utilisée. L'utilisation de la loi de commande INRAE sera revue avec l'ajout d'une régulation longitudinale lorsque nous observerons une incontrôlabilité du robot à cause de glissements, peut-être lorsque nous monterons en vitesse.
-\end{itemize}
-\subsubsection{Intégration d'un planificateur global RRT*}
-Enfin, en parallèle de mes tests, une tâche de fond m'a été proposée pour m'initier à la programmation en C++ lors des périodes de creux. Cette tâche consistait à reprendre un planificateur global RRT* réalisé par un ancien stagiaire l'an dernier sur la Brique MOBILEX* avant refactoring et de l'intégrer à la nouvelle version. Ce planificateur permettrait de s'affranchir de la contrainte de discrétisation du chemin liée à l'échantillonnage du MNE car les nœuds sont générés dans l'espace continu. \\\\
-Le planificateur était une classe héritant d'autres classes qui avaient été modifiées lors du refactoring.\\\\
-J'ai commencé par me former rapidement au concept de programmation orientée objet avec un cours d'OpenClassrooms puis j'ai pu intégrer cette classe en comparant le comportement du planificateur A* avant et après refactoring pour adapter le RRT* afin qu'il fonctionne avec les nouvelles méthodes utilisées.\\\\
-Le RRT* fonctionne mais doit être modifié dans l'objectif de fournir des courbes C2, c'est-à-dire des courbes dont la dérivée seconde est continue.
-\subsection{Travaux à venir}
-Étant à peine plus de la moitié de mon stage, beaucoup de développements ont été réfléchis ou entamés, nécessitant des tests à venir.\\\\
-En voici une liste non exhaustive :
-\subsubsection{Tests de l'intégration de la détection et prise en compte des pentes et dévers}
-Pour détecter et caractériser le caractère franchissable ou non des pentes et dévers, une solution consistant à se resservir du filtre de Sobel utilisé pour la détection des obstacles est envisagée, avec la particularité d'être utilisé sur une version sous-échantillonnée du MNE et avec de nouveaux seuils.\\\\
-Les tests consisteront alors à s'assurer que le robot s'engage dans des pentes et dévers franchissables et contourne celles et ceux qui ne le sont pas.
-\subsubsection{Tests de l'intégration de la couche sémantique dans le MNE}
-Pour pouvoir intégrer les informations sémantiques dans le MNE, la solution retenue est d'attribuer à chaque point du nuage de points de la caméra une information de franchissabilité ou non. Ensuite, lors de la fusion du nuage de la caméra et du nuage LIDAR* pour mettre à jour la carte, cette information serait ajoutée aux tuiles de la carte, uniquement par les points du nuage de la caméra.\\\\
-Les tests consisteront alors à vérifier que le robot puisse s'engager dans des herbes hautes.
-\subsubsection{Tests de l'intégration de la couche ultrasonique dans le MNE}
-Un point dur du défi 2 est la gestion des obstacles transparents car ces derniers ne sont ni détectés par le LIDAR*, ni détectés par la caméra. Une solution en cours d'évaluation serait d'utiliser les capteurs ultrasoniques pour les fusionner avec les nuages de points LIDAR* et caméra dans le MNE.\\\\
-Des premiers tests ont été réalisés pour évaluer l'enveloppe de détection du capteur et la fiabilité des détections.\\\\
-Les résultats obtenus montrent que le capteur pourrait nous permettre de détecter des obstacles d'au moins 50x50 cm jusqu'à 4 mètres, mais que l'orientation de ces derniers pourrait grandement affecter la distance à partir de laquelle ils seraient détectés.\\\\
-Malgré ces résultats mitigés, cette solution a été retenue faute d'autres alternatives et d'autres tests seront à réaliser lors de l'ajout de cette fusion dans le MNE pour s'assurer de la bonne détection des obstacles transparents et de l'absence de fausses détections, notamment à l'approche de pentes et herbes hautes.
-\subsubsection{Tests de l'impact de la fumée après modification du traitement des points LIDAR}
-Pour gérer la présence de fumée, une solution jouant sur le filtrage des points LIDAR* en fonction de l'intensité a commencé à être testée et a donné des résultats prometteurs.\\\\
-Des tests de l'impact de la fumée sur le nuage de points caméra et sur l'ultrason sont à réaliser maintenant que ces derniers sont également utilisés pour mettre à jour le MNE.
-\subsubsection{Tests de la localisation et cartographie par SLAM}
-Comme nous l'avions vu précédemment, la perte du GNSS est actuellement un point critique à résoudre car sans GNSS, la carte ne peut plus être mise à jour correctement.\\\\
-Une solution en cours d'évaluation par l'Institut Pascal serait de fusionner l'odométrie fournie par le GNSS avec une odométrie fournie par un algorithme de SLAM.\\\\
-Les premiers résultats obtenus sont prometteurs mais une crainte se pose sur la capacité à intégrer cette solution à la Brique MOBILEX*.\\\\
-Une solution de secours qui pourrait être envisagée serait de réaliser la fusion d'odométrie non plus avec le SLAM mais avec une odométrie visuelle qui peut être fournie par la caméra.\\\\
-L'évaluation de la qualité de cette odométrie m'a été demandée et est en cours. Si les résultats sont satisfaisants, je serai chargé de réaliser la fusion des odométries. La piste de fusion serait alors l'utilisation d'un filtre de Kalman* codé en Python dont la sortie alimenterait le MNE.
-\subsubsection{Tests de navigation avec des pannes capteurs}
-Pour continuer d'assurer le fonctionnement de la Brique MOBILEX* lors de pannes capteurs, nous avons réfléchi aux difficultés qui seront rencontrées lors de chaque panne capteur et au comportement à donner au robot dans ces conditions :\\\\
-\begin{itemize}
-    \item \textbf{Perte du LIDAR*} : Lors d'une perte LIDAR*, le robot continuera de mettre à jour la carte en utilisant le nuage de points de la caméra et l'ultrason. Une difficulté pourrait être rencontrée lors de la présence de fumée, où le comportement de la caméra et de l'ultrason restent à déterminer.\\
-    \item \textbf{Perte de la caméra} : Comme pour une perte LIDAR*, le robot continuera de mettre à jour la carte en utilisant le nuage de points LIDAR* et l'ultrason. Le robot ne pourra cependant plus rouler dans les hautes herbes si ces dernières n'avaient pas été cartographiées avec l'information sémantique au préalable. Le robot devrait donc les considérer comme des obstacles et les contourner, ou bien s'arrêter jusqu'à la récupération de la caméra.\\
-    \item \textbf{Perte du GNSS} :  Lors d'une perte GNSS, le robot doit détecter la panne pour sous-estimer la covariance du GNSS si celui-ci retourne des valeurs pour que le filtre de Kalman* priorise l'utilisation de la seconde méthode d'odométrie fusionnée (SLAM ou odométrie visuelle de la caméra).\\
-    \item \textbf{Perte d'une antenne de communication} : Lors d'une perte de communication avec le PC débarqué, le robot continuera la mission en cours. Un problème de localisation pourra intervenir car les corrections de la base fixe ne seront plus envoyées au GNSS, ce qui provoquera une anomalie reprenant le comportement en cas de perte de ce dernier. Les antennes 868 MHz étant installées, une piste d'utilisation de ces dernières pour conserver l'envoi des corrections est également en cours de discussion.\\
-\end{itemize}
-Les autres composants ne subiront pas de pannes provoquées.\\\\
-Des tests ont déjà été réalisés avec succès pour détecter la panne des capteurs ci-dessus.
-\subsubsection{Tests hautes vitesses à Montoldre pour les cas du défi 2}
-Lorsque l'ensemble des cas de situations du défi 2 auront été traités, des tests à haute vitesse à Montoldre seront organisés. Ces tests viseront à reproduire le plus fidèlement possible les différents scénarios auxquels nous seront confrontés le jour des épreuves.\\\\
-La mise en place de ces tests m'a été confiée, notamment la réalisation des parcours reproduisant les scénarios et leur ajout dans l'IHM pour ne pas perdre de temps lors de la journée de tests.
-\subsubsection{Tests des modifications du local planner}
-Enfin, lors de tests de suivi de waypoints à différentes vitesses dans le simulateur, je me suis rendu compte de trois problèmes.\\\\
-Le premier est que dans un cas particulier, lors d'un dégagement, le robot s'approche trop près d'un obstacle alors que la planification locale est censée exclure toute commande provoquant cette situation et qu'une fois trop près de l'obstacle, la planification ne trouve plus aucune solution. Après vérification de plusieurs hypothèses, l'hypothèse retenue serait que le modèle cinématique du robot serait imparfait, ce qui pourrait le faire dévier de la trajectoire planifiée. Cette hypothèse est confortée par l'observation de glissements du robot dans le simulateur, probablement dus à une mauvaise modélisation du contact roue/sol.\\\\
-Le second intervient lors de la procédure de dégagement. Lorsque le robot, en se dégageant, trouve que la solution optimale est quasiment identique au chemin aller, il se met alors à faire des allers-retours sur place, les mêmes conditions provoquant les mêmes calculs de commande.\\\\
-La résolution de ces problèmes demanderait de refaire certaines parties de la planification locale, ce qui risquerait de prendre beaucoup de temps sans garantie de résultats car le choix et le paramétrage de la fonction coût est délicat. Ces modifications ne seraient alors étudiées uniquement lorsque les autres points auront été validés.
-
-\end{comment}
