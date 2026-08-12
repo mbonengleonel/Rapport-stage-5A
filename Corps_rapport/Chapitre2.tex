@@ -158,6 +158,7 @@ Le suivi de lisière se compose de deux modules séquentiels : un module de dét
 \indent Le module de détection prend en entrée la carte de gradients seuillée pour les obstacles infranchissables fournie par le MNE, représentant une carte d'occupation 2D (carte encodant la présence d'obstacles, de manière probabiliste ou binaire), et donne en sortie au maximum deux lisières, une à gauche et une à droite. Il génère ensuite une trajectoire associée à une des deux lisières, en fonction du choix de l’utilisateur (suivre la lisière de droite ou de gauche) et l'envoie au module de suivi pour le calcul des commandes et leur envoi à la brique de supervision.\\\\
 \indent La méthode de détection active de lisière implémentée repose sur l'adaptation de la détection de forme Snake contour et l'algorithme « Ball-Pivoting ». Cette approche permet de capturer uniquement les contours extérieurs des structures les plus proches du robot. La carte d'occupation peut avoir une certaine épaisseur pour des structures non "pleines", comme une haie clairsemée. Dans ce cas, extraire uniquement le contour extérieur permet d'éviter le traitement des points internes et de prévenir l'influence de points d'arrière-plan plus denses.\\\\
 \indent L’algorithme de détection commence par la détection du départ de la lisière à gauche et à droite du robot. Pour cela, on translate un cercle jusqu’à ce que celui-ci intersecte un point. Ce point correspond au premier point de la lisière (Figure \ref{fig19}) :\\
+
 \begin{center}
     \includegraphics[width=0.3\linewidth]{Corps_rapport/lisiere1.png}
     \captionof{figure}{Détection du premier point}
@@ -289,12 +290,13 @@ informations suivantes sont superposées au flux image : \\
     \item Compas\\
 \end{itemize}
 
-\indent La projection dans l’image des informations définies dans le repère monde a été réalisée à l'aide de la calibration intrinsèque de la caméra ainsi que de la calibration extrinsèque caméra/LIDAR* réalisée auparavant et du système de transformations tf de ROS* permettant de définir une matrice de transformation homogène 4x4 pour projeter les éléments du repère monde vers le repère image. Cette transformation est utilisée pour la représentation des obstacles, des waypoints, des flaques d'eau, des végétations traversables et des chemins afin d'obtenir le retour annoté (Figure \ref{fig23}).\\
+\indent La projection dans l’image des informations définies dans le repère monde a été réalisée à l'aide de la calibration intrinsèque de la caméra ainsi que de la calibration extrinsèque caméra/LIDAR* réalisée auparavant et du système de transformations tf de ROS* permettant de définir une matrice de transformation homogène 4x4 pour projeter les éléments du repère monde vers le repère image. Cette transformation est utilisée pour la représentation des obstacles, des waypoints, des flaques d'eau, des végétations traversables et des chemins afin d'obtenir le retour annoté (Figure \ref{fig23}).
 
 \subsubsection{IHM}
-Enfin, la brique IHM fournit une interface graphique (Figure \ref{fig23}) sur le PC débarqué à l'aide du framework ROS RQT. Elle permet au téléopérateur d'accéder au retour visuel annoté, d'envoyer des ordres de mission tout en ajustant les paramètres à sa guise, et d'enregistrer des trajectoires pour les modes « rejeu » et « retour sur traces ». Elle offre également la possibilité de saisir des coordonnées de points à atteindre, de consulter un ensemble de données et de diagnostics pour le débogage, ainsi que de définir et charger des paramètres pour les modes dégradés (hautes herbes, brouillard, etc.).\\
+Enfin, la brique IHM fournit une interface graphique (Figure \ref{fig23}) sur le PC débarqué à l'aide du framework ROS RQT. Elle permet au téléopérateur d'accéder au retour visuel annoté, d'envoyer des ordres de mission tout en ajustant les paramètres à sa guise, et d'enregistrer des trajectoires pour les modes « rejeu » et « retour sur traces ». Elle offre également la possibilité de saisir des coordonnées de points à atteindre, de consulter un ensemble de données et de diagnostics pour le débogage, ainsi que de définir et charger des paramètres pour les modes dégradés (hautes herbes, brouillard, etc.).
+
 \begin{center}
-    \includegraphics[width=1\linewidth]{Corps_rapport/rqt.png}
+    \includegraphics[width=0.9\linewidth]{Corps_rapport/rqt.png}
     \captionof{figure}{Interface RQT}
     \label{fig23}
 \end{center}
@@ -302,7 +304,7 @@ Enfin, la brique IHM fournit une interface graphique (Figure \ref{fig23}) sur le
 \indent En parallèle de l'interface RQT, une visualisation RVIZ (Figure \ref{fig24}) peut être lancée. Elle permet d'afficher les différentes cartes générées par la brique MNE, d'observer les chemins planifiés et d'indiquer un point cible directement sur la carte. Une légende y est associée afin d'en faciliter la compréhension.
 
 \begin{center}
-    \includegraphics[width=1\linewidth]{Corps_rapport/rviz.png}
+    \includegraphics[width=0.9\linewidth]{Corps_rapport/rviz.png}
     \captionof{figure}{Visualisation RVIZ}
     \label{fig24}
 \end{center}
