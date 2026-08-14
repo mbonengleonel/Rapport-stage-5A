@@ -1,6 +1,6 @@
 \section{Présentation du Challenge MOBILEX}
-Comme mentionné précédemment, le Challenge MOBILEX* vise à accélérer la recherche et à faire mûrir technologiquement le domaine de la navigation autonome des véhicules en Environnement complexe*.\\\\
-\indent Pour ce faire, les organisateurs ont lancé un appel à projet auquel pouvaient candidater des consortiums composés d'au moins un acteur industriel et d'un acteur de la recherche française. L'objectif était de rendre un véhicule imposé autonome pour des cas de situations donnés et de proposer des fonctionnalités/aides facilitants le contrôle par un téléopérateur.\\\\
+Comme mentionné précédemment, le Challenge MOBILEX* vise à accélérer la recherche et à faire mûrir technologiquement le domaine de la navigation autonome des véhicules en Environnement complexe*.\\
+\indent Pour ce faire, les organisateurs ont lancé un appel à projet auquel pouvaient candidater des consortiums composés d'au moins un acteur industriel et d'un acteur de la recherche française. L'objectif était de rendre un véhicule imposé autonome pour des cas de situations donnés et de proposer des fonctionnalités/aides facilitants le contrôle par un téléopérateur.\\
 \indent À l'issue de l'appel à projets, sept consortiums ont été retenus comme ci-après (Figure \ref{fig3}) :
 
 \begin{figure}[H] % Utilisez [H] au lieu de [htb]
@@ -21,7 +21,7 @@ Le Challenge Mobilex est organisé par les acteurs suivant (Figure \ref{fig4}) :
   \label{fig4}
 \end{figure}
 
-\indent Il se déroule sur trois années et est composé de trois défis de difficulté croissante, à savoir un défi par annnée. Les modalités de ces défis ne sont communiquées aux équipes qu'au début de chaque défi \cite{anr2023mobilex}. À la fin de chaque année, toutes les équipes sont convoquées sur un site de la DGA pour y être évaluées sur leurs propositions en réponse aux situations rencontrées lors du défi.\\\\
+\indent Il se déroule sur trois années et est composé de trois défis de difficulté croissante, à savoir un défi par annnée. Les modalités de ces défis ne sont communiquées aux équipes qu'au début de chaque défi \cite{anr2023mobilex}. À la fin de chaque année, toutes les équipes sont convoquées sur un site de la DGA pour y être évaluées sur leurs propositions en réponse aux situations rencontrées lors du défi.\\
 \indent L'organisation de chaque défi se déroule comme suit (Figure \ref{fig5}) :
 
 \begin{figure}[H] % Utilisez [H] au lieu de [htb]
@@ -77,11 +77,13 @@ Et se sont vue rajoutés les nouvelles fonctions suivantes :\\
 
 
 \paragraph{Mode téléopération assistée}
-Pour le premier défi, une IHM fonctionnant sur un PC déporté a été demandée pour, au minimum, pouvoir choisir le mode de pilotage, renvoyer les commandes réalisées par le téléopérateur lors d'un pilotage manuel et fournir un retour vidéo annoté. Ce retour vidéo doit contenir des informations concernant la compréhension de l'environnement établie par la brique logicielle de l'équipe ainsi que les indications de direction pour gérer la trajectoire.\\\\
-\indent Lors du défi 2, un sous-mode \textit{Safety First} en téléopération assistée a été demandé. Ce mode vise à préserver l'intégrité du robot en imposant le respect des contraintes de navigation données par les organisateurs, en reprenant temporairement le contrôle du véhicule en cas de danger. ce sous-mode doit être activable ou désactivable à tout moment depuis l'IHM.
+Pour le premier défi, une IHM fonctionnant sur un PC déporté a été demandée pour, au minimum, pouvoir choisir le mode de pilotage, renvoyer les commandes réalisées par le téléopérateur lors d'un pilotage manuel et fournir un retour vidéo annoté. Ce retour vidéo doit contenir des informations concernant la compréhension de l'environnement établie par la brique logicielle de l'équipe ainsi que les indications de direction pour gérer la trajectoire.\\
+\indent Lors du défi 2, un sous-mode \textit{Safety First} en téléopération assistée a été demandé. Ce mode vise à préserver l'intégrité du robot en imposant le respect des contraintes de navigation données par les organisateurs, en reprenant temporairement le contrôle du véhicule en cas de danger. Ce sous-mode doit être activable ou désactivable à tout moment depuis l'IHM.
+
 \subsubsection{Contraintes de navigation à intégrer lors du développement}
+
 \paragraph{Détection et gestion des obstacles}
-Tout obstacle d'une hauteur de plus de 30 cm (positive ou négative) par rapport au sol est considéré comme non franchissable et doit être évité. Le franchissement d'obstacles entre 5 et 30 cm doit être fait à une vitesse réduite inférieure à 5 km/h et avec arrêt préalable pour les obstacles entre 15 et 30 cm.\\\\
+Tout obstacle d'une hauteur de plus de 30 cm (positive ou négative) par rapport au sol est considéré comme non franchissable et doit être évité. Le franchissement d'obstacles entre 5 et 30 cm doit être fait à une vitesse réduite inférieure à 5 km/h et avec arrêt préalable pour les obstacles entre 15 et 30 cm.\\
 \indent La Figure \ref{fig6} est un tableau récapitulatif sur la franchissabilité des obstacles en fonction de leur hauteur et de la vitesse du robot :
 
 \begin{figure}[h!]
@@ -134,12 +136,12 @@ La Brique MOBILEX* doit être robuste aux pannes capteurs individuelles brèves 
 L'IHM doit permettre au téléopérateur de renseigner des points de passage imposés par les organisateurs. Le robot doit obligatoirement passer par chacun des points de passage renseignés en respectant l'ordre imposé. Ces points de passage sont définis par leurs coordonnées géographiques, en unités cartésiennes par projection UTM 31 dans le système géodésique WGS 84 avec une précision décimétrique.
 
 \paragraph{Rejeu de trajectoire}
-La Brique MOBILEX* doit permettre de réaliser des rejeux de trajectoire à tout moment et quel que soit le mode de pilotage courant. Elle doit donc être capable d'enregistrer une trajectoire à tout moment. Le rejeu de trajectoire se fait de manière autonome après repositionnement du robot au début de cette dernière et doit prendre en compte la potentielle apparition de nouveaux obstacles, ou l'altération d'obstacles déjà existants.\\\\
+La Brique MOBILEX* doit permettre de réaliser des rejeux de trajectoire à tout moment et quel que soit le mode de pilotage courant. Elle doit donc être capable d'enregistrer une trajectoire à tout moment. Le rejeu de trajectoire se fait de manière autonome après repositionnement du robot au début de cette dernière et doit prendre en compte la potentielle apparition de nouveaux obstacles, ou l'altération d'obstacles déjà existants.\\
 \indent Une option doit permettre d'optimiser automatiquement une trajectoire parcourue au préalable en réduisant le temps de réalisation de cette dernière tout en conservant le ralliement des points de passage dans le même ordre. La durée du processus d'optimisation est comptabilisée dans le temps de réalisation du rejeu.
 
 \paragraph{Retour sur traces}
-La Brique MOBILEX* doit permettre de rejoindre la position de départ du robot en suivant en sens inverse l'intégralité de la trajectoire préalablement parcourue à tout moment, quel que soit le mode de pilotage courant. Le retour sur trace se fait de manière autonome et doit prendre en compte la potentielle apparition de nouveaux obstacles, ou l'altération d'obstacles déjà existants.\\\\
-\indent L'objectif à rejoindre par défaut est la position du robot au début de l'épreuve. Une nouvelle position à rejoindre peut être imposée par les organisateurs. Il s'agira alors d'un point appartenant à la trajectoire à l'aller.\\\\
+La Brique MOBILEX* doit permettre de rejoindre la position de départ du robot en suivant en sens inverse l'intégralité de la trajectoire préalablement parcourue à tout moment, quel que soit le mode de pilotage courant. Le retour sur trace se fait de manière autonome et doit prendre en compte la potentielle apparition de nouveaux obstacles, ou l'altération d'obstacles déjà existants.\\
+\indent L'objectif à rejoindre par défaut est la position du robot au début de l'épreuve. Une nouvelle position à rejoindre peut être imposée par les organisateurs. Il s'agira alors d'un point appartenant à la trajectoire à l'aller.\\
 \indent Le retour sur traces peut relever d'un contexte d'urgence et peut altérer la limitation de vitesse. Il doit pouvoir se faire en marche arrière et en marche avant, avec la possibilité de changer de sens en cours de retour.
 
 \paragraph{Zones d'exclusion}
@@ -149,22 +151,26 @@ Les zones d'exclusion sont des polygones définis par les coordonnées géograph
 Les zones d'interdiction correspondent à des contraintes de sécurité. Ce sont des polygones définis par les coordonnées géographiques (UTM) des points qui les composent et peuvent ne pas être matérialisées sur le terrain. Leur chevauchement entraîne un arrêt d'urgence ainsi qu'une pénalité.
 
 \subsubsection{Évaluation des développements pour le défi en cours.}
-L'évaluation des développements se fait à chaque défi et comporte trois notes : une note liée à la revue de validation, une note liée à la soumission du dossier scientifique et technique et une note liée aux épreuves. Elles visent à démontrer les capacités de développement de l'équipe et les performances du système développé.\\\\
+L'évaluation des développements se fait à chaque défi et comporte trois notes : une note liée à la revue de validation, une note liée à la soumission du dossier scientifique et technique et une note liée aux épreuves. Elles visent à démontrer les capacités de développement de l'équipe et les performances du système développé.\\
 \indent Lors de la journée d'épreuves sur un site de la DGA, les robots des équipes doivent accomplir une suite de scénarios donnés dans le règlement particulier du défi permettant d'évaluer des fonctions seules ou un ensemble de fonctions. Les équipes sont notées sur la bonne prise en compte de l'ensemble des contraintes fournies par les organisateurs et le bon fonctionnement des fonctions avec des critères de précision et/ou de rapidité.
 
 \subsection{Le consortium MOBITER}
-Pour répondre au mieux aux ambitions du Challenge MOBILEX*, SHERPA Engineering s'est associée avec ses partenaires académiques INRAE et Institut Pascal, avec lesquels elle collabore régulièrement grâce à une proximité géographique, un laboratoire qui était jusqu'à récemment commun pour SHERPA Engineering et l'Institut Pascal, et des propositions régulières de thèses CIFRE.\\\\
+Pour répondre au mieux aux ambitions du Challenge MOBILEX*, SHERPA Engineering s'est associée avec ses partenaires académiques INRAE et Institut Pascal, avec lesquels elle collabore régulièrement grâce à une proximité géographique, un laboratoire qui était jusqu'à récemment commun pour SHERPA Engineering et l'Institut Pascal, et des propositions régulières de thèses CIFRE.\\
 \indent Cette proximité permet de répartir aisément les tâches à réaliser en fonction de l'expertise de chacun et de faciliter la communication entre les différents acteurs, notamment grâce à un canal Teams sur lequel sont partagés les avancées et différents documents et où une réunion hebdomadaire a lieu, permettant de présenter le travail de chacun et de planifier les tests sur le terrain. Les apports de chaque partie sont les suivants :
+
 \subsubsection{SHERPA Engineering}
 SHERPA Engineering, coordinatrice du projet, réalise, sur la base d'un existant, la mise en place de la base hardware du projet en l'adaptant pour répondre aux exigences du challenge. Elle réalise les tâches d'ingénierie du projet et a la charge d'une partie de l'algorithmie liée à la perception et à la planification.
+
 \subsubsection{INRAE}
 L'INRAE apporte son expérience dans la robotique agricole, notamment sur les nouvelles lois de commande, et est responsable de l'expérimentation grâce à l'utilisation de ses sites à Aubière (Puy-de-Dôme) et Montoldre (Allier).
+
 \subsubsection{Institut Pascal}
 L'Institut Pascal fournit des conseils sur le développement scientifique (fusion de données, traversabilité, gestion des risques, planification) qui sont mis en application par une ressource interne.
 
 
 
 \subsection{Présentation du robot Barakuda et du matériel installé}
+
 \subsubsection{Robot BARAKUDA}
 Pour répondre au challenge, la DGA a mis à disposition de chaque équipe un robot BARAKUDA de la société SHARK ROBOTICS (Figure \ref{fig8}).
 
@@ -175,8 +181,8 @@ Pour répondre au challenge, la DGA a mis à disposition de chaque équipe un ro
   \label{fig8}
 \end{figure}
 
-\indent Ce robot est une plateforme mobile pilotable jusqu'à 500 mètres de distance en terrain dégagé avec la télécommande fournie, doté de quatre roues motorisées non directionnelles pour une masse de 500 kg. Il est capable d'atteindre une vitesse de 20 km/h avec une charge utile pouvant aller jusqu'à 500 kg, de rouler sur des pentes allant jusqu'à 40°, des dévers allant jusqu'à 35° et de franchir des obstacles allant jusqu'à 30 cm. Il peut atteindre jusqu'à 10 heures d'autonomie en situation opérationnelle.\\\\
-\indent La communication entre le robot et la Brique MOBILEX* se fait via des trames UDP (protocole réseau utilisé pour des applications sensibles au temps) permettant d'envoyer des commandes de vitesse linéaires et angulaires et de récupérer des informations sur l'état du robot (vitesses et puissances des roues, inclinaisons, charge des batteries et température) par instruction de type GET.
+\indent Ce robot est une plateforme mobile pilotable jusqu'à 500 mètres de distance en terrain dégagé avec la télécommande fournie, doté de quatre roues motorisées non directionnelles pour une masse de 500 kg. Il est capable d'atteindre une vitesse de 20 km/h avec une charge utile pouvant aller jusqu'à 500 kg, de rouler sur des pentes allant jusqu'à 40°, des dévers allant jusqu'à 35° et de franchir des obstacles allant jusqu'à 30 cm. Il peut atteindre jusqu'à 10 heures d'autonomie en situation opérationnelle.\\
+\indent La communication entre le robot et la Brique MOBILEX* se fait via des trames UDP (Protocole de communication adapté aux applications à fortes contraintes temporelles, exempt de contrôle d'acquittement: la tolérance à la perte de paquets y garantit un traitement à faible latence centré exclusivement sur la donnée la plus récente) permettant d'envoyer des commandes de vitesse linéaires et angulaires et de récupérer des informations sur l'état du robot (vitesses et puissances des roues, inclinaisons, charge des batteries et température) par instruction de type GET.
 
 \subsubsection{Matériel ajouté par le consortium}
 Les équipes n'ont pas l'autorisation de modifier le robot en lui-même mais sont libres d'ajouter leur propre matériel tant qu'il respecte les dimensions à ne pas dépasser pour le challenge et la charge utile du robot. Nous avons donc choisi d'ajouter le matériel suivant (Figure \ref{fig9}):
@@ -189,20 +195,20 @@ Les équipes n'ont pas l'autorisation de modifier le robot en lui-même mais son
 \end{figure}
 
 \paragraph{Calculateur Syslogic RML A4AGX}
-Lors du premier défi, SHERPA Engineering avait utilisé un calculateur Syslogic RML A3 qu'elle possédait déjà mais s'est rendu compte qu'il y aurait un problème de performances lors de l'ajout de nouvelles briques pour répondre aux défis ultérieurs. Elle a donc opté pour le modèle supérieur, le RML A4AGX.\\\\
-\indent Ce calculateur est un PC industriel IP67 à dissipation thermique passive, basé sur un System On Module Nvidia Jetson AGX Orin. La puce Jetson AGX Orin intègre notamment un processeur ARM Cortex A78AE de 12 cœurs de 2,2 GHz, un GPU Nvidia Ampere de 2048 cœurs CUDA, 64 Go de RAM LPDDR5, et des accélérateurs d'inférences Nvidia v2. Il dispose également de 6 contrôleurs Gigabits Ethernet indépendants et deux contrôleurs USB 3.1. Un disque dur SSD de 2 To interne en PCIe a été ajouté pour enregistrer des logs.\\\\
+Lors du premier défi, SHERPA Engineering avait utilisé un calculateur Syslogic RML A3 qu'elle possédait déjà mais s'est rendu compte qu'il y aurait un problème de performances lors de l'ajout de nouvelles briques pour répondre aux défis ultérieurs. Elle a donc opté pour le modèle supérieur, le RML A4AGX.\\
+\indent Ce calculateur est un PC industriel IP67 à dissipation thermique passive, basé sur un System On Module Nvidia Jetson AGX Orin. La puce Jetson AGX Orin intègre notamment un processeur ARM Cortex A78AE de 12 cœurs de 2,2 GHz, un GPU Nvidia Ampere de 2048 cœurs CUDA, 64 Go de RAM LPDDR5, et des accélérateurs d'inférences Nvidia v2. Il dispose également de 6 contrôleurs Gigabits Ethernet indépendants et deux contrôleurs USB 3.1. Un disque dur SSD de 2 To interne en PCIe a été ajouté pour enregistrer des logs.\\
 \indent Ce choix a été motivé par l'excellente performance énergétique des puces Nvidia Jetson et la présence d'un GPU intégré, ce qui favorise leur intégration dans des applications robotiques et embarquées exigeantes.
 
 \paragraph{INS SBG Ellipse-D}
-Ce système de navigation inertielle, placé au centre du plateau, permet d'estimer la pose (altitude et position) et les vitesses linéaires et angulaires du robot. Ce capteur intègre une centrale inertielle calibrée et compensée en température, et un récepteur GNSS double antenne. La fusion INS se fait par filtrage de Kalman en interne.\\\\
+Ce système de navigation inertielle, placé au centre du plateau, permet d'estimer la pose (altitude et position) et les vitesses linéaires et angulaires du robot. Ce capteur intègre une centrale inertielle calibrée et compensée en température, et un récepteur GNSS double antenne. La fusion INS se fait par filtrage de Kalman en interne.\\
 \indent Le choix de ce capteur était motivé par la volonté d'intégrer une solution INS qualitative dans un format compact et robuste avec un coût maîtrisé.
 
 \paragraph{LIDAR 3D Ouster OS1}
-Ce LIDAR* 3D 64 nappes, placé au-dessus de l'INS, permet d'observer l'environnement à 360° autour du robot.\\\\
+Ce LIDAR* 3D 64 nappes, placé au-dessus de l'INS, permet d'observer l'environnement à 360° autour du robot.\\
 \indent Le choix de ce capteur était motivé par le paradigme choisi pour la perception. La compacité, la résilience affichée et le coût des LIDAR*s Ouster ont favorisé l'intégration de ce modèle particulier.
 
 \paragraph{Caméra ZED X}
-Cette caméra, placée à l'avant du robot, est une caméra stéréo permettant, en plus d'obtenir un retour visuel, de fournir un nuage de points 3D dense à l'avant du robot.\\\\
+Cette caméra, placée à l'avant du robot, est une caméra stéréo permettant, en plus d'obtenir un retour visuel, de fournir un nuage de points 3D dense à l'avant du robot.\\
 \indent Le choix de ce capteur était motivé par la fusion du nuage de points avec celui du LIDAR* pour combler d'éventuels manques d'informations dans la carte et d'obtenir un retour vidéo de bonne qualité pour la téléopération ainsi que pour de la vision artificielle.
 
 \paragraph{Capteurs Ultrasoniques 200kHz}
@@ -212,10 +218,10 @@ Ces capteurs, un placé à l'avant du robot, permettent de compléter la percept
 Ce sous-système a été conçu antérieurement par SHERPA et est composé d'un ensemble de cartes électroniques dans un boîtier IP67 usiné sur mesure, qui permettent d'assurer la synchronisation, le pilotage commandé et le multiplexage de données capteurs. Le boîtier intègre une centrale inertielle XSens MTi-7 ainsi qu'un récepteur GNSS F9P de Ublox, permettant une redondance capteur avec la SBG Ellipse-D.
 
 \paragraph{Antennes 5 GHz et 868 MHz}
-Ces antennes permettent d'établir la communication entre le PC débarqué et le PC embarqué. Il y a donc une antenne 5 GHz et 868 MHz sur la station débarquée et sur le robot. Par contre seule l'antenne 5 GHz du robot est utilisée pour la communication avec le PC débarqué car elle offre une meilleure bande passante et une plus grande robustesse aux obstacles (végétation, bâtiments, ...).\\\\
+Ces antennes permettent d'établir la communication entre le PC débarqué et le PC embarqué. Il y a donc une antenne 5 GHz et 868 MHz sur la station débarquée et sur le robot. Par contre seule l'antenne 5 GHz du robot est utilisée pour la communication avec le PC débarqué car elle offre une meilleure bande passante et une plus grande robustesse aux obstacles (végétation, bâtiments, ...).
 
 \paragraph{Poste de Contrôle Commande (PCC) ou PC débarqué}
-Ce Poste constitué d'un PC portable, d'antennes omni (5GHz et 868MHz), d'une manette de jeu, d'une batterie + onduleur permet au téléopérateur de contrôler le robot à distance et de recevoir les retours vidéo et d'informations sur l'état du robot. Le PCC se présente comme suit (Figure \ref{fig10}) :  \\
+Ce Poste constitué d'un PC portable, d'antennes omni (5GHz et 868MHz), d'une manette de jeu, d'une batterie + onduleur permet au téléopérateur de contrôler le robot à distance et de recevoir les retours vidéo et d'informations sur l'état du robot. Le PCC se présente comme suit (Figure \ref{fig10}) :
 
 \begin{figure}[H] % Utilisez [H] au lieu de [htb]
   \centering % Utilisez \centering au lieu de \makebox
@@ -232,7 +238,8 @@ On obtient alors sur le robot l'architecture hardware (Figure \ref{fig11}) :
 \end{center}
 
 \subsection{Présentation du simulateur Gazebo}
-Bien que tous les membres du consortium aient une présence à Aubière, une partie de l'équipe de développement de SHERPA Engineering se situe dans l'agence de Nantes, les empêchant de réaliser des tests directement sur le robot. Pour palier ce problème, SHERPA Engineering a mis en place un simulateur Gazebo (Figure \ref{fig12}) reprenant le plus fidèlement possible les données à fournir et les données renvoyées par le robot et ses capteurs (cf. RQT graph en annexe \hyperref[annexe1]{[I]}) pour pouvoir réaliser une première phase de tests visant à déceler de potentiels problèmes sur les briques de haut niveau (perception, planification et calcul des commandes). Le simulateur contient divers obstacles correspondant aux cas de situations donnés par la DGA lors de la présentation des modalités du défi en début d'année et est enrichi au fur et à mesure des défis.\\
+Conformément à sa méthodologie interne et pour des raisons pratiques, SHERPA Engineering a développé un environnement de simulation sous Gazebo (Figure~\ref{fig12}). Celui-ci réplique fidèlement les flux de données d'entrée/sortie du robot et de sa suite sensorielle (cf. graphe RQT en annexe~\hyperref[annexe1]{[I]}), afin de mener une première phase de validation logicielle. Cette étape vise à identifier précocement d'éventuels dysfonctionnements au niveau des briques haut niveau (perception, planification et génération de commandes). L'environnement virtuel intègre divers obstacles représentatifs des scénarios spécifiés par la DGA lors de la présentation des modalités du défi, et continue d'être enrichi au fil des évolutions du challenge.
+
 \begin{center}
     \includegraphics[width=1 \linewidth]{Corps_rapport/gazebo_sim.png}
     \captionof{figure}{Simulateur Gazebo}

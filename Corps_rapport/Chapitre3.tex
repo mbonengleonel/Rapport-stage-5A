@@ -235,14 +235,14 @@ La bibliothèque python EVO, très employée pour l'évaluation de techniques de
 \indent Afin de qualifier les performances du SLAM DLIO, il etait indispensable d'évaluer et visualiser sa dérive par rapport à la vérité terrain en fonction de la distance parcourue, chose qu'EVO ne permettait pas de faire. Pour cela, à partir d'un bag de données ROS contenant les trajectoires (SLAM et vérité terrain) enregistrées lors d'essais réels, nous avons implémenté un script qui calcule l'erreur euclidienne de position, la distance réelle parcourue puis la dérive du SLAM à chaque instant. La dérive étant donnée en pourcentage par la formule suivante \eqref{eq5}: 
 
 \begin{equation} \label{eq5}
-    \text{Dérive}[k] = \frac{100 \cdot \sqrt{(x_{\text{slam}}[k]-x_{\text{sbg}}[k])^2+(y_{\text{slam}}[k]-y_{\text{sbg}}[k])^2+(z_{\text{slam}}[k]-z_{\text{sbg}}[k])^2}}{\text{d}[k]}
+    \text{Dérive}[k] = 100 \cdot \frac{\|\mathbf{p}_{\text{slam}}[k] - \mathbf{p}_{\text{sbg}}[k]\|_2}{d[k]}
 \end{equation}
 $\ $
 
-avec $x_{\text{slam}}[k]$, $y_{\text{slam}}[k]$, $z_{\text{slam}}[k]$ les coordonnées de la position estimée par le SLAM à l'instant $k$, $x_{\text{sbg}}[k]$, $y_{\text{sbg}}[k]$, $z_{\text{sbg}}[k]$ les coordonnées de la vérité terrain fournie par la centrale SBG, et $\text{d}[k]$ la distance cumulée parcourue jusqu'à l'instant $k$, calculée de manière incrémentale selon la formule \eqref{eq6} : avec $\text{d}[0] = 0$.
+où $\mathbf{p}_{\text{slam}}[k] = \begin{bmatrix} x_{\text{slam}}[k] & y_{\text{slam}}[k] & z_{\text{slam}}[k] \end{bmatrix}^T$ désigne le vecteur position estimé par le SLAM à l'instant $k$, $\mathbf{p}_{\text{sbg}}[k] = \begin{bmatrix} x_{\text{sbg}}[k] & y_{\text{sbg}}[k] & z_{\text{sbg}}[k] \end{bmatrix}^T$ le vecteur position de la vérité terrain fournie par la centrale SBG, $\|\cdot\|_2$ la norme euclidienne, et $d[k]$ la distance cumulée parcourue jusqu'à l'instant $k$, calculée de manière incrémentale selon la formule \eqref{eq6} avec $d[0] = 0$.
 
 \begin{equation} \label{eq6}
-    \scalebox{0.9}{$\displaystyle\text{d}[k] = \text{d}[k-1] + \sqrt{(x_{\text{sbg}}[k]-x_{\text{sbg}}[k-1])^2+(y_{\text{sbg}}[k]-y_{\text{sbg}}[k-1])^2+(z_{\text{sbg}}[k]-z_{\text{sbg}}[k-1])^2}$}
+    \text{d}[k] = \text{d}[k-1] + \|\mathbf{p}_{\text{slam}}[k] - \mathbf{p}_{\text{sbg}}[k]\|_2
 \end{equation}
 $\ $
  
@@ -686,7 +686,7 @@ Comme présenté dans la section 2.2, le mode de suivi de lisière est un mode d
     \item \textbf{En cas d'anomalie ou de masquage} : Si la condition n'est pas respectée, la mise à jour est inhibée. Le robot conserve et suit son chemin précédent, ce qui lui permet de franchir la zone de perturbation (l'obstacle).\\
 \end{itemize}
 
-Malgré plusieurs ajustements fins (\textit{fine-tuning}) des paramètres du planificateur local et du contrôleur \textit{Pure Pursuit} — notamment l'augmentation de l'horizon de planification, la réduction du coût de rotation autour de l'axe $z$ pour le planificateur et l'accroissement de la distance de visée (\textit{lookahead distance}) du contrôleur —, le robot ne parvenait pas à contourner les obstacles présents sur la trajectoire de suivi. Il a été conclu que le contrôleur \textit{Pure Pursuit} n'offrait pas une liberté suffisante au planificateur local de type DWA (\textit{Dynamic Window Approach}). Ce dernier, agissant dans l'espace des commandes, ne pouvait pas modifier suffisamment les consignes de vitesse pour écarter le robot des obstacles. Une solution efficace consistait donc à déformer le chemin généré par l'algorithme de détection de lisière en amont du contrôleur \textit{Pure Pursuit}.\\
+Malgré plusieurs ajustements fins (\textit{fine-tuning}) des paramètres du planificateur local et du contrôleur \textit{Pure Pursuit} (notamment l'augmentation de l'horizon de planification, la réduction du coût de rotation autour de l'axe $z$ pour le planificateur et l'accroissement de la distance de visée (\textit{lookahead distance}) du contrôleur), le robot ne parvenait pas à contourner les obstacles présents sur la trajectoire de suivi. Nous avions du mal à trouver des paramètres du planificateur DWA (\textit{Dynamic Window Approach}) qui satisfont tous les cas de figure. Une solution efficace consistait donc à déformer le chemin généré par l'algorithme de détection de lisière en amont du contrôleur \textit{Pure Pursuit}.\\
 
 À cette fin, nous avons choisi d'implémenter un premier planificateur local dans l'espace de la tâche. Ce module prend en entrée le chemin issu de la détection de lisière ainsi que le nuage de points obstacles au tour du robot. Il génère une nouvelle trajectoire qui garantit le suivi de la lisière à la distance souhaitée tout en évitant les obstacles. Ce nouveau chemin est ensuite transmis au contrôleur \textit{Pure Pursuit}, dont les commandes de vitesse (linéaire et angulaire) sont vérifiées puis ajustées, si nécessaire, par le second planificateur local de type DWA avant d'être envoyées au robot.(Figure \ref{fig49})\\
 
