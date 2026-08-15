@@ -17,7 +17,8 @@
 \hyperref[sec:annexe4]{Annexe 4 : Plan de test - Checklist} \dotfill \pageref{annexe4}\\
 \hyperref[sec:annexe5]{Annexe 5 : Trajectoire de test INRAE Aubière des SLAM DLIO et Kitware} \dotfill \pageref{annexe5}\\
 \hyperref[sec:annexe6]{Annexe 6 : Erreur de position des SLAM DLIO et Kitware sur la boucle de test montoldre} \dotfill \pageref{annexe6}\\
-\hyperrref[sec:annexe7]{Annexe 7 : Comparaison de la pose estimée par le GICP et l'observateur géométrique de DLIO en fonction de l'IMU utilisée} \dotfill \pageref{annexe7}\\
+\hyperref[sec:annexe7]{Annexe 7 : Comparaison de la pose estimée par le GICP et l'observateur géométrique de DLIO en fonction de l'IMU utilisée} \dotfill \pageref{annexe7}\\
+\hyperref[sec:annexe8]{Annexe 8 : Inférence du modèle Segformer fine-tuné sur le dataset MOBITER} \dotfill \pageref{annexe8}\\
 
 \newpage
 \pagestyle{fancy}
@@ -106,3 +107,59 @@
 \end{figure}
 
 *\textit{La courbe bleue représente la sortie brute de l'observateur géométrique de DLIO, la courbe verte illustre la sortie brute du GICP, et la courbe rouge correspond à la vérité terrain fournie par la centrale SBG.}
+
+
+\newpage
+\section*{Annexe 8 : Inférence du modèle Segformer fine-tuné sur le dataset MOBITER}
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Appendix/0.png}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Appendix/1.png}
+    \end{subfigure}
+
+    \vspace{0.5em}
+
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Appendix/2.png}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Appendix/3.png}
+    \end{subfigure}
+
+    \vspace{0.5em}
+
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Appendix/4.png}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Appendix/5.png}
+    \end{subfigure}
+
+    \vspace{0.5em}
+
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Appendix/8.png}
+    \end{subfigure}
+    \hfill 
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Appendix/9.png}
+    \end{subfigure}
+
+    \label{annexe8}
+\end{figure}
+
+*\textit{Les zones vertes représentent une prédiction herbe, les zones bleues une prédiction sol, et les zones violettes représentent une prédiction eau.}

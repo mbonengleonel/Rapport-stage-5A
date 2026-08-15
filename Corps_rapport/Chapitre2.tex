@@ -71,16 +71,9 @@ $\ $\
 
 \end{comment}
 
-\indent SegFormer est une architecture de réseau de neurones dédiée à la segmentation sémantique d'images. À partir d'une image en entrée, il génère une carte de segmentation attribuant chaque pixel à une classe spécifique (dans notre cas : sol, hautes herbes et eau). Le réseau a d'abord été pré-entraîné sur le jeu de données public COCO, qui regroupe une large variété d'images annotées, puis affiné (fine-tuning) sur une base de données d'images propriétaires du groupe MOBITER. Ces données ont été acquises via la caméra ZED du robot lors de campagnes de collecte (ciblant les hautes herbes traversables et les flaques d'eau) réalisées sur les sites INRAE d'Aubière et de Montoldre.\\
+\indent SegFormer est une architecture de réseau de neurones dédiée à la segmentation sémantique d'images. À partir d'une image en entrée, il génère une carte de segmentation attribuant chaque pixel à une classe spécifique (dans notre cas : sol, hautes herbes et eau) \hyperref[annexe8]{[test\_inférence]}. Le réseau a d'abord été pré-entraîné sur le jeu de données public COCO, qui regroupe une large variété d'images annotées, puis affiné (fine-tuning) sur une base de données d'images propriétaires du groupe MOBITER. Ces données ont été acquises via la caméra ZED du robot lors de campagnes de collecte (ciblant les hautes herbes traversables et les flaques d'eau) réalisées sur les sites INRAE d'Aubière et de Montoldre.\\
 
 \indent L'objectif est de fusionner cette information sémantique (sol, hautes herbes et eau) dans la brique du Modèle Numérique d'Environnement (MNE) pour ajouter une notion de traversabilité aux obstacles haute herbes et eau de la carte en mode dégradé. Et ainsi répondre aux exigences du défi 3.
-
-
-
-
-
-
-
 
 
 

@@ -1,10 +1,11 @@
 \section*{Conclusion}
 
-
-Pour conclure sur le projet, nous avons actuellement une brique MOBILEX* permettant au robot de naviguer dans un environnement déstructuré contenant des obstacles naturels positifs ou négatifs de manière fiable, aussi bien avec les différents modes de conduite autonome qu'en téléopération avec un mode safety first assurant la préservation de l'intégrité physique du robot.\\
-Des développements pour gérer la présence d'obstacles complexes sont en cours avec l'ajout et l'intégration d'une information sémantique et ultrasonique dans le MNE et avec un filtrage opéré sur le nuage de points LIDAR* pour faire face à la présence de fumée, de brouillard ou de pluie. Les tests déjà réalisés nous laissent confiants sur les méthodes imaginées.\\
-Les pannes capteurs restent le point dur du projet, particulièrement la panne du capteur GNSS RTK qui nécessite une évaluation de la méthode SLAM en cours de développement par l'Institut Pascal ou de l'utilisation de l'odométrie fournie par la caméra dans les plus brefs délais.\\
-Si ces dernières donnent des résultats satisfaisants, nous devrions pouvoir réaliser l'ensemble des scénarios de ce second défi. À plus long terme, nous restons confiants sur la capacité de notre brique MOBILEX* à prendre en compte de nouvelles contraintes, toutes les solutions développées ayant été pensées pour pouvoir être facilement adaptées pour de nouvelles situations dont nous ne connaissons pas les modalités lors du défi 3.
+Pour conclure sur le projet, nous avons actuellement une brique MOBILEX* permettant au robot barakuda de naviguer avec ou sans GNSS RTK dans un environnement déstructuré contenant des obstacles naturels positifs ou négatifs de manière fiable, aussi bien avec les différents modes de conduite autonome qu'en téléopération avec un mode safety first assurant la préservation de l'intégrité physique du robot.\\
+\indent Certes la navigation en SLAM une fois initialisée par le GNSS RTK est fiable, mais la gestion efficace des sauts entre mode de localisation (principalement SLAM vers GNSS) et mise à jour des cellules du MNE représente encore un des principaux axes de développement à ce jour.
+De plus 
+\indent Des développements pour gérer la présence d'obstacles complexes sont en cours avec l'ajout et l'intégration d'une information sémantique et ultrasonique dans le MNE et avec un filtrage opéré sur le nuage de points LIDAR* pour faire face à la présence de fumée, de brouillard ou de pluie. Les tests déjà réalisés nous laissent confiants sur les méthodes imaginées.\\
+\indent Les pannes capteurs restent le point dur du projet, particulièrement la panne du capteur GNSS RTK qui nécessite une évaluation de la méthode SLAM en cours de développement par l'Institut Pascal ou de l'utilisation de l'odométrie fournie par la caméra dans les plus brefs délais.\\
+\indent Si ces dernières donnent des résultats satisfaisants, nous devrions pouvoir réaliser l'ensemble des scénarios de ce second défi. À plus long terme, nous restons confiants sur la capacité de notre brique MOBILEX* à prendre en compte de nouvelles contraintes, toutes les solutions développées ayant été pensées pour pouvoir être facilement adaptées pour de nouvelles situations dont nous ne connaissons pas les modalités lors du défi 3.
 
 
 \newpage
