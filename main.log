@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.6.2)  15 AUG 2026 16:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.6.2)  15 AUG 2026 17:39
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1661,30 +1661,6 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has be
                    \relax 
 l.113 \newpage
                [7] (./Introduction/Intro.tex)
-Underfull \hbox (badness 10000) in paragraph at lines 2--123
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2--123
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2--123
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2--123
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2--123
-
- []
-
 File: logos/logo_sherpa.png Graphic file (type png)
 <use logos/logo_sherpa.png>
 Package pdftex.def Info: logos/logo_sherpa.png  used on input line 124.
@@ -1697,6 +1673,7 @@ File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
 <use logos/lhead_logos/eupi_long_resized.png>
 Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 124.
 (pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
+
 
 Package fancyhdr Warning: \headheight is too small (42.67912pt): 
 (fancyhdr)                Make it at least 45.32773pt, for example:
@@ -2503,17 +2480,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 242--244
 
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 245--246
+
+ []
+
 File: logos/logo_sherpa.png Graphic file (type png)
 <use logos/logo_sherpa.png>
-Package pdftex.def Info: logos/logo_sherpa.png  used on input line 286.
+Package pdftex.def Info: logos/logo_sherpa.png  used on input line 278.
 (pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
 File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
 <use logos/lhead_logos/logo_polytech_resized.png>
-Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 286.
+Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 278.
 (pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
 File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
 <use logos/lhead_logos/eupi_long_resized.png>
-Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 286.
+Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 278.
 (pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
 
 Package fancyhdr Warning: \headheight is too small (42.67912pt): 
@@ -2523,36 +2505,36 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [24 <./Corps_rapport/DWA_illustration.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 288--291
+Underfull \hbox (badness 10000) in paragraph at lines 283--286
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 299--300
+Underfull \hbox (badness 10000) in paragraph at lines 294--295
 
  []
 
 <Corps_rapport/rqt.png, id=647, 1927.2pt x 1084.05pt>
 File: Corps_rapport/rqt.png Graphic file (type png)
 <use Corps_rapport/rqt.png>
-Package pdftex.def Info: Corps_rapport/rqt.png  used on input line 308.
+Package pdftex.def Info: Corps_rapport/rqt.png  used on input line 303.
 (pdftex.def)             Requested size: 435.32422pt x 244.86012pt.
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 309.
+(caption)                particular \caption on input line 304.
 See the caption package documentation for explanation.
 
 File: logos/logo_sherpa.png Graphic file (type png)
 <use logos/logo_sherpa.png>
-Package pdftex.def Info: logos/logo_sherpa.png  used on input line 309.
+Package pdftex.def Info: logos/logo_sherpa.png  used on input line 304.
 (pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
 File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
 <use logos/lhead_logos/logo_polytech_resized.png>
-Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 309.
+Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 304.
 (pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
 File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
 <use logos/lhead_logos/eupi_long_resized.png>
-Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 309.
+Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 304.
 (pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
 
 Package fancyhdr Warning: \headheight is too small (42.67912pt): 
@@ -2565,12 +2547,12 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 <Corps_rapport/rviz.png, id=653, 1856.9375pt x 1056.94875pt>
 File: Corps_rapport/rviz.png Graphic file (type png)
 <use Corps_rapport/rviz.png>
-Package pdftex.def Info: Corps_rapport/rviz.png  used on input line 316.
+Package pdftex.def Info: Corps_rapport/rviz.png  used on input line 311.
 (pdftex.def)             Requested size: 435.32422pt x 247.77013pt.
 
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 317.
+(caption)                particular \caption on input line 312.
 See the caption package documentation for explanation.
 
 )
@@ -4818,7 +4800,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  125i,17n,120p,1749b,1031s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbxi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmcsc10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathabx-type1/matha12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathabx-type1/matha8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathabx-type1/mathb12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathabx-type1/mathx10.pfb>
-Output written on main.pdf (85 pages, 31698884 bytes).
+Output written on main.pdf (85 pages, 31700917 bytes).
 PDF statistics:
  1384 PDF objects out of 1440 (max. 8388607)
  1088 compressed objects within 11 object streams

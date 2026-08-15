@@ -71,7 +71,7 @@ $\ $\
 
 \end{comment}
 
-\indent SegFormer est une architecture de réseau de neurones dédiée à la segmentation sémantique d'images. À partir d'une image en entrée, il génère une carte de segmentation attribuant chaque pixel à une classe spécifique — dans notre cas : sol, hautes herbes et eau. Le réseau a d'abord été pré-entraîné sur le jeu de données public COCO, qui regroupe une large variété d'images annotées, puis affiné (fine-tuning) sur une base de données d'images propriétaires du groupe MOBITER. Ces données ont été acquises via la caméra ZED du robot lors de campagnes de collecte (ciblant les hautes herbes traversables et les flaques d'eau) réalisées sur les sites INRAE d'Aubière et de Montoldre.\\
+\indent SegFormer est une architecture de réseau de neurones dédiée à la segmentation sémantique d'images. À partir d'une image en entrée, il génère une carte de segmentation attribuant chaque pixel à une classe spécifique (dans notre cas : sol, hautes herbes et eau). Le réseau a d'abord été pré-entraîné sur le jeu de données public COCO, qui regroupe une large variété d'images annotées, puis affiné (fine-tuning) sur une base de données d'images propriétaires du groupe MOBITER. Ces données ont été acquises via la caméra ZED du robot lors de campagnes de collecte (ciblant les hautes herbes traversables et les flaques d'eau) réalisées sur les sites INRAE d'Aubière et de Montoldre.\\
 
 \indent L'objectif est de fusionner cette information sémantique (sol, hautes herbes et eau) dans la brique du Modèle Numérique d'Environnement (MNE) pour ajouter une notion de traversabilité aux obstacles haute herbes et eau de la carte en mode dégradé. Et ainsi répondre aux exigences du défi 3.
 
@@ -243,13 +243,8 @@ La planification locale se fait dans l’espace de la commande projetée en vue 
 \indent Ce critère est optimisé avec une approche en force brute de type grid search: cette approche consiste à discrétiser l'espace de commande puis calculer le coût associé à chaque paire de commandes. La paire avec le plus faible coût étant la commande optimale pour la discrétisation donnée. Une fois la paire optimale trouvée, on calcule les commandes à envoyer au robot $(v,\omega_z)$ pour les adapter à la topologie du terrain dans le repère 3D.\\
 
 \indent L'évaluation du terme de la présence des obstacles est lourd en calculs car il demande de générer l'empreinte du robot sur $2 s$ pour chaque paire de commandes. L'empreinte pour une paire de commande étant invariante, ces dernières sont générées en amont du lancement de la Brique MOBILEX* et stockées sous forme de LUT (Look-Up Tables). Lors du lancement de la brique de planification locale, elles sont chargées en mémoire vive, permettant de gagner un temps considérable pour trouver la commande optimale à appliquer. La superposition de l'empreinte et de la carte d'obstacles dans le repère du robot permet d'évaluer la présence d'obstacles sur la trajectoire générée.\\
-\indent Une optimisation de cette brique à ete operée dans le cadre du defi 3. cette optimisation consiste à réduire la taille mémoire des LUT en ne stockant que les empreintes du robot à différentes orientations 
 
-
-
-
-
-
+\indent Une optimisation de cette brique a été réalisée dans le cadre du défi 3. Elle repose sur la mise en place d'une structure d'accélération qui encode l'orientation du robot à chaque instant des arcs de trajectoire, puis la reprojette dans la LUT (\textit{Look-Up Table}) d'origine. Cette approche évite le stockage systématique des empreintes du robot pour l'ensemble des orientations le long des différents arcs : ce sont désormais les points LiDAR qui sont transformés dans le repère de la LUT d'origine, et non plus le modèle du robot qui est décliné selon toutes ses orientations suivant l'arc. Grâce à ce changement de repère, l'empreinte mémoire des LUTs embarquées sur le robot a été réduite de près de 20~Go à moins de 1~Go.
 
 
 \begin{comment}
