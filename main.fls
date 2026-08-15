@@ -2007,6 +2007,7 @@ INPUT ./main.gls
 INPUT main.gls
 INPUT ./main.gls
 INPUT main.gls
+INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmri12.tfm
 INPUT ./logos/logo_sherpa.png
 INPUT ./logos/logo_sherpa.png
 INPUT logos/logo_sherpa.png
@@ -2025,7 +2026,6 @@ INPUT ./main.acr
 INPUT main.acr
 INPUT ./main.acr
 INPUT main.acr
-INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmri12.tfm
 INPUT ./logos/logo_sherpa.png
 INPUT ./logos/logo_sherpa.png
 INPUT logos/logo_sherpa.png
@@ -2244,11 +2244,11 @@ INPUT ./logos/lhead_logos/eupi_long_resized.png
 INPUT ./logos/lhead_logos/eupi_long_resized.png
 INPUT logos/lhead_logos/eupi_long_resized.png
 INPUT ./logos/lhead_logos/eupi_long_resized.png
-INPUT ./Corps_rapport/PCC.png
-INPUT ./Corps_rapport/PCC.png
-INPUT Corps_rapport/PCC.png
-INPUT ./Corps_rapport/PCC.png
-INPUT ./Corps_rapport/PCC.png
+INPUT ./Corps_rapport/PCC.jpg
+INPUT ./Corps_rapport/PCC.jpg
+INPUT Corps_rapport/PCC.jpg
+INPUT ./Corps_rapport/PCC.jpg
+INPUT ./Corps_rapport/PCC.jpg
 INPUT ./logos/logo_sherpa.png
 INPUT ./logos/logo_sherpa.png
 INPUT logos/logo_sherpa.png

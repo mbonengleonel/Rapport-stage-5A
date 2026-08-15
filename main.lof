@@ -22,11 +22,11 @@
 \contentsline {figure}{\numberline {21}{\ignorespaces Illustration des trajectoires évaluées par la planification locale DWA\relax }}{24}{figure.21}%
 \contentsline {figure}{\numberline {22}{\ignorespaces Interface RQT\relax }}{26}{figure.22}%
 \contentsline {figure}{\numberline {23}{\ignorespaces Visualisation RVIZ\relax }}{26}{figure.23}%
-\contentsline {figure}{\numberline {24}{\ignorespaces Terrain d’essais de l’INRAE Aubière\relax }}{31}{figure.24}%
+\contentsline {figure}{\numberline {24}{\ignorespaces Terrain d'essais de l'INRAE Aubière\relax }}{31}{figure.24}%
 \contentsline {figure}{\numberline {25}{\ignorespaces Comparaison des positions Kitware vs DLIO vs vérité terrain\relax }}{31}{figure.caption.12}%
 \contentsline {figure}{\numberline {26}{\ignorespaces Comparaison des orientations Kitware vs DLIO vs vérité terrain\relax }}{32}{figure.caption.13}%
-\contentsline {figure}{\numberline {27}{\ignorespaces Comparaison des erreurs de pose sur le terrain d’essais de l’INRAE Aubière\relax }}{32}{figure.27}%
-\contentsline {figure}{\numberline {28}{\ignorespaces Terrain d’essais de Montoldre\relax }}{33}{figure.28}%
+\contentsline {figure}{\numberline {27}{\ignorespaces Comparaison des erreurs de pose sur le terrain d'essais de l'INRAE Aubière\relax }}{32}{figure.27}%
+\contentsline {figure}{\numberline {28}{\ignorespaces Terrain d'essais de Montoldre\relax }}{33}{figure.28}%
 \contentsline {figure}{\numberline {29}{\ignorespaces Comparaison des trajectoires DLIO vs Kitware vs vérité terrain en zone dégagée\relax }}{33}{figure.29}%
 \contentsline {figure}{\numberline {30}{\ignorespaces Carte construite avec la version originale de DLIO SLAM\relax }}{34}{figure.30}%
 \contentsline {figure}{\numberline {31}{\ignorespaces Comparaison de cartographie en GNSS RTK VS en DLIO\relax }}{35}{figure.31}%

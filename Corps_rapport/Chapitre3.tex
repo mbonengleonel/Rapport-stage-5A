@@ -18,25 +18,25 @@ J'ai été recruté comme stagiaire chez SHERPA Engineering afin d'apporter une 
 
 \subsubsection{Prise en main du projet}
 Lors de mon arrivée à SHERPA Engineering, il a été indispensable pour moi de prendre en main un projet débuté depuis plus de deux ans.\\\\
-\indent Mon premier objectif a consisté à cloner le dépôt Git de l'ensemble du projet Mobiter sur notre poste de travail. Ce dernier fonctionne sous Ubuntu 22.04 et intègre Distrobox, un outil de conteneurisation permettant d'exécuter une surcouche logicielle sous un autre système d'exploitation — en l'occurrence Ubuntu 20.04. Cette configuration est indispensable pour utiliser ROS Noetic. En effet, l'intégralité de la brique logicielle MOBILEX a été développée sous cette version de ROS, qui s'avère incompatible avec la distribution native Ubuntu 22.04. \\\\
+\indent Mon premier objectif a consisté à cloner le dépôt Git de l'ensemble du projet Mobiter sur notre poste de travail. Ce dernier fonctionne sous Ubuntu 22.04 et intègre Distrobox, un outil de conteneurisation permettant d'exécuter une surcouche logicielle sous un autre système d'exploitation — en l'occurrence Ubuntu 20.04. Cette configuration est indispensable pour utiliser ROS* Noetic. En effet, l'intégralité de la brique logicielle MOBILEX a été développée sous cette version de ROS*, qui s'avère incompatible avec la distribution native Ubuntu 22.04. \\\\
 \indent Une fois le simulateur fonctionnel, j'ai alors pu me familiariser avec l'utilisation de l'IHM et les différents modes de conduite disponibles. Puis afin de pouvoir proposer des tests pertinents et comprendre l'architecture logicielle de la brique MOBILEX*, aussi bien d'un point de vue théorique que technique, il m'a fallut consulter l'ensemble des codes.
 
 \subsubsection{Migration et évaluation du SLAM (Simultaneous Localization and Mapping)}
 
-La pile logicielle (stack) MOBITER nécessite une estimation de pose précise et continue. Si la disponibilité permanente du GNSS RTK lors du défi 1 garantissait ces conditions, l'introduction de coupures GNSS temporaires lors du défi 2 ($< 2\text{ min}$) a imposé l'intégration d'une solution alternative. Un algorithme de SLAM LiDAR (\textbf{Kitware}), couplé à une extrapolation IMU pour augmenter la fréquence d'échantillonnage, a été déployé conjointement avec un module d'arbitrage chargé d'assurer la transition entre les sources de localisation. Bien que fonctionnelle pour le défi 2, cette architecture a révélé deux limitations majeures : \\
+La pile logicielle (stack) MOBITER nécessite une estimation de pose précise et continue. Si la disponibilité permanente du GNSS RTK lors du défi 1 garantissait ces conditions, l'introduction de coupures GNSS temporaires lors du défi 2 ($< 2\text{ min}$) a imposé l'intégration d'une solution alternative. Un algorithme de SLAM LiDAR* (\textbf{Kitware}), couplé à une extrapolation IMU pour augmenter la fréquence d'échantillonnage, a été déployé conjointement avec un module d'arbitrage chargé d'assurer la transition entre les sources de localisation. Bien que fonctionnelle pour le défi 2, cette architecture a révélé deux limitations majeures : \\
 
 \begin{itemize}
     \item \textbf{Une dérive spatiale critique} : Fortement dépendante de la structure géométrique de l'environnement, la dérive intrinsèque du SLAM kitware engendrait des discontinuités de pose (sauts de localisation) trop importantes lors de la réacquisition du signal GNSS. Pour prévenir tout comportement instable, le module d'arbitrage interdisait le basculement si l'écart mesuré dépassait un seuil critique, contraignant le robot à poursuivre sa navigation en mode SLAM dégradé jusqu'à la fin de la mission.
     \item \textbf{Une charge computationnelle élevée} : Le SLAM de Kitware constituait le processus le plus budgétivore en ressources calcul de la stack, risquant d'induire des verrous de performance avec l'ajout de nouvelles fonctionnalités.\\
 \end{itemize}
 
-Face à l'allongement prévisible des masquages GNSS lors du défi 3, le SLAM LiDAR de Kitware a été remplacé par l'approche \textbf{DLIO*} (Direct LiDAR-Inertial Odometry), caractérisée par une dérive significativement plus faible. Parallèlement, un gestionnaire de discontinuité de localisation a été ajouté pour faire face à la discontinuité de pose lors des transitions SLAM$\rightarrow$GNSS, garantissant le réengagement du GNSS RTK quelle que soit la dérive cumulée tout en maintenant le suivi du scénario.\\
+Face à l'allongement prévisible des masquages GNSS lors du défi 3, le SLAM LiDAR* de Kitware a été remplacé par l'approche \textbf{DLIO} (Direct LiDAR-Inertial Odometry), caractérisée par une dérive significativement plus faible. Parallèlement, un gestionnaire de discontinuité de localisation a été ajouté pour faire face à la discontinuité de pose lors des transitions SLAM$\rightarrow$GNSS, garantissant le réengagement du GNSS RTK quelle que soit la dérive cumulée tout en maintenant le suivi du scénario.\\
 
 \begin{comment}
 Au début de mon stage, l'équipe Mobiter avait engagé des travaux de refonte du module de SLAM (Simultaneous Localization and Mapping). Lors des défis précédents, la solution logicielle reposait exclusivement sur le Kitware SLAM, une approche purement LiDAR. Celle-ci présentait de graves limites dans les environnements très dégagés (comme les grands espaces extérieurs), où la rareté des caractéristiques géométriques et des retours LiDAR nuisait à la qualité de la localisation. De plus, ce composant représentait l'une des charges computationnelles les plus lourdes de la pile logicielle du projet. Afin de pallier ces défauts, le SLAM DLIO (Direct LiDAR-Inertial Odometry), combinant les données LiDAR et une centrale inertielle (IMU), a été choisi comme une alternative plus robuste pour la navigation en milieux ouverts.\\\\ 
 \end{comment}
 
-\indent C’est dans ce contexte du défi 3 que j'ai participé à l'évaluation et aux tests du SLAM DLIO en simulation et sur terrain au sein de la brique MOBILEX*. Une fois son intégration logicielle finalisée, nous avons mené une campagne de tests afin de valider son bon fonctionnement et de quantifier ses performances (en matière de dérive et de charge CPU) par rapport au Kitware SLAM et à la vérité terrain.
+\indent C'est dans ce contexte du défi 3 que j'ai participé à l'évaluation et aux tests du SLAM DLIO en simulation et sur terrain au sein de la brique MOBILEX*. Une fois son intégration logicielle finalisée, nous avons mené une campagne de tests afin de valider son bon fonctionnement et de quantifier ses performances (en matière de dérive et de charge CPU) par rapport au Kitware SLAM et à la vérité terrain.
 
 
 \paragraph{Fonctionnement du Kitware SLAM}
@@ -45,7 +45,7 @@ Le \textbf{Kitware SLAM} repose sur l'algorithme LOAM* (\textit{LiDAR Odometry A
 
 \subparagraph{a. Le prétraitement et l'extraction des caractéristiques géométriques du nuage de points LiDAR}:
 
-La première étape consiste à prétraiter le nuage de points LiDAR afin d'atténuer les distorsions subies lors du mouvement du véhicule pendant l'acquisition, puis d'extraire les éléments géométriques nécessaires au recalage. Contrairement aux approches traitant l'intégralité des points du scan, LOAM sélectionne uniquement les points présentant une information géométrique forte. Cette sélection réduit la charge computationnelle tout en préservant les contraintes physiques indispensables à l'estimation de pose. Deux types de caractéristiques sont principalement extraits :\\
+La première étape consiste à prétraiter le nuage de points LiDAR* afin d'atténuer les distorsions subies lors du mouvement du véhicule pendant l'acquisition, puis d'extraire les éléments géométriques nécessaires au recalage. Contrairement aux approches traitant l'intégralité des points du scan, LOAM sélectionne uniquement les points présentant une information géométrique forte. Cette sélection réduit la charge computationnelle tout en préservant les contraintes physiques indispensables à l'estimation de pose. Deux types de caractéristiques sont principalement extraits :\\
 
 \begin{itemize}
     \item \textbf{Les points d'arêtes (\textit{edge features}) :} ils correspondent aux zones présentant une forte variation de courbure (angles de bâtiments, contours d'obstacles).
@@ -70,33 +70,33 @@ L'optimisation sous ces contraintes fournit la transformation à une fréquence 
 La troisième étape reconstruit progressivement la carte globale de l'environnement tout en corrigeant la dérive accumulée par l'odométrie. À l'inverse de l'étape précédente, le recalage s'effectue cette fois entre le scan courant et la carte locale (\textbf{scan-to-map}). Les caractéristiques du nouveau nuage de points sont alignées avec la carte préexistante afin d'affiner l'estimation de pose, garantissant ainsi la cohérence spatiale à long terme.\\
 
 Bien que la documentation détaillée du \textbf{Kitware SLAM} soit restreinte, cet algorithme intègre un système d'optimisation par graphe de poses \cite{kitware_slam}, capable de réajuster l'ensemble de la carte lors d'une fermeture de boucle (\textbf{loop closure}). Il propose également une extraction enrichie de caractéristiques, incluant la détection de ruptures d'intensité lumineuse ou d'amas de points (\textbf{blobs}).
-De plus, le module offre la possibilité d'injecter des données exogènes issues d'autres capteurs (IMU, GNSS, INS, odométrie des roues, caméras RGB pour balises visuelles). Toutefois, les essais expérimentaux menés n'ont pas révélé de gain de performance significatif lors de l'intégration directe de l'IMU au sein du SLAM. Cela a justifié le choix de conserver (dans le cadre du défi 2) une version exclusivement LiDAR pour le SLAM et de coupler l'IMU de manière externe afin d'élever la fréquence de la localisation. Enfin, certaines fonctionnalités avancées ont dû être restreintes afin d'assurer le respect des contraintes temps réel de la pile logicielle (\textbf{stack}).
+De plus, le module offre la possibilité d'injecter des données exogènes issues d'autres capteurs (IMU, GNSS, INS, odométrie des roues, caméras RGB pour balises visuelles). Toutefois, les essais expérimentaux menés n'ont pas révélé de gain de performance significatif lors de l'intégration directe de l'IMU au sein du SLAM. Cela a justifié le choix de conserver (dans le cadre du défi 2) une version exclusivement LiDAR* pour le SLAM et de coupler l'IMU de manière externe afin d'élever la fréquence de la localisation. Enfin, certaines fonctionnalités avancées ont dû être restreintes afin d'assurer le respect des contraintes temps réel de la pile logicielle (\textbf{stack}).
 
 
-\paragraph{Fonctionnement du DLIO* SLAM}
+\paragraph{Fonctionnement du DLIO SLAM}
 
-DLIO* (Direct LiDAR-Inertial Odometry) \cite{dlio_slam} est un algorithme d'odométrie LiDAR-inertielle sobre en calcul et conçu pour maintenir une localisation précise et construire une carte 3D dense même lors de mouvements agressifs ou dans des environnements peu structurés. Contrairement aux approches fondées sur l'extraction de primitives géométriques (LOAM, Kitware SLAM) et le recalage intermédiaire \textbf{scan-to-scan}, DLIO adopte une approche directe opérant directement sur le nuage de points dense. Il réalise un recalage direct \textbf{scan-to-map} grace aux garanties de convergence formelles de son observateur d'état. Son traitement repose sur quatre étapes clés :
+DLIO (Direct LiDAR-Inertial Odometry) \cite{dlio_slam} est un algorithme d'odométrie LiDAR-inertielle sobre en calcul et conçu pour maintenir une localisation précise et construire une carte 3D dense même lors de mouvements agressifs ou dans des environnements peu structurés. Contrairement aux approches fondées sur l'extraction de primitives géométriques (LOAM, Kitware SLAM) et le recalage intermédiaire \textbf{scan-to-scan}, DLIO adopte une approche directe opérant directement sur le nuage de points dense. Il réalise un recalage direct \textbf{scan-to-map} grace aux garanties de convergence formelles de son observateur d'état. Son traitement repose sur quatre étapes clés :
 
 \subparagraph{a. Prétraitement et conditionnement des données denses}:
 
-La première étape consiste à réaliser un alignement spatio-temporel des données LiDAR ($10\text{--}20\text{ Hz}$) et IMU ($100\text{--}500\text{ Hz}$) dans le repère du robot sans sous-échantillonnage agressif (par grille de voxel) ni extraction de primitives (arêtes, plans, etc.). Sur le nuage de points dense est appliqué un simple filtrage spatial de proximité destiné à éliminer les points appartenant à la structure propre du robot. L'algorithme offre aussi la possibilité d’ajouter un léger sous-échantillonnage (0.05 à 0.1m) pour les LiDARs très denses.
+La première étape consiste à réaliser un alignement spatio-temporel des données LiDAR* ($10\text{--}20\text{ Hz}$) et IMU ($100\text{--}500\text{ Hz}$) dans le repère du robot sans sous-échantillonnage agressif (par grille de voxel) ni extraction de primitives (arêtes, plans, etc.). Sur le nuage de points dense est appliqué un simple filtrage spatial de proximité destiné à éliminer les points appartenant à la structure propre du robot. L'algorithme offre aussi la possibilité d'ajouter un léger sous-échantillonnage (0.05 à 0.1m) pour les LiDARs très denses.
     
 \subparagraph{b. Correction de mouvement}:
 
-Pendant la durée du balayage LiDAR, les mouvements du robot induisent des distorsions spatiales importantes. Pour éliminer ces déformations sans recourir aux simplifications classiques (vitesse constante) ni au coût de calcul élevé d’autres méthodes d’interpolation, DLIO introduit une approche séquentielle de type \textbf{coarse-to-fine} \cite{coarse_to_fine} décrite comme suit :\\
+Pendant la durée du balayage LiDAR*, les mouvements du robot induisent des distorsions spatiales importantes. Pour éliminer ces déformations sans recourir aux simplifications classiques (vitesse constante) ni au coût de calcul élevé d'autres méthodes d'interpolation, DLIO introduit une approche séquentielle de type \textbf{coarse-to-fine} \cite{coarse_to_fine} décrite comme suit :\\
 
 \begin{itemize}
-    \item \textbf{Coarse step} : Les mesures IMU comprises entre deux scans LiDAR successifs sont intégrées numériquement sous l’hypothèse d’un modèle de mouvement d’ordre supérieur à secousse linéaire et accélération angulaire constantes. Cela permet d’obtenir une estimation de l’état du robot à chaque nouvelle valeur IMU.
-    \item \textbf{Fine step} : Pour chaque point du nuage acquis à l’instant relatif $t_n$, DLIO se sert des deux états estimés par l’IMU encadrant $t_n$ pour résoudre un jeu d’équations analytiques sous forme close paramétré uniquement par l’horodatage $t_n$. Ce calcul exact et parallélisable corrige la distorsion (\textbf{deskewing}) et projette le nuage dans le repère monde $\mathcal{W}$, générant une estimation de l'état \textit{a priori} $\hat{\mathbf{T}}_{\text{prior}}^{\mathcal{W}}$ pour le recalage géométrique.\\
+    \item \textbf{Coarse step} : Les mesures IMU comprises entre deux scans LiDAR* successifs sont intégrées numériquement sous l'hypothèse d'un modèle de mouvement d'ordre supérieur à secousse linéaire et accélération angulaire constantes. Cela permet d'obtenir une estimation de l'état du robot à chaque nouvelle valeur IMU.
+    \item \textbf{Fine step} : Pour chaque point du nuage acquis à l'instant relatif $t_n$, DLIO se sert des deux états estimés par l'IMU encadrant $t_n$ pour résoudre un jeu d'équations analytiques sous forme close paramétré uniquement par l'horodatage $t_n$. Ce calcul exact et parallélisable corrige la distorsion (\textbf{deskewing}) et projette le nuage dans le repère monde $\mathcal{W}$, générant une estimation de l'état \textit{a priori} $\hat{\mathbf{T}}_{\text{prior}}^{\mathcal{W}}$ pour le recalage géométrique.\\
 \end{itemize}
     
-\subparagraph{c. Recalage géométrique (GICP* : Generalized Iterative Closest Point)}:
+\subparagraph{c. Recalage géométrique (GICP : Generalized Iterative Closest Point)}:
 
 Grâce à la précision de l'estimation initiale, DLIO s'affranchit du recalage scan-to-scan et effectue directement un alignement scan-to-map. Le nuage corrigé $\hat{\mathcal{P}}_k^{\mathcal{W}}$ est aligné sur une sous-carte locale $\hat{\mathcal{S}}_k^{\mathcal{W}}$ constituée d'images-clés (keyframes). Cet alignement s'appuie sur l'algorithme GICP \cite{gicp}, qui modélise la surface locale par des matrices de covariance et minimise la distance de Mahalanobis (correspondance plan-à-plan). L'optimisation produit la transformation $\Delta \hat{\mathbf{T}}_k$, affinant ainsi la pose globale $\hat{\mathbf{T}}_k^{\mathcal{W}}$.
 
 \subparagraph{d. Fusion et mise à jour d'état}: 
 
-Pour fusionner les données LiDAR et IMU, DLIO intègre un observateur géométrique non linéaire hiérarchique. Il combine la pose affinée par le GICP aux mesures IMU haute fréquence afin d'estimer l'état complet du système :
+Pour fusionner les données LiDAR* et IMU, DLIO intègre un observateur géométrique non linéaire hiérarchique. Il combine la pose affinée par le GICP aux mesures IMU haute fréquence afin d'estimer l'état complet du système :
 
 \begin{equation}
     \hat{\mathbf{x}}_k = \begin{bmatrix} \mathbf{p}^{\mathcal{W}} & \mathbf{q}^{\mathcal{W}} & \mathbf{v}^{\mathcal{W}} & \mathbf{b}_a & \mathbf{b}_\omega \end{bmatrix}^\top
@@ -111,7 +111,7 @@ Afin de comparer la qualité de la localisation des 2 SLAM, nous avons mené une
 
 \begin{center}
     \includegraphics[width=0.5\linewidth]{Corps_rapport/inrae.png}
-    \captionof{figure}{Terrain d’essais de l’INRAE Aubière}
+    \captionof{figure}{Terrain d'essais de l'INRAE Aubière}
     \label{fig24}
 \end{center}
 
@@ -157,7 +157,7 @@ Au regard des courbes précedentes, on peut constater que les 2 SLAM offrent en 
 
 \begin{center}
     \includegraphics[width=1.0\linewidth]{Corps_rapport/Kitware_vs_dlio_metrics.png}
-    \captionof{figure}{Comparaison des erreurs de pose sur le terrain d’essais de l’INRAE Aubière}
+    \captionof{figure}{Comparaison des erreurs de pose sur le terrain d'essais de l'INRAE Aubière}
     \label{fig27}
 \end{center}
 
@@ -165,7 +165,7 @@ Puis sur une plus longue trajectoire de près de 1 km réalisée dans un environ
 
 \begin{center}
     \includegraphics[width=0.5\linewidth]{Corps_rapport/montoldre.png}
-    \captionof{figure}{Terrain d’essais de Montoldre}
+    \captionof{figure}{Terrain d'essais de Montoldre}
     \label{fig28}
 \end{center}
 
@@ -175,7 +175,7 @@ Puis sur une plus longue trajectoire de près de 1 km réalisée dans un environ
     \label{fig29}
 \end{center}
 
-Au regard de la figure précedente, on constate que le SLAM DLIO, grâce à son couplage inertiel-LiDAR, garantit une très bonne localisation, même en milieu dégagé. Ce n'est pas le cas du SLAM Kitware, qui montre des limites évidentes dans ces conditions. De plus, comme le montre l'annexe \hyperref[annexe6]{[montoldre]}, le SLAM DLIO présente une erreur de position maximale d'environ 1,5 mètre, tandis que celle du SLAM Kitware atteint environ 80 mètres d'erreur maximale sur ce parcours de 1 km. Enfin, on observe une réduction d’environ 50\% d’utilisation de RAM et de charge CPU avec le SLAM DLIO par rapport à notre version allégée de Kitware. Ces résultats confortent notre choix de changer de SLAM dans le cadre du défi 3.\\
+Au regard de la figure précedente, on constate que le SLAM DLIO, grâce à son couplage inertiel-LiDAR, garantit une très bonne localisation, même en milieu dégagé. Ce n'est pas le cas du SLAM Kitware, qui montre des limites évidentes dans ces conditions. De plus, comme le montre l'annexe \hyperref[annexe6]{[montoldre]}, le SLAM DLIO présente une erreur de position maximale d'environ 1,5 mètre, tandis que celle du SLAM Kitware atteint environ 80 mètres d'erreur maximale sur ce parcours de 1 km. Enfin, on observe une réduction d'environ 50\% d'utilisation de RAM et de charge CPU avec le SLAM DLIO par rapport à notre version allégée de Kitware. Ces résultats confortent notre choix de changer de SLAM dans le cadre du défi 3.\\
 
 
 
@@ -191,17 +191,17 @@ Pour atteindre les performances illustrées précédemment, des modifications on
 
 Après avoir tenté d'atténuer ce bruit en ajustant les paramètres de l'observateur géométrique sans résultat concluant, une incohérence conceptuelle a été identifiée au sein du code du SLAM : \textbf{les fusions entre les observations LiDAR et IMU n'étaient pas cohérentes temporellement}.\\
 
-Considérons $t_{\text{scan}}$ le timestamp du dernier scan LiDAR, $t_{\text{gicp}}$ le temps de calcul nécessaire au recalage GICP du scan courant sur la carte locale, et $t_{\text{now}}$ le timestamp de l'état courant (associé à la dernière fusion IMU). Dans l'implémentation originale de DLIO, la durée $t_{\text{gicp}}$ était négligée. Le résultat du recalage GICP (correspondant à la pose à $t_{\text{scan}}$) était ainsi fusionné avec un état ayant déjà évolué durant $t_{\text{gicp}}$ pour atteindre $t_{\text{now}} \approx t_{\text{scan}} + t_{\text{gicp}}$. En raison de ce décalage temporel, l'observateur géométrique calculait un écart artificiellement élevé qu'il tentait de corriger, ce qui tirait l'état du robot vers une pose passée et perturbait l'estimation des vitesses (\textit{twists}) ainsi que des biais de l'IMU.\\
+Considérons $t_{\text{scan}}$ le timestamp du dernier scan LiDAR*, $t_{\text{gicp}}$ le temps de calcul nécessaire au recalage GICP du scan courant sur la carte locale, et $t_{\text{now}}$ le timestamp de l'état courant (associé à la dernière fusion IMU). Dans l'implémentation originale de DLIO, la durée $t_{\text{gicp}}$ était négligée. Le résultat du recalage GICP (correspondant à la pose à $t_{\text{scan}}$) était ainsi fusionné avec un état ayant déjà évolué durant $t_{\text{gicp}}$ pour atteindre $t_{\text{now}} \approx t_{\text{scan}} + t_{\text{gicp}}$. En raison de ce décalage temporel, l'observateur géométrique calculait un écart artificiellement élevé qu'il tentait de corriger, ce qui tirait l'état du robot vers une pose passée et perturbait l'estimation des vitesses (\textit{twists}) ainsi que des biais de l'IMU.\\
 
 Pour résoudre ce problème, un tampon (\textit{buffer}) des états fusionnés par l'observateur a été implémenté et son fonctionnement a été repensé :
 \begin{itemize}
-    \item \textbf{Interpolation temporelle :} Le \textit{buffer} permet d'interpoler l'état exact à l'instant $t_{\text{scan}}$ afin d'y fusionner l'observation LiDAR.
+    \item \textbf{Interpolation temporelle :} Le \textit{buffer} permet d'interpoler l'état exact à l'instant $t_{\text{scan}}$ afin d'y fusionner l'observation LiDAR*.
     \item \textbf{Rétropropagation :} Comme l'état continue d'évoluer pendant la phase de recalage, les mesures IMU acquises entre $t_{\text{scan}}$ et $t_{\text{now}}$ sont rejouées (rétropropagées) à partir de l'état à $t_{\text{scan}}$ corrigé par le GICP, remplaçant ainsi l'état \textit{a priori} à $t_{\text{now}}$.\\
 \end{itemize}
 
 Cette correction a permis d'accorder un poids supérieur au recalage GICP dans l'observateur, autorisant des corrections plus franches tout en réduisant la dérive globale.\\
 
-Enfin, une dérive anormale observée en sortie de l'observateur par rapport aux résultats bruts du GICP a été résolue en substituant l'IMU intégrée du LiDAR Ouster ($100\text{ Hz}$), particulièrement bruitée, par l'IMU de la Xsens ($100\text{ Hz}$) moin bruitée. Voire annexe \hyperref[annexe7]{[pose\_gicp]} pour plus de détails. Ces modifications intégrées ont permis d'obtenir une carte de meilleure qualité et une dérive globale plus faible, comme le montre la figure ci-dessous (Figure \ref{fig31}).
+Enfin, une dérive anormale observée en sortie de l'observateur par rapport aux résultats bruts du GICP a été résolue en substituant l'IMU intégrée du LiDAR* Ouster ($100\text{ Hz}$), particulièrement bruitée, par l'IMU de la Xsens ($100\text{ Hz}$) moin bruitée. Voire annexe \hyperref[annexe7]{[pose\_gicp]} pour plus de détails. Ces modifications intégrées ont permis d'obtenir une carte de meilleure qualité et une dérive globale plus faible, comme le montre la figure ci-dessous (Figure \ref{fig31}).
  
 \begin{center}
     \includegraphics[width=1\linewidth]{Corps_rapport/Comparaison_map_DLIO_vs_GNSS.png}
@@ -232,7 +232,7 @@ La bibliothèque python EVO, très employée pour l'évaluation de techniques de
     \item \textbf{std} (Standard Deviation - Écart Type) : c'est une mesure de la dispersion des erreurs autour de la moyenne (mean).\\
 \end{itemize}
 
-\indent Afin de qualifier les performances du SLAM DLIO, il etait indispensable d'évaluer et visualiser sa dérive par rapport à la vérité terrain en fonction de la distance parcourue, chose qu'EVO ne permettait pas de faire. Pour cela, à partir d'un bag de données ROS contenant les trajectoires (SLAM et vérité terrain) enregistrées lors d'essais réels, nous avons implémenté un script qui calcule l'erreur euclidienne de position, la distance réelle parcourue puis la dérive du SLAM à chaque instant. La dérive étant donnée en pourcentage par la formule suivante \eqref{eq5}: 
+\indent Afin de qualifier les performances du SLAM DLIO, il etait indispensable d'évaluer et visualiser sa dérive par rapport à la vérité terrain en fonction de la distance parcourue, chose qu'EVO ne permettait pas de faire. Pour cela, à partir d'un bag de données ROS* contenant les trajectoires (SLAM et vérité terrain) enregistrées lors d'essais réels, nous avons implémenté un script qui calcule l'erreur euclidienne de position, la distance réelle parcourue puis la dérive du SLAM à chaque instant. La dérive étant donnée en pourcentage par la formule suivante \eqref{eq5}: 
 
 \begin{equation} \label{eq5}
     \text{Dérive}[k] = 100 \cdot \frac{\|\mathbf{p}_{\text{slam}}[k] - \mathbf{p}_{\text{sbg}}[k]\|_2}{d[k]}
@@ -278,8 +278,8 @@ Les méthodes de test logiciel classiques se retrouvent inadaptées aux système
 
 \begin{itemize}
     \item \textbf{Non-déterminisme environnemental} : L'interaction avec un milieu réel imprévisible empêche la stricte répétabilité des essais ; des entrées identiques peuvent produire des trajectoires ou comportements divergents.
-    \item \textbf{Multimodalité des données de perception} : La fusion en temps réel de flux sensoriels massifs et hétérogènes (LiDAR, vision, centrales inertielles) rend les critères classiques de couverture de code insuffisants pour valider la décision du robot.
-    \item \textbf{Asynchronisme des architectures distribuées} : Les communications inter-nœuds (modèle publication/abonnement sous ROS) favorisent la propagation d'effets en cascade non-locaux, rendant l'analyse d'impact et l'isolation des bugs extrêmement complexes.
+    \item \textbf{Multimodalité des données de perception} : La fusion en temps réel de flux sensoriels massifs et hétérogènes (LiDAR*, vision, centrales inertielles) rend les critères classiques de couverture de code insuffisants pour valider la décision du robot.
+    \item \textbf{Asynchronisme des architectures distribuées} : Les communications inter-nœuds (modèle publication/abonnement sous ROS*) favorisent la propagation d'effets en cascade non-locaux, rendant l'analyse d'impact et l'isolation des bugs extrêmement complexes.
     \item \textbf{Contraintes temporelles et sécurité physique} : Le test traditionnel ne prend pas en compte le couplage logiciel-matériel, où une simple latence de quelques millisecondes peut provoquer un accident physique grave.\\
 \end{itemize}
 
@@ -323,7 +323,7 @@ Ces oracles peuvent fournir un verdict binaire (Pass/Fail) comme présenté en F
 
 \subparagraph{Oracles métamorphiques}:
 
-Lorsque la spécification exacte est absente, les oracles peuvent reposer sur des relations métamorphiques. Cela consiste à vérifier la cohérence des sorties entre plusieurs exécutions liées par des transformations géométriques ou environnementales (ex. invariance du comportement sous rotation / translation du terrain, altération d’image, ...) comme le montre la Figure \ref{fig34}.
+Lorsque la spécification exacte est absente, les oracles peuvent reposer sur des relations métamorphiques. Cela consiste à vérifier la cohérence des sorties entre plusieurs exécutions liées par des transformations géométriques ou environnementales (ex. invariance du comportement sous rotation / translation du terrain, altération d'image, ...) comme le montre la Figure \ref{fig34}.
 
 \begin{center}
     \includegraphics[width=0.8\linewidth]{Corps_rapport/oracle_meta.png}
@@ -342,9 +342,9 @@ Reproduction de cas réels : extraction de scènes virtuelles à partir de donn�
 
 Génération procédurale : création synthétique d'environnement reposant sur des algorithmes stochastiques (ex. bruit de Perlin pour les cartes de hauteur/relief). Elle assure une forte diversité, mais reste peu développée.
 
-\subparagraph{Approche déclarative hybride : Le framework TAF* (Testing Automation Framework)}:
+\subparagraph{Approche déclarative hybride : Le framework TAF (Testing Automation Framework)}:
 
-Pour surmonter les limites des approches traditionnelles de type generate-then-filter (inaptes aux environnements très contraints), Clément ROBERT propose dans sa thèse \cite{2021TOU30119b} le framework TAF* qui repose sur un langage spécifique basé sur XML (XML-TAF) combinant un modèle de données purement déclaratif et la gestion de contraintes complexes. Dans cet outil, l’utilisateur déclare des structures de données ainsi que des contraintes entre ces données via un fichier model, puis génère des données de test valides automatiquement. Comme le montre la Figure \ref{fig35}, le générateur TAF* produit un environnement de test complet (terrain, obstacles, végétation, etc.) à partir d'un modèle abstrait et d'une instance partielle optionnelle. L'outil garantit que les contraintes déclarées sont respectées, tout en assurant une diversité des scénarios générés grâce à l'utilisation d'un solveur SMT et d'un échantillonnage aléatoire.
+Pour surmonter les limites des approches traditionnelles de type generate-then-filter (inaptes aux environnements très contraints), Clément ROBERT propose dans sa thèse \cite{2021TOU30119b} le framework TAF qui repose sur un langage spécifique basé sur XML (XML-TAF) combinant un modèle de données purement déclaratif et la gestion de contraintes complexes. Dans cet outil, l'utilisateur déclare des structures de données ainsi que des contraintes entre ces données via un fichier model, puis génère des données de test valides automatiquement. Comme le montre la Figure \ref{fig35}, le générateur TAF produit un environnement de test complet (terrain, obstacles, végétation, etc.) à partir d'un modèle abstrait et d'une instance partielle optionnelle. L'outil garantit que les contraintes déclarées sont respectées, tout en assurant une diversité des scénarios générés grâce à l'utilisation d'un solveur SMT et d'un échantillonnage aléatoire.
 
 \begin{center}
     \includegraphics[width=0.4\linewidth]{Corps_rapport/TAF.png}
@@ -366,7 +366,7 @@ L'application des tests de non-régression en robotique mobile se heurte au non-
 
 \subparagraph{Origines du non-déterminisme}:
 
-Le comportement d'un robot varie entre deux exécutions d'un même cas de test. Ce phénomène découle de plusieurs facteurs : l'architecture logicielle multithread et les communications asynchrones en best-effort (ex. middlewares comme ROS), l'utilisation d'algorithmes décisionnels approchés (heuristiques de planification de trajectoire), les décalages horlogers et concurrences propres à la plate-forme de simulation elle-même.
+Le comportement d'un robot varie entre deux exécutions d'un même cas de test. Ce phénomène découle de plusieurs facteurs : l'architecture logicielle multithread et les communications asynchrones en best-effort (ex. middlewares comme ROS*), l'utilisation d'algorithmes décisionnels approchés (heuristiques de planification de trajectoire), les décalages horlogers et concurrences propres à la plate-forme de simulation elle-même.
 
 \subparagraph{Stratégie de répétition des tests}:
 
@@ -405,7 +405,7 @@ Cette carte dynamique a été développée en HTML et s'appuie sur la bibliothè
 \begin{itemize}
 \renewcommand{\labelitemi}{$\bullet$}
     \item \textbf{Propriétés à vérifier en ligne} : Ces propriétés sont vérifiées en temps réel par l'opérateur lors de l'exécution du test. Elles incluent notamment la vérification de l'empatement du marquage au sol autour des waypoints, l'appui sur l'arrêt d'urgence durant le test, la reprise en téléopération du robot en cours de mission de suivi de waypoints, le ralentissement lors du franchissement d'obstacles ou de flaques d'eau ou de passage en mode SLAM, la perte de communication du robot avec le PCC, l'apparition d'accouts incessants lors du déplacement du robot et l'adéquation de la sémantique associée au retour vidéo de l'IHM avec l'environnement de test.
-    \item \textbf{Propriétés à vérifier hors ligne} : Ces propriétés sont vérifiées après le test à partir des données enregistrées (ROS bag). Elles incluent notamment la vérification des trajectoires suivies par le robot, le respect des vitesses de commandes envoyées au robot, l'analyse de l'orientation (roll et pitch) du robot, et l'analyse des diagnostics émis sur l'IHM.\\
+    \item \textbf{Propriétés à vérifier hors ligne} : Ces propriétés sont vérifiées après le test à partir des données enregistrées (ROS* bag). Elles incluent notamment la vérification des trajectoires suivies par le robot, le respect des vitesses de commandes envoyées au robot, l'analyse de l'orientation (roll et pitch) du robot, et l'analyse des diagnostics émis sur l'IHM.\\
 \end{itemize}
 
 \indent Cette checklist présentée en annexe  \hyperref[annexe4]{[test\_checklist]} n'étant pas exhaustive, elle a été complétée par des points de contrôle pertinents supplémentaires en fonction des besoins et des observations faites lors des tests.\\
@@ -415,7 +415,7 @@ Cette carte dynamique a été développée en HTML et s'appuie sur la bibliothè
 \subsubsection{Mise en oeuvre du générateur automatique de rapports d'essais}
 
 L'une de mes missions principales a été de développer un générateur automatique de rapports d'essais. Cet outil vise à synthétiser les données d'exécution des tests pour fournir une analyse visuelle et rapide du déroulement des essais afin de faciliter les diagnostics.\\\\
-\indent Le générateur de rapports d'essais a été conçu pour assurer un traitement offline des fichiers de données (ROS bag) enregistrés lors des tests. Il extrait les informations pertinentes, telles que les trajectoires, les vitesses, les erreurs de localisation, les événements critiques, les images de cartes construites et de visualisation, puis génère un rapport structuré comprenant des graphiques, des informations de diagnostic et des vidéos.\\\\
+\indent Le générateur de rapports d'essais a été conçu pour assurer un traitement offline des fichiers de données (ROS* bag) enregistrés lors des tests. Il extrait les informations pertinentes, telles que les trajectoires, les vitesses, les erreurs de localisation, les événements critiques, les images de cartes construites et de visualisation, puis génère un rapport structuré comprenant des graphiques, des informations de diagnostic et des vidéos.\\\\
 \indent Apres discussion avec l'ensemble de l'équipe, une liste d'éléments pertinents à inclure dans le rapport de test a été établie. Cette liste comprend notamment:\\
 
 \begin{itemize}
@@ -429,7 +429,7 @@ L'une de mes missions principales a été de développer un générateur automat
     \item Des vidéos synchronisées par rapport aux timestamps des bag, montrant la construction du MNE(Modele Numerique d'Elevation), de la planification globale, de la planification locale, de la carte des gradients ainsi que du retour vidéo sur l'IHM.\\
 \end{itemize}
 
-\indent L'outil a été développé en Python et utilise des bibliothèques telles que Matplotlib pour la visualisation des données, Pandas pour le traitement des données et OpenCV pour la manipulation d'images et de vidéos. A partir du bag ROS, le rapport final est généré au format html sous demande des membres de l'équipe. L'organigramme de l'outil est présenté dans la Figure \ref{fig37}:\\
+\indent L'outil a été développé en Python et utilise des bibliothèques telles que Matplotlib pour la visualisation des données, Pandas pour le traitement des données et OpenCV pour la manipulation d'images et de vidéos. A partir du bag ROS*, le rapport final est généré au format html sous demande des membres de l'équipe. L'organigramme de l'outil est présenté dans la Figure \ref{fig37}:\\
 
 \begin{center}
     \includegraphics[width=0.8\linewidth]{Corps_rapport/org_bag_explorer.png}
@@ -599,7 +599,7 @@ Comme résultat, l'outil génère plusieurs graphiques dont les figures (\hyperr
 
 \paragraph{Extraction et génération des vidéos de l'évolution des cartes et du retour vidéo sur l'IHM}
 
-Ce module a pour objectif principal de fournir une représentation visuelle dynamique (vidéo) de l'évolution du MNE (Modèle Numérique d'Élévation), de la planification globale et locale, ainsi que du retour vidéo affiché sur l'interface homme-machine (IHM). S'il n'est pas spécifié de topic particulier en paramètre, l'outil automatise l'extraction des données de l'ensemble des topics \textbf{sensor\_msgs/Image} et \textbf{sensor\_msgs/CompressedImage} présents dans le rosbag. Après décodage des trames, une vidéo synchronisée est générée pour chaque topic au moyen de la bibliothèque OpenCV. Les différents topics d'images ne publiant pas à la même fréquence, l'outil effectue un rééchantillonnage temporel basé sur le timestamp des messages. Un pas temporel commun est calculé en se basant sur le topic possédant la fréquence d'échantillonnage la plus basse. Ainsi, selon leur fréquence d'origine, certains topics ne conservent qu'une image sur deux, voire une image sur quatre pour l'assemblage de leur vidéo respective. Afin d'aligner le début et la fin de l'ensemble des vidéos générées, un offset temporel est appliqué. Ce timestamp d'origine est déterminé par le topic d'image dont la première publication est la plus tardive ; toutes les trames antérieures à cet offset sont ignorées. L'outil génère ainsi un ensemble de vidéos parfaitement synchronisées. Enfin, ces flux sont unifiés au sein d'une vidéo composite par un assemblage image par image (frame-by-frame).  La Figure \ref{fig45} suivante illustre l'organigramme de cet outil:\\
+Ce module a pour objectif principal de fournir une représentation visuelle dynamique (vidéo) de l'évolution du MNE (Modèle Numérique d'Élévation), de la planification globale et locale, ainsi que du retour vidéo affiché sur l'interface homme-machine (IHM). S'il n'est pas spécifié de topic particulier en paramètre, l'outil automatise l'extraction des données de l'ensemble des topics \textbf{sensor\_msgs/Image} et \textbf{sensor\_msgs/CompressedImage} présents dans le ROS* bag. Après décodage des trames, une vidéo synchronisée est générée pour chaque topic au moyen de la bibliothèque OpenCV. Les différents topics d'images ne publiant pas à la même fréquence, l'outil effectue un rééchantillonnage temporel basé sur le timestamp des messages. Un pas temporel commun est calculé en se basant sur le topic possédant la fréquence d'échantillonnage la plus basse. Ainsi, selon leur fréquence d'origine, certains topics ne conservent qu'une image sur deux, voire une image sur quatre pour l'assemblage de leur vidéo respective. Afin d'aligner le début et la fin de l'ensemble des vidéos générées, un offset temporel est appliqué. Ce timestamp d'origine est déterminé par le topic d'image dont la première publication est la plus tardive ; toutes les trames antérieures à cet offset sont ignorées. L'outil génère ainsi un ensemble de vidéos parfaitement synchronisées. Enfin, ces flux sont unifiés au sein d'une vidéo composite par un assemblage image par image (frame-by-frame).  La Figure \ref{fig45} suivante illustre l'organigramme de cet outil:\\
 
 \begin{center}
     \includegraphics[width=0.7\linewidth]{Corps_rapport/org_video_extractor.png}
@@ -615,7 +615,7 @@ Ce module a pour objectif principal de fournir une représentation visuelle dyna
     \item la planification locale de trajectoire. 
     \item la carte des gradients d'élévation autour du robot. 
     \item le MNE (Modèle Numérique d'Élévation). 
-    \item la visualisation LiDAR.
+    \item la visualisation LiDAR*.
     \item la vue annotée de l'IHM. \\
 \end{itemize}
 
@@ -704,7 +704,7 @@ Dans la figure ci-dessus, sont représentés en bleu les modules déjà existant
 
 L'approche par \textbf{bandes élastiques} articule la planification globale et le contrôle réactif en temps réel en modélisant une trajectoire initiale sans collision sous la forme d'une structure flexible soumise à des forces virtuelles. En s'ajustant dynamiquement aux flux de données capteurs, la bande se déforme pour générer un parcours fluide et sécurisé face aux obstacles fixes ou mobiles, tout en minimisant localement sa longueur et en conservant la topologie du chemin d'origine. L'intérêt majeur de cette méthode réside dans son optimisation incrémentale : la qualité de la trajectoire s'affine continuellement à mesure que le robot progresse, tout en maintenant une charge de calcul minimale à chaque itération.\\
 
-L’approche des bandes élastiques telle que proposée à l'origine se compose principalement de deux étapes : 
+L'approche des bandes élastiques telle que proposée à l'origine se compose principalement de deux étapes : 
 
 \begin{itemize}
 \renewcommand{\labelitemi}{$\bullet$}
@@ -799,7 +799,7 @@ Absorbe les bruits de perception et les obstacles imprévus en déformant la tra
 La chaîne de bulles fournit une preuve géométrique formelle que la trajectoire déformée reste strictement sans collision.
 \end{comment}
 
-La trajectoire locale modifiée qui en résulte est ensuite transmise à un suiveur de trajectoire local qui calcule le point d’intersection entre la séquence de lignes reliant les centres des bulles et la circonférence de la bulle autour du robot. Le suiveur de trajectoire fait varier la vitesse en fonction de la taille des bulles et calcule enfin une vitesse sûre en tenant compte des limites de vitesse du robot et des bulles suivantes.
+La trajectoire locale modifiée qui en résulte est ensuite transmise à un suiveur de trajectoire local qui calcule le point d'intersection entre la séquence de lignes reliant les centres des bulles et la circonférence de la bulle autour du robot. Le suiveur de trajectoire fait varier la vitesse en fonction de la taille des bulles et calcule enfin une vitesse sûre en tenant compte des limites de vitesse du robot et des bulles suivantes.
 
 
 \paragraph{Résultats de l'implémentateur de  l'Elastic Band sur le mode de suivi de lisière}

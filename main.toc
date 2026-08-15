@@ -33,7 +33,7 @@
 \contentsline {paragraph}{\numberline {\hspace *{0.2cm} 3.2.6}Sous-système électronique SHERPA}{12}{paragraph.2.3.2.6}%
 \contentsline {paragraph}{\numberline {\hspace *{0.2cm} 3.2.7}Antennes 5 GHz et 868 MHz}{12}{paragraph.2.3.2.7}%
 \contentsline {paragraph}{\numberline {\hspace *{0.2cm} 3.2.8}Poste de Contrôle Commande (PCC) ou PC débarqué}{12}{paragraph.2.3.2.8}%
-\contentsline {subsection}{\numberline {\hspace *{0.1cm} 4}Présentation du simulateur Gazebo}{13}{subsection.2.4}%
+\contentsline {subsection}{\numberline {\hspace *{0.1cm} 4}Présentation du simulateur Gazebo}{14}{subsection.2.4}%
 \contentsline {section}{\numberline {III}Présentation des briques logicielles du robot}{15}{section.3}%
 \contentsline {subsection}{\numberline {\hspace *{0.1cm} 1}Briques de perception de l'environnement}{16}{subsection.3.1}%
 \contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 1.1}Modèle Numérique d'Élévation}{16}{subsubsection.3.1.1}%
@@ -59,10 +59,10 @@
 \contentsline {subparagraph}{a. Le prétraitement et l'extraction des caractéristiques géométriques du nuage de points LiDAR}{28}{paragraph.4.2.2.1}%
 \contentsline {subparagraph}{b. L'estimation de l'odométrie LiDAR}{29}{paragraph.4.2.2.1}%
 \contentsline {subparagraph}{c. La construction de la carte et l'optimisation spatiale}{29}{paragraph.4.2.2.1}%
-\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.2.2}Fonctionnement du DLIO* SLAM}{29}{paragraph.4.2.2.2}%
+\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.2.2}Fonctionnement du DLIO SLAM}{29}{paragraph.4.2.2.2}%
 \contentsline {subparagraph}{a. Prétraitement et conditionnement des données denses}{30}{paragraph.4.2.2.2}%
 \contentsline {subparagraph}{b. Correction de mouvement}{30}{paragraph.4.2.2.2}%
-\contentsline {subparagraph}{c. Recalage géométrique (GICP* : Generalized Iterative Closest Point)}{30}{paragraph.4.2.2.2}%
+\contentsline {subparagraph}{c. Recalage géométrique (GICP : Generalized Iterative Closest Point)}{30}{paragraph.4.2.2.2}%
 \contentsline {subparagraph}{d. Fusion et mise à jour d'état}{30}{paragraph.4.2.2.2}%
 \contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.2.3}Comparaison expérimentale DLIO vs Kitware SLAM}{31}{paragraph.4.2.2.3}%
 \contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.2.4}Modifications apportées à DLIO SLAM}{34}{paragraph.4.2.2.4}%
@@ -73,7 +73,7 @@
 \contentsline {subparagraph}{Oracles métamorphiques}{39}{figure.33}%
 \contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.4.2}Méthodes basées sur la génération automatique de cas de test contraints}{39}{paragraph.4.2.4.2}%
 \contentsline {subparagraph}{Approches de Reproduction vs de Génération procédurale}{39}{paragraph.4.2.4.2}%
-\contentsline {subparagraph}{Approche déclarative hybride : Le framework TAF* (Testing Automation Framework)}{40}{paragraph.4.2.4.2}%
+\contentsline {subparagraph}{Approche déclarative hybride : Le framework TAF (Testing Automation Framework)}{40}{paragraph.4.2.4.2}%
 \contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.4.3}Prise en compte du non-déterminisme}{40}{paragraph.4.2.4.3}%
 \contentsline {subparagraph}{Origines du non-déterminisme}{40}{paragraph.4.2.4.3}%
 \contentsline {subparagraph}{Stratégie de répétition des tests}{41}{paragraph.4.2.4.3}%
