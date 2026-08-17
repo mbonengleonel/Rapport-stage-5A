@@ -173,7 +173,7 @@
 %\rhead{\today} %date du jour
 %\chead{\includegraphics[scale=0.55]{logos/lhead_logos/logo_polytech_resized.png}} %haut de page centre
 \rhead{\includegraphics[scale=0.35]{logos/lhead_logos/eupi_long_resized.png}} %haut de page droit
-\lfoot{Leonel Mboneng} %bas de page gauche
+\lfoot{Leonel MBONENG} %bas de page gauche
 \rfoot{\thepage}%bas de page centre
 \cfoot{Année académique 2025-2026} %bas de page droite
 }
@@ -189,7 +189,7 @@
     \hspace{0.36cm}
     \includegraphics[width=0.18\textwidth]{logos/logo_ip.png}\\
     \vspace{0.45cm}
-    \includegraphics[width=0.27\textwidth]{logos/logo-polytech.png}
+    \includegraphics[width=0.27\textwidth]{logos/logo_polytech.png}
     \includegraphics[width=0.36\textwidth]{logos/eupi_long.png}
     %Modifier si vous voulez mettre un autre logo
     \par\vspace{0.6cm} %Insertion du logo
