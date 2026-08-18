@@ -37,15 +37,15 @@
 \contentsline {figure}{\numberline {36}{\ignorespaces Plan de test graphique pour le défi 3\relax }}{42}{figure.36}%
 \contentsline {figure}{\numberline {37}{\ignorespaces Organigramme de l'outil de génération automatique de rapport de test\relax }}{44}{figure.37}%
 \contentsline {figure}{\numberline {38}{\ignorespaces Organigramme de l'outil d'extraction et de génération des diagnostics\relax }}{45}{figure.38}%
-\contentsline {figure}{\numberline {39}{\ignorespaces Timeline des diagnostics de l'IHM par nom de diagnostic\relax }}{45}{figure.39}%
+\contentsline {figure}{\numberline {39}{\ignorespaces Timeline des diagnostics de l'IHM par nom de diagnostic\relax }}{46}{figure.39}%
 \contentsline {figure}{\numberline {40}{\ignorespaces Timeline des changements de mode de contrôle\relax }}{46}{figure.40}%
 \contentsline {figure}{\numberline {41}{\ignorespaces Timeline des changements de mode de localisation\relax }}{46}{figure.41}%
 \contentsline {figure}{\numberline {42}{\ignorespaces Organigramme de l'outil d'extraction et de génération des visualisations\relax }}{49}{figure.42}%
-\contentsline {figure}{\numberline {43}{\ignorespaces Visualisation et comparaison des positions linéaires et angulaires du robot\relax }}{49}{figure.caption.14}%
+\contentsline {figure}{\numberline {43}{\ignorespaces Visualisation et comparaison des positions linéaires et angulaires du robot\relax }}{50}{figure.caption.14}%
 \contentsline {figure}{\numberline {44}{\ignorespaces Evaluation des portions GNSS et SLAM de la trajectoire et erreur de vitesse le long de la trajectoire\relax }}{50}{figure.caption.15}%
 \contentsline {figure}{\numberline {45}{\ignorespaces Organigramme de l'outil d'extraction et de génération de vidéos\relax }}{51}{figure.45}%
 \contentsline {figure}{\numberline {46}{\ignorespaces Vidéo composite des différentes cartes et du retour vidéo sur l'IHM\relax }}{52}{figure.46}%
-\contentsline {figure}{\numberline {47}{\ignorespaces Visualisation terminal de l'outil de génération automatique de rapport de test\relax }}{52}{figure.47}%
-\contentsline {figure}{\numberline {48}{\ignorespaces Evaluation de la taille du cercle de détection de lisière sur la capacité à détecter la continuité de la lisière derrière un obstacle\relax }}{53}{figure.caption.16}%
+\contentsline {figure}{\numberline {47}{\ignorespaces Visualisation terminal de l'outil de génération automatique de rapport de test\relax }}{53}{figure.47}%
+\contentsline {figure}{\numberline {48}{\ignorespaces Evaluation de la taille du cercle de détection de lisière sur la capacité à détecter la continuité de la lisière derrière un obstacle\relax }}{54}{figure.caption.16}%
 \contentsline {figure}{\numberline {49}{\ignorespaces Flowchart du mode de suivi de lisière revu\relax }}{55}{figure.49}%
 \contentsline {figure}{\numberline {50}{\ignorespaces Résultats de l'implémentation de l'algorithme original de bandes élastiques sur le suivi de lisière\relax }}{58}{figure.caption.17}%

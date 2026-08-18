@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.6.2)  17 AUG 2026 17:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.6.2)  18 AUG 2026 17:18
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -3324,11 +3324,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 432--433
 
  []
 
-<Corps_rapport/org_bag_explorer.png, id=826, 1023.825pt x 458.71375pt>
+<Corps_rapport/org_bag_explorer.png, id=826, 774.895pt x 373.395pt>
 File: Corps_rapport/org_bag_explorer.png Graphic file (type png)
 <use Corps_rapport/org_bag_explorer.png>
 Package pdftex.def Info: Corps_rapport/org_bag_explorer.png  used on input line 435.
-(pdftex.def)             Requested size: 386.95897pt x 173.36812pt.
+(pdftex.def)             Requested size: 386.95897pt x 186.46344pt.
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 436.
@@ -3344,27 +3344,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 444--445
 
  []
 
-<Corps_rapport/org_diag_extractor.png, id=828, 718.685pt x 553.06625pt>
-File: Corps_rapport/org_diag_extractor.png Graphic file (type png)
-<use Corps_rapport/org_diag_extractor.png>
-Package pdftex.def Info: Corps_rapport/org_diag_extractor.png  used on input line 447.
-(pdftex.def)             Requested size: 338.58632pt x 260.56566pt.
-
-Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 448.
-See the caption package documentation for explanation.
-
 File: logos/logo_sherpa.png Graphic file (type png)
 <use logos/logo_sherpa.png>
-Package pdftex.def Info: logos/logo_sherpa.png  used on input line 448.
+Package pdftex.def Info: logos/logo_sherpa.png  used on input line 446.
 (pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
 File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
 <use logos/lhead_logos/logo_polytech_resized.png>
-Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 448.
+Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 446.
 (pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
 File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
 <use logos/lhead_logos/eupi_long_resized.png>
-Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 448.
+Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 446.
 (pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
 
 Package fancyhdr Warning: \headheight is too small (42.67912pt): 
@@ -3374,6 +3364,18 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [44 <./Corps_rapport/org_bag_explorer.png>]
+<Corps_rapport/org_diag_extractor.png, id=834, 718.685pt x 553.06625pt>
+File: Corps_rapport/org_diag_extractor.png Graphic file (type png)
+<use Corps_rapport/org_diag_extractor.png>
+Package pdftex.def Info: Corps_rapport/org_diag_extractor.png  used on input line 447.
+(pdftex.def)             Requested size: 338.58632pt x 260.56566pt.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 448.
+See the caption package documentation for explanation.
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 452--453
 
  []
@@ -3395,15 +3397,15 @@ See the caption package documentation for explanation.
 
 File: logos/logo_sherpa.png Graphic file (type png)
 <use logos/logo_sherpa.png>
-Package pdftex.def Info: logos/logo_sherpa.png  used on input line 466.
+Package pdftex.def Info: logos/logo_sherpa.png  used on input line 464.
 (pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
 File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
 <use logos/lhead_logos/logo_polytech_resized.png>
-Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 466.
+Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 464.
 (pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
 File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
 <use logos/lhead_logos/eupi_long_resized.png>
-Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 466.
+Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 464.
 (pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
 
 Package fancyhdr Warning: \headheight is too small (42.67912pt): 
@@ -3412,12 +3414,12 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
-[45 <./Corps_rapport/org_diag_extractor.png> <./Corps_rapport/diagnostics_timeline_by_name.png>]
+[45 <./Corps_rapport/org_diag_extractor.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 468--469
 
  []
 
-<Corps_rapport/control_mode_switches.png, id=845, 1149.093pt x 279.444pt>
+<Corps_rapport/control_mode_switches.png, id=844, 1149.093pt x 279.444pt>
 File: Corps_rapport/control_mode_switches.png Graphic file (type png)
 <use Corps_rapport/control_mode_switches.png>
 Package pdftex.def Info: Corps_rapport/control_mode_switches.png  used on input line 471.
@@ -3432,7 +3434,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 476--477
 
  []
 
-<Corps_rapport/localization_mode_switches.png, id=847, 1149.093pt x 279.444pt>
+<Corps_rapport/localization_mode_switches.png, id=846, 1149.093pt x 279.444pt>
 File: Corps_rapport/localization_mode_switches.png Graphic file (type png)
 <use Corps_rapport/localization_mode_switches.png>
 Package pdftex.def Info: Corps_rapport/localization_mode_switches.png  used on input line 479.
@@ -3442,7 +3444,26 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 480.
 See the caption package documentation for explanation.
 
+File: logos/logo_sherpa.png Graphic file (type png)
+<use logos/logo_sherpa.png>
+Package pdftex.def Info: logos/logo_sherpa.png  used on input line 487.
+(pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
+File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
+<use logos/lhead_logos/logo_polytech_resized.png>
+Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 487.
+(pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
+File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
+<use logos/lhead_logos/eupi_long_resized.png>
+Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 487.
+(pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
 
+Package fancyhdr Warning: \headheight is too small (42.67912pt): 
+(fancyhdr)                Make it at least 45.32773pt, for example:
+(fancyhdr)                \setlength{\headheight}{45.32773pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
+
+[46 <./Corps_rapport/diagnostics_timeline_by_name.png> <./Corps_rapport/control_mode_switches.png> <./Corps_rapport/localization_mode_switches.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 489--490
 
  []
@@ -3452,26 +3473,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 495--496
 
  []
 
-File: logos/logo_sherpa.png Graphic file (type png)
-<use logos/logo_sherpa.png>
-Package pdftex.def Info: logos/logo_sherpa.png  used on input line 496.
-(pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
-File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
-<use logos/lhead_logos/logo_polytech_resized.png>
-Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 496.
-(pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
-File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
-<use logos/lhead_logos/eupi_long_resized.png>
-Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 496.
-(pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
 
-Package fancyhdr Warning: \headheight is too small (42.67912pt): 
-(fancyhdr)                Make it at least 45.32773pt, for example:
-(fancyhdr)                \setlength{\headheight}{45.32773pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
-
-[46 <./Corps_rapport/control_mode_switches.png> <./Corps_rapport/localization_mode_switches.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 498--499
 
  []
@@ -3496,27 +3498,17 @@ Overfull \hbox (0.86528pt too wide) in paragraph at lines 513--514
 []\T1/lmr/bx/n/12 nav_msgs/Odometry \T1/lmr/m/n/12 : Pose du ro-bot dans les dif-fé-rents modes de lo-ca-li-sa-tion (SLAM,
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 516--517
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 523--524
-
- []
-
 File: logos/logo_sherpa.png Graphic file (type png)
 <use logos/logo_sherpa.png>
-Package pdftex.def Info: logos/logo_sherpa.png  used on input line 528.
+Package pdftex.def Info: logos/logo_sherpa.png  used on input line 516.
 (pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
 File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
 <use logos/lhead_logos/logo_polytech_resized.png>
-Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 528.
+Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 516.
 (pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
 File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
 <use logos/lhead_logos/eupi_long_resized.png>
-Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 528.
+Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 516.
 (pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
 
 Package fancyhdr Warning: \headheight is too small (42.67912pt): 
@@ -3526,6 +3518,16 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [47]
+Underfull \hbox (badness 10000) in paragraph at lines 516--517
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 523--524
+
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 537--538
 
  []
@@ -3545,32 +3547,17 @@ Overfull \hbox (9.24074pt too wide) in paragraph at lines 547--548
 []\T1/lmr/bx/n/12 /nav_stack/function_waypoints/waypoints_iterator/next_waypoint_speed \T1/lmr/m/n/12 :
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 549--550
-
- []
-
-<Corps_rapport/org_viz_extractor.png, id=866, 688.5725pt x 583.17876pt>
-File: Corps_rapport/org_viz_extractor.png Graphic file (type png)
-<use Corps_rapport/org_viz_extractor.png>
-Package pdftex.def Info: Corps_rapport/org_viz_extractor.png  used on input line 555.
-(pdftex.def)             Requested size: 338.58632pt x 286.75673pt.
-
-Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 556.
-See the caption package documentation for explanation.
-
 File: logos/logo_sherpa.png Graphic file (type png)
 <use logos/logo_sherpa.png>
-Package pdftex.def Info: logos/logo_sherpa.png  used on input line 556.
+Package pdftex.def Info: logos/logo_sherpa.png  used on input line 548.
 (pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
 File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
 <use logos/lhead_logos/logo_polytech_resized.png>
-Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 556.
+Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 548.
 (pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
 File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
 <use logos/lhead_logos/eupi_long_resized.png>
-Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 556.
+Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 548.
 (pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
 
 Package fancyhdr Warning: \headheight is too small (42.67912pt): 
@@ -3580,6 +3567,21 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [48]
+Underfull \hbox (badness 10000) in paragraph at lines 549--550
+
+ []
+
+<Corps_rapport/org_viz_extractor.png, id=871, 688.5725pt x 583.17876pt>
+File: Corps_rapport/org_viz_extractor.png Graphic file (type png)
+<use Corps_rapport/org_viz_extractor.png>
+Package pdftex.def Info: Corps_rapport/org_viz_extractor.png  used on input line 555.
+(pdftex.def)             Requested size: 338.58632pt x 286.75673pt.
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 556.
+See the caption package documentation for explanation.
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 561--562
 
  []
@@ -3594,27 +3596,17 @@ File: Corps_rapport/evo_trajectory_analysis_rpy.png Graphic file (type png)
 <use Corps_rapport/evo_trajectory_analysis_rpy.png>
 Package pdftex.def Info: Corps_rapport/evo_trajectory_analysis_rpy.png  used on input line 572.
 (pdftex.def)             Requested size: 222.5038pt x 221.84625pt.
-<Corps_rapport/trajectory_gnss_vs_slam.png, id=877, 1003.1076pt x 810.1467pt>
-File: Corps_rapport/trajectory_gnss_vs_slam.png Graphic file (type png)
-<use Corps_rapport/trajectory_gnss_vs_slam.png>
-Package pdftex.def Info: Corps_rapport/trajectory_gnss_vs_slam.png  used on input line 584.
-(pdftex.def)             Requested size: 222.5038pt x 179.70387pt.
-<Corps_rapport/trajectory_speed_error.png, id=878, 1004.553pt x 741.4902pt>
-File: Corps_rapport/trajectory_speed_error.png Graphic file (type png)
-<use Corps_rapport/trajectory_speed_error.png>
-Package pdftex.def Info: Corps_rapport/trajectory_speed_error.png  used on input line 589.
-(pdftex.def)             Requested size: 241.84843pt x 178.51567pt.
 File: logos/logo_sherpa.png Graphic file (type png)
 <use logos/logo_sherpa.png>
-Package pdftex.def Info: logos/logo_sherpa.png  used on input line 594.
+Package pdftex.def Info: logos/logo_sherpa.png  used on input line 577.
 (pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
 File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
 <use logos/lhead_logos/logo_polytech_resized.png>
-Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 594.
+Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 577.
 (pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
 File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
 <use logos/lhead_logos/eupi_long_resized.png>
-Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 594.
+Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 577.
 (pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
 
 Package fancyhdr Warning: \headheight is too small (42.67912pt): 
@@ -3623,7 +3615,18 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
-[49 <./Corps_rapport/org_viz_extractor.png> <./Corps_rapport/evo_trajectory_analysis_xyz.png> <./Corps_rapport/evo_trajectory_analysis_rpy.png>]
+[49 <./Corps_rapport/org_viz_extractor.png>]
+<Corps_rapport/trajectory_gnss_vs_slam.png, id=882, 1003.1076pt x 810.1467pt>
+File: Corps_rapport/trajectory_gnss_vs_slam.png Graphic file (type png)
+<use Corps_rapport/trajectory_gnss_vs_slam.png>
+Package pdftex.def Info: Corps_rapport/trajectory_gnss_vs_slam.png  used on input line 584.
+(pdftex.def)             Requested size: 222.5038pt x 179.70387pt.
+<Corps_rapport/trajectory_speed_error.png, id=883, 1004.553pt x 741.4902pt>
+File: Corps_rapport/trajectory_speed_error.png Graphic file (type png)
+<use Corps_rapport/trajectory_speed_error.png>
+Package pdftex.def Info: Corps_rapport/trajectory_speed_error.png  used on input line 589.
+(pdftex.def)             Requested size: 241.84843pt x 178.51567pt.
+
 Underfull \hbox (badness 10000) in paragraph at lines 595--596
 
  []
@@ -3633,22 +3636,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 597--598
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 602--603
-
- []
-
 File: logos/logo_sherpa.png Graphic file (type png)
 <use logos/logo_sherpa.png>
-Package pdftex.def Info: logos/logo_sherpa.png  used on input line 603.
+Package pdftex.def Info: logos/logo_sherpa.png  used on input line 598.
 (pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
 File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
 <use logos/lhead_logos/logo_polytech_resized.png>
-Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 603.
+Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 598.
 (pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
 File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
 <use logos/lhead_logos/eupi_long_resized.png>
-Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 603.
+Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 598.
 (pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
 
 Package fancyhdr Warning: \headheight is too small (42.67912pt): 
@@ -3657,13 +3655,16 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
-[50 <./Corps_rapport/trajectory_gnss_vs_slam.png> <./Corps_rapport/trajectory_speed_error.png>]
-<Corps_rapport/org_video_extractor.png, id=896, 544.0325pt x 453.695pt>
+[50 <./Corps_rapport/evo_trajectory_analysis_xyz.png> <./Corps_rapport/evo_trajectory_analysis_rpy.png> <./Corps_rapport/trajectory_gnss_vs_slam.png> <./Corps_rapport/trajectory_speed_error.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 602--603
+
+ []
+
+<Corps_rapport/org_video_extractor.png, id=895, 544.0325pt x 453.695pt>
 File: Corps_rapport/org_video_extractor.png Graphic file (type png)
 <use Corps_rapport/org_video_extractor.png>
 Package pdftex.def Info: Corps_rapport/org_video_extractor.png  used on input line 605.
 (pdftex.def)             Requested size: 338.58632pt x 282.37488pt.
-
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 606.
@@ -3674,32 +3675,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 610--611
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 619--620
-
- []
-
-<Corps_rapport/video_aggra.png, id=898, 968.61874pt x 649.42625pt>
-File: Corps_rapport/video_aggra.png Graphic file (type png)
-<use Corps_rapport/video_aggra.png>
-Package pdftex.def Info: Corps_rapport/video_aggra.png  used on input line 623.
-(pdftex.def)             Requested size: 338.58632pt x 227.01521pt.
-
-Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 624.
-See the caption package documentation for explanation.
-
 File: logos/logo_sherpa.png Graphic file (type png)
 <use logos/logo_sherpa.png>
-Package pdftex.def Info: logos/logo_sherpa.png  used on input line 624.
+Package pdftex.def Info: logos/logo_sherpa.png  used on input line 611.
 (pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
 File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
 <use logos/lhead_logos/logo_polytech_resized.png>
-Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 624.
+Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 611.
 (pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
 File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
 <use logos/lhead_logos/eupi_long_resized.png>
-Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 624.
+Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 611.
 (pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
 
 Package fancyhdr Warning: \headheight is too small (42.67912pt): 
@@ -3709,6 +3695,21 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [51 <./Corps_rapport/org_video_extractor.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 619--620
+
+ []
+
+<Corps_rapport/video_aggra.png, id=903, 968.61874pt x 649.42625pt>
+File: Corps_rapport/video_aggra.png Graphic file (type png)
+<use Corps_rapport/video_aggra.png>
+Package pdftex.def Info: Corps_rapport/video_aggra.png  used on input line 623.
+(pdftex.def)             Requested size: 338.58632pt x 227.01521pt.
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 624.
+See the caption package documentation for explanation.
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 631--632
 
  []
@@ -3723,22 +3724,17 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 635.
 See the caption package documentation for explanation.
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 643--644
-
- []
-
 File: logos/logo_sherpa.png Graphic file (type png)
 <use logos/logo_sherpa.png>
-Package pdftex.def Info: logos/logo_sherpa.png  used on input line 644.
+Package pdftex.def Info: logos/logo_sherpa.png  used on input line 635.
 (pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
 File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
 <use logos/lhead_logos/logo_polytech_resized.png>
-Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 644.
+Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 635.
 (pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
 File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
 <use logos/lhead_logos/eupi_long_resized.png>
-Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 644.
+Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 635.
 (pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
 
 Package fancyhdr Warning: \headheight is too small (42.67912pt): 
@@ -3747,7 +3743,12 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
-[52 <./Corps_rapport/video_aggra.png> <./Corps_rapport/presentation_outil_extraction.png>]
+[52 <./Corps_rapport/video_aggra.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 643--644
+
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 645--646
 
  []
@@ -3767,32 +3768,27 @@ Underfull \hbox (badness 10000) in paragraph at lines 655--656
 
  []
 
-<Corps_rapport/suivi_lisiere_05.png, id=914, 838.13126pt x 519.9425pt>
+<Corps_rapport/suivi_lisiere_05.png, id=913, 838.13126pt x 519.9425pt>
 File: Corps_rapport/suivi_lisiere_05.png Graphic file (type png)
 <use Corps_rapport/suivi_lisiere_05.png>
 Package pdftex.def Info: Corps_rapport/suivi_lisiere_05.png  used on input line 661.
 (pdftex.def)             Requested size: 290.22107pt x 180.03885pt.
-<Corps_rapport/suivi_lisiere_1.png, id=915, 340.27126pt x 499.8675pt>
+<Corps_rapport/suivi_lisiere_1.png, id=914, 340.27126pt x 499.8675pt>
 File: Corps_rapport/suivi_lisiere_1.png Graphic file (type png)
 <use Corps_rapport/suivi_lisiere_1.png>
 Package pdftex.def Info: Corps_rapport/suivi_lisiere_1.png  used on input line 666.
 (pdftex.def)             Requested size: 120.92421pt x 177.64107pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 672--673
-
- []
-
 File: logos/logo_sherpa.png Graphic file (type png)
 <use logos/logo_sherpa.png>
-Package pdftex.def Info: logos/logo_sherpa.png  used on input line 673.
+Package pdftex.def Info: logos/logo_sherpa.png  used on input line 671.
 (pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
 File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
 <use logos/lhead_logos/logo_polytech_resized.png>
-Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 673.
+Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 671.
 (pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
 File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
 <use logos/lhead_logos/eupi_long_resized.png>
-Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 673.
+Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 671.
 (pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
 
 Package fancyhdr Warning: \headheight is too small (42.67912pt): 
@@ -3801,7 +3797,12 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
-[53 <./Corps_rapport/suivi_lisiere_05.png> <./Corps_rapport/suivi_lisiere_1.png>]
+[53 <./Corps_rapport/presentation_outil_extraction.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 672--673
+
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 674--675
 
  []
@@ -3811,7 +3812,26 @@ Underfull \hbox (badness 10000) in paragraph at lines 686--687
 
  []
 
+File: logos/logo_sherpa.png Graphic file (type png)
+<use logos/logo_sherpa.png>
+Package pdftex.def Info: logos/logo_sherpa.png  used on input line 687.
+(pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
+File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
+<use logos/lhead_logos/logo_polytech_resized.png>
+Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 687.
+(pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
+File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
+<use logos/lhead_logos/eupi_long_resized.png>
+Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 687.
+(pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
 
+Package fancyhdr Warning: \headheight is too small (42.67912pt): 
+(fancyhdr)                Make it at least 45.32773pt, for example:
+(fancyhdr)                \setlength{\headheight}{45.32773pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
+
+[54 <./Corps_rapport/suivi_lisiere_05.png> <./Corps_rapport/suivi_lisiere_1.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 689--690
 
  []
@@ -3821,26 +3841,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 691--692
 
  []
 
-File: logos/logo_sherpa.png Graphic file (type png)
-<use logos/logo_sherpa.png>
-Package pdftex.def Info: logos/logo_sherpa.png  used on input line 692.
-(pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
-File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
-<use logos/lhead_logos/logo_polytech_resized.png>
-Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 692.
-(pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
-File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
-<use logos/lhead_logos/eupi_long_resized.png>
-Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 692.
-(pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
 
-Package fancyhdr Warning: \headheight is too small (42.67912pt): 
-(fancyhdr)                Make it at least 45.32773pt, for example:
-(fancyhdr)                \setlength{\headheight}{45.32773pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
-
-[54]
 Underfull \hbox (badness 10000) in paragraph at lines 693--694
 
  []
@@ -3860,27 +3861,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 705--706
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 718--719
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 729--730
-
- []
-
 File: logos/logo_sherpa.png Graphic file (type png)
 <use logos/logo_sherpa.png>
-Package pdftex.def Info: logos/logo_sherpa.png  used on input line 730.
+Package pdftex.def Info: logos/logo_sherpa.png  used on input line 708.
 (pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
 File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
 <use logos/lhead_logos/logo_polytech_resized.png>
-Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 730.
+Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 708.
 (pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
 File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
 <use logos/lhead_logos/eupi_long_resized.png>
-Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 730.
+Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 708.
 (pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
 
 Package fancyhdr Warning: \headheight is too small (42.67912pt): 
@@ -3890,6 +3881,16 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [55 <./Corps_rapport/org_review_border_follow.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 718--719
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 729--730
+
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 738--739
 
  []
@@ -3904,27 +3905,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 749--750
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 767--768
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 776--777
-
- []
-
 File: logos/logo_sherpa.png Graphic file (type png)
 <use logos/logo_sherpa.png>
-Package pdftex.def Info: logos/logo_sherpa.png  used on input line 779.
+Package pdftex.def Info: logos/logo_sherpa.png  used on input line 762.
 (pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
 File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
 <use logos/lhead_logos/logo_polytech_resized.png>
-Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 779.
+Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 762.
 (pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
 File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
 <use logos/lhead_logos/eupi_long_resized.png>
-Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 779.
+Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 762.
 (pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
 
 Package fancyhdr Warning: \headheight is too small (42.67912pt): 
@@ -3934,6 +3925,16 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [56]
+Underfull \hbox (badness 10000) in paragraph at lines 767--768
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 776--777
+
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 787--788
 
  []
@@ -3948,32 +3949,32 @@ Underfull \hbox (badness 10000) in paragraph at lines 807--808
 
  []
 
-<Corps_rapport/eband_3.png, id=950, 835.12pt x 779.91376pt>
+<Corps_rapport/eband_3.png, id=948, 835.12pt x 779.91376pt>
 File: Corps_rapport/eband_3.png Graphic file (type png)
 <use Corps_rapport/eband_3.png>
 Package pdftex.def Info: Corps_rapport/eband_3.png  used on input line 813.
 (pdftex.def)             Requested size: 157.2pt x 146.80469pt.
-<Corps_rapport/eband_2.png, id=951, 835.12pt x 779.91376pt>
+<Corps_rapport/eband_2.png, id=949, 835.12pt x 779.91376pt>
 File: Corps_rapport/eband_2.png Graphic file (type png)
 <use Corps_rapport/eband_2.png>
 Package pdftex.def Info: Corps_rapport/eband_2.png  used on input line 820.
 (pdftex.def)             Requested size: 157.2pt x 146.80469pt.
-<Corps_rapport/eband_1.png, id=952, 835.12pt x 779.91376pt>
+<Corps_rapport/eband_1.png, id=950, 835.12pt x 779.91376pt>
 File: Corps_rapport/eband_1.png Graphic file (type png)
 <use Corps_rapport/eband_1.png>
 Package pdftex.def Info: Corps_rapport/eband_1.png  used on input line 827.
 (pdftex.def)             Requested size: 157.2pt x 146.80469pt.
 File: logos/logo_sherpa.png Graphic file (type png)
 <use logos/logo_sherpa.png>
-Package pdftex.def Info: logos/logo_sherpa.png  used on input line 834.
+Package pdftex.def Info: logos/logo_sherpa.png  used on input line 833.
 (pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
 File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
 <use logos/lhead_logos/logo_polytech_resized.png>
-Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 834.
+Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 833.
 (pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
 File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
 <use logos/lhead_logos/eupi_long_resized.png>
-Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 834.
+Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 833.
 (pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
 
 Package fancyhdr Warning: \headheight is too small (42.67912pt): 
@@ -4859,7 +4860,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  125i,17n,120p,1749b,1031s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbxi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmcsc10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathabx-type1/matha12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathabx-type1/matha8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathabx-type1/mathb12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathabx-type1/mathx10.pfb>
-Output written on main.pdf (86 pages, 34115970 bytes).
+Output written on main.pdf (86 pages, 34099420 bytes).
 PDF statistics:
  1407 PDF objects out of 1440 (max. 8388607)
  1094 compressed objects within 11 object streams

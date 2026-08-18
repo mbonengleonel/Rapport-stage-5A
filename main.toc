@@ -81,14 +81,14 @@
 \contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 2.5}Mise en place du plan de test}{41}{subsubsection.4.2.5}%
 \contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 2.6}Mise en oeuvre du générateur automatique de rapports d'essais}{43}{subsubsection.4.2.6}%
 \contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.6.1}Extraction et génération des diagnostics de l'IHM}{44}{paragraph.4.2.6.1}%
-\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.6.2}Extraction et génération des visualisation de trajectoires et d'erreurs de localisation}{46}{paragraph.4.2.6.2}%
-\contentsline {subparagraph}{a. Les figures d'analyse dynamique et comportementale}{47}{paragraph.4.2.6.2}%
+\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.6.2}Extraction et génération des visualisation de trajectoires et d'erreurs de localisation}{47}{paragraph.4.2.6.2}%
+\contentsline {subparagraph}{a. Les figures d'analyse dynamique et comportementale}{48}{paragraph.4.2.6.2}%
 \contentsline {subparagraph}{b. Les figures d'évaluation géométrique de la trajectoire}{48}{paragraph.4.2.6.2}%
-\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.6.3}Extraction et génération des vidéos de l'évolution des cartes et du retour vidéo sur l'IHM}{50}{paragraph.4.2.6.3}%
+\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.6.3}Extraction et génération des vidéos de l'évolution des cartes et du retour vidéo sur l'IHM}{51}{paragraph.4.2.6.3}%
 \contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.6.4}Structuration modulaire du générateur de rapports}{52}{paragraph.4.2.6.4}%
 \contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 2.7}Robustification du mode suivi de lisière : gestion d'obstacles sur le chemin de suivi}{53}{subsubsection.4.2.7}%
 \contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.7.1}Fonctionnement du planificateur Elastic Band}{55}{paragraph.4.2.7.1}%
-\contentsline {subparagraph}{a. Le concept des Bulles (Bubbles)}{55}{paragraph.4.2.7.1}%
+\contentsline {subparagraph}{a. Le concept des Bulles (Bubbles)}{56}{paragraph.4.2.7.1}%
 \contentsline {subparagraph}{b. Modélisation de la déformation par forces artificielles}{56}{equation.4.10}%
 \contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.7.2}Résultats de l'implémentateur de l'Elastic Band sur le mode de suivi de lisière}{57}{paragraph.4.2.7.2}%
 \contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.7.3}Modification de l'optimiseur de l'algorithme de bandes élastiques}{58}{paragraph.4.2.7.3}%
