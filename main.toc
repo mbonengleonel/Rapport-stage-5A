@@ -89,6 +89,6 @@
 \contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 2.7}Robustification du mode suivi de lisière : gestion d'obstacles sur le chemin de suivi}{53}{subsubsection.4.2.7}%
 \contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.7.1}Fonctionnement du planificateur Elastic Band}{55}{paragraph.4.2.7.1}%
 \contentsline {subparagraph}{a. Le concept des Bulles (Bubbles)}{56}{paragraph.4.2.7.1}%
-\contentsline {subparagraph}{b. Modélisation de la déformation par forces artificielles}{56}{equation.4.10}%
+\contentsline {subparagraph}{b. Modélisation de la déformation par forces artificielles}{56}{equation.10}%
 \contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.7.2}Résultats de l'implémentateur de l'Elastic Band sur le mode de suivi de lisière}{57}{paragraph.4.2.7.2}%
 \contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.7.3}Modification de l'optimiseur de l'algorithme de bandes élastiques}{58}{paragraph.4.2.7.3}%
