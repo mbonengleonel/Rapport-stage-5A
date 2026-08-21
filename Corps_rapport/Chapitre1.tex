@@ -10,6 +10,28 @@ Comme mentionné précédemment, le Challenge MOBILEX* vise à accélérer la re
   \label{fig3}
 \end{figure}
 
+
+
+
+\subsection{Le consortium MOBITER}
+Pour répondre au mieux aux ambitions du Challenge MOBILEX*, SHERPA Engineering s'est associée avec ses partenaires académiques INRAE et Institut Pascal, avec lesquels elle collabore régulièrement grâce à une proximité géographique, un laboratoire qui était jusqu'à récemment commun pour SHERPA Engineering et l'Institut Pascal, et des propositions régulières de thèses CIFRE.\\
+\indent Cette proximité permet de répartir aisément les tâches à réaliser en fonction de l'expertise de chacun et de faciliter la communication entre les différents acteurs, notamment grâce à un canal Teams sur lequel sont partagés les avancées et différents documents et où une réunion hebdomadaire a lieu, permettant de présenter le travail de chacun et de planifier les tests sur le terrain. Les apports de chaque partie sont les suivants :
+
+\subsubsection{SHERPA Engineering}
+SHERPA Engineering, coordinatrice du projet, réalise, sur la base d'un existant, la mise en place de la base hardware du projet en l'adaptant pour répondre aux exigences du challenge. Elle réalise les tâches d'ingénierie du projet et a la charge d'une partie de l'algorithmie liée à la perception et à la planification.
+
+\subsubsection{INRAE}
+L'INRAE apporte son expérience dans la robotique agricole, notamment sur les nouvelles lois de commande, et est responsable de l'expérimentation grâce à l'utilisation de ses sites à Aubière (Puy-de-Dôme) et Montoldre (Allier).
+
+\subsubsection{Institut Pascal}
+L'Institut Pascal fournit des conseils sur le développement scientifique (fusion de données, traversabilité, gestion des risques, planification) qui sont mis en application par une ressource interne.
+
+
+
+
+
+
+
 \subsection{Les attendus du challenge}
 \subsubsection{Organisation générale}
 Le Challenge Mobilex* est organisé par les acteurs suivants (Figure \ref{fig4}) :
@@ -154,18 +176,6 @@ Les zones d'interdiction correspondent à des contraintes de sécurité. Ce sont
 L'évaluation des développements se fait à chaque défi et comporte trois notes : une note liée à la revue de validation, une note liée à la soumission du dossier scientifique et technique et une note liée aux épreuves. Elles visent à démontrer les capacités de développement de l'équipe et les performances du système développé.\\
 \indent Lors de la journée d'épreuves sur un site de la DGA, les robots des équipes doivent accomplir une suite de scénarios donnés dans le règlement particulier du défi permettant d'évaluer des fonctions seules ou un ensemble de fonctions. Les équipes sont notées sur la bonne prise en compte de l'ensemble des contraintes fournies par les organisateurs et le bon fonctionnement des fonctions avec des critères de précision et/ou de rapidité.
 
-\subsection{Le consortium MOBITER}
-Pour répondre au mieux aux ambitions du Challenge MOBILEX*, SHERPA Engineering s'est associée avec ses partenaires académiques INRAE et Institut Pascal, avec lesquels elle collabore régulièrement grâce à une proximité géographique, un laboratoire qui était jusqu'à récemment commun pour SHERPA Engineering et l'Institut Pascal, et des propositions régulières de thèses CIFRE.\\
-\indent Cette proximité permet de répartir aisément les tâches à réaliser en fonction de l'expertise de chacun et de faciliter la communication entre les différents acteurs, notamment grâce à un canal Teams sur lequel sont partagés les avancées et différents documents et où une réunion hebdomadaire a lieu, permettant de présenter le travail de chacun et de planifier les tests sur le terrain. Les apports de chaque partie sont les suivants :
-
-\subsubsection{SHERPA Engineering}
-SHERPA Engineering, coordinatrice du projet, réalise, sur la base d'un existant, la mise en place de la base hardware du projet en l'adaptant pour répondre aux exigences du challenge. Elle réalise les tâches d'ingénierie du projet et a la charge d'une partie de l'algorithmie liée à la perception et à la planification.
-
-\subsubsection{INRAE}
-L'INRAE apporte son expérience dans la robotique agricole, notamment sur les nouvelles lois de commande, et est responsable de l'expérimentation grâce à l'utilisation de ses sites à Aubière (Puy-de-Dôme) et Montoldre (Allier).
-
-\subsubsection{Institut Pascal}
-L'Institut Pascal fournit des conseils sur le développement scientifique (fusion de données, traversabilité, gestion des risques, planification) qui sont mis en application par une ressource interne.
 
 
 
@@ -236,6 +246,13 @@ On obtient alors sur le robot l'architecture hardware (Figure \ref{fig11}) :
     \captionof{figure}{Diagramme synoptique de l'architecture hardware du système}
     \label{fig11}
 \end{center}
+
+
+
+
+
+
+
 
 \subsection{Présentation du simulateur Gazebo}
 Conformément à sa méthodologie interne et pour des raisons pratiques, SHERPA Engineering a développé un environnement de simulation sous Gazebo (Figure~\ref{fig12}). Celui-ci réplique fidèlement les flux de données d'entrée/sortie du robot et de sa suite sensorielle (cf. graphe RQT en annexe~\hyperref[annexe1]{[I]}), afin de mener une première phase de validation logicielle. Cette étape vise à identifier précocement d'éventuels dysfonctionnements au niveau des briques haut niveau (perception, planification et génération de commandes). L'environnement virtuel intègre divers obstacles représentatifs des scénarios spécifiés par la DGA lors de la présentation des modalités du défi, et continue d'être enrichi au fil des évolutions du challenge.

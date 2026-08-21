@@ -1,0 +1,69 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Page-1" id="m0k-BKreB1nV2B3Yt4Wi">
+    <mxGraphModel dx="1174" dy="797" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="light-dark(#FFFFFF,#FFFFFF)" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="b1n24MVMVcjrbLKCLcgP-5" edge="1" parent="1" source="F9wlcAjZBthRVt1iJpVZ-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=light-dark(#000000,#000000);" target="F9wlcAjZBthRVt1iJpVZ-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="F9wlcAjZBthRVt1iJpVZ-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontColor=light-dark(#000000,#000000);labelBackgroundColor=none;fillColor=light-dark(#FFFFFF,#7EA6E0);strokeColor=light-dark(#000000,#000000);" value="Ouverture du ROS bag" vertex="1">
+          <mxGeometry height="50" width="90" x="150" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="b1n24MVMVcjrbLKCLcgP-10" edge="1" parent="1" source="F9wlcAjZBthRVt1iJpVZ-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=light-dark(#000000,#000000);" target="b1n24MVMVcjrbLKCLcgP-2" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="F9wlcAjZBthRVt1iJpVZ-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontColor=light-dark(#000000,#000000);labelBackgroundColor=none;fillColor=light-dark(#FFFFFF,#FFFFFF);strokeColor=light-dark(#000000,#000000);" value="&lt;span style=&quot;&quot;&gt;Extraction des topics de type sensor_msgs/Image et sensor_msgs/CompressedImage&lt;/span&gt;" vertex="1">
+          <mxGeometry height="70" width="205" x="318" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="b1n24MVMVcjrbLKCLcgP-8" edge="1" parent="1" source="F9wlcAjZBthRVt1iJpVZ-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=light-dark(#000000,#000000);" target="b1n24MVMVcjrbLKCLcgP-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="F9wlcAjZBthRVt1iJpVZ-4" parent="1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fontColor=light-dark(#000000,#000000);labelBackgroundColor=light-dark(#FFFFFF,#FFFFFF);fillColor=light-dark(#FFFFFF,#FFFFFF);strokeColor=light-dark(#000000,#000000);" value="&lt;b&gt;Extraction des données de synchronisation des flux images&lt;/b&gt;" vertex="1">
+          <mxGeometry height="90" width="255" x="293" y="300" as="geometry">
+            <mxRectangle height="30" width="70" x="135" y="370" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="F9wlcAjZBthRVt1iJpVZ-5" parent="F9wlcAjZBthRVt1iJpVZ-4" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontColor=light-dark(#000000,#000000);labelBackgroundColor=light-dark(#FFFFFF,#FFFFFF);" value="-&amp;nbsp;timestamp de début max parmis tous les flux images extraits du bag : offset de début" vertex="1">
+          <mxGeometry height="30" width="255" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="F9wlcAjZBthRVt1iJpVZ-6" parent="F9wlcAjZBthRVt1iJpVZ-4" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontColor=light-dark(#000000,#000000);labelBackgroundColor=light-dark(#FFFFFF,#FFFFFF);" value="- pas de timestamps du flux images ayant le plus faible débit : pas max&amp;nbsp;" vertex="1">
+          <mxGeometry height="30" width="255" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="F9wlcAjZBthRVt1iJpVZ-28" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontColor=light-dark(#000000,#000000);labelBackgroundColor=none;fillColor=light-dark(#FFFFFF,#FFFFFF);strokeColor=light-dark(#000000,#000000);" value="Génération et sauvegarde de la vidéo composite" vertex="1">
+          <mxGeometry height="40" width="150" x="345.5" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="F9wlcAjZBthRVt1iJpVZ-34" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontColor=light-dark(#000000,#000000);labelBackgroundColor=none;fillColor=light-dark(#FFFFFF,#7EA6E0);strokeColor=light-dark(#000000,#000000);" value="Fermeture du ROS bag" vertex="1">
+          <mxGeometry height="50" width="90" x="600" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="b1n24MVMVcjrbLKCLcgP-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontColor=light-dark(#000000,#000000);labelBackgroundColor=light-dark(#FFFFFF,#FFFFFF);fillColor=light-dark(#FFFFFF,#FFFFFF);strokeColor=light-dark(#000000,#000000);" value="Décodage des frames images&amp;nbsp;" vertex="1">
+          <mxGeometry height="40" width="150" x="345.5" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="b1n24MVMVcjrbLKCLcgP-7" edge="1" parent="1" source="b1n24MVMVcjrbLKCLcgP-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=light-dark(#000000,#000000);" target="F9wlcAjZBthRVt1iJpVZ-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="b1n24MVMVcjrbLKCLcgP-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontColor=light-dark(#000000,#000000);labelBackgroundColor=light-dark(#FFFFFF,#FFFFFF);fillColor=light-dark(#FFFFFF,#FFFFFF);strokeColor=light-dark(#000000,#000000);" value="Génération et sauvegarde des vidéos synchronisées associés à chaque flux images à partir des frames images associées : prise en compte du offset de début et du pas max&amp;nbsp;&amp;nbsp;" vertex="1">
+          <mxGeometry height="90" width="237.5" x="301.75" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="b1n24MVMVcjrbLKCLcgP-4" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="400" y="440" as="sourcePoint" />
+            <mxPoint x="450" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="b1n24MVMVcjrbLKCLcgP-6" edge="1" parent="1" source="F9wlcAjZBthRVt1iJpVZ-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=light-dark(#000000,#000000);exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="F9wlcAjZBthRVt1iJpVZ-34">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="528" y="164.5" as="sourcePoint" />
+            <mxPoint x="641" y="164.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="b1n24MVMVcjrbLKCLcgP-13" edge="1" parent="1" source="b1n24MVMVcjrbLKCLcgP-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=light-dark(#000000,#000000);" target="F9wlcAjZBthRVt1iJpVZ-4">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="425" y="280" as="sourcePoint" />
+            <mxPoint x="424" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

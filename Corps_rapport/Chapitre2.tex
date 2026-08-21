@@ -1,6 +1,6 @@
 \section{Présentation des briques logicielles du robot}
-Les développements logiciels se font sous le middleware ROS* (noetic), ce qui permet de développer sur une base standardisée offrant de nombreuses fonctionnalités et outils pour faciliter l'intégration des apports des différents acteurs à la Brique MOBILEX*. L'utilisation de ce middleware nous permet d'organiser le code comme un ensemble de briques élémentaires effectuant des fonctions bien définies prenant des données en entrées et retournant les résultats en sortie. L'assemblage de ces différentes briques constitue notre Brique MOBILEX*. Cette organisation permet si nécessaire d'ajouter, retirer ou remplacer des fonctions élémentaires sans avoir à modifier le reste des fonctions. De plus, les fonctions intensives en calcul sont développées en C++ pour répondre à des contraintes de temps réel et les autres en Python car plus rapide à développer.\\
-\indent Un schéma synoptique de l'architecture du système est donné ci-dessous (Figure \ref{fig13}):\\
+Les développements logiciels se font sous le middleware ROS* (version noetic), ce qui permet de développer sur une base standardisée offrant de nombreuses fonctionnalités et outils pour faciliter l'intégration des apports des différents acteurs à la Brique MOBILEX*. L'utilisation de ce middleware nous permet d'organiser le code comme un ensemble de briques élémentaires effectuant des fonctions bien définies prenant des données en entrées et retournant les résultats en sortie. L'assemblage de ces différentes briques constitue notre Brique MOBILEX*. Cette organisation permet si nécessaire d'ajouter, retirer ou remplacer des fonctions élémentaires sans avoir à modifier le reste des fonctions. De plus, les fonctions intensives en calcul sont développées en C++ pour répondre à des contraintes de temps réel et les autres en Python car plus rapide à développer.\\
+\indent Un schéma synoptique de l'architecture du système est donné (Figure \ref{fig13}):\\
 \begin{itemize}
 \renewcommand{\labelitemi}{$\bullet$}
     \item Les modules et données de bas-niveau et hardware sont représentés en rouge.
@@ -9,7 +9,7 @@ Les développements logiciels se font sous le middleware ROS* (noetic), ce qui p
     \item Les modules et données de contrôle sont représentés en jaune.
     \item Les modules et données d’interface, de logique, de contrôle de mission ou de visualisation sont représentés en blanc.\\
 \end{itemize}
-\indent Il est à noter que l'ensemble des fonctions publient également des diagnostics, non représentés ici par souci de lisibilité.
+\indent Il est à noter que l'ensemble des fonctions renvoie également des diagnostics, non représentés ici par souci de lisibilité.
 
 \begin{center}
     \includegraphics[width=1 \linewidth]{Corps_rapport/architecture_logicielle.png}
@@ -53,7 +53,7 @@ $\ $\
 
 
 \subsubsection{Segmentation d'image}
-La brique de segmentation d'image* permet d'extraire des informations sémantiques à partir des images caméra. Elle a subi une modification complète par rapport aux années précédentes du défi. La combinaison des deux réseaux de neurones (détecteur open-set, YOLO World \cite{yoloworld2024} et un réseau de segmentation*, Efficient SAM \cite{efficientsam2024}) employée lors du défi 2 a été remplacée par un réseau de segmentation unique Segformer \cite{segformer}.\\
+La brique de segmentation d'image* permet d'extraire des informations sémantiques à partir des images caméra. Elle a subi une modification complète par rapport aux années précédentes du défi. La combinaison des deux réseaux de neurones (détecteur open-set, YOLO World \cite{yoloworld2024} et un réseau de segmentation d'image* , Efficient SAM \cite{efficientsam2024}) employée lors du défi 2 a été remplacée par un réseau de segmentation unique Segformer \cite{segformer}.\\
 
 
 \begin{comment}
