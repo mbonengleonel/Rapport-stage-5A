@@ -1,0 +1,2012 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-ant-path@1.1.2/dist/leaflet-ant-path.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-groupedlayercontrol/0.6.1/leaflet.groupedlayercontrol.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-groupedlayercontrol/0.6.1/leaflet.groupedlayercontrol.min.css"/>
+    <script src="https://cdn.jsdelivr.net/gh/ljagis/leaflet-measure@2.1.7/dist/leaflet-measure.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ljagis/leaflet-measure@2.1.7/dist/leaflet-measure.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.2/leaflet.draw.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.2/leaflet.draw.css"/>
+    
+            <style>
+                #export {
+                    position: absolute;
+                    top: 5px;
+                    right: 10px;
+                    z-index: 999;
+                    background: white;
+                    color: black;
+                    padding: 6px;
+                    border-radius: 4px;
+                    font-family: 'Helvetica Neue';
+                    cursor: pointer;
+                    font-size: 12px;
+                    text-decoration: none;
+                    top: 90px;
+                }
+            </style>
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.css"/>
+    <script src="https://cdn.jsdelivr.net/gh/ardhi/Leaflet.MousePosition/src/L.Control.MousePosition.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ardhi/Leaflet.MousePosition/src/L.Control.MousePosition.min.css"/>
+    <!-- Proj4js : conversion de coordonnées (UTM → WGS84) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.9.0/proj4.js"></script>
+    <style>
+        .badmode-label {
+            background: rgba(248, 247, 247, 0.85);
+            border: 1px solid #555;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 2px 5px;
+            white-space: nowrap;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        .badmode-label::before { display: none; }
+    </style>
+    <style>
+        .goodmode-label {
+            background: rgba(77, 201, 87, 0.85);
+            border: 1px solid #555;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 2px 5px;
+            white-space: nowrap;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        .goodmode-label::before { display: none; }
+    </style>
+    <style>
+        .water-label {
+            background: rgba(82, 201, 238, 0.85);
+            border: 1px solid #555;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 2px 5px;
+            white-space: nowrap;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        .water-label::before { display: none; }
+    </style>
+    <style>
+        .epreuve-desc {
+            background: rgba(176, 207, 140, 0.93);
+            border: 1px solid #aaa;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            max-width: 500px;
+            min-width: 220px;
+            padding: 10px 14px;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map" ></div>
+        
+    <a href='#' id='export'>Export</a>
+</body>
+
+<script>    
+    
+    var map = L.map(
+        "map",
+        {
+            center: [45.763144,3.110076],
+            crs: L.CRS.EPSG3857,
+            zoom: 20,
+            zoomControl: true,
+            preferCanvas: false,
+        }
+    );
+
+   
+    var popup = L.popup();
+
+    function onMapClick(e) {
+        popup
+            .setLatLng(e.latlng)
+            .setContent("You clicked the map at " + e.latlng.toString())
+            .openOn(map);
+    }
+
+    map.on('click', onMapClick);
+
+
+    // Déclaration des feature groups (scénarios non encore définis)
+    var e1_a = L.featureGroup({});
+    var e1_b = L.featureGroup({});
+    var e2 = L.featureGroup({});
+    var e3 = L.featureGroup({});
+    var e4 = L.featureGroup({});
+    var e5 = L.featureGroup({});
+    var e6 = L.featureGroup({});
+
+    // scénarios DGA
+    var e7 = L.featureGroup({});
+    var e8 = L.featureGroup({});
+    var e9 = L.featureGroup({});
+    var e10 = L.featureGroup({});
+  
+    
+
+    // ---- Conversion UTM → WGS84 et ajout des marqueurs ----
+    proj4.defs('EPSG:32631', '+proj=utm +zone=31 +datum=WGS84 +units=m +no_defs');
+
+    // Format : [easting, northing, label, couleur (optionnel)]
+  
+    var utm_markers_DGA = [
+        [458740.2704, 5212113.057 , 'WP_01', '7 km/h'],
+        [458722.7401, 5212128.206, 'WP_02', '7 km/h'],
+        [458710.846, 5212139.875, 'WP_03', '7 km/h'],
+        [458704.1051, 5212149.669, 'WP_04', '7 km/h'], 
+        [458696.5239, 5212161.192, 'WP_05', '7 km/h'],
+        [458689.5327, 5212146.047, 'WP_06', '7 km/h'],
+        [458698.7214, 5212151.071, 'WP_07', '7 km/h'],
+        [458709.0142, 5212157.2, 'WP_08', '7 km/h'],
+        [458714.2169, 5212149.888, 'WP_09', '7 km/h'],
+        [458703.8345, 5212143.475, 'WP_10', '7 km/h'],
+        [458696.5538, 5212135.589, 'WP_11', '7 km/h'],
+        [458753.0463, 5212125.055, 'WP_12', '7 km/h'],
+        [458744.2963, 5212136.116, 'WP_13', '7 km/h'],
+        [458736.2235, 5212147.016, 'WP_14', '7 km/h'],
+        [458729.8238, 5212155.069, 'WP_15', '7 km/h'],
+        [458723.6473, 5212162.792, 'WP_16', '7 km/h'],
+        [458718.7228, 5212169.856, 'WP_17', '7 km/h'],
+        [458681.9682, 5212154.702, 'WP_18', '7 km/h'],
+        [458690.048, 5212160.058, 'WP_19', '7 km/h'],
+        [458698.1531, 5212165.568, 'WP_20', '7 km/h'],
+        [458712.4011, 5212175.575, 'WP_21', '7 km/h'],
+        [458717.5343, 5212179.709, 'WP_22', '7 km/h'],
+        [458727.1881, 5212187.386, 'WP_23', '7 km/h'],
+        [458715.0647, 5212205.125, 'WP_24', '7 km/h'],
+        [458705.8435, 5212198.315, 'WP_25', '7 km/h'],
+        [458700.6499, 5212194.478, 'WP_26', '7 km/h'],
+        [458686.2269, 5212184.115, 'WP_27', '7 km/h'],
+        [458676.7369, 5212177.127, 'WP_28', '7 km/h'],
+        [458669.9686, 5212172.36, 'WP_29', '7 km/h'],
+        [458748.4852, 5212110.011, 'WP_30', '7 km/h'],
+        [458783.1542, 5212145.713, 'WP_31', '7 km/h'],
+        [458754.1725, 5212187.979, 'WP_32', '7 km/h'],
+        [458736.7152, 5212209.66, 'WP_33', '7 km/h'],
+        [458717.4253, 5212226.507, 'WP_34', '7 km/h'],
+        [458702.4161, 5212210.934, 'WP_35', '7 km/h'],
+        [458660.4001, 5212182.451, 'WP_36', '7 km/h'],
+        [458635.5044, 5212162.954, 'WP_37', '7 km/h'],
+        [458649.2414, 5212155.146, 'WP_38', '7 km/h'],
+        [458684.9224, 5212112.293, 'WP_39', '7 km/h'],
+        [458712.7312, 5212070.846, 'WP_40', '7 km/h'],
+        [458731.1221, 5212083.645, 'WP_41', '7 km/h'],
+        [458720.2271, 5212076.527, 'WP_42', '7 km/h'],
+        [458710.3888, 5212081.558, 'WP_43', '7 km/h'],
+        [458667.42, 5212140.573, 'WP_44', '7 km/h'],
+        [458676.0898, 5212147.888, 'WP_45', '7 km/h'],
+        [458695.8735, 5212128.176, 'WP_46', '7 km/h'],
+        [458703.5564, 5212116.114, 'WP_47', '7 km/h'],
+        [458712.7897, 5212110.561, 'WP_48', '7 km/h'],
+        [458730.9736, 5212092.937, 'WP_49', '7 km/h'],
+        [458813.3306, 5212172.802, 'WP_50', '7 km/h'],
+        [458767.4715, 5212203.481, 'WP_51', '7 km/h'],
+        [458636.9925, 5212151.595, 'WP_52', '7 km/h'],
+        [458681.0661, 5212096.482, 'WP_53', '7 km/h'],
+        [458676.9798, 5212092.771, 'WP_54', '7 km/h'],
+        [458669.042, 5212087.525, 'WP_55', '7 km/h'],
+        [458649.427, 5212110.067, 'WP_56', '7 km/h'],
+        [458659.4968, 5212121.781, 'WP_57', '7 km/h'],
+        [458674.6477, 5212207.538, 'WP_58', '7 km/h'],
+        [458762.6802, 5212139.454, 'WP_59', '7 km/h'],
+        [458768.7646, 5212144.663, 'WP_60', '7 km/h'],
+        [458768.8169, 5212150.747, 'WP_61', '7 km/h'],
+        [458764.0187, 5212158.256, 'WP_62', '7 km/h'],
+        [458753.1645, 5212167.381, 'WP_63', '7 km/h'],
+        [458737.4429, 5212187.555, 'WP_64', '7 km/h'],
+        [458749.0849, 5212159.742, 'WP_65', '7 km/h'],
+        [458721.5332, 5212140.738, 'WP_66', '7 km/h'],
+        [458703.7488, 5212128.698, 'WP_67', '7 km/h'],
+        [458703.7375, 5212102.008, 'WP_68', '7 km/h'],
+        [458676.0271, 5212122.077, 'WP_69', '7 km/h']
+    ];
+
+    var utm_ZE_A_DGA = [
+        [458727.5972, 5212214.792, 'ZE01'],
+        [458737.2007, 5212228.689, 'ZE02'],
+        [458732.4813, 5212231.314, 'ZE03'],
+        [458723.8229, 5212217.051, 'ZE04']          
+    ];
+
+    var utm_ZE_B_DGA = [
+        [458686.2878, 5212195.669, 'ZE05'],
+        [458689.9345, 5212198.582, 'ZE06'],
+        [458677.973, 5212215.087, 'ZE07'],
+        [458675.4421, 5212212.144, 'ZE08']
+    ];
+
+    var utm_ZE_C_DGA = [
+        [458644.7642, 5212138.091, 'ZE09'],
+        [458660.8852, 5212149.578, 'ZE10'],
+        [458658.1253, 5212153.458, 'ZE11'],
+        [458641.6398, 5212141.676, 'ZE12']
+    ];
+
+    var utm_ZE_D_DGA = [
+        [458664.6295, 5212136.969, 'ZE13'],
+        [458684.5901, 5212150.928, 'ZE14'],
+        [458682.6771, 5212153.326, 'ZE15'],
+        [458662.6864, 5212140.173, 'ZE16'] 
+    ];
+
+
+
+
+
+    var utm_markers = [
+        // Ajoutez vos waypoints ici :
+        [508561.97, 5067705.68, 'WP_1', '7 km/h'],
+        [508559.67, 5067719.44, 'WP_2', '7 km/h'],
+        [508558.8, 5067737.4, 'WP_3', '7 km/h'],
+        [508596.8, 5067736.6, 'WP_4', '7 km/h'],
+        [508597.7, 5067743.6, 'WP_5', '7 km/h'],
+        [508577.3, 5067743.8, 'WP_6', '7 km/h'],
+        [508558.3, 5067744.5, 'WP_7', '7 km/h'],
+        [508541.65, 5067738.22, 'WP_8', '7 km/h'],
+        [508533.74, 5067739.11, 'WP_9', '7 km/h'],
+        [508525.53, 5067757.11, 'WP_10', '7 km/h'],
+        [508537.57, 5067760.46, 'WP_11', '7 km/h'],
+        [508541.32, 5067716.48, 'WP_12', '7 km/h'],
+        [508544.94, 5067696.5, 'WP_13', '7 km/h'],
+        [508552.06, 5067718.60, 'WP_14', '7 km/h']
+    ];
+
+    var utm_ZI_1 = [
+        [508547.783, 5067720.034, 'P_1'],
+        [508549.494, 5067719.926, 'P_2'],
+        [508552.621, 5067708.264, 'P_3'],
+        [508547.64, 5067711.59, 'P_4']
+    ];
+
+    var utm_ZI_2 = [
+        [508541.23, 5067732.25, 'P_1'],
+        [508545.98, 5067727.70, 'P_2'],
+        [508545.05, 5067726.92, 'P_3'],
+        [508540.07, 5067731.58, 'P_4']
+    ];
+
+    var utm_ZI_3 = [
+        [508542.32, 5067733.69, 'P_1'],
+        [508547.46, 5067730.26, 'P_2'],
+        [508548.86, 5067732.37, 'P_3']
+    ];
+
+    var utm_ZI_4 = [
+        [508533.68, 5067742.01, 'P_1'],
+        [508553.51, 5067738.60, 'P_2'],
+        [508539.46, 5067722.58, 'P_3']
+    ];
+
+    var utm_ZI_5 = [
+        [508563.55, 5067731.50, 'P_1'],
+        [508564.90, 5067713.73, 'P_2'],
+        [508585.87, 5067730.42, 'P_3']
+    ];
+
+    var utm_obst_1 = [
+        [508546.46, 5067721.59, 'P_1'],
+        [508548.17, 5067722.37, 'P_2'],
+        [508546.92, 5067724.92, 'P_3'],
+        [508544.43, 5067724.03, 'P_4']
+    ];
+
+    var utm_obst_2 = [
+        [508544.11, 5067736.69, 'P_1'],
+        [508547.22, 5067737.48, 'P_2'],
+        [508545.19, 5067739.59, 'P_3']
+    ];
+
+    var utm_obst_3 = [
+        [508535.95, 5067732.68, 'P_1'],
+        [508539.21, 5067732.80, 'P_2'],
+        [508539.21, 5067730.80, 'P_3'],
+        [508536.42, 5067730.46, 'P_4']
+    ];
+
+    var utm_obst_4 = [
+        [508557.72, 5067730.16, 'P_1'],
+        [508558.42, 5067731.38, 'P_2'],
+        [508558.81, 5067730.27, 'P_3']
+    ];
+
+    var utm_obst_5 = [
+        [508544.14, 5067709.70, 'P_1'],
+        [508546.17, 5067709.37, 'P_2'],
+        [508545.00, 5067707.70, 'P_3']
+    ];
+
+    var utm_obst_6 = [
+        [508569.69, 5067736.06, 'P_1'],
+        [508568.76, 5067735.06, 'P_2'],
+        [508567.28, 5067736.17, 'P_3']
+    ];
+
+    var utm_obst_7 = [
+        [508587.19, 5067736.42, 'P_1'],
+        [508588.12,5067735.31, 'P_2'],
+        [508585.94, 5067734.86, 'P_3']
+    ];
+
+    var utm_obst_8 = [
+        [508575.75, 5067736.74, 'P_1'],
+        [508575.60, 5067735.41, 'P_2'],
+        [508577.62, 5067735.30, 'P_3'],
+        [508577.31, 5067737.19, 'P_4']
+    ];
+
+    var utm_obst_9 = [
+        [508558.13, 5067717.16, 'P_1'],
+        [508561.86, 5067717.72, 'P_2'],
+        [508562.10, 5067715.39, 'P_3'],
+        [508558.37, 5067715.38, 'P_4']
+     ];
+
+    // Tableau de waypoints [{ label, lat, lng }, ...]
+    var waypoints = [];
+    var points_ZI_1 = [];
+    var points_ZI_2 = [];
+    var points_ZI_3 = [];
+    var points_ZI_4 = [];
+    var points_ZI_5 = [];
+    var points_obst_1 = [];
+    var points_obst_2 = [];
+    var points_obst_3 = [];
+    var points_obst_4 = [];
+    var points_obst_5 = [];
+    var points_obst_6 = [];
+    var points_obst_7 = [];
+    var points_obst_8 = [];
+    var points_obst_9 = [];
+
+    var waypoints_DGA = [];
+    var points_ZE_A_DGA = [];
+    var points_ZE_B_DGA = [];
+    var points_ZE_C_DGA = [];
+    var points_ZE_D_DGA = [];
+
+
+    // conversion des coordonnées UTM en WGS84 et stockage dans les tableaux de points
+
+    utm_ZE_A_DGA.forEach(function(pt) {
+        // conversion UTM → WGS84
+        var wgs84 = proj4('EPSG:32631', 'WGS84', [pt[0], pt[1]]);
+        var lat = wgs84[1], lng = wgs84[0];
+        // stockage dans le tableau de points
+        points_ZE_A_DGA.push({ label: pt[2], lat: lat, lng: lng });
+    });
+
+    utm_ZE_B_DGA.forEach(function(pt) {
+        // conversion UTM → WGS84
+        var wgs84 = proj4('EPSG:32631', 'WGS84', [pt[0], pt[1]]);
+        var lat = wgs84[1], lng = wgs84[0];
+        // stockage dans le tableau de points
+        points_ZE_B_DGA.push({ label: pt[2], lat: lat, lng: lng });
+    });
+
+    utm_ZE_C_DGA.forEach(function(pt) {
+        // conversion UTM → WGS84
+        var wgs84 = proj4('EPSG:32631', 'WGS84', [pt[0], pt[1]]);
+        var lat = wgs84[1], lng = wgs84[0];
+        // stockage dans le tableau de points
+        points_ZE_C_DGA.push({ label: pt[2], lat: lat, lng: lng });
+    });
+
+    utm_ZE_D_DGA.forEach(function(pt) {
+        // conversion UTM → WGS84
+        var wgs84 = proj4('EPSG:32631', 'WGS84', [pt[0], pt[1]]);
+        var lat = wgs84[1], lng = wgs84[0];
+        // stockage dans le tableau de points
+        points_ZE_D_DGA.push({ label: pt[2], lat: lat, lng: lng });
+    });
+
+
+    utm_ZI_1.forEach(function(pt) {
+        // conversion UTM → WGS84
+        var wgs84 = proj4('EPSG:32631', 'WGS84', [pt[0], pt[1]]);
+        var lat = wgs84[1], lng = wgs84[0];
+        // stockage dans le tableau de points
+        points_ZI_1.push({ label: pt[2], lat: lat, lng: lng });
+    });
+
+    utm_ZI_2.forEach(function(pt) {
+        // conversion UTM → WGS84
+        var wgs84 = proj4('EPSG:32631', 'WGS84', [pt[0], pt[1]]);
+        var lat = wgs84[1], lng = wgs84[0];
+        // stockage dans le tableau de points
+        points_ZI_2.push({ label: pt[2], lat: lat, lng: lng });
+    });
+
+    utm_ZI_3.forEach(function(pt) {
+        // conversion UTM → WGS84
+        var wgs84 = proj4('EPSG:32631', 'WGS84', [pt[0], pt[1]]);
+        var lat = wgs84[1], lng = wgs84[0];
+        // stockage dans le tableau de points
+        points_ZI_3.push({ label: pt[2], lat: lat, lng: lng });
+    });
+
+    utm_ZI_4.forEach(function(pt) {
+        // conversion UTM → WGS84
+        var wgs84 = proj4('EPSG:32631', 'WGS84', [pt[0], pt[1]]);
+        var lat = wgs84[1], lng = wgs84[0];
+        // stockage dans le tableau de points
+        points_ZI_4.push({ label: pt[2], lat: lat, lng: lng });
+    });
+
+    utm_ZI_5.forEach(function(pt) {
+        // conversion UTM → WGS84
+        var wgs84 = proj4('EPSG:32631', 'WGS84', [pt[0], pt[1]]);
+        var lat = wgs84[1], lng = wgs84[0];
+        // stockage dans le tableau de points
+        points_ZI_5.push({ label: pt[2], lat: lat, lng: lng });
+    });
+
+    utm_obst_1.forEach(function(pt) {
+        // conversion UTM → WGS84
+        var wgs84 = proj4('EPSG:32631', 'WGS84', [pt[0], pt[1]]);
+        var lat = wgs84[1], lng = wgs84[0];
+        // stockage dans le tableau de points
+        points_obst_1.push({ label: pt[2], lat: lat, lng: lng });
+    });
+
+    utm_obst_2.forEach(function(pt) {
+        // conversion UTM → WGS84
+        var wgs84 = proj4('EPSG:32631', 'WGS84', [pt[0], pt[1]]);
+        var lat = wgs84[1], lng = wgs84[0];
+        // stockage dans le tableau de points
+        points_obst_2.push({ label: pt[2], lat: lat, lng: lng });
+    });
+
+    utm_obst_3.forEach(function(pt) {
+        // conversion UTM → WGS84
+        var wgs84 = proj4('EPSG:32631', 'WGS84', [pt[0], pt[1]]);
+        var lat = wgs84[1], lng = wgs84[0];
+        // stockage dans le tableau de points
+        points_obst_3.push({ label: pt[2], lat: lat, lng: lng });
+    });
+
+    utm_obst_4.forEach(function(pt) {
+        // conversion UTM → WGS84
+        var wgs84 = proj4('EPSG:32631', 'WGS84', [pt[0], pt[1]]);
+        var lat = wgs84[1], lng = wgs84[0];
+        // stockage dans le tableau de points
+        points_obst_4.push({ label: pt[2], lat: lat, lng: lng });
+    });
+
+    utm_obst_5.forEach(function(pt) {
+        // conversion UTM → WGS84
+        var wgs84 = proj4('EPSG:32631', 'WGS84', [pt[0], pt[1]]);
+        var lat = wgs84[1], lng = wgs84[0];
+        // stockage dans le tableau de points
+        points_obst_5.push({ label: pt[2], lat: lat, lng: lng });
+    });
+
+    utm_obst_6.forEach(function(pt) {
+        // conversion UTM → WGS84
+        var wgs84 = proj4('EPSG:32631', 'WGS84', [pt[0], pt[1]]);
+        var lat = wgs84[1], lng = wgs84[0];
+        // stockage dans le tableau de points
+        points_obst_6.push({ label: pt[2], lat: lat, lng: lng });
+    });
+
+    utm_obst_7.forEach(function(pt) {
+        // conversion UTM → WGS84
+        var wgs84 = proj4('EPSG:32631', 'WGS84', [pt[0], pt[1]]);
+        var lat = wgs84[1], lng = wgs84[0];
+        // stockage dans le tableau de points
+        points_obst_7.push({ label: pt[2], lat: lat, lng: lng });
+    });
+
+    utm_obst_8.forEach(function(pt) {
+        // conversion UTM → WGS84
+        var wgs84 = proj4('EPSG:32631', 'WGS84', [pt[0], pt[1]]);
+        var lat = wgs84[1], lng = wgs84[0];
+        // stockage dans le tableau de points
+        points_obst_8.push({ label: pt[2], lat: lat, lng: lng });
+    });
+
+    utm_obst_9.forEach(function(pt) {
+        // conversion UTM → WGS84
+        var wgs84 = proj4('EPSG:32631', 'WGS84', [pt[0], pt[1]]);
+        var lat = wgs84[1], lng = wgs84[0];
+        // stockage dans le tableau de points
+        points_obst_9.push({ label: pt[2], lat: lat, lng: lng });
+    });
+
+
+    var i = 1;
+    utm_markers_DGA.forEach(function(pt) {
+        // conversion UTM → WGS84
+        var wgs84 = proj4('EPSG:32631', 'WGS84', [pt[0], pt[1]]);
+        var lat = wgs84[1], lng = wgs84[0];
+        // stockage dans le tableau de waypoints
+        waypoints_DGA.push({ label: pt[2], lat: lat, lng: lng });
+
+        // waypoints scénario 1 DGA : WP_01 à WP_11
+        if (i < 12) {
+            var m1 = L.marker([lat, lng]).addTo(e7);
+            m1.bindPopup('<b>' + pt[2] + '</b><br>UTM 31N: ' + pt[0] + ' E, ' + pt[1] + ' N<br>WGS84: ' + lat.toFixed(6) + ', ' + lng.toFixed(6) + '<br>Vitesse : ' + pt[3]);
+        }
+
+        // waypoints scénario 2 DGA : WP_12 à WP_17 puis WP_21 et WP_26
+        if ((i >= 12 && i <= 17) || i === 21 || i === 26) {
+            var m2 = L.marker([lat, lng]).addTo(e8);
+            m2.bindPopup('<b>' + pt[2] + '</b><br>UTM 31N: ' + pt[0] + ' E, ' + pt[1] + ' N<br>WGS84: ' + lat.toFixed(6) + ', ' + lng.toFixed(6) + '<br>Vitesse : ' + pt[3]);
+        }
+
+        // waypoints scénario 3 DGA : WP_30 à WP_40 
+        if (i >= 30 && i <= 40) {
+            var m3 = L.marker([lat, lng]).addTo(e9);
+            m3.bindPopup('<b>' + pt[2] + '</b><br>UTM 31N: ' + pt[0] + ' E, ' + pt[1] + ' N<br>WGS84: ' + lat.toFixed(6) + ', ' + lng.toFixed(6) + '<br>Vitesse : ' + pt[3]);
+        }
+
+        //waypoints scénario mixte DGA : WP12, WP15, WP17, WP21, WP26, WP_30, WP_31, WP_34 à WP_36, WP_40 à WP_69
+        if (i === 12 || i === 15 || i === 17 || i === 21 || i === 26 || (i >= 30 && i <= 31) || (i >= 34 && i <= 36) || (i >= 40 && i <= 69)) {
+            var m4 = L.marker([lat, lng]).addTo(e10);
+            m4.bindPopup('<b>' + pt[2] + '</b><br>UTM 31N: ' + pt[0] + ' E, ' + pt[1] + ' N<br>WGS84: ' + lat.toFixed(6) + ', ' + lng.toFixed(6) + '<br>Vitesse : ' + pt[3]);
+        }
+        
+        i++;
+    });
+
+    utm_markers.forEach(function(pt) {
+        // conversion UTM → WGS84
+        var wgs84 = proj4('EPSG:32631', 'WGS84', [pt[0], pt[1]]);
+        var lat = wgs84[1], lng = wgs84[0];
+        // stockage dans le tableau de waypoints
+        waypoints.push({ label: pt[2], lat: lat, lng: lng });
+        
+        // waypoints scénario 6 
+        var m1 = L.marker([lat, lng]).addTo(e6);
+        m1.bindPopup('<b>' + pt[2] + '</b><br>UTM 31N: ' + pt[0] + ' E, ' + pt[1] + ' N<br>WGS84: ' + lat.toFixed(6) + ', ' + lng.toFixed(6) + '<br>Vitesse : ' + pt[3]);
+
+        // waypoints scénario 3, 5 (sauf WP_14)
+        if (pt[2] !== 'WP_14') {
+            var m2 = L.marker([lat, lng]).addTo(e3);
+            var m3 = L.marker([lat, lng]).addTo(e5);
+            m2.bindPopup('<b>' + pt[2] + '</b><br>UTM 31N: ' + pt[0] + ' E, ' + pt[1] + ' N<br>WGS84: ' + lat.toFixed(6) + ', ' + lng.toFixed(6) + '<br>Vitesse : ' + pt[3]);
+            //m2.bindTooltip(pt[2], {permanent: true, direction: 'top', className: 'wp-label'});
+            m3.bindPopup('<b>' + pt[2] + '</b><br>UTM 31N: ' + pt[0] + ' E, ' + pt[1] + ' N<br>WGS84: ' + lat.toFixed(6) + ', ' + lng.toFixed(6) + '<br>Vitesse : ' + pt[3]);
+        }
+    });
+
+    L.tooltip({permanent: true, direction: 'top', className: 'badmode-label'})
+        .setLatLng([waypoints[7].lat + 0.00003, waypoints[7].lng])
+        .setContent('Coupure gnss')
+        .addTo(e5);
+
+    L.tooltip({permanent: true, direction: 'top', className: 'badmode-label'})
+        .setLatLng([waypoints[9].lat + 0.00003, waypoints[9].lng])
+        .setContent('Coupure comm')
+        .addTo(e5);
+
+    L.tooltip({permanent: true, direction: 'top', className: 'goodmode-label'})
+        .setLatLng([waypoints[11].lat + 0.00003, waypoints[11].lng])
+        .setContent('Reprise gnss&comm')
+        .addTo(e5);
+
+    L.tooltip({permanent: true, direction: 'top', className: 'badmode-label'})
+        .setLatLng([waypoints[7].lat + 0.00003, waypoints[7].lng])
+        .setContent('Coupure gnss')
+        .addTo(e6);
+
+    L.tooltip({permanent: true, direction: 'top', className: 'badmode-label'})
+        .setLatLng([waypoints[9].lat + 0.00003, waypoints[9].lng])
+        .setContent('Coupure comm')
+        .addTo(e6);
+
+    L.tooltip({permanent: true, direction: 'top', className: 'goodmode-label'})
+        .setLatLng([waypoints[11].lat + 0.00003, waypoints[11].lng])
+        .setContent('Reprise gnss&comm')
+        .addTo(e6);
+
+    // commentaire sur le scénarios DGA 
+
+    // scénario 1 DGA 
+
+    L.tooltip({permanent: true, direction: 'top', className: 'goodmode-label'})
+        .setLatLng([waypoints_DGA[0].lat + 0.00005, waypoints_DGA[0].lng])
+        .setContent('Départ - pilotage automatique')
+        .addTo(e7);
+
+    L.tooltip({permanent: true, direction: 'top', className: 'goodmode-label'})
+        .setLatLng([waypoints_DGA[10].lat + 0.00005, waypoints_DGA[10].lng])
+        .setContent('Arrivée')
+        .addTo(e7);
+
+    // scénario 2 DGA
+
+    L.tooltip({permanent: true, direction: 'top', className: 'goodmode-label'})
+        .setLatLng([waypoints_DGA[11].lat + 0.00005, waypoints_DGA[11].lng])
+        .setContent('Départ - télépilotage assisté')
+        .addTo(e8);
+
+    L.tooltip({permanent: true, direction: 'top', className: 'goodmode-label'})
+        .setLatLng([waypoints_DGA[25].lat + 0.00005, waypoints_DGA[25].lng])
+        .setContent('Arrivée')
+        .addTo(e8);
+
+    // scénario 3 DGA
+
+    L.tooltip({permanent: true, direction: 'top', className: 'goodmode-label'})
+        .setLatLng([waypoints_DGA[29].lat + 0.00005, waypoints_DGA[29].lng])
+        .setContent('Départ - télépilotage assisté')
+        .addTo(e9);
+
+    L.tooltip({permanent: true, direction: 'top', className: 'goodmode-label'})
+        .setLatLng([waypoints_DGA[29].lat, waypoints_DGA[29].lng])
+        .setContent('Arrivée')
+        .addTo(e9);
+
+    // scénario mixte DGA
+
+    L.tooltip({permanent: true, direction: 'top', className: 'goodmode-label'})
+        .setLatLng([waypoints_DGA[40].lat, waypoints_DGA[40].lng])
+        .setContent('Départ - pilotage automatique')
+        .addTo(e10);
+
+    L.tooltip({permanent: true, direction: 'top', className: 'badmode-label'})
+        .setLatLng([waypoints_DGA[42].lat + 0.00005, waypoints_DGA[42].lng])
+        .setContent('début suivi de fossé - 2,6m par rapport au centre de la plateforme')
+        .addTo(e10);
+
+    L.tooltip({permanent: true, direction: 'top', className: 'badmode-label'})
+        .setLatLng([waypoints_DGA[43].lat + 0.00005, waypoints_DGA[43].lng])
+        .setContent('fin suivi de fossé')
+        .addTo(e10);
+
+    L.tooltip({permanent: true, direction: 'top', className: 'badmode-label'})
+        .setLatLng([waypoints_DGA[48].lat + 0.00005, waypoints_DGA[48].lng])
+        .setContent('Passage en télépilotage assisté')
+        .addTo(e10);
+
+    L.tooltip({permanent: true, direction: 'top', className: 'badmode-label'})
+        .setLatLng([waypoints_DGA[49].lat + 0.00005, waypoints_DGA[49].lng])
+        .setContent('passage en pilotage automatique')
+        .addTo(e10);
+
+    L.tooltip({permanent: true, direction: 'top', className: 'badmode-label'})
+        .setLatLng([waypoints_DGA[33].lat + 0.00005, waypoints_DGA[33].lng])
+        .setContent('Passage en télépilotage assisté')
+        .addTo(e10);
+    
+    L.tooltip({permanent: true, direction: 'top', className: 'badmode-label'})
+        .setLatLng([waypoints_DGA[52].lat + 0.00005, waypoints_DGA[52].lng])
+        .setContent('Début sous-bois')
+        .addTo(e10);
+
+    L.tooltip({permanent: true, direction: 'top', className: 'badmode-label'})
+        .setLatLng([waypoints_DGA[53].lat + 0.00005, waypoints_DGA[53].lng])
+        .setContent('Passage en pilotage automatique')
+        .addTo(e10);
+
+    L.tooltip({permanent: true, direction: 'top', className: 'badmode-label'})
+        .setLatLng([waypoints_DGA[56].lat + 0.00005, waypoints_DGA[56].lng])
+        .setContent('Fin sous-bois')
+        .addTo(e10);
+
+    L.tooltip({permanent: true, direction: 'top', className: 'badmode-label'})
+        .setLatLng([waypoints_DGA[51].lat + 0.00005, waypoints_DGA[51].lng])
+        .setContent('début suivi de lisière - 1,6m par rapport au centre de la plateforme')
+        .addTo(e10);
+
+    L.tooltip({permanent: true, direction: 'top', className: 'badmode-label'})
+        .setLatLng([waypoints_DGA[57].lat + 0.00005, waypoints_DGA[57].lng])
+        .setContent('Fin suivi de lisière')
+        .addTo(e10);
+
+    L.tooltip({permanent: true, direction: 'top', className: 'goodmode-label'})
+        .setLatLng([waypoints_DGA[67].lat + 0.00005, waypoints_DGA[67].lng])
+        .setContent('Arrivée') 
+        .addTo(e10);
+
+    L.tooltip({permanent: true, direction: 'top', className: 'badmode-label'})
+        .setLatLng([waypoints_DGA[68].lat + 0.00002, waypoints_DGA[68].lng])
+        .setContent('Epreuve subsidiaire')
+        .addTo(e10);
+
+    
+    
+
+    // waypoints scénario 1_a : pentes
+
+    var m4 = L.marker([waypoints[0].lat, waypoints[0].lng]).addTo(e1_a);
+    m4.bindPopup('<b>' + waypoints[0].label + '</b><br>UTM 31N: ' + utm_markers[0][0] + ' E, ' + utm_markers[0][1] + ' N<br>WGS84: ' + waypoints[0].lat.toFixed(6) + ', ' + waypoints[0].lng.toFixed(6) + '<br>Vitesse : ' + utm_markers[0][3]);
+    var m5 = L.marker([waypoints[1].lat, waypoints[1].lng]).addTo(e1_a);
+    m5.bindPopup('<b>' + waypoints[1].label + '</b><br>UTM 31N: ' + utm_markers[1][0] + ' E, ' + utm_markers[1][1] + ' N<br>WGS84: ' + waypoints[1].lat.toFixed(6) + ', ' + waypoints[1].lng.toFixed(6) + '<br>Vitesse : ' + utm_markers[1][3]);
+    var m6 = L.marker([waypoints[2].lat, waypoints[2].lng]).addTo(e1_a);
+    m6.bindPopup('<b>' + waypoints[2].label + '</b><br>UTM 31N: ' + utm_markers[2][0] + ' E, ' + utm_markers[2][1] + ' N<br>WGS84: ' + waypoints[2].lat.toFixed(6) + ', ' + waypoints[2].lng.toFixed(6) + '<br>Vitesse : ' + utm_markers[2][3]);
+    //var m7 = L.marker([waypoints[7].lat, waypoints[7].lng]).addTo(e1_a);
+    //m7.bindPopup('<b>' + waypoints[7].label + '</b><br>UTM 31N: ' + utm_markers[7][0] + ' E, ' + utm_markers[7][1] + ' N<br>WGS84: ' + waypoints[7].lat.toFixed(6) + ', ' + waypoints[7].lng.toFixed(6) + '<br>Vitesse : ' + utm_markers[7][3]);
+    var m8 = L.marker([waypoints[8].lat, waypoints[8].lng]).addTo(e1_a);
+    m8.bindPopup('<b>' + waypoints[8].label + '</b><br>UTM 31N: ' + utm_markers[8][0] + ' E, ' + utm_markers[8][1] + ' N<br>WGS84: ' + waypoints[8].lat.toFixed(6) + ', ' + waypoints[8].lng.toFixed(6) + '<br>Vitesse : ' + utm_markers[8][3]);
+    var m9 = L.marker([waypoints[11].lat, waypoints[11].lng]).addTo(e1_a);
+    m9.bindPopup('<b>' + waypoints[11].label + '</b><br>UTM 31N: ' + utm_markers[11][0] + ' E, ' + utm_markers[11][1] + ' N<br>WGS84: ' + waypoints[11].lat.toFixed(6) + ', ' + waypoints[11].lng.toFixed(6) + '<br>Vitesse : ' + utm_markers[11][3]);
+  
+
+    // waypoints scénario 1_b : dévers
+
+    var m6 = L.marker([waypoints[2].lat, waypoints[2].lng]).addTo(e1_b);
+    m6.bindPopup('<b>' + waypoints[2].label + '</b><br>UTM 31N: ' + utm_markers[2][0] + ' E, ' + utm_markers[2][1] + ' N<br>WGS84: ' + waypoints[2].lat.toFixed(6) + ', ' + waypoints[2].lng.toFixed(6) + '<br>Vitesse : ' + utm_markers[2][3]);
+    var m7 = L.marker([waypoints[7].lat, waypoints[7].lng]).addTo(e1_b);
+    m7.bindPopup('<b>' + waypoints[7].label + '</b><br>UTM 31N: ' + utm_markers[7][0] + ' E, ' + utm_markers[7][1] + ' N<br>WGS84: ' + waypoints[7].lat.toFixed(6) + ', ' + waypoints[7].lng.toFixed(6) + '<br>Vitesse : ' + utm_markers[7][3]);
+    var m8 = L.marker([waypoints[8].lat, waypoints[8].lng]).addTo(e1_b);
+    m8.bindPopup('<b>' + waypoints[8].label + '</b><br>UTM 31N: ' + utm_markers[8][0] + ' E, ' + utm_markers[8][1] + ' N<br>WGS84: ' + waypoints[8].lat.toFixed(6) + ', ' + waypoints[8].lng.toFixed(6) + '<br>Vitesse : ' + utm_markers[8][3]);
+    var m9 = L.marker([waypoints[11].lat, waypoints[11].lng]).addTo(e1_b);
+    m9.bindPopup('<b>' + waypoints[11].label + '</b><br>UTM 31N: ' + utm_markers[11][0] + ' E, ' + utm_markers[11][1] + ' N<br>WGS84: ' + waypoints[11].lat.toFixed(6) + ', ' + waypoints[11].lng.toFixed(6) + '<br>Vitesse : ' + utm_markers[11][3]);
+    var m10 = L.marker([waypoints[12].lat, waypoints[12].lng]).addTo(e1_b);
+    m10.bindPopup('<b>' + waypoints[12].label + '</b><br>UTM 31N: ' + utm_markers[12][0] + ' E, ' + utm_markers[12][1] + ' N<br>WGS84: ' + waypoints[12].lat.toFixed(6) + ', ' + waypoints[12].lng.toFixed(6) + '<br>Vitesse : ' + utm_markers[12][3]);
+    var m100 = L.marker([waypoints[13].lat, waypoints[13].lng]).addTo(e1_b);
+    m100.bindPopup('<b>' + waypoints[13].label + '</b><br>UTM 31N: ' + utm_markers[13][0] + ' E, ' + utm_markers[13][1] + ' N<br>WGS84: ' + waypoints[13].lat.toFixed(6) + ', ' + waypoints[13].lng.toFixed(6) + '<br>Vitesse : ' + utm_markers[13][3]);
+
+
+    // waypoints scénario 2 : végétation et flaques d'eau
+    var m11 = L.marker([waypoints[0].lat, waypoints[0].lng]).addTo(e2);
+    m11.bindPopup('<b>' + waypoints[0].label + '</b><br>UTM 31N: ' + utm_markers[0][0] + ' E, ' + utm_markers[0][1] + ' N<br>WGS84: ' + waypoints[0].lat.toFixed(6) + ', ' + waypoints[0].lng.toFixed(6) + '<br>Vitesse : ' + utm_markers[0][3]);
+    var m12 = L.marker([waypoints[1].lat, waypoints[1].lng]).addTo(e2);
+    m12.bindPopup('<b>' + waypoints[1].label + '</b><br>UTM 31N: ' + utm_markers[1][0] + ' E, ' + utm_markers[1][1] + ' N<br>WGS84: ' + waypoints[1].lat.toFixed(6) + ', ' + waypoints[1].lng.toFixed(6) + '<br>Vitesse : ' + utm_markers[1][3]);
+    var m13 = L.marker([waypoints[2].lat, waypoints[2].lng]).addTo(e2);
+    m13.bindPopup('<b>' + waypoints[2].label + '</b><br>UTM 31N: ' + utm_markers[2][0] + ' E, ' + utm_markers[2][1] + ' N<br>WGS84: ' + waypoints[2].lat.toFixed(6) + ', ' + waypoints[2].lng.toFixed(6) + '<br>Vitesse : ' + utm_markers[2][3]);
+    var m14 = L.marker([waypoints[11].lat, waypoints[11].lng]).addTo(e2);
+    m14.bindPopup('<b>' + waypoints[11].label + '</b><br>UTM 31N: ' + utm_markers[11][0] + ' E, ' + utm_markers[11][1] + ' N<br>WGS84: ' + waypoints[11].lat.toFixed(6) + ', ' + waypoints[11].lng.toFixed(6) + '<br>Vitesse : ' + utm_markers[11][3]);
+    var m15 = L.marker([waypoints[12].lat, waypoints[12].lng]).addTo(e2);
+    m15.bindPopup('<b>' + waypoints[12].label + '</b><br>UTM 31N: ' + utm_markers[12][0] + ' E, ' + utm_markers[12][1] + ' N<br>WGS84: ' + waypoints[12].lat.toFixed(6) + ', ' + waypoints[12].lng.toFixed(6) + '<br>Vitesse : ' + utm_markers[12][3]);
+    var m150 = L.marker([waypoints[13].lat, waypoints[13].lng]).addTo(e2);
+    m150.bindPopup('<b>' + waypoints[13].label + '</b><br>UTM 31N: ' + utm_markers[13][0] + ' E, ' + utm_markers[13][1] + ' N<br>WGS84: ' + waypoints[13].lat.toFixed(6) + ', ' + waypoints[13].lng.toFixed(6) + '<br>Vitesse : ' + utm_markers[13][3]);
+    
+    L.tooltip({permanent: true, direction: 'top', className: 'water-label'})
+        .setLatLng([45.763092, 3.110064])
+        .setContent('Water')
+        .addTo(e2);
+
+    // waypoints scénario 4 : suivi de lisières
+    var m16 = L.marker([waypoints[2].lat, waypoints[2].lng]).addTo(e4);
+    m16.bindPopup('<b>' + waypoints[2].label + '</b><br>UTM 31N: ' + utm_markers[2][0] + ' E, ' + utm_markers[2][1] + ' N<br>WGS84: ' + waypoints[2].lat.toFixed(6) + ', ' + waypoints[2].lng.toFixed(6) + '<br>Vitesse : ' + utm_markers[2][3]);
+    var m17 = L.marker([waypoints[3].lat, waypoints[3].lng]).addTo(e4);
+    m17.bindPopup('<b>' + waypoints[3].label + '</b><br>UTM 31N: ' + utm_markers[3][0] + ' E, ' + utm_markers[3][1] + ' N<br>WGS84: ' + waypoints[3].lat.toFixed(6) + ', ' + waypoints[3].lng.toFixed(6) + '<br>Vitesse : ' + utm_markers[3][3]);
+    var m18 = L.marker([waypoints[4].lat, waypoints[4].lng]).addTo(e4);
+    m18.bindPopup('<b>' + waypoints[4].label + '</b><br>UTM 31N: ' + utm_markers[4][0] + ' E, ' + utm_markers[4][1] + ' N<br>WGS84: ' + waypoints[4].lat.toFixed(6) + ', ' + waypoints[4].lng.toFixed(6) + '<br>Vitesse : ' + utm_markers[4][3]);
+    var m19 = L.marker([waypoints[5].lat, waypoints[5].lng]).addTo(e4);
+    m19.bindPopup('<b>' + waypoints[5].label + '</b><br>UTM 31N: ' + utm_markers[5][0] + ' E, ' + utm_markers[5][1] + ' N<br>WGS84: ' + waypoints[5].lat.toFixed(6) + ', ' + waypoints[5].lng.toFixed(6) + '<br>Vitesse : ' + utm_markers[5][3]);
+    var m20 = L.marker([waypoints[6].lat, waypoints[6].lng]).addTo(e4);
+    m20.bindPopup('<b>' + waypoints[6].label + '</b><br>UTM 31N: ' + utm_markers[6][0] + ' E, ' + utm_markers[6][1] + ' N<br>WGS84: ' + waypoints[6].lat.toFixed(6) + ', ' + waypoints[6].lng.toFixed(6) + '<br>Vitesse : ' + utm_markers[6][3]);
+
+    L.tooltip({permanent: true, direction: 'top', className: 'badmode-label'})
+        .setLatLng([waypoints[2].lat - 0.00003, waypoints[2].lng])
+        .setContent('Suivi lisière gauche')
+        .addTo(e4);
+
+    L.tooltip({permanent: true, direction: 'top', className: 'goodmode-label'})
+        .setLatLng([waypoints[3].lat - 0.00003, waypoints[3].lng])
+        .setContent('Suivi de waypoints')
+        .addTo(e4);
+
+    L.tooltip({permanent: true, direction: 'top', className: 'badmode-label'})
+        .setLatLng([waypoints[4].lat + 0.00003, waypoints[4].lng])
+        .setContent('Suivi lisière gauche')
+        .addTo(e4);
+
+    // trajet scénario 1 : pentes
+
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[11].lat, waypoints[11].lng], [waypoints[0].lat, waypoints[0].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e1_a);  
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[1].lat, waypoints[1].lng], [waypoints[11].lat, waypoints[11].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e1_a); 
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[8].lat, waypoints[8].lng], [waypoints[1].lat, waypoints[1].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e1_a);     
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[2].lat, waypoints[2].lng], [waypoints[8].lat, waypoints[8].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e1_a); 
+
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_ZI_1[0].lat, points_ZI_1[0].lng], [points_ZI_1[1].lat, points_ZI_1[1].lng], [points_ZI_1[2].lat, points_ZI_1[2].lng], [points_ZI_1[3].lat, points_ZI_1[3].lng]],
+        {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "black", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e1_a);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'ZI_1');
+
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_ZI_2[0].lat, points_ZI_2[0].lng], [points_ZI_2[1].lat, points_ZI_2[1].lng], [points_ZI_2[2].lat, points_ZI_2[2].lng], [points_ZI_2[3].lat, points_ZI_2[3].lng]],
+        {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "black", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e1_a);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'ZI_2');
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_ZI_3[0].lat, points_ZI_3[0].lng], [points_ZI_3[1].lat, points_ZI_3[1].lng], [points_ZI_3[2].lat, points_ZI_3[2].lng]],
+        {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "black", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e1_a);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'ZI_3');
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_obst_1[0].lat, points_obst_1[0].lng], [points_obst_1[1].lat, points_obst_1[1].lng], [points_obst_1[2].lat, points_obst_1[2].lng], [points_obst_1[3].lat, points_obst_1[3].lng]],
+        {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e1_a);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'Obst_1');
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_obst_2[0].lat, points_obst_2[0].lng], [points_obst_2[1].lat, points_obst_2[1].lng], [points_obst_2[2].lat, points_obst_2[2].lng]],
+        {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e1_a);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'Obst_2');
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_obst_3[0].lat, points_obst_3[0].lng], [points_obst_3[1].lat, points_obst_3[1].lng], [points_obst_3[2].lat, points_obst_3[2].lng], [points_obst_3[3].lat, points_obst_3[3].lng]],
+        {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e1_a);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'Obst_3');
+
+
+
+
+    // trajet scénario 1 : dévers
+
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[11].lat, waypoints[11].lng], [waypoints[8].lat, waypoints[8].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e1_b); 
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[7].lat, waypoints[7].lng], [waypoints[11].lat, waypoints[11].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e1_b); 
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[12].lat, waypoints[12].lng], [waypoints[7].lat, waypoints[7].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e1_b); 
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[13].lat, waypoints[13].lng], [waypoints[12].lat, waypoints[12].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e1_b); 
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[2].lat, waypoints[2].lng], [waypoints[13].lat, waypoints[13].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e1_b); 
+
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_ZI_1[0].lat, points_ZI_1[0].lng], [points_ZI_1[1].lat, points_ZI_1[1].lng], [points_ZI_1[2].lat, points_ZI_1[2].lng], [points_ZI_1[3].lat, points_ZI_1[3].lng]],
+        {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "black", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e1_b);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'ZI_1');
+
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_ZI_2[0].lat, points_ZI_2[0].lng], [points_ZI_2[1].lat, points_ZI_2[1].lng], [points_ZI_2[2].lat, points_ZI_2[2].lng], [points_ZI_2[3].lat, points_ZI_2[3].lng]],
+        {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "black", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e1_b);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'ZI_2');
+/*
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_ZI_3[0].lat, points_ZI_3[0].lng], [points_ZI_3[1].lat, points_ZI_3[1].lng], [points_ZI_3[2].lat, points_ZI_3[2].lng]],
+        {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "black", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e1_b);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'ZI_3');
+*/
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_obst_1[0].lat, points_obst_1[0].lng], [points_obst_1[1].lat, points_obst_1[1].lng], [points_obst_1[2].lat, points_obst_1[2].lng], [points_obst_1[3].lat, points_obst_1[3].lng]],
+        {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e1_b);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'Obst_1');
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_obst_2[0].lat, points_obst_2[0].lng], [points_obst_2[1].lat, points_obst_2[1].lng], [points_obst_2[2].lat, points_obst_2[2].lng]],
+        {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e1_b);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'Obst_2');
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_obst_3[0].lat, points_obst_3[0].lng], [points_obst_3[1].lat, points_obst_3[1].lng], [points_obst_3[2].lat, points_obst_3[2].lng], [points_obst_3[3].lat, points_obst_3[3].lng]],
+        {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e1_b);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'Obst_3');
+
+
+
+    // trajet scénario 2 : végétation et flaques d'eau
+
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[1].lat, waypoints[1].lng], [waypoints[0].lat, waypoints[0].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e2);  
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[2].lat, waypoints[2].lng], [waypoints[1].lat, waypoints[1].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e2);   
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[11].lat, waypoints[11].lng], [waypoints[2].lat, waypoints[2].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e2);  
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[12].lat, waypoints[12].lng], [waypoints[11].lat, waypoints[11].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e2);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[13].lat, waypoints[13].lng], [waypoints[12].lat, waypoints[12].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e2);
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_ZI_4[0].lat, points_ZI_4[0].lng], [points_ZI_4[1].lat, points_ZI_4[1].lng], [points_ZI_4[2].lat, points_ZI_4[2].lng]],
+        {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "black", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e2);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'ZI_4');
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_obst_4[0].lat, points_obst_4[0].lng], [points_obst_4[1].lat, points_obst_4[1].lng], [points_obst_4[2].lat, points_obst_4[2].lng]],
+        {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e2);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'Obst_4');
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_obst_5[0].lat, points_obst_5[0].lng], [points_obst_5[1].lat, points_obst_5[1].lng], [points_obst_5[2].lat, points_obst_5[2].lng]],
+        {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e2);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'Obst_5');  
+
+
+    // trajet scénario 3 : localisation avec/sans GNSS
+
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[1].lat, waypoints[1].lng], [waypoints[0].lat, waypoints[0].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e3);  
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[2].lat, waypoints[2].lng], [waypoints[1].lat, waypoints[1].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e3);   
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[3].lat, waypoints[3].lng], [waypoints[2].lat, waypoints[2].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e3);  
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[4].lat, waypoints[4].lng], [waypoints[3].lat, waypoints[3].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e3);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[5].lat, waypoints[5].lng], [waypoints[4].lat, waypoints[4].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e3);  
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[6].lat, waypoints[6].lng], [waypoints[5].lat, waypoints[5].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e3);  
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[7].lat, waypoints[7].lng], [waypoints[6].lat, waypoints[6].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e3);  
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[8].lat, waypoints[8].lng], [waypoints[7].lat, waypoints[7].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e3); 
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[9].lat, waypoints[9].lng], [waypoints[8].lat, waypoints[8].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e3);  
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[10].lat, waypoints[10].lng], [waypoints[9].lat, waypoints[9].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e3);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[11].lat, waypoints[11].lng], [waypoints[10].lat, waypoints[10].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e3);  
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[12].lat, waypoints[12].lng], [waypoints[11].lat, waypoints[11].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e3); 
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_ZI_5[0].lat, points_ZI_5[0].lng], [points_ZI_5[1].lat, points_ZI_5[1].lng], [points_ZI_5[2].lat, points_ZI_5[2].lng]],
+        {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "black", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e3);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'ZI_5');
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_obst_4[0].lat, points_obst_4[0].lng], [points_obst_4[1].lat, points_obst_4[1].lng], [points_obst_4[2].lat, points_obst_4[2].lng]],
+        {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e3);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'Obst_4');
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_obst_5[0].lat, points_obst_5[0].lng], [points_obst_5[1].lat, points_obst_5[1].lng], [points_obst_5[2].lat, points_obst_5[2].lng]],
+        {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e3);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'Obst_5'); 
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_obst_6[0].lat, points_obst_6[0].lng], [points_obst_6[1].lat, points_obst_6[1].lng], [points_obst_6[2].lat, points_obst_6[2].lng]],
+        {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e3);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'Obst_6');
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_obst_7[0].lat, points_obst_7[0].lng], [points_obst_7[1].lat, points_obst_7[1].lng], [points_obst_7[2].lat, points_obst_7[2].lng]],
+        {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e3);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'Obst_7');
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_obst_8[0].lat, points_obst_8[0].lng], [points_obst_8[1].lat, points_obst_8[1].lng], [points_obst_8[2].lat, points_obst_8[2].lng], [points_obst_8[3].lat, points_obst_8[3].lng]],
+        {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e3);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'Obst_8');
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_obst_3[0].lat, points_obst_3[0].lng], [points_obst_3[1].lat, points_obst_3[1].lng], [points_obst_3[2].lat, points_obst_3[2].lng], [points_obst_3[3].lat, points_obst_3[3].lng]],
+        {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e3);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'Obst_3');
+
+
+
+    // trajet scénario 4 : suivi de lisières
+
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[3].lat, waypoints[3].lng], [waypoints[2].lat, waypoints[2].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e4);  
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[4].lat, waypoints[4].lng], [waypoints[3].lat, waypoints[3].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e4);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[5].lat, waypoints[5].lng], [waypoints[4].lat, waypoints[4].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e4);  
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[6].lat, waypoints[6].lng], [waypoints[5].lat, waypoints[5].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e4); 
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_obst_6[0].lat, points_obst_6[0].lng], [points_obst_6[1].lat, points_obst_6[1].lng], [points_obst_6[2].lat, points_obst_6[2].lng]],
+        {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e4);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'Obst_6');
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_obst_7[0].lat, points_obst_7[0].lng], [points_obst_7[1].lat, points_obst_7[1].lng], [points_obst_7[2].lat, points_obst_7[2].lng]],
+        {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e4);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'Obst_7');
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_obst_8[0].lat, points_obst_8[0].lng], [points_obst_8[1].lat, points_obst_8[1].lng], [points_obst_8[2].lat, points_obst_8[2].lng], [points_obst_8[3].lat, points_obst_8[3].lng]],
+        {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e4);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'Obst_8');
+
+
+
+    
+    // trajet scénario 5 : switch GNSS/SLAM automatique
+     
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[1].lat, waypoints[1].lng], [waypoints[0].lat, waypoints[0].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e5);  
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[2].lat, waypoints[2].lng], [waypoints[1].lat, waypoints[1].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e5); 
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[3].lat, waypoints[3].lng], [waypoints[2].lat, waypoints[2].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e5);  
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[4].lat, waypoints[4].lng], [waypoints[3].lat, waypoints[3].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e5);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[5].lat, waypoints[5].lng], [waypoints[4].lat, waypoints[4].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e5);  
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[6].lat, waypoints[6].lng], [waypoints[5].lat, waypoints[5].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e5); 
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[2].lat, waypoints[2].lng], [waypoints[6].lat, waypoints[6].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e5);     
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[7].lat, waypoints[7].lng], [waypoints[2].lat, waypoints[2].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e5);  
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[8].lat, waypoints[8].lng], [waypoints[7].lat, waypoints[7].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e5); 
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[9].lat, waypoints[9].lng], [waypoints[8].lat, waypoints[8].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e5);  
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[10].lat, waypoints[10].lng], [waypoints[9].lat, waypoints[9].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e5);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[11].lat, waypoints[11].lng], [waypoints[10].lat, waypoints[10].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e5);  
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[12].lat, waypoints[12].lng], [waypoints[11].lat, waypoints[11].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e5); 
+    
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_obst_9[0].lat, points_obst_9[0].lng], [points_obst_9[1].lat, points_obst_9[1].lng], [points_obst_9[2].lat, points_obst_9[2].lng], [points_obst_9[3].lat, points_obst_9[3].lng]],
+        {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e5);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'Obst_9');
+
+
+
+    // trajet scénario mixte 
+     
+   ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[11].lat, waypoints[11].lng], [waypoints[0].lat, waypoints[0].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e6);  
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[1].lat, waypoints[1].lng], [waypoints[11].lat, waypoints[11].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e6); 
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[8].lat, waypoints[8].lng], [waypoints[1].lat, waypoints[1].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e6); 
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[2].lat, waypoints[2].lng], [waypoints[8].lat, waypoints[8].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e6); 
+
+
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[8].lat, waypoints[8].lng], [waypoints[2].lat, waypoints[2].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e6); 
+
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[11].lat, waypoints[11].lng], [waypoints[8].lat, waypoints[8].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e6); 
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[7].lat, waypoints[7].lng], [waypoints[11].lat, waypoints[11].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e6); 
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[12].lat, waypoints[12].lng], [waypoints[7].lat, waypoints[7].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e6); 
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[13].lat, waypoints[13].lng], [waypoints[12].lat, waypoints[12].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e6); 
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[2].lat, waypoints[2].lng], [waypoints[13].lat, waypoints[13].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e6); 
+
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[3].lat, waypoints[3].lng], [waypoints[2].lat, waypoints[2].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e6);  
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[4].lat, waypoints[4].lng], [waypoints[3].lat, waypoints[3].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e6);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[5].lat, waypoints[5].lng], [waypoints[4].lat, waypoints[4].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e6);  
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[6].lat, waypoints[6].lng], [waypoints[5].lat, waypoints[5].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e6); 
+
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[10].lat, waypoints[10].lng], [waypoints[6].lat, waypoints[6].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e6);  
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[9].lat, waypoints[9].lng], [waypoints[10].lat, waypoints[10].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e6);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[2].lat, waypoints[2].lng], [waypoints[9].lat, waypoints[9].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e6);  
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[1].lat, waypoints[1].lng], [waypoints[2].lat, waypoints[2].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e6); 
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints[0].lat, waypoints[0].lng], [waypoints[1].lat, waypoints[1].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e6); 
+
+
+    
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_ZI_1[0].lat, points_ZI_1[0].lng], [points_ZI_1[1].lat, points_ZI_1[1].lng], [points_ZI_1[2].lat, points_ZI_1[2].lng], [points_ZI_1[3].lat, points_ZI_1[3].lng]],
+        {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "black", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e6);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'ZI_1');
+
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_ZI_2[0].lat, points_ZI_2[0].lng], [points_ZI_2[1].lat, points_ZI_2[1].lng], [points_ZI_2[2].lat, points_ZI_2[2].lng], [points_ZI_2[3].lat, points_ZI_2[3].lng]],
+        {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "black", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e6);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'ZI_2');
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_ZI_3[0].lat, points_ZI_3[0].lng], [points_ZI_3[1].lat, points_ZI_3[1].lng], [points_ZI_3[2].lat, points_ZI_3[2].lng]],
+        {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "black", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e6);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'ZI_3');
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_obst_1[0].lat, points_obst_1[0].lng], [points_obst_1[1].lat, points_obst_1[1].lng], [points_obst_1[2].lat, points_obst_1[2].lng], [points_obst_1[3].lat, points_obst_1[3].lng]],
+        {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e6);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'Obst_1');
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_obst_2[0].lat, points_obst_2[0].lng], [points_obst_2[1].lat, points_obst_2[1].lng], [points_obst_2[2].lat, points_obst_2[2].lng]],
+        {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e6);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'Obst_2');
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_obst_3[0].lat, points_obst_3[0].lng], [points_obst_3[1].lat, points_obst_3[1].lng], [points_obst_3[2].lat, points_obst_3[2].lng], [points_obst_3[3].lat, points_obst_3[3].lng]],
+        {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e6);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'Obst_3');    
+
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_obst_4[0].lat, points_obst_4[0].lng], [points_obst_4[1].lat, points_obst_4[1].lng], [points_obst_4[2].lat, points_obst_4[2].lng]],
+        {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e6);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'Obst_4');
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_obst_5[0].lat, points_obst_5[0].lng], [points_obst_5[1].lat, points_obst_5[1].lng], [points_obst_5[2].lat, points_obst_5[2].lng]],
+        {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e6);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'Obst_5'); 
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_obst_6[0].lat, points_obst_6[0].lng], [points_obst_6[1].lat, points_obst_6[1].lng], [points_obst_6[2].lat, points_obst_6[2].lng]],
+        {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e6);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'Obst_6');
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_obst_7[0].lat, points_obst_7[0].lng], [points_obst_7[1].lat, points_obst_7[1].lng], [points_obst_7[2].lat, points_obst_7[2].lng]],
+        {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e6);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'Obst_7');
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_obst_8[0].lat, points_obst_8[0].lng], [points_obst_8[1].lat, points_obst_8[1].lng], [points_obst_8[2].lat, points_obst_8[2].lng], [points_obst_8[3].lat, points_obst_8[3].lng]],
+        {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e6);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'Obst_8');
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_obst_9[0].lat, points_obst_9[0].lng], [points_obst_9[1].lat, points_obst_9[1].lng], [points_obst_9[2].lat, points_obst_9[2].lng], [points_obst_9[3].lat, points_obst_9[3].lng]],
+        {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e6);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'Obst_9');
+
+
+
+
+
+    // trajet scénario 1 DGA
+
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[1].lat, waypoints_DGA[1].lng], [waypoints_DGA[0].lat, waypoints_DGA[0].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e7);  
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[2].lat, waypoints_DGA[2].lng], [waypoints_DGA[1].lat, waypoints_DGA[1].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e7);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[3].lat, waypoints_DGA[3].lng], [waypoints_DGA[2].lat, waypoints_DGA[2].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e7);  
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[4].lat, waypoints_DGA[4].lng], [waypoints_DGA[3].lat, waypoints_DGA[3].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e7); 
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[5].lat, waypoints_DGA[5].lng], [waypoints_DGA[4].lat, waypoints_DGA[4].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e7); 
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[6].lat, waypoints_DGA[6].lng], [waypoints_DGA[5].lat, waypoints_DGA[5].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e7);  
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[7].lat, waypoints_DGA[7].lng], [waypoints_DGA[6].lat, waypoints_DGA[6].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e7);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[8].lat, waypoints_DGA[8].lng], [waypoints_DGA[7].lat, waypoints_DGA[7].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e7);  
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[9].lat, waypoints_DGA[9].lng], [waypoints_DGA[8].lat, waypoints_DGA[8].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e7); 
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[10].lat, waypoints_DGA[10].lng], [waypoints_DGA[9].lat, waypoints_DGA[9].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e7); 
+    
+
+    
+
+    // trajet scénario 2 DGA
+
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[12].lat, waypoints_DGA[12].lng], [waypoints_DGA[11].lat, waypoints_DGA[11].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e8);  
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[13].lat, waypoints_DGA[13].lng], [waypoints_DGA[12].lat, waypoints_DGA[12].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e8);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[14].lat, waypoints_DGA[14].lng], [waypoints_DGA[13].lat, waypoints_DGA[13].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e8);  
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[15].lat, waypoints_DGA[15].lng], [waypoints_DGA[14].lat, waypoints_DGA[14].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e8); 
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[16].lat, waypoints_DGA[16].lng], [waypoints_DGA[15].lat, waypoints_DGA[15].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e8); 
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[20].lat, waypoints_DGA[20].lng], [waypoints_DGA[16].lat, waypoints_DGA[16].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e8);  
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[25].lat, waypoints_DGA[25].lng], [waypoints_DGA[20].lat, waypoints_DGA[20].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e8);
+   
+
+    //trajets scénario 3 DGA
+
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[30].lat, waypoints_DGA[30].lng], [waypoints_DGA[29].lat, waypoints_DGA[29].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e9);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[31].lat, waypoints_DGA[31].lng], [waypoints_DGA[30].lat, waypoints_DGA[30].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e9);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[32].lat, waypoints_DGA[32].lng], [waypoints_DGA[31].lat, waypoints_DGA[31].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e9);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[33].lat, waypoints_DGA[33].lng], [waypoints_DGA[32].lat, waypoints_DGA[32].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e9);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[34].lat, waypoints_DGA[34].lng], [waypoints_DGA[33].lat, waypoints_DGA[33].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e9);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[35].lat, waypoints_DGA[35].lng], [waypoints_DGA[34].lat, waypoints_DGA[34].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e9);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[36].lat, waypoints_DGA[36].lng], [waypoints_DGA[35].lat, waypoints_DGA[35].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e9);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[37].lat, waypoints_DGA[37].lng], [waypoints_DGA[36].lat, waypoints_DGA[36].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e9);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[38].lat, waypoints_DGA[38].lng], [waypoints_DGA[37].lat, waypoints_DGA[37].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e9);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[39].lat, waypoints_DGA[39].lng], [waypoints_DGA[38].lat, waypoints_DGA[38].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e9);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[29].lat, waypoints_DGA[29].lng], [waypoints_DGA[39].lat, waypoints_DGA[39].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e9);
+
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_ZE_A_DGA[0].lat, points_ZE_A_DGA[0].lng], [points_ZE_A_DGA[1].lat, points_ZE_A_DGA[1].lng], [points_ZE_A_DGA[2].lat, points_ZE_A_DGA[2].lng], [points_ZE_A_DGA[3].lat, points_ZE_A_DGA[3].lng]],
+        {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "black", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e9);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'ZE_A');
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_ZE_B_DGA[0].lat, points_ZE_B_DGA[0].lng], [points_ZE_B_DGA[1].lat, points_ZE_B_DGA[1].lng], [points_ZE_B_DGA[2].lat, points_ZE_B_DGA[2].lng], [points_ZE_B_DGA[3].lat, points_ZE_B_DGA[3].lng]],
+        {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "black", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e9);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'ZE_B');
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_ZE_C_DGA[0].lat, points_ZE_C_DGA[0].lng], [points_ZE_C_DGA[1].lat, points_ZE_C_DGA[1].lng], [points_ZE_C_DGA[2].lat, points_ZE_C_DGA[2].lng], [points_ZE_C_DGA[3].lat, points_ZE_C_DGA[3].lng]],
+        {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "black", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e9);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'ZE_C');
+
+    var polygon_a9c0b189c6075f70a382f2425eabd88c = L.polygon(
+        [[points_ZE_D_DGA[0].lat, points_ZE_D_DGA[0].lng], [points_ZE_D_DGA[1].lat, points_ZE_D_DGA[1].lng], [points_ZE_D_DGA[2].lat, points_ZE_D_DGA[2].lng], [points_ZE_D_DGA[3].lat, points_ZE_D_DGA[3].lng]],
+        {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "black", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e9);
+    polygon_a9c0b189c6075f70a382f2425eabd88c.bindPopup('<b>' + 'ZE_D');
+
+
+
+    // trajeet scénario mixte DGA
+
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[41].lat, waypoints_DGA[41].lng], [waypoints_DGA[40].lat, waypoints_DGA[40].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[39].lat, waypoints_DGA[39].lng], [waypoints_DGA[41].lat, waypoints_DGA[41].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[42].lat, waypoints_DGA[42].lng], [waypoints_DGA[39].lat, waypoints_DGA[39].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[43].lat, waypoints_DGA[43].lng], [waypoints_DGA[42].lat, waypoints_DGA[42].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[44].lat, waypoints_DGA[44].lng], [waypoints_DGA[43].lat, waypoints_DGA[43].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[45].lat, waypoints_DGA[45].lng], [waypoints_DGA[44].lat, waypoints_DGA[44].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[46].lat, waypoints_DGA[46].lng], [waypoints_DGA[45].lat, waypoints_DGA[45].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[47].lat, waypoints_DGA[47].lng], [waypoints_DGA[46].lat, waypoints_DGA[46].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[48].lat, waypoints_DGA[48].lng], [waypoints_DGA[47].lat, waypoints_DGA[47].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[30].lat, waypoints_DGA[30].lng], [waypoints_DGA[48].lat, waypoints_DGA[48].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10); 
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[49].lat, waypoints_DGA[49].lng], [waypoints_DGA[30].lat, waypoints_DGA[30].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[50].lat, waypoints_DGA[50].lng], [waypoints_DGA[49].lat, waypoints_DGA[49].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[33].lat, waypoints_DGA[33].lng], [waypoints_DGA[50].lat, waypoints_DGA[50].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[34].lat, waypoints_DGA[34].lng], [waypoints_DGA[33].lat, waypoints_DGA[33].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[35].lat, waypoints_DGA[35].lng], [waypoints_DGA[34].lat, waypoints_DGA[34].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[51].lat, waypoints_DGA[51].lng], [waypoints_DGA[35].lat, waypoints_DGA[35].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[52].lat, waypoints_DGA[52].lng], [waypoints_DGA[51].lat, waypoints_DGA[51].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[53].lat, waypoints_DGA[53].lng], [waypoints_DGA[52].lat, waypoints_DGA[52].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[54].lat, waypoints_DGA[54].lng], [waypoints_DGA[53].lat, waypoints_DGA[53].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[55].lat, waypoints_DGA[55].lng], [waypoints_DGA[54].lat, waypoints_DGA[54].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[56].lat, waypoints_DGA[56].lng], [waypoints_DGA[55].lat, waypoints_DGA[55].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[51].lat, waypoints_DGA[51].lng], [waypoints_DGA[56].lat, waypoints_DGA[56].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[57].lat, waypoints_DGA[57].lng], [waypoints_DGA[51].lat, waypoints_DGA[51].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10); 
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[34].lat, waypoints_DGA[34].lng], [waypoints_DGA[57].lat, waypoints_DGA[57].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[25].lat, waypoints_DGA[25].lng], [waypoints_DGA[34].lat, waypoints_DGA[34].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[20].lat, waypoints_DGA[20].lng], [waypoints_DGA[25].lat, waypoints_DGA[25].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[16].lat, waypoints_DGA[16].lng], [waypoints_DGA[20].lat, waypoints_DGA[20].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[14].lat, waypoints_DGA[14].lng], [waypoints_DGA[16].lat, waypoints_DGA[16].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[11].lat, waypoints_DGA[11].lng], [waypoints_DGA[14].lat, waypoints_DGA[14].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[58].lat, waypoints_DGA[58].lng], [waypoints_DGA[11].lat, waypoints_DGA[11].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[59].lat, waypoints_DGA[59].lng], [waypoints_DGA[58].lat, waypoints_DGA[58].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[60].lat, waypoints_DGA[60].lng], [waypoints_DGA[59].lat, waypoints_DGA[59].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[61].lat, waypoints_DGA[61].lng], [waypoints_DGA[60].lat, waypoints_DGA[60].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[62].lat, waypoints_DGA[62].lng], [waypoints_DGA[61].lat, waypoints_DGA[61].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[63].lat, waypoints_DGA[63].lng], [waypoints_DGA[62].lat, waypoints_DGA[62].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[64].lat, waypoints_DGA[64].lng], [waypoints_DGA[63].lat, waypoints_DGA[63].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10); 
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[65].lat, waypoints_DGA[65].lng], [waypoints_DGA[64].lat, waypoints_DGA[64].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[66].lat, waypoints_DGA[66].lng], [waypoints_DGA[65].lat, waypoints_DGA[65].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[47].lat, waypoints_DGA[47].lng], [waypoints_DGA[66].lat, waypoints_DGA[66].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[67].lat, waypoints_DGA[67].lng], [waypoints_DGA[47].lat, waypoints_DGA[47].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+    ant_path_408ac74e642eb8dac4ecbf06015a4dd6 = L.polyline.antPath(
+        [[waypoints_DGA[68].lat, waypoints_DGA[68].lng], [waypoints_DGA[67].lat, waypoints_DGA[67].lng]],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [10, 20], "dashOffset": null, "delay": 1600, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 1}
+    ).addTo(e10);
+
+
+
+
+
+    // Déclaration des couches de tuiles
+    var tile_layer_5c3ab3073f71ad2161040aa353930c02 = L.tileLayer(
+        "http://mt0.google.com/vt/lyrs=s\u0026x={x}\u0026y={y}\u0026z={z}",
+        {"attribution": "attribution", "detectRetina": false, "maxNativeZoom": 25, "maxZoom": 25, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+    );
+
+    tile_layer_5c3ab3073f71ad2161040aa353930c02.addTo(map);
+
+    var tile_layer_f9d869660cb295f8c3a8bb0603f21a1e = L.tileLayer(
+        "https://data.geopf.fr/wmts?\u0026REQUEST=GetTile\u0026SERVICE=WMTS\u0026VERSION=1.0.0\u0026STYLE=normal\u0026TILEMATRIXSET=PM\u0026FORMAT=image/jpeg\u0026LAYER=HR.ORTHOIMAGERY.ORTHOPHOTOS\u0026TILEMATRIX={z}\u0026TILEROW={y}\u0026TILECOL={x}",
+        {"attribution": "attribution", "detectRetina": false, "maxNativeZoom": 25, "maxZoom": 25, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+    );
+
+
+    L.control.groupedLayers(
+        null,
+        {
+            "Epreuves" : {
+                "Détection_et_caractérisation_des_pentes_avec_obstacles - pilote_auto" : e1_a,
+                "Détection_et_caractérisation_des_dévers_avec_obstacles - pilote_auto" : e1_b,
+                "Détection_et_caractérisation_de_la_végét_et_des_flaq_d\’eau - Téléop_Assist_Saf_first_on" : e2,
+                "Localisation_avec/sans_GNSS - pilote_auto" : e3,
+                "suivi_de_lisière - pilote_auto" : e4,             
+                "trajet_complet_avec_switch_GNSS/SLAM_auto - pilote_auto" : e5,
+                "scénario_mixte - test_d\'ensembles - pilote_auto" : e6,
+                "scénario_1_DGA - pilote_auto" : e7,
+                "scénario_2_DGA - télépilotage assisté" : e8,
+                "scénario_3_DGA - pilote_auto" : e9,
+                "scénario_mixte_DGA - pilote_auto et télépilotage assisté" : e10,
+            },
+            "Tuiles" : {
+                "google" : tile_layer_5c3ab3073f71ad2161040aa353930c02,                
+                "geoplateforme" : tile_layer_f9d869660cb295f8c3a8bb0603f21a1e,
+            },
+        },
+        {"collapsed": false, "exclusiveGroups": ["Epreuves", "Tuiles"]},
+    ).addTo(map);
+
+
+
+    var measure_control_8be900e760a06567bd9abc48339dab30 = new L.Control.Measure(
+        {"position": "topright", "primaryAreaUnit": "sqmeters", "primaryLengthUnit": "meters", "secondaryAreaUnit": "acres", "secondaryLengthUnit": "miles"});
+    map.addControl(measure_control_8be900e760a06567bd9abc48339dab30);
+
+    // Workaround for using this plugin with Leaflet>=1.8.0
+    // https://github.com/ljagis/leaflet-measure/issues/171
+    L.Control.Measure.include({
+        _setCaptureMarkerIcon: function () {
+            // disable autopan
+            this._captureMarker.options.autoPanOnFocus = false;
+            // default function
+            this._captureMarker.setIcon(
+                L.divIcon({
+                    iconSize: this._map.getSize().multiplyBy(2)
+                })
+            );
+        },
+    });
+
+
+    /*
+    var options = {
+        position: "topleft",
+        draw: {},
+        edit: {},
+    }
+    // FeatureGroup is to store editable layers.
+    var drawnItems_draw_control_831537066fbd7d3bf1cdecd319ced443 = new L.featureGroup().addTo(
+        map
+    );
+    options.edit.featureGroup = drawnItems_draw_control_831537066fbd7d3bf1cdecd319ced443;
+    var draw_control_831537066fbd7d3bf1cdecd319ced443 = new L.Control.Draw(
+        options
+    ).addTo( map );
+    map.on(L.Draw.Event.CREATED, function(e) {
+        var layer = e.layer,
+            type = e.layerType;
+        var coords = JSON.stringify(layer.toGeoJSON());
+        layer.on('click', function() {
+            alert(coords);
+            console.log(coords);
+        });
+        drawnItems_draw_control_831537066fbd7d3bf1cdecd319ced443.addLayer(layer);
+        });
+    map.on('draw:created', function(e) {
+        drawnItems_draw_control_831537066fbd7d3bf1cdecd319ced443.addLayer(e.layer);
+    });
+
+
+    
+    document.getElementById('export').onclick = function(e) {
+        var data = drawnItems_draw_control_831537066fbd7d3bf1cdecd319ced443.toGeoJSON();
+        var convertedData = 'text/json;charset=utf-8,'
+            + encodeURIComponent(JSON.stringify(data));
+        document.getElementById('export').setAttribute(
+            'href', 'data:' + convertedData
+        );
+        document.getElementById('export').setAttribute(
+            'download', "data.geojson"
+        );
+    }
+    
+    */
+
+    var tile_layer_491d4c8371d6eaecab3533f8efb54d91 = L.tileLayer(
+        "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+    );
+    var mini_map_7bc7f30c5c00eaaaf6e736356486b94a = new L.Control.MiniMap(
+        tile_layer_491d4c8371d6eaecab3533f8efb54d91,
+        {"autoToggleDisplay": false, "centerFixed": false, "collapsedHeight": 25, "collapsedWidth": 25, "height": 150, "minimized": false, "position": "bottomright", "toggleDisplay": false, "width": 150, "zoomAnimation": false, "zoomLevelOffset": -5}
+    );
+    map.addControl(mini_map_7bc7f30c5c00eaaaf6e736356486b94a);
+
+
+    var mouse_position_88a068707f8ca2a1edb53931b3a996fc = new L.Control.MousePosition(
+        {"emptyString": "Unavailable", "lngFirst": false, "numDigits": 5, "position": "bottomright", "prefix": "", "separator": " : "}
+    );
+    mouse_position_88a068707f8ca2a1edb53931b3a996fc.options["latFormatter"] =
+        undefined;
+    mouse_position_88a068707f8ca2a1edb53931b3a996fc.options["lngFormatter"] =
+        undefined;
+    map.addControl(mouse_position_88a068707f8ca2a1edb53931b3a996fc);
+
+    // Légende
+    var legend = L.control({ position: "topleft" });
+    legend.onAdd = function (map) {
+        var div = L.DomUtil.create("div", "leaflet-legend");
+        div.style.cssText = [
+            "background: white",
+            "padding: 10px 14px",
+            "border-radius: 6px",
+            "box-shadow: 0 1px 5px rgba(0,0,0,0.4)",
+            "font-family: 'Helvetica Neue', Arial, sans-serif",
+            "font-size: 13px",
+            "line-height: 22px",
+            "min-width: 200px",
+        ].join(";");
+        div.innerHTML = [
+            "<b style='display:block;margin-bottom:6px;font-size:14px;'>Légende</b>",
+            // Trajet
+            "<span style='display:inline-block;width:32px;height:4px;background:#0000FF;vertical-align:middle;margin-right:8px;border-radius:2px;'></span>Trajet planifié<br>",
+            // Waypoint
+            "<span style='display:inline-block;width:14px;height:20px;vertical-align:middle;margin-right:8px;margin-left:9px;'>" +
+                "<svg viewBox='0 0 14 20' xmlns='http://www.w3.org/2000/svg'>" +
+                "<path d='M7 0C3.13 0 0 3.13 0 7c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z' fill='#2A81CB' stroke='white' stroke-width='1'/>" +
+                "<circle cx='7' cy='7' r='3' fill='white'/>" +
+                "</svg>" +
+            "</span>Waypoint<br>",
+            // Zone d'interdiction
+            "<span style='display:inline-block;width:14px;height:14px;background:rgba(0,0,0,0.5);border:1.5px solid black;vertical-align:middle;margin-right:8px;margin-left:9px;'></span>Zone d'interdiction (ZI)<br>",
+            // Obstacle franchissable
+            "<span style='display:inline-block;width:14px;height:14px;background:rgba(255,165,0,0.5);border:1.5px solid orange;vertical-align:middle;margin-right:8px;margin-left:9px;'></span>Obstacle franchissable<br>",
+            // Obstacle bloquant
+            "<span style='display:inline-block;width:14px;height:14px;background:rgba(255,0,0,0.5);border:1.5px solid red;vertical-align:middle;margin-right:8px;margin-left:9px;'></span>Obstacle bloquant",
+        ].join("");
+        return div;
+    };
+    legend.addTo(map);
+
+
+    // Auto-recentrage sur le scénario ou la tuile sélectionné(e)
+    var scenarioGroups = [e1_a, e1_b, e2, e3, e4, e5, e6, e7, e8, e9, e10];
+    var currentScenarioLayer = null;
+
+    map.on('overlayadd', function(e) {
+        var layer = e.layer;
+        var isScenario = scenarioGroups.indexOf(layer) !== -1;
+
+        if (isScenario) {
+            currentScenarioLayer = layer;
+            if (layer.getLayers().length > 0) {
+                try {
+                    map.flyToBounds(layer.getBounds(), { padding: [60, 60], maxZoom: 19 });
+                } catch(err) {}
+            }
+        } else {
+            // Changement de tuile : recentrer sur le scénario actif
+            if (currentScenarioLayer && currentScenarioLayer.getLayers().length > 0) {
+                try {
+                    map.flyToBounds(currentScenarioLayer.getBounds(), { padding: [60, 60], maxZoom: 19 });
+                } catch(err) {}
+            }
+        }
+    });
+
+
+    // Section description de l'épreuve
+    var epreuveDescriptions = {
+        'e1_a': {
+            titre: 'É1a — Détection et caractérisation des pentes avec obstacles',
+            mode: 'Pilote automatique',
+            description: 'Le robot parcourt un trajet comportant des zones de pente. L\'objectif est de détecter et caractériser les pentes avec présence d\'obstacles franchissables ou pas, et de vérifier la capacité du système à adapter son comportement.',
+            waypoints: 'WP_1, WP_2, WP_3, WP_9, WP_12',
+            obstacles: 'ZI_1, ZI_2, ZI_3 · Obst_1, Obst_2, Obst_3',
+            vitesse: 'non imposée',
+        },
+        'e1_b': {
+            titre: 'É1b — Détection et caractérisation des dévers avec obstacles',
+            mode: 'Pilote automatique',
+            description: 'Le robot parcourt un trajet comportant des zones de dévers latéraux. L\'objectif est de détecter et caractériser les dévers avec présence d\'obstacles franchissables ou pas, et de vérifier la capacité du système à adapter son comportement.',
+            waypoints: 'WP_3, WP_8, WP_9, WP_12, WP_13, WP_14',
+            obstacles: 'ZI_1, ZI_2 · Obst_1, Obst_2, Obst_3',
+            vitesse: 'non imposée',
+        },
+        'e2': {
+            titre: 'É2 — Détection et caractérisation végétation et flaques d\'eau',
+            mode: 'Téléopération assistée – Safety First ON',
+            description: 'Le robot navigue sur un trajet comprenant de la végétation basse et des flaques d\'eau. Évaluation de la détection et segmentation de ces éléments avec retour sur l\'IHM et intégration de la semantique dans le MNE avec respect des regles de traversabilité des hautes herbes et des flaques d\'eau.',
+            waypoints: 'WP_1, WP_2, WP_3, WP_12, WP_13, WP_14',
+            obstacles: 'ZI_4 · Obst_4, Obst_5',
+            vitesse: 'non imposée',
+        },
+        'e3': {
+            titre: 'É3 — Localisation avec ou sans GNSS',
+            mode: 'Pilote automatique',
+            description: 'Évaluation de la gestion des obstacles positifs / négatifs (franchissables ou pas) avec puis sans GNSS. Le robot doit maintenir une navigation cohérente peu importe son moyen de localisation. Au cour de cette épreuve, la trajectoire sera repeter 2 fois : une fois avec le signal GNSS disponible, puis une fois avec une coupure simulée du signal GNSS dès le départ afin de tester la capacité du système à maintenir une navigation cohérente meme en SLAM.',
+            obstacles: 'ZI_5 · Obst_3, Obst_4, Obst_5, Obst_6, Obst_7, Obst_8',
+            vitesse: 'non imposée',
+        },
+        'e4': {
+            titre: 'É4 — Suivi de lisière',
+            mode: 'Pilote automatique',
+            description: 'Le robot effectue un suivi autonome de la lisière d\'une zone boisée. Vérification de la précision de suivi (l\'écart à la haie) et de la gestion des obstacles (franchissables ou pas) sur le chemin.',
+            waypoints: 'WP_3, WP_4, WP_5, WP_6, WP_7',
+            obstacles: 'Obst_6, Obst_7, Obst_8',
+            vitesse: 'non imposée',
+        },
+        'e5': {
+            titre: 'É5 — Switch GNSS/SLAM automatique',
+            mode: 'Pilote automatique',
+            description: 'Trajet complet avec basculement manuelles ou automatique entre les modes de localisation GNSS et SLAM (lors des passages sous couvert végétal causant des pertes GNSS). Évaluation de la continuité et de la qualité de la carte de navigation lors des transitions. Simulation de coupures de communication avec le PCC pour tester la robustesse du système en autonomie complète.',
+            waypoints: 'WP_1 → WP_12, WP_13',
+            obstacles: 'Obst_9',
+            vitesse: 'non imposée',
+        },
+        'e6': {
+            titre: 'É6 — Scénario mixte (test d\'ensemble)',
+            mode: 'Pilote automatique',
+            description: 'Scénario combinant l\'ensemble des contraintes : pentes, dévers, végétation, obstacles, coupures GNSS et communication avec le PCC. Test global de robustesse du système.',
+            waypoints: 'WP_1 → WP_14 (complet)',
+            obstacles: 'ZI_1, ZI_2, ZI_3 · Obst_1 → Obst_9',
+            vitesse: 'non imposée',
+        },
+        'e7': {
+            titre: 'É7 — Scénario 1 DGA',
+            mode: 'Pilote automatique',
+            description: '',
+            waypoints: 'WP_1 → WP_11 (complet)',
+            obstacles: '',
+            vitesse: 'non imposée',
+        },
+        'e8': {
+            titre: 'É8 — Scénario 2 DGA',
+            mode: 'Télépilotage assisté',
+            description: '',
+            waypoints: 'WP_12 → WP_17 (complet) puis WP_21 → WP_26',
+            obstacles: '',
+            vitesse: 'non imposée',
+        },
+        'e9': {
+            titre: 'É9 — Scénario 3 DGA',
+            mode: 'Pilote automatique',
+            description: '',
+            waypoints: 'WP_30 → WP_40 (complet) puis WP_30',
+            obstacles: '',
+            vitesse: 'non imposée',
+        },
+        'e10': {
+            titre: 'É10 — Scénario mixte DGA',
+            mode: 'Pilote automatique et télépilotage assisté',
+            description: '',
+            waypoints: 'WP12, WP15, WP17, WP21, WP26, WP_30, WP_31, WP_34 à WP_36, WP_40 à WP_69',
+            obstacles: '',
+            vitesse: 'non imposée',
+        },
+    };
+
+
+    // Correspondance nom de couche → clé description
+    var layerToKey = {
+        'Détection_et_caractérisation_des_pentes_avec_obstacles - pilote_auto': 'e1_a',
+        'Détection_et_caractérisation_des_dévers_avec_obstacles - pilote_auto': 'e1_b',
+        'Détection_et_caractérisation_de_la_végét_et_des_flaq_d\’eau - Téléop_Assist_Saf_first_on': 'e2',
+        'Localisation_avec/sans_GNSS - pilote_auto': 'e3',
+        'suivi_de_lisière - pilote_auto': 'e4',
+        'trajet_complet_avec_switch_GNSS/SLAM_auto - pilote_auto': 'e5',
+        'scénario_mixte - test_d\'ensembles - pilote_auto': 'e6',
+        'scénario_1_DGA - pilote_auto': 'e7',
+        'scénario_2_DGA - télépilotage assisté': 'e8',
+        'scénario_3_DGA - pilote_auto': 'e9',
+        'scénario_mixte_DGA - pilote_auto et télépilotage assisté': 'e10',
+    };
+
+    var descControl = L.control({ position: 'bottomleft' });
+    descControl.onAdd = function () {
+        var div = L.DomUtil.create('div', 'epreuve-desc');
+        div.innerHTML = '<i style="color:#888;font-size:12px;">Sélectionnez une épreuve dans le menu</i>';
+        L.DomEvent.disableClickPropagation(div);
+        L.DomEvent.disableScrollPropagation(div);
+        return div;
+    };
+    descControl.addTo(map);
+
+    function updateDesc(key) {
+        var el = document.querySelector('.epreuve-desc');
+    
+        var d = epreuveDescriptions[key];
+        el.innerHTML =
+            '<div style="font-weight:bold;font-size:13px;margin-bottom:6px;border-bottom:1px solid #ccc;padding-bottom:4px;">' + d.titre + '</div>' +
+            '<table style="font-size:12px;border-collapse:collapse;width:100%;">' +
+            '<tr><td style="color:#555;padding:2px 6px 2px 0;white-space:nowrap;"><b>Mode</b></td><td>' + d.mode + '</td></tr>' +
+            '<tr><td style="color:#555;padding:2px 6px 2px 0;white-space:nowrap;"><b>Vitesse</b></td><td>' + d.vitesse + '</td></tr>' +
+            '<tr><td style="color:#555;padding:2px 6px 2px 0;white-space:nowrap;"><b>Waypoints</b></td><td>' + d.waypoints + '</td></tr>' +
+            '<tr><td style="color:#555;padding:2px 6px 2px 0;white-space:nowrap;"><b>Obstacles</b></td><td>' + d.obstacles + '</td></tr>' +
+            '</table>' +
+            '<div style="font-size:11px;color:#333;margin-top:6px;border-top:1px solid #eee;padding-top:4px;">' + d.description + '</div>';
+    }
+
+    map.on('overlayadd overlayremove', function (e) {
+        var key = layerToKey[e.name];
+        if (e.type === 'overlayadd' && key) {
+            updateDesc(key);
+        } 
+    });
+
+</script>
+</html>
