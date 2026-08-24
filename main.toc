@@ -22,33 +22,32 @@
 \contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.3.9}Zones d'exclusion}{9}{paragraph.2.2.3.9}%
 \contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.3.10}Zones d'interdiction}{9}{paragraph.2.2.3.10}%
 \contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 2.4}Évaluation des développements pour le défi en cours.}{9}{subsubsection.2.2.4}%
-\contentsline {subsection}{\numberline {\hspace *{0.1cm} 3}Présentation du robot Barakuda et du matériel installé}{10}{subsection.2.3}%
-\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 3.1}Robot BARAKUDA}{10}{subsubsection.2.3.1}%
-\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 3.2}Matériel ajouté par le consortium}{11}{subsubsection.2.3.2}%
-\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 3.2.1}Calculateur Syslogic RML A4AGX}{11}{paragraph.2.3.2.1}%
-\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 3.2.2}INS SBG Ellipse-D}{11}{paragraph.2.3.2.2}%
-\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 3.2.3}LIDAR 3D Ouster OS1}{12}{paragraph.2.3.2.3}%
-\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 3.2.4}Caméra ZED X}{12}{paragraph.2.3.2.4}%
-\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 3.2.5}Capteurs Ultrasoniques 200kHz}{12}{paragraph.2.3.2.5}%
-\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 3.2.6}Sous-système électronique SHERPA}{12}{paragraph.2.3.2.6}%
-\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 3.2.7}Antennes 5 GHz et 868 MHz}{12}{paragraph.2.3.2.7}%
-\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 3.2.8}Poste de Contrôle Commande (PCC) ou PC débarqué}{12}{paragraph.2.3.2.8}%
-\contentsline {subsection}{\numberline {\hspace *{0.1cm} 4}Présentation du simulateur Gazebo}{14}{subsection.2.4}%
+\contentsline {subsection}{\numberline {\hspace *{0.1cm} 3}Présentation du robot BARAKUDA et des équipements embarqués}{10}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 3.1}Plateforme robotique BARAKUDA}{10}{subsubsection.2.3.1}%
+\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 3.2}Suite sensorielle et architecture matérielle ajoutées par le consortium}{10}{subsubsection.2.3.2}%
+\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 3.2.1}Calculateur industriel Syslogic RML A4AGX}{11}{paragraph.2.3.2.1}%
+\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 3.2.2}Système de navigation inertielle (INS) SBG Ellipse-D}{11}{paragraph.2.3.2.2}%
+\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 3.2.3}LiDAR 3D Ouster OS1}{11}{paragraph.2.3.2.3}%
+\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 3.2.4}Caméra stéréoscopique ZED X}{12}{paragraph.2.3.2.4}%
+\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 3.2.5}Sous-système électronique et d'acquisition SHERPA}{12}{paragraph.2.3.2.5}%
+\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 3.2.6}Liaisons RF (Antennes 5~GHz et 868~MHz)}{12}{paragraph.2.3.2.6}%
+\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 3.2.7}Poste de Contrôle-Commande (PCC / Station sol)}{12}{paragraph.2.3.2.7}%
+\contentsline {subsection}{\numberline {\hspace *{0.1cm} 4}Environnement de simulation Gazebo}{13}{subsection.2.4}%
 \contentsline {section}{\numberline {III}Présentation des briques logicielles du robot}{15}{section.3}%
 \contentsline {subsection}{\numberline {\hspace *{0.1cm} 1}Briques de perception de l'environnement}{16}{subsection.3.1}%
 \contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 1.1}Modèle Numérique d'Élévation}{16}{subsubsection.3.1.1}%
-\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 1.2}Segmentation d'image}{18}{subsubsection.3.1.2}%
+\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 1.2}Segmentation d'image}{17}{subsubsection.3.1.2}%
 \contentsline {subsection}{\numberline {\hspace *{0.1cm} 2}Briques de planification}{18}{subsection.3.2}%
 \contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 2.1}Planification globale}{18}{subsubsection.3.2.1}%
-\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 2.2}Suivi de lisière}{22}{subsubsection.3.2.2}%
-\contentsline {subsection}{\numberline {\hspace *{0.1cm} 3}Briques de contrôle}{24}{subsection.3.3}%
-\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 3.1}Retour sur traces et rejeu de trajectoire}{24}{subsubsection.3.3.1}%
-\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 3.2}Planification locale}{24}{subsubsection.3.3.2}%
+\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 2.2}Suivi de lisière}{21}{subsubsection.3.2.2}%
+\contentsline {subsection}{\numberline {\hspace *{0.1cm} 3}Briques de contrôle}{23}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 3.1}Retour sur traces et rejeu de trajectoire}{23}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 3.2}Planification locale}{23}{subsubsection.3.3.2}%
 \contentsline {subsection}{\numberline {\hspace *{0.1cm} 4}Autres briques}{25}{subsection.3.4}%
 \contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 4.1}Interface avec le Barakuda}{25}{subsubsection.3.4.1}%
-\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 4.2}Téléopération à la manette}{26}{subsubsection.3.4.2}%
-\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 4.3}Brique de supervision}{26}{subsubsection.3.4.3}%
-\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 4.4}Retour visuel annoté pour l'opérateur}{26}{subsubsection.3.4.4}%
+\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 4.2}Téléopération à la manette}{25}{subsubsection.3.4.2}%
+\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 4.3}Brique de supervision}{25}{subsubsection.3.4.3}%
+\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 4.4}Retour visuel annoté pour l'opérateur}{25}{subsubsection.3.4.4}%
 \contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 4.5}IHM}{26}{subsubsection.3.4.5}%
 \contentsline {section}{\numberline {IV}Le stage}{28}{section.4}%
 \contentsline {subsection}{\numberline {\hspace *{0.1cm} 1}Les missions}{28}{subsection.4.1}%
@@ -89,6 +88,5 @@
 \contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 2.7}Robustification du mode suivi de lisière : gestion d'obstacles sur le chemin de suivi}{54}{subsubsection.4.2.7}%
 \contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.7.1}Fonctionnement du planificateur Elastic Band}{56}{paragraph.4.2.7.1}%
 \contentsline {subparagraph}{a. Le concept des Bulles (Bubbles)}{57}{paragraph.4.2.7.1}%
-\contentsline {subparagraph}{b. Modélisation de la déformation par forces artificielles}{57}{equation.4.10}%
+\contentsline {subparagraph}{b. Modélisation de la déformation par forces artificielles}{57}{equation.10}%
 \contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.7.2}Résultats de l'implémentateur de l'Elastic Band sur le mode de suivi de lisière}{58}{paragraph.4.2.7.2}%
-\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.7.3}Modification de l'optimiseur de l'algorithme de bandes élastiques}{59}{paragraph.4.2.7.3}%

@@ -22,4 +22,3 @@
     "latex-workshop.latex.autoBuild.run": "onSave"
     //"latex-workshop.latex.autoBuild.run": "never"
 }
-}

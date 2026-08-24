@@ -1,6 +1,6 @@
 \section{Le stage}
 \subsection{Les missions}
-J'ai été recruté comme stagiaire chez SHERPA Engineering afin d'apporter une aide à l'intégration et aux tests terrain pour compte du défi 3 du Challenge MOBILEX*.\\\\
+J'ai été recruté comme stagiaire chez SHERPA Engineering afin d'apporter une aide à l'intégration et aux tests terrain pour le compte du défi 3 du Challenge MOBILEX*.\\\\
 \indent Ma mission principale consiste à participer aux tests des différentes briques logicielles développées sur le robot. Les tests se font d'abord en simulation, puis, lorsque les résultats sont concluants, sur le terrain. Lors des tests terrains, il est nécessaire de prévoir une série de tests pertinents pour mettre à l'épreuve les briques sous test et de communiquer avec l'équipe de l'INRAE pour programmer une date et prévoir la disponibilité du matériel à utiliser pour les tests. Une fois les tests réalisés, un compte-rendu est fait à l'équipe de développement.\\\\
 \indent En cas de problèmes lors des tests, il est impératif de noter les circonstances dans lesquelles ils sont apparus, trouver des scénarios reproduisant ces derniers, réaliser des diagnostics, isoler la cause et, dans la mesure du possible, proposer une solution de résolution.\\\\
 \indent En dehors des sessions de tests planifiées, mes missions se sont articulées autour de deux axes principaux : \\
@@ -811,21 +811,21 @@ Une fois le rajout de l'algorithme de bandes élastiques implémenté \cite{eban
     \begin{subfigure}[b]{0.325\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Corps_rapport/eband_3.png}   
-        \caption{Contournement réussi d'un obstacle proche du chemin de suivi sans compression des bulles}
+        \caption{Contournement réussi d'un obstacle proche du chemin de suivi en violet sans compression des bulles}
         \label{fig:image1}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.325\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Corps_rapport/eband_2.png}
-        \caption{Contournement réussi d'un obstacle proche du chemin de suivi avec compression des bulles}
+        \caption{Contournement réussi d'un obstacle proche du chemin de suivi en violet avec compression des bulles}
         \label{fig:image2}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.325\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Corps_rapport/eband_1.png}
-        \caption{Échec du contournement d'un obstacle placé directement sur le chemin de suivi}
+        \caption{Échec du contournement d'un obstacle placé directement sur le chemin de suivi en violet}
         \label{fig:image3}
     \end{subfigure}
     \caption{Résultats de l'implémentation de l'algorithme original de bandes élastiques sur le suivi de lisière}
@@ -836,9 +836,9 @@ La \hyperref[fig:image3]{Figure 50(c)} illustre un échec de contournement lorsq
 
 La \hyperref[fig:image3]{Figure 50(c)} illustre un échec de contournement lorsque l'obstacle est placé directement sur le chemin de suivi. Ce comportement s'explique par le fait que l'optimiseur de l'algorithme des bandes élastiques se retrouve coincé dans un minimum local. En effet, d'après l'équation \eqref{eq13}, le gradient $\frac{\partial p}{\partial b}$ s'annule lorsque le point représentatif du robot se situe exactement sur l'obstacle et que la distance $p$ devient nulle. Cela empêche l'optimiseur de dévier la trajectoire vers une position plus sûre, aucune force répulsive n'étant alors générée.\\
 
+Des développements futurs viseront à améliorer l'optimiseur de l'algorithme de bandes élastiques afin de le rendre plus robuste face à ce type de situation.
 
-
-\paragraph{Modification de l'optimiseur de l'algorithme de bandes élastiques}
+%\paragraph{Modification de l'optimiseur de l'algorithme de bandes élastiques}
 
 
 

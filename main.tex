@@ -50,30 +50,30 @@ dynnumwidth]{tocline}{section,subsection,subsubsection,paragraph} %Permet l'espa
 \rfoot{} % Suppress page number display without breaking \thepage
 \renewcommand{\abstractname}{Résumé}
 \begin{abstract}
-Ce rapport présente les travaux réalisés dans le cadre du projet MOBITER, porté par SHERPA Engineering, dont l'objectif est de développer de nouvelles méthodes de navigation autonome pour des véhicules évoluant en environnement inconnu, non structuré et sujet à des dégradations ou indisponibilités de perception capteur.\\\\
-\indent L'approche développée repose sur l'élaboration d'un Modèle Numérique d'Élévation (MNE) issu de la fusion de données provenant d'un LiDAR 3D 64 nappes, d'un système GNSS, de capteurs à ultrasons et d'une segmentation sémantique d'images (classes : sol, herbe, eau) réalisée par le réseau de neurones SegFormer. L'architecture logicielle intègre un mode de localisation par SLAM DLIO, associé à un planificateur global A* et un planificateur local prédictif de type DWA (\textit{Dynamic Window Approach}).\\\\
-\indent Les résultats expérimentaux démontrent la capacité du robot à cartographier son environnement et à naviguer en toute autonomie à basse vitesse ($3\text{ m/s}$) au sein d'un milieu non structuré comportant des obstacles positifs et négatifs, de la végétation haute (traversable ou pas) ainsi que des flaques d'eau.
+Ce rapport présente les travaux réalisés dans le cadre du projet MOBITER, porté par SHERPA Engineering. Ce projet vise à développer de nouvelles méthodes de navigation autonome pour des véhicules mobiles évoluant en environnement non structuré, inconnu et sujet à des dégradations ou à des indisponibilités de perception capteur.\\
+\indent L'approche développée repose sur l'élaboration d'un Modèle Numérique d'Élévation (MNE), issu de la fusion de données provenant d'un LiDAR 3D, d'un système GNSS et d'une segmentation sémantique d'images (classes : sol, herbe, eau) réalisée par le réseau de neurones SegFormer. L'architecture logicielle intègre une brique de localisation par SLAM DLIO (\textit{Direct LiDAR-Inertial Odometry}), associée à un planificateur global A* et à un planificateur local prédictif de type DWA (Dynamic Window Approach). Le présent travail met également en avant la validation expérimentale du SLAM DLIO et la définition d'un plan de test terrain répétable, ainsi que le développement d'un outil d'extraction et d'analyse de données visant à faciliter l'interprétation des résultats d'essais terrain. De plus, les bases d'un algorithme de planification locale par bandes élastiques (\textit{Elastic Band}) ont été intégrées pour assurer le suivi de lisière malgré la présence d'obstacles sur le chemin suivi, afin de répondre aux exigences de la dernière édition du challenge.\\
+\indent Les résultats expérimentaux démontrent la capacité du robot à cartographier son environnement (même en cas de localisation SLAM) et à naviguer en autonomie à basse vitesse (jusqu'à $3\text{ m/s}$) au sein d'un milieu complexe comportant des obstacles positifs et négatifs, de la végétation haute (traversable ou non) et des flaques d'eau.
 \end{abstract}
 
 \renewcommand{\abstractname}{Mots-clés}
 \begin{abstract}
 \begin{center}
-    Navigation autonome en milieu déstructuré - Modèle Numérique d'Élévation - Cartographie SLAM - Segformer - Planification globale A* - Planification locale DWA - ROS
+    Navigation autonome en milieu déstructuré - Modèle Numérique d'Élévation - Cartographie SLAM - Segformer - Planification globale A* - Planification locale DWA - ROS - Plan de test terrain - DLIO - Elastic Band - Outil d'extraction et d'analyse
 \end{center}
 \end{abstract}
-\vspace{1.6cm}
+\vspace{0.5cm}
 
 \renewcommand{\abstractname}{Abstract}
 \begin{abstract}
-This report presents the work carried out within the framework of the MOBITER project, led by SHERPA Engineering, which aims to develop novel autonomous navigation methods for vehicles operating in unknown, unstructured environments subject to sensor perception degradations or outages.\\\\
-\indent The proposed approach relies on the construction of a Digital Elevation Model (DEM) derived from data fusion across a 64-channel 3D LiDAR, GNSS, ultrasonic sensors, and image semantic segmentation (classes: ground, grass, water) performed by the SegFormer neural network. The software architecture incorporates a localization mode using DLIO SLAM, coupled with an A* global planner and a predictive DWA (\textit{Dynamic Window Approach}) local planner.\\\\
-\indent Experimental results demonstrate the robot's ability to map its environment and navigate fully autonomously at low speeds ($3\text{ m/s}$) within an unstructured environment containing positive and negative obstacles, tall vegetation (traversable or non-traversable), as well as water puddles.
-    \end{abstract}
+This report presents the work carried out within the framework of the MOBITER project, led by SHERPA Engineering. This project aims to develop new autonomous navigation methods for mobile vehicles operating in unknown, unstructured environments subject to sensor perception degradation or unavailability.\\
+\indent The developed approach relies on the generation of a Digital Elevation Model (DEM), resulting from the data fusion of a 3D LiDAR, a GNSS system, and semantic image segmentation (classes: ground, grass, water) performed by the SegFormer neural network. The software architecture integrates a localization module based on DLIO (\textit{Direct LiDAR-Inertial Odometry}) SLAM, combined with an A* global planner and a DWA (\textit{Dynamic Window Approach}) predictive local planner. This work also highlights the experimental validation of the DLIO SLAM and the definition of a repeatable field testing plan, along with the development of a data extraction and analysis tool to facilitate the interpretation of field test results. Additionally, the foundations of a local planning algorithm based on elastic bands (\textit{Elastic Band}) were integrated to ensure border-following capabilities despite obstacles along the path, meeting the requirements of the final edition of the challenge.\\
+\indent Experimental results demonstrate the robot's ability to map its environment (even in cases of SLAM localization) and to navigate autonomously at low speeds (up to $3\text{ m/s}$) within a complex environment featuring positive and negative obstacles, tall vegetation (traversable or non-traversable), and water puddles.
+\end{abstract}
 
 \renewcommand{\abstractname}{Keywords}
 \begin{abstract}
 \begin{center}
-    Autonomous navigation in unstructured environment - Digital Elevation Model (DEM) - Mapping SLAM - SegFormer - A* global planning - DWA predictive local planning - ROS
+    Autonomous navigation in unstructured environment - Digital Elevation Model (DEM) - Mapping SLAM - SegFormer - A* global planning - DWA predictive local planning - ROS - Testing plan - DLIO - Elastic Band - Data extraction and analysis tool
 \end{center}
 \end{abstract}
 \newpage
@@ -86,6 +86,7 @@ En premier lieu, je souhaite exprimer ma sincère gratitude envers mon tuteur de
 \indent Enfin, je tiens à remercier chaleureusement \textbf{Romuald Aufrère}, mon enseignant-référent à Polytech, pour son suivi tout au long de mon projet.
 \end{abstract}
 
+
 \newpage
 \renewcommand{\thepage}{}
 \rfoot{} % Suppress page number display without breaking \thepage
@@ -97,6 +98,9 @@ En premier lieu, je souhaite exprimer ma sincère gratitude envers mon tuteur de
 \listoffigures
 
 \newpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\glsaddall % Génére les entrées avec des pages valides avant l'impression
 \vspace*{-1.5cm}\printglossary[title=Glossaire, nonumberlist]
 \vspace{1cm}
 \textit{Tous les mots suivis d'un astérisque sont définis dans le lexique.}
@@ -108,6 +112,7 @@ En premier lieu, je souhaite exprimer ma sincère gratitude envers mon tuteur de
 \sectionfont{\color{cyan}{}}
 
 
+
 %------------ Corps du rapport ----------------
 
 \newpage
@@ -115,7 +120,6 @@ En premier lieu, je souhaite exprimer ma sincère gratitude envers mon tuteur de
 %\fairemarges
 \pagenumbering{arabic} %Début de numerotation avec nombres arabes
 \rfoot{\thepage} % Restore page number display
-\glsaddall % Ajouter toutes les entrées avec des numéros de page valides
 \vspace{-1.5cm}
 
 %penser a changer les input si vous changez les noms des dossiers
