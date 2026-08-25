@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.7.17)  25 AUG 2026 01:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.7.17)  25 AUG 2026 16:16
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -4242,6 +4242,84 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [60]
+Underfull \hbox (badness 10000) in paragraph at lines 14--17
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 14--17
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 18--19
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 21--22
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--23
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--24
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 24--25
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 25--26
+
+ []
+
+File: logos/logo_sherpa.png Graphic file (type png)
+<use logos/logo_sherpa.png>
+Package pdftex.def Info: logos/logo_sherpa.png  used on input line 26.
+(pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
+File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
+<use logos/lhead_logos/logo_polytech_resized.png>
+Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 26.
+(pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
+File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
+<use logos/lhead_logos/eupi_long_resized.png>
+Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 26.
+(pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
+
+Package fancyhdr Warning: \headheight is too small (42.67912pt): 
+(fancyhdr)                Make it at least 45.32773pt, for example:
+(fancyhdr)                \setlength{\headheight}{45.32773pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
+
+[61]
+Underfull \hbox (badness 10000) in paragraph at lines 26--27
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 28--32
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 28--32
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 28--32
+
+ []
+
 File: logos/logo_sherpa.png Graphic file (type png)
 <use logos/logo_sherpa.png>
 Package pdftex.def Info: logos/logo_sherpa.png  used on input line 34.
@@ -4255,14 +4333,33 @@ File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
 Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 34.
 (pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
 
-
 Package fancyhdr Warning: \headheight is too small (42.67912pt): 
 (fancyhdr)                Make it at least 45.32773pt, for example:
 (fancyhdr)                \setlength{\headheight}{45.32773pt}.
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
-[61])
+[62]
+Underfull \hbox (badness 10000) in paragraph at lines 53--54
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 55--56
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 57--58
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 59--60
+
+ []
+
+)
 File: logos/logo_sherpa.png Graphic file (type png)
 <use logos/logo_sherpa.png>
 Package pdftex.def Info: logos/logo_sherpa.png  used on input line 134.
@@ -4283,7 +4380,7 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
-[62] (bibliography/bib.tex
+[63] (bibliography/bib.tex
 Underfull \hbox (badness 10000) in paragraph at lines 4--5
 []\T1/lmr/m/n/12 AGENCE NA-TIO-NALE DE LA RE-CHERCHE (ANR). Rè-gle-ment gé-né-
  []
@@ -4317,7 +4414,7 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
-[63]
+[64]
 Underfull \hbox (badness 10000) in paragraph at lines 73--74
 []\T1/lmr/m/n/12 LENGAGNE S. Cor-rec-tion des sys-tèmes li-néaires échan-tillon-nés [En
  []
@@ -4400,7 +4497,7 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
-[64]
+[65]
 bibliography/bib.tex:106: Missing $ inserted.
 <inserted text> 
                 $
@@ -4480,7 +4577,7 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
-[65] (main.toc
+[66] (main.toc
 Package tocbasic Info: Using my definition of `\numberline' on input line 2.
 Package tocbasic Info: Using my definition of `\numberline' on input line 3.
 Package tocbasic Info: Using my definition of `\numberline' on input line 4.
@@ -4547,7 +4644,7 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
-[66]
+[67]
 Package tocbasic Info: Using my definition of `\numberline' on input line 48.
 Package tocbasic Info: Using my definition of `\numberline' on input line 49.
 Package tocbasic Info: Using my definition of `\numberline' on input line 50.
@@ -4605,7 +4702,7 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
-[67] (Appendix/appendix.tex [68]
+[68] (Appendix/appendix.tex [69]
 
 LaTeX Warning: Hyper reference `sec:annexe1' on page  undefined on input line 14.
 
@@ -4659,8 +4756,8 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has be
 <to be read again> 
                    \relax 
 l.23 \newpage
-              [69]
-<Appendix/gazebo_sim_graph.png, id=1124, 1938.49219pt x 587.94656pt>
+              [70]
+<Appendix/gazebo_sim_graph.png, id=1128, 1938.49219pt x 587.94656pt>
 File: Appendix/gazebo_sim_graph.png Graphic file (type png)
 <use Appendix/gazebo_sim_graph.png>
 Package pdftex.def Info: Appendix/gazebo_sim_graph.png  used on input line 29.
@@ -4686,7 +4783,7 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [1 <./Appendix/gazebo_sim_graph.png>]
-<Appendix/checklist.png, id=1130, 662.97687pt x 638.88687pt>
+<Appendix/checklist.png, id=1135, 662.97687pt x 638.88687pt>
 File: Appendix/checklist.png Graphic file (type png)
 <use Appendix/checklist.png>
 Package pdftex.def Info: Appendix/checklist.png  used on input line 37.
@@ -4712,17 +4809,17 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [2 <./Appendix/checklist.png>]
-<Appendix/scenario1.png, id=1137, 926.46124pt x 546.04pt>
+<Appendix/scenario1.png, id=1141, 926.46124pt x 546.04pt>
 File: Appendix/scenario1.png Graphic file (type png)
 <use Appendix/scenario1.png>
 Package pdftex.def Info: Appendix/scenario1.png  used on input line 46.
 (pdftex.def)             Requested size: 483.69934pt x 285.0839pt.
-<Appendix/scenario2.png, id=1138, 902.37125pt x 676.5275pt>
+<Appendix/scenario2.png, id=1142, 902.37125pt x 676.5275pt>
 File: Appendix/scenario2.png Graphic file (type png)
 <use Appendix/scenario2.png>
 Package pdftex.def Info: Appendix/scenario2.png  used on input line 49.
 (pdftex.def)             Requested size: 468.71252pt x 351.40404pt.
-<Appendix/scenario3.png, id=1139, 911.405pt x 607.26875pt>
+<Appendix/scenario3.png, id=1143, 911.405pt x 607.26875pt>
 File: Appendix/scenario3.png Graphic file (type png)
 <use Appendix/scenario3.png>
 Package pdftex.def Info: Appendix/scenario3.png  used on input line 52.
@@ -4748,7 +4845,7 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [3 <./Appendix/scenario1.png> <./Appendix/scenario2.png>]
-<Appendix/scenarioM.png, id=1146, 918.43124pt x 721.69624pt>
+<Appendix/scenarioM.png, id=1150, 918.43124pt x 721.69624pt>
 File: Appendix/scenarioM.png Graphic file (type png)
 <use Appendix/scenarioM.png>
 Package pdftex.def Info: Appendix/scenarioM.png  used on input line 55.
@@ -4756,7 +4853,7 @@ Package pdftex.def Info: Appendix/scenarioM.png  used on input line 55.
 
 
 pdfTeX warning: pdflatex (file ./Appendix/test_checklist.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<Appendix/test_checklist.pdf, id=1147, 614.295pt x 794.97pt>
+<Appendix/test_checklist.pdf, id=1151, 614.295pt x 794.97pt>
 File: Appendix/test_checklist.pdf Graphic file (type pdf)
 <use Appendix/test_checklist.pdf>
 Package pdftex.def Info: Appendix/test_checklist.pdf  used on input line 58.
@@ -4767,7 +4864,7 @@ pdfTeX warning: pdflatex (file ./Appendix/test_checklist.pdf): PDF inclusion: fo
 
 
 pdfTeX warning: pdflatex (file ./Appendix/test_checklist.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<Appendix/test_checklist.pdf, id=1149, page=1, 614.295pt x 794.97pt>
+<Appendix/test_checklist.pdf, id=1153, page=1, 614.295pt x 794.97pt>
 File: Appendix/test_checklist.pdf Graphic file (type pdf)
 <use Appendix/test_checklist.pdf, page 1>
 Package pdftex.def Info: Appendix/test_checklist.pdf , page1 used on input line 58.
@@ -4841,7 +4938,7 @@ pdfTeX warning: pdflatex (file ./Appendix/test_checklist.pdf): PDF inclusion: fo
 
 
 pdfTeX warning: pdflatex (file ./Appendix/test_checklist.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<Appendix/test_checklist.pdf, id=1192, page=2, 614.295pt x 794.97pt>
+<Appendix/test_checklist.pdf, id=1196, page=2, 614.295pt x 794.97pt>
 File: Appendix/test_checklist.pdf Graphic file (type pdf)
 <use Appendix/test_checklist.pdf, page 2>
 Package pdftex.def Info: Appendix/test_checklist.pdf , page2 used on input line 59.
@@ -4865,7 +4962,7 @@ Package pdftex.def Info: Appendix/test_checklist.pdf , page2 used on input line 
 [6
 
  <./Appendix/test_checklist.pdf>]
-<Appendix/Traj_Dlio_vs_kitware.png, id=1202, 1204.5pt x 562.1pt>
+<Appendix/Traj_Dlio_vs_kitware.png, id=1206, 1204.5pt x 562.1pt>
 File: Appendix/Traj_Dlio_vs_kitware.png Graphic file (type png)
 <use Appendix/Traj_Dlio_vs_kitware.png>
 Package pdftex.def Info: Appendix/Traj_Dlio_vs_kitware.png  used on input line 65.
@@ -4891,12 +4988,12 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [7 <./Appendix/Traj_Dlio_vs_kitware.png>]
-<Appendix/dlio_APE_plot_raw.png, id=1208, 730.6497pt x 723.4227pt>
+<Appendix/dlio_APE_plot_raw.png, id=1213, 730.6497pt x 723.4227pt>
 File: Appendix/dlio_APE_plot_raw.png Graphic file (type png)
 <use Appendix/dlio_APE_plot_raw.png>
 Package pdftex.def Info: Appendix/dlio_APE_plot_raw.png  used on input line 75.
 (pdftex.def)             Requested size: 241.84843pt x 239.44772pt.
-<Appendix/kitware_APE_plot_raw.png, id=1209, 730.6497pt x 723.4227pt>
+<Appendix/kitware_APE_plot_raw.png, id=1214, 730.6497pt x 723.4227pt>
 File: Appendix/kitware_APE_plot_raw.png Graphic file (type png)
 <use Appendix/kitware_APE_plot_raw.png>
 Package pdftex.def Info: Appendix/kitware_APE_plot_raw.png  used on input line 82.
@@ -4922,12 +5019,12 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [8 <./Appendix/dlio_APE_plot_raw.png> <./Appendix/kitware_APE_plot_raw.png>]
-<Appendix/ouster_cmp_z.png, id=1217, 626.34pt x 377.41pt>
+<Appendix/ouster_cmp_z.png, id=1221, 626.34pt x 377.41pt>
 File: Appendix/ouster_cmp_z.png Graphic file (type png)
 <use Appendix/ouster_cmp_z.png>
 Package pdftex.def Info: Appendix/ouster_cmp_z.png  used on input line 95.
 (pdftex.def)             Requested size: 386.95897pt x 233.17403pt.
-<Appendix/xsens_cmp_z.png, id=1218, 626.34pt x 377.41pt>
+<Appendix/xsens_cmp_z.png, id=1222, 626.34pt x 377.41pt>
 File: Appendix/xsens_cmp_z.png Graphic file (type png)
 <use Appendix/xsens_cmp_z.png>
 Package pdftex.def Info: Appendix/xsens_cmp_z.png  used on input line 102.
@@ -4953,42 +5050,42 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [9 <./Appendix/ouster_cmp_z.png> <./Appendix/xsens_cmp_z.png>]
-<Appendix/0.png, id=1225, 578.16pt x 289.08pt>
+<Appendix/0.png, id=1229, 578.16pt x 289.08pt>
 File: Appendix/0.png Graphic file (type png)
 <use Appendix/0.png>
 Package pdftex.def Info: Appendix/0.png  used on input line 118.
 (pdftex.def)             Requested size: 217.66211pt x 108.82819pt.
-<Appendix/1.png, id=1226, 578.16pt x 289.08pt>
+<Appendix/1.png, id=1230, 578.16pt x 289.08pt>
 File: Appendix/1.png Graphic file (type png)
 <use Appendix/1.png>
 Package pdftex.def Info: Appendix/1.png  used on input line 123.
 (pdftex.def)             Requested size: 217.66211pt x 108.82819pt.
-<Appendix/2.png, id=1227, 578.16pt x 289.08pt>
+<Appendix/2.png, id=1231, 578.16pt x 289.08pt>
 File: Appendix/2.png Graphic file (type png)
 <use Appendix/2.png>
 Package pdftex.def Info: Appendix/2.png  used on input line 130.
 (pdftex.def)             Requested size: 217.66211pt x 108.82819pt.
-<Appendix/3.png, id=1228, 578.16pt x 289.08pt>
+<Appendix/3.png, id=1232, 578.16pt x 289.08pt>
 File: Appendix/3.png Graphic file (type png)
 <use Appendix/3.png>
 Package pdftex.def Info: Appendix/3.png  used on input line 135.
 (pdftex.def)             Requested size: 217.66211pt x 108.82819pt.
-<Appendix/4.png, id=1229, 578.16pt x 289.08pt>
+<Appendix/4.png, id=1233, 578.16pt x 289.08pt>
 File: Appendix/4.png Graphic file (type png)
 <use Appendix/4.png>
 Package pdftex.def Info: Appendix/4.png  used on input line 142.
 (pdftex.def)             Requested size: 217.66211pt x 108.82819pt.
-<Appendix/5.png, id=1230, 578.16pt x 289.08pt>
+<Appendix/5.png, id=1234, 578.16pt x 289.08pt>
 File: Appendix/5.png Graphic file (type png)
 <use Appendix/5.png>
 Package pdftex.def Info: Appendix/5.png  used on input line 147.
 (pdftex.def)             Requested size: 217.66211pt x 108.82819pt.
-<Appendix/8.png, id=1231, 578.16pt x 289.08pt>
+<Appendix/8.png, id=1235, 578.16pt x 289.08pt>
 File: Appendix/8.png Graphic file (type png)
 <use Appendix/8.png>
 Package pdftex.def Info: Appendix/8.png  used on input line 154.
 (pdftex.def)             Requested size: 217.66211pt x 108.82819pt.
-<Appendix/9.png, id=1232, 578.16pt x 289.08pt>
+<Appendix/9.png, id=1236, 578.16pt x 289.08pt>
 File: Appendix/9.png Graphic file (type png)
 <use Appendix/9.png>
 Package pdftex.def Info: Appendix/9.png  used on input line 159.
@@ -5032,17 +5129,17 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 2E859E0828D4FC88C169416B55482282;10128.
  ) 
 Here is how much of TeX's memory you used:
- 64596 strings out of 467509
- 1519820 string characters out of 5409259
- 2315320 words of memory out of 5000000
+ 64597 strings out of 467509
+ 1519827 string characters out of 5409259
+ 2315321 words of memory out of 5000000
  92717 multiletter control sequences out of 15000+600000
  723132 words of font info for 93 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  125i,17n,121p,2519b,1313s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\mapo\AppData\Local\MiKTeX\fonts/pk/ljfour/public/mathabx/dpi720\mathb12.pk> <C:\Users\mapo\AppData\Local\MiKTeX\fonts/pk/ljfour/public/mathabx/dpi600\matha8.pk> <C:\Users\mapo\AppData\Local\MiKTeX\fonts/pk/ljfour/public/mathabx/dpi720\mathx10.pk> <C:\Users\mapo\AppData\Local\MiKTeX\fonts/pk/ljfour/public/mathabx/dpi600\matha12.pk><C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbxi10.pfb><C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi12.pfb><C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri12.pfb><C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy8.pfb><C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt12.pfb>
-Output written on main.pdf (87 pages, 34153930 bytes).
+Output written on main.pdf (88 pages, 34160689 bytes).
 PDF statistics:
- 1440 PDF objects out of 1440 (max. 8388607)
- 302 named destinations out of 1000 (max. 500000)
+ 1444 PDF objects out of 1728 (max. 8388607)
+ 303 named destinations out of 1000 (max. 500000)
  814 words of extra memory for PDF output out of 10000 (max. 10000000)
 
