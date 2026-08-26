@@ -39,54 +39,54 @@
 \contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 1.2}Segmentation d'image}{17}{subsubsection.3.1.2}%
 \contentsline {subsection}{\numberline {\hspace *{0.1cm} 2}Briques de planification}{18}{subsection.3.2}%
 \contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 2.1}Planification globale}{18}{subsubsection.3.2.1}%
-\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 2.2}Suivi de lisière}{21}{subsubsection.3.2.2}%
-\contentsline {subsection}{\numberline {\hspace *{0.1cm} 3}Briques de contrôle}{23}{subsection.3.3}%
-\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 3.1}Retour sur traces et rejeu de trajectoire}{23}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 2.2}Suivi de lisière}{20}{subsubsection.3.2.2}%
+\contentsline {subsection}{\numberline {\hspace *{0.1cm} 3}Briques de contrôle}{22}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 3.1}Retour sur traces et rejeu de trajectoire}{22}{subsubsection.3.3.1}%
 \contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 3.2}Planification locale}{23}{subsubsection.3.3.2}%
-\contentsline {subsection}{\numberline {\hspace *{0.1cm} 4}Autres briques}{25}{subsection.3.4}%
-\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 4.1}Interface avec le Barakuda}{25}{subsubsection.3.4.1}%
-\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 4.2}Téléopération à la manette}{25}{subsubsection.3.4.2}%
-\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 4.3}Brique de supervision}{25}{subsubsection.3.4.3}%
-\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 4.4}Retour visuel annoté pour l'opérateur}{25}{subsubsection.3.4.4}%
-\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 4.5}IHM}{26}{subsubsection.3.4.5}%
-\contentsline {section}{\numberline {IV}Le stage}{28}{section.4}%
-\contentsline {subsection}{\numberline {\hspace *{0.1cm} 1}Les missions}{28}{subsection.4.1}%
-\contentsline {subsection}{\numberline {\hspace *{0.1cm} 2}Présentation des travaux réalisés}{28}{subsection.4.2}%
-\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 2.1}Prise en main du projet}{28}{subsubsection.4.2.1}%
-\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 2.2}Migration et évaluation du SLAM (Simultaneous Localization and Mapping)}{29}{subsubsection.4.2.2}%
-\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.2.1}Fonctionnement du Kitware SLAM}{29}{paragraph.4.2.2.1}%
-\contentsline {subparagraph}{a. Le prétraitement et l'extraction des caractéristiques géométriques du nuage de points LiDAR}{29}{paragraph.4.2.2.1}%
-\contentsline {subparagraph}{b. L'estimation de l'odométrie LiDAR}{30}{paragraph.4.2.2.1}%
-\contentsline {subparagraph}{c. La construction de la carte et l'optimisation spatiale}{30}{paragraph.4.2.2.1}%
-\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.2.2}Fonctionnement du DLIO SLAM}{30}{paragraph.4.2.2.2}%
-\contentsline {subparagraph}{a. Prétraitement et conditionnement des données denses}{31}{paragraph.4.2.2.2}%
-\contentsline {subparagraph}{b. Correction de mouvement}{31}{paragraph.4.2.2.2}%
-\contentsline {subparagraph}{c. Recalage géométrique (GICP : Generalized Iterative Closest Point)}{31}{paragraph.4.2.2.2}%
-\contentsline {subparagraph}{d. Fusion et mise à jour d'état}{31}{paragraph.4.2.2.2}%
-\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.2.3}Comparaison expérimentale DLIO vs Kitware SLAM}{32}{paragraph.4.2.2.3}%
-\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.2.4}Modifications apportées à DLIO SLAM}{35}{paragraph.4.2.2.4}%
-\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 2.3}Évaluation de la dérive du SLAM DLIO par rapport à la vérité terrain}{36}{subsubsection.4.2.3}%
-\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 2.4}Méthodes d'automatisation de la validation de tests de non-régression en robotique mobile: cas d'application sur Mobiter}{38}{subsubsection.4.2.4}%
-\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.4.1}Méthode basée sur la spécification et l'automatisation des oracles de test}{39}{paragraph.4.2.4.1}%
-\contentsline {subparagraph}{Oracles basés sur des invariants et propriétés de sûreté}{39}{paragraph.4.2.4.1}%
-\contentsline {subparagraph}{Oracles métamorphiques}{40}{figure.33}%
-\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.4.2}Méthodes basées sur la génération automatique de cas de test contraints}{40}{paragraph.4.2.4.2}%
-\contentsline {subparagraph}{Approches de Reproduction vs de Génération procédurale}{40}{paragraph.4.2.4.2}%
-\contentsline {subparagraph}{Approche déclarative hybride : Le framework TAF (Testing Automation Framework)}{41}{paragraph.4.2.4.2}%
-\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.4.3}Prise en compte du non-déterminisme}{41}{paragraph.4.2.4.3}%
-\contentsline {subparagraph}{Origines du non-déterminisme}{41}{paragraph.4.2.4.3}%
-\contentsline {subparagraph}{Stratégie de répétition des tests}{42}{paragraph.4.2.4.3}%
-\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.4.4}Synthèse et perspectives}{42}{paragraph.4.2.4.4}%
-\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 2.5}Mise en place du plan de test}{42}{subsubsection.4.2.5}%
-\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 2.6}Mise en oeuvre du générateur automatique de rapports d'essais}{44}{subsubsection.4.2.6}%
-\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.6.1}Extraction et génération des diagnostics de l'IHM}{45}{paragraph.4.2.6.1}%
-\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.6.2}Extraction et génération des visualisation de trajectoires et d'erreurs de localisation}{48}{paragraph.4.2.6.2}%
-\contentsline {subparagraph}{a. Les figures d'analyse dynamique et comportementale}{49}{paragraph.4.2.6.2}%
-\contentsline {subparagraph}{b. Les figures d'évaluation géométrique de la trajectoire}{49}{paragraph.4.2.6.2}%
-\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.6.3}Extraction et génération des vidéos de l'évolution des cartes et du retour vidéo sur l'IHM}{52}{paragraph.4.2.6.3}%
-\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.6.4}Structuration modulaire du générateur de rapports}{53}{paragraph.4.2.6.4}%
-\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 2.7}Robustification du mode suivi de lisière : gestion d'obstacles sur le chemin de suivi}{54}{subsubsection.4.2.7}%
-\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.7.1}Fonctionnement du planificateur Elastic Band}{56}{paragraph.4.2.7.1}%
-\contentsline {subparagraph}{a. Le concept des Bulles (Bubbles)}{57}{paragraph.4.2.7.1}%
-\contentsline {subparagraph}{b. Modélisation de la déformation par forces artificielles}{57}{equation.10}%
-\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.7.2}Résultats de l'implémentateur de l'Elastic Band sur le mode de suivi de lisière}{58}{paragraph.4.2.7.2}%
+\contentsline {subsection}{\numberline {\hspace *{0.1cm} 4}Autres briques}{24}{subsection.3.4}%
+\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 4.1}Interface avec le Barakuda}{24}{subsubsection.3.4.1}%
+\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 4.2}Téléopération à la manette}{24}{subsubsection.3.4.2}%
+\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 4.3}Brique de supervision}{24}{subsubsection.3.4.3}%
+\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 4.4}Retour visuel annoté pour l'opérateur}{24}{subsubsection.3.4.4}%
+\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 4.5}IHM}{25}{subsubsection.3.4.5}%
+\contentsline {section}{\numberline {IV}Le stage}{27}{section.4}%
+\contentsline {subsection}{\numberline {\hspace *{0.1cm} 1}Les missions}{27}{subsection.4.1}%
+\contentsline {subsection}{\numberline {\hspace *{0.1cm} 2}Présentation des travaux réalisés}{27}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 2.1}Prise en main du projet}{27}{subsubsection.4.2.1}%
+\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 2.2}Migration et évaluation du SLAM (Simultaneous Localization and Mapping)}{28}{subsubsection.4.2.2}%
+\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.2.1}Fonctionnement du Kitware SLAM}{28}{paragraph.4.2.2.1}%
+\contentsline {subparagraph}{a. Le prétraitement et l'extraction des caractéristiques géométriques du nuage de points LiDAR}{28}{paragraph.4.2.2.1}%
+\contentsline {subparagraph}{b. L'estimation de l'odométrie LiDAR}{29}{paragraph.4.2.2.1}%
+\contentsline {subparagraph}{c. La construction de la carte et l'optimisation spatiale}{29}{paragraph.4.2.2.1}%
+\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.2.2}Fonctionnement du DLIO SLAM}{29}{paragraph.4.2.2.2}%
+\contentsline {subparagraph}{a. Prétraitement et conditionnement des données denses}{30}{paragraph.4.2.2.2}%
+\contentsline {subparagraph}{b. Correction de mouvement}{30}{paragraph.4.2.2.2}%
+\contentsline {subparagraph}{c. Recalage géométrique (GICP : Generalized Iterative Closest Point)}{30}{paragraph.4.2.2.2}%
+\contentsline {subparagraph}{d. Fusion et mise à jour d'état}{30}{paragraph.4.2.2.2}%
+\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.2.3}Comparaison expérimentale DLIO vs Kitware SLAM}{31}{paragraph.4.2.2.3}%
+\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.2.4}Modifications apportées à DLIO SLAM}{34}{paragraph.4.2.2.4}%
+\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 2.3}Évaluation de la dérive du SLAM DLIO par rapport à la vérité terrain}{35}{subsubsection.4.2.3}%
+\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 2.4}Méthodes d'automatisation de la validation de tests de non-régression en robotique mobile: cas d'application sur Mobiter}{37}{subsubsection.4.2.4}%
+\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.4.1}Méthode basée sur la spécification et l'automatisation des oracles de test}{38}{paragraph.4.2.4.1}%
+\contentsline {subparagraph}{Oracles basés sur des invariants et propriétés de sûreté}{38}{paragraph.4.2.4.1}%
+\contentsline {subparagraph}{Oracles métamorphiques}{39}{figure.33}%
+\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.4.2}Méthodes basées sur la génération automatique de cas de test contraints}{39}{paragraph.4.2.4.2}%
+\contentsline {subparagraph}{Approches de Reproduction vs de Génération procédurale}{39}{paragraph.4.2.4.2}%
+\contentsline {subparagraph}{Approche déclarative hybride : Le framework TAF (Testing Automation Framework)}{40}{paragraph.4.2.4.2}%
+\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.4.3}Prise en compte du non-déterminisme}{40}{paragraph.4.2.4.3}%
+\contentsline {subparagraph}{Origines du non-déterminisme}{40}{paragraph.4.2.4.3}%
+\contentsline {subparagraph}{Stratégie de répétition des tests}{41}{paragraph.4.2.4.3}%
+\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.4.4}Synthèse et perspectives}{41}{paragraph.4.2.4.4}%
+\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 2.5}Mise en place du plan de test}{41}{subsubsection.4.2.5}%
+\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 2.6}Mise en oeuvre du générateur automatique de rapports d'essais}{43}{subsubsection.4.2.6}%
+\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.6.1}Extraction et génération des diagnostics de l'IHM}{44}{paragraph.4.2.6.1}%
+\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.6.2}Extraction et génération des visualisation de trajectoires et d'erreurs de localisation}{47}{paragraph.4.2.6.2}%
+\contentsline {subparagraph}{a. Les figures d'analyse dynamique et comportementale}{48}{paragraph.4.2.6.2}%
+\contentsline {subparagraph}{b. Les figures d'évaluation géométrique de la trajectoire}{48}{paragraph.4.2.6.2}%
+\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.6.3}Extraction et génération des vidéos de l'évolution des cartes et du retour vidéo sur l'IHM}{51}{paragraph.4.2.6.3}%
+\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.6.4}Structuration modulaire du générateur de rapports}{52}{paragraph.4.2.6.4}%
+\contentsline {subsubsection}{\numberline {\hspace *{0.2cm} 2.7}Robustification du mode suivi de lisière : gestion d'obstacles sur le chemin de suivi}{53}{subsubsection.4.2.7}%
+\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.7.1}Fonctionnement du planificateur Elastic Band}{55}{paragraph.4.2.7.1}%
+\contentsline {subparagraph}{a. Le concept des Bulles (Bubbles)}{56}{paragraph.4.2.7.1}%
+\contentsline {subparagraph}{b. Modélisation de la déformation par forces artificielles}{56}{equation.10}%
+\contentsline {paragraph}{\numberline {\hspace *{0.2cm} 2.7.2}Résultats de l'implémentateur de l'Elastic Band sur le mode de suivi de lisière}{57}{paragraph.4.2.7.2}%

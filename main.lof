@@ -17,37 +17,37 @@
 \contentsline {figure}{\numberline {16}{\ignorespaces Fonctionnement de l'algorithme de Dijkstra}}{19}{figure.caption.13}%
 \contentsline {figure}{\numberline {17}{\ignorespaces Carte de coût utilisée par la planification globale}}{20}{figure.17}%
 \contentsline {figure}{\numberline {18}{\ignorespaces Détection du premier point}}{21}{figure.18}%
-\contentsline {figure}{\numberline {19}{\ignorespaces Détection du contour de la lisière}}{22}{figure.19}%
-\contentsline {figure}{\numberline {20}{\ignorespaces Création du "serpent" à partir des points de contacts du cercle et des points intermédiaires}}{22}{figure.20}%
-\contentsline {figure}{\numberline {21}{\ignorespaces Illustration des trajectoires évaluées par la planification locale DWA}}{24}{figure.21}%
-\contentsline {figure}{\numberline {22}{\ignorespaces Interface RQT}}{26}{figure.22}%
-\contentsline {figure}{\numberline {23}{\ignorespaces Visualisation RVIZ}}{27}{figure.23}%
-\contentsline {figure}{\numberline {24}{\ignorespaces Terrain d'essais de l'INRAE Aubière}}{32}{figure.24}%
-\contentsline {figure}{\numberline {25}{\ignorespaces Comparaison des positions Kitware vs DLIO vs vérité terrain}}{32}{figure.caption.14}%
-\contentsline {figure}{\numberline {26}{\ignorespaces Comparaison des orientations Kitware vs DLIO vs vérité terrain}}{33}{figure.caption.15}%
-\contentsline {figure}{\numberline {27}{\ignorespaces Comparaison des erreurs de pose sur le terrain d'essais de l'INRAE Aubière}}{33}{figure.27}%
-\contentsline {figure}{\numberline {28}{\ignorespaces Terrain d'essais de Montoldre}}{34}{figure.28}%
-\contentsline {figure}{\numberline {29}{\ignorespaces Comparaison des trajectoires DLIO vs Kitware vs vérité terrain en zone dégagée}}{34}{figure.29}%
-\contentsline {figure}{\numberline {30}{\ignorespaces Carte construite avec la version originale de DLIO SLAM}}{35}{figure.30}%
-\contentsline {figure}{\numberline {31}{\ignorespaces Comparaison de cartographie en GNSS RTK VS en DLIO}}{36}{figure.31}%
-\contentsline {figure}{\numberline {32}{\ignorespaces Évolution de la dérive du SLAM DLIO par rapport à la vérité terrain en fonction de la distance parcourue}}{38}{figure.32}%
-\contentsline {figure}{\numberline {33}{\ignorespaces Vue schématique du test à base d'oracle basé sur des propriétés}}{40}{figure.33}%
-\contentsline {figure}{\numberline {34}{\ignorespaces Vue schématique du test à base d'oracle métamorphique}}{40}{figure.34}%
-\contentsline {figure}{\numberline {35}{\ignorespaces Vue schématique de la génération d'environnement de test avec le framework TAF}}{41}{figure.35}%
-\contentsline {figure}{\numberline {36}{\ignorespaces Plan de test graphique pour le défi 3}}{43}{figure.36}%
-\contentsline {figure}{\numberline {37}{\ignorespaces Organigramme de l'outil de génération automatique de rapport de test}}{45}{figure.37}%
-\contentsline {figure}{\numberline {38}{\ignorespaces Organigramme de l'outil d'extraction et de génération des diagnostics}}{46}{figure.38}%
-\contentsline {figure}{\numberline {39}{\ignorespaces Timeline des diagnostics de l'IHM par nom de diagnostic}}{47}{figure.39}%
-\contentsline {figure}{\numberline {40}{\ignorespaces Timeline des changements de mode de contrôle}}{47}{figure.40}%
-\contentsline {figure}{\numberline {41}{\ignorespaces Timeline des changements de mode de localisation}}{47}{figure.41}%
-\contentsline {figure}{\numberline {42}{\ignorespaces Organigramme de l'outil d'extraction et de génération des visualisations}}{50}{figure.42}%
-\contentsline {figure}{\numberline {43}{\ignorespaces Visualisation et comparaison des positions linéaires et angulaires du robot}}{51}{figure.caption.16}%
-\contentsline {figure}{\numberline {44}{\ignorespaces Evaluation des portions GNSS et SLAM de la trajectoire et erreur de vitesse le long de la trajectoire}}{51}{figure.caption.17}%
-\contentsline {figure}{\numberline {45}{\ignorespaces Organigramme de l'outil d'extraction et de génération de vidéos}}{52}{figure.45}%
-\contentsline {figure}{\numberline {46}{\ignorespaces Vidéo composite des différentes cartes et du retour vidéo sur l'IHM}}{53}{figure.46}%
-\contentsline {figure}{\numberline {47}{\ignorespaces Visualisation terminal de l'outil de génération automatique de rapport de test}}{54}{figure.47}%
-\contentsline {figure}{\numberline {48}{\ignorespaces Evaluation de la taille du cercle de détection de lisière sur la capacité à détecter la continuité de la lisière derrière un obstacle}}{55}{figure.caption.18}%
-\contentsline {figure}{\numberline {49}{\ignorespaces Flowchart du mode de suivi de lisière revu}}{56}{figure.49}%
-\contentsline {figure}{\numberline {50}{\ignorespaces Résultats de l'implémentation de l'algorithme original de bandes élastiques sur le suivi de lisière}}{59}{figure.caption.19}%
-\contentsline {figure}{\numberline {51}{\ignorespaces Données de mobilité sur les déplacements domicile-travail}}{61}{figure.51}%
-\contentsline {figure}{\numberline {52}{\ignorespaces Niveaux d'autonomie de conduite selon la norme SAE J3016}}{62}{figure.caption.20}%
+\contentsline {figure}{\numberline {19}{\ignorespaces Détection du contour de la lisière}}{21}{figure.19}%
+\contentsline {figure}{\numberline {20}{\ignorespaces Création du "serpent" à partir des points de contacts du cercle et des points intermédiaires}}{21}{figure.20}%
+\contentsline {figure}{\numberline {21}{\ignorespaces Illustration des trajectoires évaluées par la planification locale DWA}}{23}{figure.21}%
+\contentsline {figure}{\numberline {22}{\ignorespaces Interface RQT}}{25}{figure.22}%
+\contentsline {figure}{\numberline {23}{\ignorespaces Visualisation RVIZ}}{26}{figure.23}%
+\contentsline {figure}{\numberline {24}{\ignorespaces Terrain d'essais de l'INRAE Aubière}}{31}{figure.24}%
+\contentsline {figure}{\numberline {25}{\ignorespaces Comparaison des positions Kitware vs DLIO vs vérité terrain}}{31}{figure.caption.14}%
+\contentsline {figure}{\numberline {26}{\ignorespaces Comparaison des orientations Kitware vs DLIO vs vérité terrain}}{32}{figure.caption.15}%
+\contentsline {figure}{\numberline {27}{\ignorespaces Comparaison des erreurs de pose sur le terrain d'essais de l'INRAE Aubière}}{32}{figure.27}%
+\contentsline {figure}{\numberline {28}{\ignorespaces Terrain d'essais de Montoldre}}{33}{figure.28}%
+\contentsline {figure}{\numberline {29}{\ignorespaces Comparaison des trajectoires DLIO vs Kitware vs vérité terrain en zone dégagée}}{33}{figure.29}%
+\contentsline {figure}{\numberline {30}{\ignorespaces Carte construite avec la version originale de DLIO SLAM}}{34}{figure.30}%
+\contentsline {figure}{\numberline {31}{\ignorespaces Comparaison de cartographie en GNSS RTK VS en DLIO}}{35}{figure.31}%
+\contentsline {figure}{\numberline {32}{\ignorespaces Évolution de la dérive du SLAM DLIO par rapport à la vérité terrain en fonction de la distance parcourue}}{37}{figure.32}%
+\contentsline {figure}{\numberline {33}{\ignorespaces Vue schématique du test à base d'oracle basé sur des propriétés}}{39}{figure.33}%
+\contentsline {figure}{\numberline {34}{\ignorespaces Vue schématique du test à base d'oracle métamorphique}}{39}{figure.34}%
+\contentsline {figure}{\numberline {35}{\ignorespaces Vue schématique de la génération d'environnement de test avec le framework TAF}}{40}{figure.35}%
+\contentsline {figure}{\numberline {36}{\ignorespaces Plan de test graphique pour le défi 3}}{42}{figure.36}%
+\contentsline {figure}{\numberline {37}{\ignorespaces Organigramme de l'outil de génération automatique de rapport de test}}{44}{figure.37}%
+\contentsline {figure}{\numberline {38}{\ignorespaces Organigramme de l'outil d'extraction et de génération des diagnostics}}{45}{figure.38}%
+\contentsline {figure}{\numberline {39}{\ignorespaces Timeline des diagnostics de l'IHM par nom de diagnostic}}{46}{figure.39}%
+\contentsline {figure}{\numberline {40}{\ignorespaces Timeline des changements de mode de contrôle}}{46}{figure.40}%
+\contentsline {figure}{\numberline {41}{\ignorespaces Timeline des changements de mode de localisation}}{46}{figure.41}%
+\contentsline {figure}{\numberline {42}{\ignorespaces Organigramme de l'outil d'extraction et de génération des visualisations}}{49}{figure.42}%
+\contentsline {figure}{\numberline {43}{\ignorespaces Visualisation et comparaison des positions linéaires et angulaires du robot}}{50}{figure.caption.16}%
+\contentsline {figure}{\numberline {44}{\ignorespaces Evaluation des portions GNSS et SLAM de la trajectoire et erreur de vitesse le long de la trajectoire}}{50}{figure.caption.17}%
+\contentsline {figure}{\numberline {45}{\ignorespaces Organigramme de l'outil d'extraction et de génération de vidéos}}{51}{figure.45}%
+\contentsline {figure}{\numberline {46}{\ignorespaces Vidéo composite des différentes cartes et du retour vidéo sur l'IHM}}{52}{figure.46}%
+\contentsline {figure}{\numberline {47}{\ignorespaces Visualisation terminal de l'outil de génération automatique de rapport de test}}{53}{figure.47}%
+\contentsline {figure}{\numberline {48}{\ignorespaces Evaluation de la taille du cercle de détection de lisière sur la capacité à détecter la continuité de la lisière derrière un obstacle}}{54}{figure.caption.18}%
+\contentsline {figure}{\numberline {49}{\ignorespaces Flowchart du mode de suivi de lisière revu}}{55}{figure.49}%
+\contentsline {figure}{\numberline {50}{\ignorespaces Résultats de l'implémentation de l'algorithme original de bandes élastiques sur le suivi de lisière}}{58}{figure.caption.19}%
+\contentsline {figure}{\numberline {51}{\ignorespaces Données de mobilité sur les déplacements domicile-travail}}{60}{figure.51}%
+\contentsline {figure}{\numberline {52}{\ignorespaces Niveaux d'autonomie de conduite selon la norme SAE J3016}}{61}{figure.caption.20}%

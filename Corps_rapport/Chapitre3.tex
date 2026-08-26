@@ -193,7 +193,8 @@ Après avoir tenté d'atténuer ce bruit en ajustant les paramètres de l'observ
 
 Considérons $t_{\text{scan}}$ le timestamp du dernier scan LiDAR*, $t_{\text{gicp}}$ le temps de calcul nécessaire au recalage GICP du scan courant sur la carte locale, et $t_{\text{now}}$ le timestamp de l'état courant (associé à la dernière fusion IMU). Dans l'implémentation originale de DLIO, la durée $t_{\text{gicp}}$ était négligée. Le résultat du recalage GICP (correspondant à la pose à $t_{\text{scan}}$) était ainsi fusionné avec un état ayant déjà évolué durant $t_{\text{gicp}}$ pour atteindre $t_{\text{now}} \approx t_{\text{scan}} + t_{\text{gicp}}$. En raison de ce décalage temporel, l'observateur géométrique calculait un écart artificiellement élevé qu'il tentait de corriger, ce qui tirait l'état du robot vers une pose passée et perturbait l'estimation des vitesses (\textit{twists}) ainsi que des biais de l'IMU.\\
 
-Pour résoudre ce problème, un tampon (\textit{buffer}) des états fusionnés par l'observateur a été implémenté et son fonctionnement a été repensé :
+Pour résoudre ce problème, un tampon (\textit{buffer}) des états fusionnés par l'observateur a été implémenté et son fonctionnement a été repensé :\\
+
 \begin{itemize}
     \item \textbf{Interpolation temporelle :} Le \textit{buffer} permet d'interpoler l'état exact à l'instant $t_{\text{scan}}$ afin d'y fusionner l'observation LiDAR*.
     \item \textbf{Rétropropagation :} Comme l'état continue d'évoluer pendant la phase de recalage, les mesures IMU acquises entre $t_{\text{scan}}$ et $t_{\text{now}}$ sont rejouées (rétropropagées) à partir de l'état à $t_{\text{scan}}$ corrigé par le GICP, remplaçant ainsi l'état \textit{a priori} à $t_{\text{now}}$.\\
@@ -640,9 +641,9 @@ Ce module a pour objectif principal de fournir une représentation visuelle dyna
 
 \subsubsection{Robustification du mode suivi de lisière : gestion d'obstacles sur le chemin de suivi}
 
-Comme présenté dans la section 2.2, le mode de suivi de lisière est un mode de navigation autonome conçu pour permettre au robot de longer une lisière d'arbres ou de végétation. Cependant, lors des campagnes de tests, ce mode a révélé des limites opérationnelles majeures en présence d'obstacles non franchissables obstruant le chemin de suivi.\\
+Le mode de suivi de lisière est un mode de navigation autonome conçu pour permettre au robot de longer une lisière (d'arbres, de végétation, barrière, etc.) à bonne distance désirée tout en évitant les obstacles. Cependant, lors des campagnes de tests, ce mode a révélé des limites opérationnelles majeures en présence d'obstacles non franchissables obstruant le chemin de suivi.\\
 
-\indent En effet, face à un obstacle, le robot s'immobilisait systématiquement. Ce blocage s'explique par le paramétrage de sécurité du planificateur local (local planner) associé à ce mode, configuré pour inhiber les commandes de vitesse générées par le correcteur de pure poursuite (pure pursuit) dès qu'une trajectoire entrait en collision avec un obstacle. Ce comportement passif s'est avéré particulièrement pénalisant et non viable dans le cadre du Défi 3 du challenge.\\
+\indent En effet, face à un obstacle non franchissable, le robot s'immobilisait systématiquement. Ce blocage s'explique par le paramétrage de sécurité du planificateur local (local planner) associé à ce mode, configuré pour inhiber les commandes de vitesse générées par le correcteur de pure poursuite (pure pursuit) dès qu'une trajectoire entrait en collision avec un obstacle. Ce comportement passif s'est avéré particulièrement pénalisant et non viable dans le cadre du Défi 3 du challenge.\\
 
 \indent Pour pallier cette faiblesse, une première approche a consisté à optimiser l'algorithme de détection de lisière en élargissant le rayon du cercle d'analyse. L'objectif était d'intégrer les obstacles proches de la lisière (seuil fixé à 1,5 mètre) afin qu'ils soient directement assimilés à la lisière elle-même, forçant ainsi le robot à la contourner naturellement. Néanmoins, cette solution s'est avérée insuffisante pour deux raisons majeures :\\
 
@@ -825,7 +826,7 @@ Une fois le rajout de l'algorithme de bandes élastiques implémenté \cite{eban
     \begin{subfigure}[b]{0.325\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Corps_rapport/eband_1.png}
-        \caption{Échec du contournement d'un obstacle placé directement sur le chemin de suivi en violet}
+        \caption{Échec du contournement d'un obstacle placé directement sur le chemin de suivi en violet : Arrêt du robot}
         \label{fig:image3}
     \end{subfigure}
     \caption{Résultats de l'implémentation de l'algorithme original de bandes élastiques sur le suivi de lisière}
