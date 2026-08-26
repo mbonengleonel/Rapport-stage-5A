@@ -11,53 +11,70 @@ La finalisation de ces développements permettra au consortium d'exécuter l'ens
 
 
 \subsection*{Impact environnemental}
-Bien que le projet ait été proposé pour un contexte militaire, les algorithmes développpés peuvent servir à soutenir le développement durable. Un des secteurs les plus polluants est l'agriculture. La nécessité d'accroitre sans arrêt la production force les industriels à avoir recours à de nombreux pesticides, engrais et autres agents chimiques déversés en quantité qui finissent par polluer durablement le sol.\\\\
-Un premier apport serait de pouvoir automatiser certaines tâches comme l'application de ces produits de manière localisée pour réduire les quantités utilisées. On pourrait également imaginer qu'un entretien plus régulier permettrait d'accroitre la production sans avoir recours à ces agents chimiques. Enfin, l'utilisation de la vision artificielle et des techniques de planification permettraient de diminuer l'usure et le risque de casse des machines en évitant des obstacles et en optimisant les trajectoires pour limiter les efforts mécaniques.\\\\
-D'un point de vue plus global, l'automatisation de véhicules, notamment routiers, pourrait permettre d'optimiser la consommation de carburant en optimisant le trafic, réduisant le risque d'embouteillages, ce qui réduirait le temps passé sur la route et ainsi, les émissions de CO2 et autres polluants. La conduite pourrait également être optimisée pour réduire l'usure des véhicules et le risque d'accidents. Enfin, des stratégies d'optimisation de flottes de véhicules pourraient permettrent de réduire le nombre de véhicules sur la route, réduisant la pollution induite par leur conduite et les aménagements nécessaires à leur stockage.
+
+Bien que ce projet s'inscrive initialement dans un contexte militaire, les algorithmes de navigation et de perception développés présentent des retombées directes pour le développement durable.\\
+
+L'un des principaux domaines d'application concerne l'agriculture de précision. La nécessité d'accroître les rendements agricoles conduit fréquemment à un usage intensif d'intrants chimiques (pesticides, engrais), dont le déversement massif pollue durablement les sols et les nappes phréatiques. L'intégration de la robotique mobile autonome permet de rationaliser ces pratiques. D'une part, l'automatisation du ciblage sémantique autorise une application localisée des produits, réduisant drastiquement les volumes consommés. D'autre part, le couplage entre vision artificielle et planification de trajectoires permet d'esquiver les obstacles du terrain et d'éviter les contraintes mécaniques excessives, prolongeant ainsi la durée de vie des équipements.\\
+
+À une échelle plus globale, l'automatisation des véhicules (notamment dans le secteur du transport routier) constitue un levier d'optimisation énergétique majeur. La régulation algorithmique du trafic et l'anticipation des trajectoires réduisent les congestions routières, minimisant ainsi les temps de parcours et les émissions associées de $\text{CO}_2$ et de polluants atmosphériques. Enfin, le déploiement de stratégies de gestion de flotte, telles que le pelotonnement de véhicules (\emph{platooning*}), permet de réduire la pollution globale tout en modérant la pression sur les infrastructures de transport et les aménagements de stockage.\\
+
+À titre personnel, j'effectuais quotidiennement mes trajets domicile-travail en transports en commun (bus). Une simulation de mes émissions de carbone journalières (Figure~\ref{fig51}) m'a permis d'estimer l'impact environnemental de ces déplacements. Sur l'ensemble de la durée de mon stage, mes déplacements ont généré environ $33{,}6\text{ kg}$ de $\text{CO}_2$, ce qui représente une empreinte très faible au regard d'un trajet en voiture individuelle, estimé à environ $224\text{ kg}$ de $\text{CO}_2$ sur la même période.
+
+\begin{center}
+    \includegraphics[width=1.0\linewidth]{Corps_rapport/mobilan.png}
+    \captionof{figure}{Données de mobilité sur les déplacements domicile-travail}
+    \label{fig51}
+\end{center}
+
+De plus, la ligne de bus empruntée s'appuie partiellement sur une flotte de véhicules électriques, ce qui réduit davantage l'empreinte carbone globale de ces déplacements. L'usage privilégié de ce mode de transport collectif s'inscrit pleinement dans une démarche d'écomobilité, en contribuant à la réduction du flux de véhicules individuels en circulation, à la diminution des émissions de gaz à effet de serre et au désengorgement de la circulation urbaine.
+
+
 \subsection*{Impact sociétal}
-D'un point de vue sociétal, l'adoption de véhicules autonomes soulève des questions légales et éthiques freinant sa démocratisation sur les routes. La législation fait état de 6 niveaux de conduite :\\
-\begin{itemize}
-\renewcommand{\labelitemi}{$\bullet$}
-    \item Niveau 0 : Le conducteur conduit sans aucune aide à la conduite.\\
-    \item Niveau 1 : Le conducteur a accès à des fonctionnalités d'aide à la conduite relativement simples comme le limitateur de vitesse, la détection d'obstacles ou le freinage d'urgence automatique.\\
-    \item Niveau 2 : Les fonctionnalités d'aide à la conduite sont plus complexes comme le Park Assist, ou la direction assistée. Le véhicule peut dorénavant prendre le contrôle du volant dans quelques scénarios bien définis.\\
-    \item Niveau 3 : La conduite peut être autonome sur de grandes distances pour certains cas d'application. Le conducteur doit néanmoins être en mesure de reprendre le contrôle du véhicule en quelques secondes lors de la présence de scénarios complexes, par exemple : un accident.\\
-    \item Niveau 4 : La conduite peut être autonome dans la majorité des situations et le véhicule doit pouvoir avertir le conducteur en cas d'une situation non gérée en amont. Si le conducteur ignore l'avertissement, le véhicule doit pouvoir se mettre en sécurité de manière autonome. Le conducteur doit toujours pouvoir reprendre le contrôle du véhicule à tout instant.\\
-    \item Niveau 5 : Le véhicule est entièrement autonome. Il n'y a plus de volant ou pédales et par conséquent, plus de conducteur.\\
-\end{itemize}
-Actuellement, des véhicules de niveau 3 commencent à être commercialisés et des prototypes de niveau 4 sont en phase de tests. La législation française n'autorise cependant que les véhicules jusqu'au niveau 3 à ce jour et prend du temps à évoluer. Cette évolution est d'autant plus lente que les enjeux en terme de sécurité routières sont conséquents et introduisent une question éthique sur la responsabilité en cas d'accident. Pour les niveaux 0 à 4, le conducteur pouvant reprendre le contrôle du véhicule serait le responsable en cas d'accident. En revanche pour le niveau 5, la voiture n'ayant plus de conducteur, il n'y a pas encore de consensus sur la responsabilité.\\\\
-L'adoption de ces voitures dans un futur proche pourrait permettre de révolutionner le trafic routier en réduisant son impact carbonne comme vu précédemment, mais également en fluidifiant le trafic et en augmentant la sécurité routière. De nouveaux modèles de transports pourraient être imaginés, privilégiant une mise à disposition commune du parc de voitures pour remplacer le modèle de la voiture individuelle.\\\\
-Pour des secteurs offroad, l'adoption de véhicules autonomes ou disposant de systèmes ADAS* spécifiques pourrait permettre d'alléger la charge mentale des conducteurs en les assistant pour conduire dans des environnements complexes ou en automatisant certaines tâches comme par exemple dans l'agriculture, automatiser l'entretien d'un champ, ou encore dans la manutention, automatiser le transport de marchandises dans les entrepôts.\\\\
-Enfin, l'automatisation de véhicules est déjà présente dans la domotique, permettant aux personnes de déléguer une partie de l'entretien de leur logement avec l'utilisation d'aspirateurs, tondeuses et autres appareils autonomes.
+D'un point de vue sociétal, l'adoption de la conduite autonome soulève des questions légales et éthiques qui freinent sa démocratisation sur le réseau routier. La réglementation internationale (norme SAE J3016 \cite{level}) définit à ce titre six niveaux d'autonomie de conduite (Figure~\ref{fig52}) :
+
+\begin{figure}[h!]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabularx}{\textwidth}{|>{\bfseries\raggedright\arraybackslash}p{0.28\textwidth}|>{\raggedright\arraybackslash}X|}
+\hline
+Niveau 0 & Le conducteur conduit sans aucune aide à la conduite.\\
+\hline
+Niveau 1 & Le conducteur a accès à des fonctionnalités d'aide à la conduite relativement simples comme le limitateur de vitesse, la détection d'obstacles ou le freinage d'urgence automatique. \\
+\hline
+Niveau 2 & Les fonctionnalités d'aide à la conduite sont plus complexes comme le Park Assist, ou la direction assistée. Le véhicule peut dorénavant prendre le contrôle du volant dans quelques scénarios bien définis. \\ 
+\hline
+Niveau 3 & La conduite peut être autonome sur de grandes distances pour certains cas d'application. Le conducteur doit néanmoins être en mesure de reprendre le contrôle du véhicule en quelques secondes lors de la présence de scénarios complexes, par exemple : un accident. \\
+\hline
+Niveau 4 & La conduite peut être autonome dans la majorité des situations et le véhicule doit pouvoir avertir le conducteur en cas d'une situation non gérée en amont. Si le conducteur ignore l'avertissement, le véhicule doit pouvoir se mettre en sécurité de manière autonome. Le conducteur doit toujours pouvoir reprendre le contrôle du véhicule à tout instant. \\
+\hline
+Niveau 5 & Le véhicule est entièrement autonome. Il n'y a plus de volant ou pédales et par conséquent, plus de conducteur. \\
+\hline
+\end{tabularx}
+\caption{Niveaux d'autonomie de conduite selon la norme SAE J3016}
+\label{fig52}
+\end{figure}
+
+Actuellement, les véhicules de niveau 3 entrent sur le marché et des prototypes de niveau 4 sont en phase d'expérimentation. Toutefois, le cadre réglementaire français limite à ce jour l'usage sur voie publique aux véhicules de niveau 3. L'évolution législative demeure progressive, freinée par d'importants enjeux de sécurité routière et des questions éthiques quant à la responsabilité juridique lors d'un accident. Jusqu'au niveau 4, le conducteur conservant la possibilité de reprendre les commandes reste désigné responsable. En revanche, pour le niveau 5 (autonomie complète sans intervention humaine), aucun consensus n'est encore stabilisé.\\
+
+À terme, le déploiement de ces technologies promet de fluidifier le trafic, d'accroître la sécurité routière et de réduire l'empreinte carbone globale. Il ouvre également la voie à de nouveaux modèles d'écomobilité, favorisant l'autopartage au détriment du schéma traditionnel du véhicule individuel.\\
+
+Dans les secteurs hors-route (\emph{off-road}), l'intégration de systèmes d'aide à la conduite avancés (ADAS) ou de véhicules totalement autonomes permet de décharger les opérateurs de la pénibilité mentale en environnement complexe. Ces solutions automatisent déjà des tâches répétitives ou pénibles, telles que le travail de la terre en agriculture ou la manutention de charges en milieu logistique.\\
+
+Enfin, ces technologies de navigation autonome ont déjà trouvé un débouché concret dans le domaine de la domotique grand public, simplifiant l'entretien domestique au quotidien (robots aspirateurs, tondeuses autonomes).
+
 
 
 \newpage
 \section*{Bilan personnel}
 
-\begin{comment}
-Pour conclure ce rapport sur un bilan plus personnel, j'ai sincèrement apprécié travailler sur le projet MOBITER au sein de SHERPA Engineering.\\\\
-Durant ce stage, j'ai pu mettre à profit de nombreuses compétences acquises durant ma formation en Génie Electrique à Polytech et durant mon master PAR.\\\\
-D'un point de vue théorique, le fait de devoir mettre en place des tests m'a demandé de bien comprendre le fonctionnement de l'ensemble des briques théoriques (perception, planification et contrôle), ce qui m'a été facilité par les notions acquises durant mon Master. \\\\
-Les réunions et débats sur les choix théoriques ou les discussions avec certains membres de l'équipe m'ont permis de développer ma culture scientifique sur l'état de l'art des notions liées à la robotique mobile et à l'intelligence artificielle. J'ai également appris beaucoup de choses concernant les capteurs comme leur fonctionnement ou les fonctionnalités que l'on peut trouver sur le marché aujourd'hui, ce qui est indispensable en tant qu'ingénieur.\\\\
-Sur le plan technique, j'ai ressenti un certain manque de pratique en Python me faisant perdre un peu en efficacité mais j'ai surtout été pénalisé par mon ignorance totale du fonctionnement de la programmation orientée objet, ce qui m'a contraint de me former rapidement pour pouvoir avancer sur le projet. Je ne me sens pas encore très à l'aise avec le concept mais je ne doute pas du fait que cela viendra avec la pratique. La programmation en C++ ne m'a pas posé de problèmes particuliers hormis les notions liées à la programmation orientée objet car beaucoup des compétences acquises en programmation en C à Polytech sont retranscrivables en C++. Il en est de même pour la programmation en Bash dont mes connaissances et quelques recherches m'ont suffit pour réaliser des scripts permettant de simplifier la procédure de lancement du robot lors des tests.\\\\
-Durant ce stage, j'ai le sentiment d'avoir fait de grands progrès en programmation, de manière générale en structurant mieux mes codes, mais également dans l'ensemble des langages utilisés : Python, C++ et Bash. J'ai également appris à utiliser CMake pour compiler les différentes briques et librairies en C++, chose qui me posait régulièrement des problèmes auparavant. J'ai aussi pu gagner en aisance avec Ubuntu et ROS ce qui m'a permis de résoudre seul des problèmes liés à une mauvaise compilation ou installation de paquet lorsque j'étais en journée de tests.\\\\
-Sur le plan lié à la gestion du projet, le fait d'avoir déjà eu une première expérience en tant que "chef de projet" (dans le sens où j'étais souvent la personne qui prenait les initiatives et assurait un suivi de l'avancement de l'ensemble du projet) sur le projet laser, je n'ai pas senti de difficultés particulières pour communiquer avec les différents membres du consortium. Mes prises de paroles ont souvent été jugées pertinentes et mes rapports clairs. Ma prise d'initiative a également été appréciée, me donnant très rapidement une grande autonomie.\\\\
-Les tests terrain m'ont permis d'apprendre à concevoir un protocole de tests en prenant en compte le fonctionnement des briques à tester pour proposer des tests pertinents, les données à récolter et analyser et les comptes-rendus factuels à transmettre au reste de l'équipe. Ces phases de tests m'ont également permis d'apprendre à faire face à des imprévus nécessitant une réaction rapide pour pouvoir reprendre les tests en mobilisant dans un premier temps mes connaissances théoriques et techniques pour déceler la cause du problème, si possible le résoudre et sinon, récolter un ensemble de données pour pouvoir exposer le problème et les conditions de son apparition au reste de l'équipe. Pour éviter de perdre une journée prévue aux tests, je prévois souvent plusieurs tests différents nous permettant de basculer sur un test différent en cas de problème sur l'initial. Ma capacité à réagir en présence de problèmes a également été notifiée. On m'a cependant fait le reproche de trop me précipiter lors de la formulation d'hypothèses sur les causes d'un problème, ne prenant pas assez de recul sur le fonctionnement du système complet.\\\\
-Enfin, sur des compétences plus générales, j'ai le sentiment d'avoir gagné en aisance en anglais technique grâce aux nombreux articles scientifiques que j'ai lu. J'ai également gagné en capacités à exposer mon point de vue de manière compréhensible et argumentée. Cependant, à la rédaction de ce rapport, je me rends compte de mes difficultés à synthétiser un sujet et tend à trop entrer dans les détails.
-\end{comment}
-
-
-
-
-
 Pour conclure ce rapport sur un bilan plus personnel, j'ai sincèrement apprécié participer aux travaux du projet MOBITER au sein de SHERPA Engineering. Ce stage a représenté une occasion privilégiée d'allier théorie et pratique terrain, tout en développant une réelle maturité professionnelle.\\
 
-D'un point de vue théorique et scientifique, l'immersion dans le projet m'a permis d'assimiler les notions fondamentales de la robotique mobile et d'approfondir mes connaissances sur les méthodes de perception 3D et de modélisation de l'environnement. La mise en place de protocoles de test m'a imposé de maîtriser le fonctionnement interne des capteurs et des algorithmes associés. Cette démarche m'a initié aux méthodes de recherche rigoureuses et à une approche scientifique méthodique, indispensables pour évaluer l'état de l'art et prendre des décisions techniques éclairées.\\
+D'un point de vue théorique et scientifique, l'immersion dans le projet m'a permis d'assimiler les notions fondamentales de la robotique mobile et d'approfondir mes connaissances sur les méthodes de perception 3D et de modélisation de l'environnement.\\
 
-Sur le plan technique et logiciel, ce stage m'a offert une forte familiarisation avec le langage Python et l'écosystème ROS, me permettant de gagner en autonomie lors du traitement de données et du développement de scripts. J'ai également pu m'initier à la programmation orientée objet en C++, un passage nécessaire pour interagir avec les briques algorithmiques complexes. De plus, la gestion de version et le travail collaboratif sous Git sont devenus des réflexes quotidiens, garantissant la traçabilité des évolutions logicielles au sein de l'équipe.\\
+Sur le plan technique et logiciel, ce stage m'a offert une forte familiarisation avec le langage Python et l'écosystème ROS, me permettant de gagner en autonomie lors du traitement de données et du développement de scripts. J'ai également pu m'initier à la programmation orientée objet en C++, un passage nécessaire pour interagir avec les briques algorithmiques complexes déjà présentes dans la stack. De plus, la gestion de version et le travail collaboratif sous Git sont devenus des réflexes quotidiens, garantissant la traçabilité des évolutions logicielles au sein de l'équipe.\\
 
-En matière d'expérimentation et de validation, la conception de plans de test et la validation expérimentale des briques logicielles sur le terrain m'ont appris à faire le lien entre la simulation et la réalité opérationnelle. Faire face aux aléas des essais m'a poussé à développer une capacité d'analyse rapide pour déceler l'origine des dysfonctionnements, récolter les données nécessaires (rosbags) et proposer des corrections adaptées sans perdre de vue la sécurité du système.\\
+En matière d'expérimentation et de validation, la conception de plans de test et la validation expérimentale des briques logicielles sur le terrain m'ont appris à faire le lien entre la simulation et la réalité opérationnelle. Faire face aux aléas des essais m'a poussé à développer une capacité d'analyse rapide pour déceler l'origine des dysfonctionnements, récolter les données nécessaires (rosbags) et assurer un retour d'expérience terrain auprès des autres membres de l'équipe.\\
 
-Enfin, sur le plan humain et organisationnel, ce stage m'a permis d'affirmer mon autonomie, d'améliorer ma communication au sein d'une équipe multidisciplinaire et de mieux structurer ma démarche de résolution de problèmes. Cette expérience confirme mon souhait de poursuivre mon parcours d'ingénieur dans le domaine de la robotique mobile et des systèmes autonomes.
+Enfin, sur le plan humain et organisationnel, ce stage m'a permis d'affirmer mon autonomie, d'améliorer ma communication au sein d'une équipe multidisciplinaire et de mieux structurer ma démarche de résolution de problèmes.
 
 

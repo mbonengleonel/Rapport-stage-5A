@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.7.17)  25 AUG 2026 16:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.7.17)  26 AUG 2026 02:21
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1763,7 +1763,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 2--5
 
  []
 
-<Corps_rapport/sherpa.png, id=390, 1393.205pt x 930.47626pt>
+<Corps_rapport/sherpa.png, id=395, 1393.205pt x 930.47626pt>
 File: Corps_rapport/sherpa.png Graphic file (type png)
 <use Corps_rapport/sherpa.png>
 Package pdftex.def Info: Corps_rapport/sherpa.png  used on input line 7.
@@ -1808,7 +1808,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has b
                    \relax 
 l.18 \end{itemize}
                    [2{C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc} <./Corps_rapport/sherpa.png (PNG copy)>]
-<Corps_rapport/Organigramme_SHERPA.png, id=397, 770.88pt x 578.16pt>
+<Corps_rapport/Organigramme_SHERPA.png, id=402, 770.88pt x 578.16pt>
 File: Corps_rapport/Organigramme_SHERPA.png Graphic file (type png)
 <use Corps_rapport/Organigramme_SHERPA.png>
 Package pdftex.def Info: Corps_rapport/Organigramme_SHERPA.png  used on input line 21.
@@ -1850,7 +1850,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 2--5
 
  []
 
-<Corps_rapport/Liste_consortiums.png, id=403, 770.88pt x 578.16pt>
+<Corps_rapport/Liste_consortiums.png, id=408, 770.88pt x 578.16pt>
 File: Corps_rapport/Liste_consortiums.png Graphic file (type png)
 <use Corps_rapport/Liste_consortiums.png>
 Package pdftex.def Info: Corps_rapport/Liste_consortiums.png  used on input line 8.
@@ -1885,7 +1885,7 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [4 <./Corps_rapport/Liste_consortiums.png (PNG copy)>]
-<Corps_rapport/Organisateurs_challenge_mobilex.png, id=411, 1118.1775pt x 135.50626pt>
+<Corps_rapport/Organisateurs_challenge_mobilex.png, id=416, 1118.1775pt x 135.50626pt>
 File: Corps_rapport/Organisateurs_challenge_mobilex.png Graphic file (type png)
 <use Corps_rapport/Organisateurs_challenge_mobilex.png>
 Package pdftex.def Info: Corps_rapport/Organisateurs_challenge_mobilex.png  used on input line 34.
@@ -1900,7 +1900,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 39--41
 
  []
 
-<Corps_rapport/timeline_defi.png, id=414, 1565.85pt x 417.56pt>
+<Corps_rapport/timeline_defi.png, id=419, 1565.85pt x 417.56pt>
 File: Corps_rapport/timeline_defi.png Graphic file (type png)
 <use Corps_rapport/timeline_defi.png>
 Package pdftex.def Info: Corps_rapport/timeline_defi.png  used on input line 44.
@@ -2008,7 +2008,7 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [7]
-<Corps_rapport/Gestion_pentes.png, id=439, 1113.15875pt x 400.49625pt>
+<Corps_rapport/Gestion_pentes.png, id=444, 1113.15875pt x 400.49625pt>
 File: Corps_rapport/Gestion_pentes.png Graphic file (type png)
 <use Corps_rapport/Gestion_pentes.png>
 Package pdftex.def Info: Corps_rapport/Gestion_pentes.png  used on input line 130.
@@ -2038,7 +2038,7 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [8 <./Corps_rapport/Gestion_pentes.png>]
-<Corps_rapport/barakuda.jpg, id=450, 4047.12pt x 3035.34pt>
+<Corps_rapport/barakuda.jpg, id=455, 4047.12pt x 3035.34pt>
 File: Corps_rapport/barakuda.jpg Graphic file (type jpg)
 <use Corps_rapport/barakuda.jpg>
 Package pdftex.def Info: Corps_rapport/barakuda.jpg  used on input line 168.
@@ -2072,7 +2072,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 173--175
 
  []
 
-<Corps_rapport/Plateau_hardware.png, id=459, 939.51pt x 625.33624pt>
+<Corps_rapport/Plateau_hardware.png, id=464, 939.51pt x 625.33624pt>
 File: Corps_rapport/Plateau_hardware.png Graphic file (type png)
 <use Corps_rapport/Plateau_hardware.png>
 Package pdftex.def Info: Corps_rapport/Plateau_hardware.png  used on input line 181.
@@ -2118,12 +2118,12 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [11 <./Corps_rapport/Plateau_hardware.png>]
-<Corps_rapport/PCC.jpg, id=475, 4047.12pt x 3035.34pt>
+<Corps_rapport/PCC.jpg, id=480, 4047.12pt x 3035.34pt>
 File: Corps_rapport/PCC.jpg Graphic file (type jpg)
 <use Corps_rapport/PCC.jpg>
 Package pdftex.def Info: Corps_rapport/PCC.jpg  used on input line 210.
 (pdftex.def)             Requested size: 241.84843pt x 181.37149pt.
-<Corps_rapport/Architecture_systÃ¨me.png, id=477, 770.88pt x 578.16pt>
+<Corps_rapport/Architecture_systÃ¨me.png, id=482, 770.88pt x 578.16pt>
 File: Corps_rapport/Architecture_systÃ¨me.png Graphic file (type png)
 <use Corps_rapport/Architecture_systÃ¨me.png>
 Package pdftex.def Info: Corps_rapport/Architecture_systÃ¨me.png  used on input line 219.
@@ -2153,7 +2153,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 225--227
 
  []
 
-<Corps_rapport/gazebo_sim.png, id=488, 1565.85pt x 887.315pt>
+<Corps_rapport/gazebo_sim.png, id=493, 1565.85pt x 887.315pt>
 File: Corps_rapport/gazebo_sim.png Graphic file (type png)
 <use Corps_rapport/gazebo_sim.png>
 Package pdftex.def Info: Corps_rapport/gazebo_sim.png  used on input line 230.
@@ -2215,7 +2215,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 10--11
 
  []
 
-<Corps_rapport/architecture_logicielle.png, id=500, 770.88pt x 578.16pt>
+<Corps_rapport/architecture_logicielle.png, id=505, 770.88pt x 578.16pt>
 File: Corps_rapport/architecture_logicielle.png Graphic file (type png)
 <use Corps_rapport/architecture_logicielle.png>
 Package pdftex.def Info: Corps_rapport/architecture_logicielle.png  used on input line 16.
@@ -2249,7 +2249,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 25--27
 
  []
 
-<Corps_rapport/MNE.png, id=508, 301.8778pt x 301.8778pt>
+<Corps_rapport/MNE.png, id=513, 301.8778pt x 301.8778pt>
 File: Corps_rapport/MNE.png Graphic file (type png)
 <use Corps_rapport/MNE.png>
 Package pdftex.def Info: Corps_rapport/MNE.png  used on input line 29.
@@ -2284,7 +2284,7 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [16 <./Corps_rapport/MNE.png (PNG copy)>]
-<Corps_rapport/Carte_obstacles.png, id=514, 851.18pt x 835.12pt>
+<Corps_rapport/Carte_obstacles.png, id=519, 851.18pt x 835.12pt>
 File: Corps_rapport/Carte_obstacles.png Graphic file (type png)
 <use Corps_rapport/Carte_obstacles.png>
 Package pdftex.def Info: Corps_rapport/Carte_obstacles.png  used on input line 39.
@@ -2369,22 +2369,22 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [18{C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}]
-<Corps_rapport/plan1.pdf, id=549, 230.86752pt x 230.86752pt>
+<Corps_rapport/plan1.pdf, id=554, 230.86752pt x 230.86752pt>
 File: Corps_rapport/plan1.pdf Graphic file (type pdf)
 <use Corps_rapport/plan1.pdf>
 Package pdftex.def Info: Corps_rapport/plan1.pdf  used on input line 100.
 (pdftex.def)             Requested size: 232.17242pt x 232.1774pt.
-<Corps_rapport/plan2.pdf, id=550, 230.86752pt x 230.86752pt>
+<Corps_rapport/plan2.pdf, id=555, 230.86752pt x 230.86752pt>
 File: Corps_rapport/plan2.pdf Graphic file (type pdf)
 <use Corps_rapport/plan2.pdf>
 Package pdftex.def Info: Corps_rapport/plan2.pdf  used on input line 107.
 (pdftex.def)             Requested size: 232.17242pt x 232.1774pt.
-<Corps_rapport/plan3.pdf, id=551, 230.86752pt x 230.86752pt>
+<Corps_rapport/plan3.pdf, id=556, 230.86752pt x 230.86752pt>
 File: Corps_rapport/plan3.pdf Graphic file (type pdf)
 <use Corps_rapport/plan3.pdf>
 Package pdftex.def Info: Corps_rapport/plan3.pdf  used on input line 114.
 (pdftex.def)             Requested size: 232.17242pt x 232.1774pt.
-<Corps_rapport/plan4.pdf, id=552, 230.86752pt x 230.86752pt>
+<Corps_rapport/plan4.pdf, id=557, 230.86752pt x 230.86752pt>
 File: Corps_rapport/plan4.pdf Graphic file (type pdf)
 <use Corps_rapport/plan4.pdf>
 Package pdftex.def Info: Corps_rapport/plan4.pdf  used on input line 121.
@@ -2428,7 +2428,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 140--141
 
  []
 
-<Corps_rapport/costmap.png, id=582, 301.125pt x 301.125pt>
+<Corps_rapport/costmap.png, id=587, 301.125pt x 301.125pt>
 File: Corps_rapport/costmap.png Graphic file (type png)
 <use Corps_rapport/costmap.png>
 Package pdftex.def Info: Corps_rapport/costmap.png  used on input line 145.
@@ -2482,7 +2482,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 161--162
 
  []
 
-<Corps_rapport/lisiere1.png, id=592, 186.6975pt x 181.17688pt>
+<Corps_rapport/lisiere1.png, id=597, 186.6975pt x 181.17688pt>
 File: Corps_rapport/lisiere1.png Graphic file (type png)
 <use Corps_rapport/lisiere1.png>
 Package pdftex.def Info: Corps_rapport/lisiere1.png  used on input line 164.
@@ -2497,7 +2497,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 168--170
 
  []
 
-<Corps_rapport/lisiere2.png, id=594, 200.24812pt x 202.25563pt>
+<Corps_rapport/lisiere2.png, id=599, 200.24812pt x 202.25563pt>
 File: Corps_rapport/lisiere2.png Graphic file (type png)
 <use Corps_rapport/lisiere2.png>
 Package pdftex.def Info: Corps_rapport/lisiere2.png  used on input line 171.
@@ -2531,7 +2531,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 175--177
 
  []
 
-<Corps_rapport/lisiere3.png, id=605, 197.73875pt x 179.67125pt>
+<Corps_rapport/lisiere3.png, id=610, 197.73875pt x 179.67125pt>
 File: Corps_rapport/lisiere3.png Graphic file (type png)
 <use Corps_rapport/lisiere3.png>
 Package pdftex.def Info: Corps_rapport/lisiere3.png  used on input line 178.
@@ -2634,7 +2634,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 222--223
 
  []
 
-<Corps_rapport/DWA_illustration.png, id=634, 498.86375pt x 420.57124pt>
+<Corps_rapport/DWA_illustration.png, id=639, 498.86375pt x 420.57124pt>
 File: Corps_rapport/DWA_illustration.png Graphic file (type png)
 <use Corps_rapport/DWA_illustration.png>
 Package pdftex.def Info: Corps_rapport/DWA_illustration.png  used on input line 225.
@@ -2713,7 +2713,7 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [25]
-<Corps_rapport/rqt.png, id=653, 1927.2pt x 1084.05pt>
+<Corps_rapport/rqt.png, id=658, 1927.2pt x 1084.05pt>
 File: Corps_rapport/rqt.png Graphic file (type png)
 <use Corps_rapport/rqt.png>
 Package pdftex.def Info: Corps_rapport/rqt.png  used on input line 305.
@@ -2724,7 +2724,7 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 306.
 See the caption package documentation for explanation.
 
-<Corps_rapport/rviz.png, id=655, 1856.9375pt x 1056.94875pt>
+<Corps_rapport/rviz.png, id=660, 1856.9375pt x 1056.94875pt>
 File: Corps_rapport/rviz.png Graphic file (type png)
 <use Corps_rapport/rviz.png>
 Package pdftex.def Info: Corps_rapport/rviz.png  used on input line 313.
@@ -2945,7 +2945,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 110--111
 
  []
 
-<Corps_rapport/inrae.png, id=704, 770.88pt x 574.145pt>
+<Corps_rapport/inrae.png, id=709, 770.88pt x 574.145pt>
 File: Corps_rapport/inrae.png Graphic file (type png)
 <use Corps_rapport/inrae.png>
 Package pdftex.def Info: Corps_rapport/inrae.png  used on input line 113.
@@ -2955,22 +2955,22 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 114.
 See the caption package documentation for explanation.
 
-<Corps_rapport/kitware_position_inrae.png, id=705, 707.64375pt x 655.44875pt>
+<Corps_rapport/kitware_position_inrae.png, id=710, 707.64375pt x 655.44875pt>
 File: Corps_rapport/kitware_position_inrae.png Graphic file (type png)
 <use Corps_rapport/kitware_position_inrae.png>
 Package pdftex.def Info: Corps_rapport/kitware_position_inrae.png  used on input line 122.
 (pdftex.def)             Requested size: 232.17242pt x 215.03859pt.
-<Corps_rapport/dlio_position_inrae.png, id=706, 711.65875pt x 657.45625pt>
+<Corps_rapport/dlio_position_inrae.png, id=711, 711.65875pt x 657.45625pt>
 File: Corps_rapport/dlio_position_inrae.png Graphic file (type png)
 <use Corps_rapport/dlio_position_inrae.png>
 Package pdftex.def Info: Corps_rapport/dlio_position_inrae.png  used on input line 129.
 (pdftex.def)             Requested size: 232.17242pt x 214.48334pt.
-<Corps_rapport/kitware_RPY_inrae.png, id=707, 709.65125pt x 656.4525pt>
+<Corps_rapport/kitware_RPY_inrae.png, id=712, 709.65125pt x 656.4525pt>
 File: Corps_rapport/kitware_RPY_inrae.png Graphic file (type png)
 <use Corps_rapport/kitware_RPY_inrae.png>
 Package pdftex.def Info: Corps_rapport/kitware_RPY_inrae.png  used on input line 141.
 (pdftex.def)             Requested size: 232.17242pt x 214.76689pt.
-<Corps_rapport/dlio_RPY_inrae.png, id=708, 711.65875pt x 657.45625pt>
+<Corps_rapport/dlio_RPY_inrae.png, id=713, 711.65875pt x 657.45625pt>
 File: Corps_rapport/dlio_RPY_inrae.png Graphic file (type png)
 <use Corps_rapport/dlio_RPY_inrae.png>
 Package pdftex.def Info: Corps_rapport/dlio_RPY_inrae.png  used on input line 148.
@@ -2998,7 +2998,7 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [32 <./Corps_rapport/inrae.png> <./Corps_rapport/kitware_position_inrae.png> <./Corps_rapport/dlio_position_inrae.png>]
-<Corps_rapport/Kitware_vs_dlio_metrics.png, id=719, 743.77875pt x 173.64874pt>
+<Corps_rapport/Kitware_vs_dlio_metrics.png, id=724, 743.77875pt x 173.64874pt>
 File: Corps_rapport/Kitware_vs_dlio_metrics.png Graphic file (type png)
 <use Corps_rapport/Kitware_vs_dlio_metrics.png>
 Package pdftex.def Info: Corps_rapport/Kitware_vs_dlio_metrics.png  used on input line 159.
@@ -3014,7 +3014,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 164--165
 
  []
 
-<Corps_rapport/montoldre.png, id=722, 677.53125pt x 503.8825pt>
+<Corps_rapport/montoldre.png, id=727, 677.53125pt x 503.8825pt>
 File: Corps_rapport/montoldre.png Graphic file (type png)
 <use Corps_rapport/montoldre.png>
 Package pdftex.def Info: Corps_rapport/montoldre.png  used on input line 167.
@@ -3044,7 +3044,7 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [33 <./Corps_rapport/kitware_RPY_inrae.png> <./Corps_rapport/dlio_RPY_inrae.png> <./Corps_rapport/Kitware_vs_dlio_metrics.png>]
-<Corps_rapport/dlio_vs_kitware_vs_Sbg_montoldre.png, id=730, 903.375pt x 677.53125pt>
+<Corps_rapport/dlio_vs_kitware_vs_Sbg_montoldre.png, id=735, 903.375pt x 677.53125pt>
 File: Corps_rapport/dlio_vs_kitware_vs_Sbg_montoldre.png Graphic file (type png)
 <use Corps_rapport/dlio_vs_kitware_vs_Sbg_montoldre.png>
 Package pdftex.def Info: Corps_rapport/dlio_vs_kitware_vs_Sbg_montoldre.png  used on input line 173.
@@ -3080,7 +3080,7 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [34 <./Corps_rapport/montoldre.png> <./Corps_rapport/dlio_vs_kitware_vs_Sbg_montoldre.png (PNG copy)>]
-<Corps_rapport/map_dlio_bruit.png, id=740, 652.4375pt x 490.83376pt>
+<Corps_rapport/map_dlio_bruit.png, id=745, 652.4375pt x 490.83376pt>
 File: Corps_rapport/map_dlio_bruit.png Graphic file (type png)
 <use Corps_rapport/map_dlio_bruit.png>
 Package pdftex.def Info: Corps_rapport/map_dlio_bruit.png  used on input line 187.
@@ -3131,7 +3131,7 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [35 <./Corps_rapport/map_dlio_bruit.png>]
-<Corps_rapport/Comparaison_map_DLIO_vs_GNSS.png, id=750, 1184.425pt x 446.66875pt>
+<Corps_rapport/Comparaison_map_DLIO_vs_GNSS.png, id=755, 1184.425pt x 446.66875pt>
 File: Corps_rapport/Comparaison_map_DLIO_vs_GNSS.png Graphic file (type png)
 <use Corps_rapport/Comparaison_map_DLIO_vs_GNSS.png>
 Package pdftex.def Info: Corps_rapport/Comparaison_map_DLIO_vs_GNSS.png  used on input line 207.
@@ -3186,7 +3186,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 258--259
 
  []
 
-<Corps_rapport/euclidean_error_vs_distance.png, id=762, 1300.86pt x 433.62pt>
+<Corps_rapport/euclidean_error_vs_distance.png, id=767, 1300.86pt x 433.62pt>
 File: Corps_rapport/euclidean_error_vs_distance.png Graphic file (type png)
 <use Corps_rapport/euclidean_error_vs_distance.png>
 Package pdftex.def Info: Corps_rapport/euclidean_error_vs_distance.png  used on input line 261.
@@ -3303,7 +3303,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 313--314
 
  []
 
-<Corps_rapport/oracle_test.png, id=788, 853.1875pt x 218.8175pt>
+<Corps_rapport/oracle_test.png, id=793, 853.1875pt x 218.8175pt>
 File: Corps_rapport/oracle_test.png Graphic file (type png)
 <use Corps_rapport/oracle_test.png>
 Package pdftex.def Info: Corps_rapport/oracle_test.png  used on input line 319.
@@ -3313,7 +3313,7 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 320.
 See the caption package documentation for explanation.
 
-<Corps_rapport/oracle_meta.png, id=790, 1218.5525pt x 323.2075pt>
+<Corps_rapport/oracle_meta.png, id=795, 1218.5525pt x 323.2075pt>
 File: Corps_rapport/oracle_meta.png Graphic file (type png)
 <use Corps_rapport/oracle_meta.png>
 Package pdftex.def Info: Corps_rapport/oracle_meta.png  used on input line 329.
@@ -3348,7 +3348,7 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [40 <./Corps_rapport/oracle_test.png> <./Corps_rapport/oracle_meta.png>]
-<Corps_rapport/TAF.png, id=801, 796.9775pt x 478.78876pt>
+<Corps_rapport/TAF.png, id=806, 796.9775pt x 478.78876pt>
 File: Corps_rapport/TAF.png Graphic file (type png)
 <use Corps_rapport/TAF.png>
 Package pdftex.def Info: Corps_rapport/TAF.png  used on input line 350.
@@ -3423,7 +3423,7 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [42]
-<Corps_rapport/plan_de_test_defi3.png, id=817, 1686.3pt x 1053.9375pt>
+<Corps_rapport/plan_de_test_defi3.png, id=822, 1686.3pt x 1053.9375pt>
 File: Corps_rapport/plan_de_test_defi3.png Graphic file (type png)
 <use Corps_rapport/plan_de_test_defi3.png>
 Package pdftex.def Info: Corps_rapport/plan_de_test_defi3.png  used on input line 396.
@@ -3522,7 +3522,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 432--433
 
  []
 
-<Corps_rapport/org_bag_explorer.png, id=829, 774.895pt x 373.395pt>
+<Corps_rapport/org_bag_explorer.png, id=834, 774.895pt x 373.395pt>
 File: Corps_rapport/org_bag_explorer.png Graphic file (type png)
 <use Corps_rapport/org_bag_explorer.png>
 Package pdftex.def Info: Corps_rapport/org_bag_explorer.png  used on input line 435.
@@ -3562,7 +3562,7 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [45 <./Corps_rapport/org_bag_explorer.png>]
-<Corps_rapport/org_diag_extractor.png, id=837, 719.68875pt x 554.07pt>
+<Corps_rapport/org_diag_extractor.png, id=842, 719.68875pt x 554.07pt>
 File: Corps_rapport/org_diag_extractor.png Graphic file (type png)
 <use Corps_rapport/org_diag_extractor.png>
 Package pdftex.def Info: Corps_rapport/org_diag_extractor.png  used on input line 447.
@@ -3583,7 +3583,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 459--460
 
  []
 
-<Corps_rapport/diagnostics_timeline_by_name.png, id=839, 1292.1876pt x 568.524pt>
+<Corps_rapport/diagnostics_timeline_by_name.png, id=844, 1292.1876pt x 568.524pt>
 File: Corps_rapport/diagnostics_timeline_by_name.png Graphic file (type png)
 <use Corps_rapport/diagnostics_timeline_by_name.png>
 Package pdftex.def Info: Corps_rapport/diagnostics_timeline_by_name.png  used on input line 463.
@@ -3617,7 +3617,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 468--469
 
  []
 
-<Corps_rapport/control_mode_switches.png, id=847, 1149.093pt x 279.444pt>
+<Corps_rapport/control_mode_switches.png, id=852, 1149.093pt x 279.444pt>
 File: Corps_rapport/control_mode_switches.png Graphic file (type png)
 <use Corps_rapport/control_mode_switches.png>
 Package pdftex.def Info: Corps_rapport/control_mode_switches.png  used on input line 471.
@@ -3632,7 +3632,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 476--477
 
  []
 
-<Corps_rapport/localization_mode_switches.png, id=849, 1149.093pt x 279.444pt>
+<Corps_rapport/localization_mode_switches.png, id=854, 1149.093pt x 279.444pt>
 File: Corps_rapport/localization_mode_switches.png Graphic file (type png)
 <use Corps_rapport/localization_mode_switches.png>
 Package pdftex.def Info: Corps_rapport/localization_mode_switches.png  used on input line 479.
@@ -3769,7 +3769,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 549--550
 
  []
 
-<Corps_rapport/org_viz_extractor.png, id=874, 688.5725pt x 584.1825pt>
+<Corps_rapport/org_viz_extractor.png, id=879, 688.5725pt x 584.1825pt>
 File: Corps_rapport/org_viz_extractor.png Graphic file (type png)
 <use Corps_rapport/org_viz_extractor.png>
 Package pdftex.def Info: Corps_rapport/org_viz_extractor.png  used on input line 555.
@@ -3784,12 +3784,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 561--562
 
  []
 
-<Corps_rapport/evo_trajectory_analysis_xyz.png, id=877, 730.6497pt x 730.6497pt>
+<Corps_rapport/evo_trajectory_analysis_xyz.png, id=882, 730.6497pt x 730.6497pt>
 File: Corps_rapport/evo_trajectory_analysis_xyz.png Graphic file (type png)
 <use Corps_rapport/evo_trajectory_analysis_xyz.png>
 Package pdftex.def Info: Corps_rapport/evo_trajectory_analysis_xyz.png  used on input line 567.
 (pdftex.def)             Requested size: 222.5038pt x 222.49664pt.
-<Corps_rapport/evo_trajectory_analysis_rpy.png, id=878, 733.5405pt x 731.3724pt>
+<Corps_rapport/evo_trajectory_analysis_rpy.png, id=883, 733.5405pt x 731.3724pt>
 File: Corps_rapport/evo_trajectory_analysis_rpy.png Graphic file (type png)
 <use Corps_rapport/evo_trajectory_analysis_rpy.png>
 Package pdftex.def Info: Corps_rapport/evo_trajectory_analysis_rpy.png  used on input line 572.
@@ -3814,12 +3814,12 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [50 <./Corps_rapport/org_viz_extractor.png>]
-<Corps_rapport/trajectory_gnss_vs_slam.png, id=885, 1003.1076pt x 810.1467pt>
+<Corps_rapport/trajectory_gnss_vs_slam.png, id=890, 1003.1076pt x 810.1467pt>
 File: Corps_rapport/trajectory_gnss_vs_slam.png Graphic file (type png)
 <use Corps_rapport/trajectory_gnss_vs_slam.png>
 Package pdftex.def Info: Corps_rapport/trajectory_gnss_vs_slam.png  used on input line 584.
 (pdftex.def)             Requested size: 222.5038pt x 179.70387pt.
-<Corps_rapport/trajectory_speed_error.png, id=886, 1004.553pt x 741.4902pt>
+<Corps_rapport/trajectory_speed_error.png, id=891, 1004.553pt x 741.4902pt>
 File: Corps_rapport/trajectory_speed_error.png Graphic file (type png)
 <use Corps_rapport/trajectory_speed_error.png>
 Package pdftex.def Info: Corps_rapport/trajectory_speed_error.png  used on input line 589.
@@ -3858,7 +3858,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 602--603
 
  []
 
-<Corps_rapport/org_video_extractor.png, id=897, 544.0325pt x 453.695pt>
+<Corps_rapport/org_video_extractor.png, id=902, 544.0325pt x 453.695pt>
 File: Corps_rapport/org_video_extractor.png Graphic file (type png)
 <use Corps_rapport/org_video_extractor.png>
 Package pdftex.def Info: Corps_rapport/org_video_extractor.png  used on input line 605.
@@ -3897,7 +3897,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 619--620
 
  []
 
-<Corps_rapport/video_aggra.png, id=905, 968.61874pt x 649.42625pt>
+<Corps_rapport/video_aggra.png, id=910, 968.61874pt x 649.42625pt>
 File: Corps_rapport/video_aggra.png Graphic file (type png)
 <use Corps_rapport/video_aggra.png>
 Package pdftex.def Info: Corps_rapport/video_aggra.png  used on input line 623.
@@ -3912,7 +3912,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 631--632
 
  []
 
-<Corps_rapport/presentation_outil_extraction.png, id=907, 736.7525pt x 366.36874pt>
+<Corps_rapport/presentation_outil_extraction.png, id=912, 736.7525pt x 366.36874pt>
 File: Corps_rapport/presentation_outil_extraction.png Graphic file (type png)
 <use Corps_rapport/presentation_outil_extraction.png>
 Package pdftex.def Info: Corps_rapport/presentation_outil_extraction.png  used on input line 634.
@@ -3966,12 +3966,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 655--656
 
  []
 
-<Corps_rapport/suivi_lisiere_05.png, id=916, 838.13126pt x 519.9425pt>
+<Corps_rapport/suivi_lisiere_05.png, id=921, 838.13126pt x 519.9425pt>
 File: Corps_rapport/suivi_lisiere_05.png Graphic file (type png)
 <use Corps_rapport/suivi_lisiere_05.png>
 Package pdftex.def Info: Corps_rapport/suivi_lisiere_05.png  used on input line 661.
 (pdftex.def)             Requested size: 290.22107pt x 180.03885pt.
-<Corps_rapport/suivi_lisiere_1.png, id=917, 340.27126pt x 499.8675pt>
+<Corps_rapport/suivi_lisiere_1.png, id=922, 340.27126pt x 499.8675pt>
 File: Corps_rapport/suivi_lisiere_1.png Graphic file (type png)
 <use Corps_rapport/suivi_lisiere_1.png>
 Package pdftex.def Info: Corps_rapport/suivi_lisiere_1.png  used on input line 666.
@@ -4044,7 +4044,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 693--694
 
  []
 
-<Corps_rapport/org_review_border_follow.png, id=933, 743.77875pt x 239.89626pt>
+<Corps_rapport/org_review_border_follow.png, id=938, 743.77875pt x 239.89626pt>
 File: Corps_rapport/org_review_border_follow.png Graphic file (type png)
 <use Corps_rapport/org_review_border_follow.png>
 Package pdftex.def Info: Corps_rapport/org_review_border_follow.png  used on input line 696.
@@ -4147,17 +4147,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 807--808
 
  []
 
-<Corps_rapport/eband_3.png, id=950, 675.52374pt x 668.4975pt>
+<Corps_rapport/eband_3.png, id=955, 675.52374pt x 668.4975pt>
 File: Corps_rapport/eband_3.png Graphic file (type png)
 <use Corps_rapport/eband_3.png>
 Package pdftex.def Info: Corps_rapport/eband_3.png  used on input line 813.
 (pdftex.def)             Requested size: 157.2pt x 155.55666pt.
-<Corps_rapport/eband_2.png, id=951, 671.50874pt x 669.50125pt>
+<Corps_rapport/eband_2.png, id=956, 671.50874pt x 669.50125pt>
 File: Corps_rapport/eband_2.png Graphic file (type png)
 <use Corps_rapport/eband_2.png>
 Package pdftex.def Info: Corps_rapport/eband_2.png  used on input line 820.
 (pdftex.def)             Requested size: 157.2pt x 156.73009pt.
-<Corps_rapport/eband_1.png, id=952, 667.49374pt x 670.505pt>
+<Corps_rapport/eband_1.png, id=957, 667.49374pt x 670.505pt>
 File: Corps_rapport/eband_1.png Graphic file (type png)
 <use Corps_rapport/eband_1.png>
 Package pdftex.def Info: Corps_rapport/eband_1.png  used on input line 827.
@@ -4242,56 +4242,41 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [60]
-Underfull \hbox (badness 10000) in paragraph at lines 14--17
+Underfull \hbox (badness 10000) in paragraph at lines 15--16
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 14--17
+Underfull \hbox (badness 10000) in paragraph at lines 17--18
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 18--19
+Underfull \hbox (badness 10000) in paragraph at lines 19--20
 
  []
 
+<Corps_rapport/mobilan.png, id=984, 403.5075pt x 157.58875pt>
+File: Corps_rapport/mobilan.png Graphic file (type png)
+<use Corps_rapport/mobilan.png>
+Package pdftex.def Info: Corps_rapport/mobilan.png  used on input line 24.
+(pdftex.def)             Requested size: 483.69687pt x 188.90836pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--22
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 22--23
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 23--24
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 24--25
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 25--26
-
- []
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 25.
+See the caption package documentation for explanation.
 
 File: logos/logo_sherpa.png Graphic file (type png)
 <use logos/logo_sherpa.png>
-Package pdftex.def Info: logos/logo_sherpa.png  used on input line 26.
+Package pdftex.def Info: logos/logo_sherpa.png  used on input line 30.
 (pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
 File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
 <use logos/lhead_logos/logo_polytech_resized.png>
-Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 26.
+Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 30.
 (pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
 File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
 <use logos/lhead_logos/eupi_long_resized.png>
-Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 26.
+Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 30.
 (pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
 
 Package fancyhdr Warning: \headheight is too small (42.67912pt): 
@@ -4300,37 +4285,27 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
-[61]
-Underfull \hbox (badness 10000) in paragraph at lines 26--27
+[61 <./Corps_rapport/mobilan.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 57--58
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 28--32
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 28--32
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 28--32
+Underfull \hbox (badness 10000) in paragraph at lines 59--60
 
  []
 
 File: logos/logo_sherpa.png Graphic file (type png)
 <use logos/logo_sherpa.png>
-Package pdftex.def Info: logos/logo_sherpa.png  used on input line 34.
+Package pdftex.def Info: logos/logo_sherpa.png  used on input line 61.
 (pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
 File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
 <use logos/lhead_logos/logo_polytech_resized.png>
-Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 34.
+Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 61.
 (pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
 File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
 <use logos/lhead_logos/eupi_long_resized.png>
-Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 34.
+Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 61.
 (pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
 
 Package fancyhdr Warning: \headheight is too small (42.67912pt): 
@@ -4340,22 +4315,46 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [62]
-Underfull \hbox (badness 10000) in paragraph at lines 53--54
+Underfull \hbox (badness 10000) in paragraph at lines 61--62
+
+ []
+
+File: logos/logo_sherpa.png Graphic file (type png)
+<use logos/logo_sherpa.png>
+Package pdftex.def Info: logos/logo_sherpa.png  used on input line 67.
+(pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
+File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
+<use logos/lhead_logos/logo_polytech_resized.png>
+Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 67.
+(pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
+File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
+<use logos/lhead_logos/eupi_long_resized.png>
+Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 67.
+(pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
+
+Package fancyhdr Warning: \headheight is too small (42.67912pt): 
+(fancyhdr)                Make it at least 45.32773pt, for example:
+(fancyhdr)                \setlength{\headheight}{45.32773pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
+
+[63]
+Underfull \hbox (badness 10000) in paragraph at lines 70--71
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 55--56
+Underfull \hbox (badness 10000) in paragraph at lines 72--73
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 57--58
+Underfull \hbox (badness 10000) in paragraph at lines 74--75
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 59--60
+Underfull \hbox (badness 10000) in paragraph at lines 76--77
 
  []
 
@@ -4380,7 +4379,7 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
-[63] (bibliography/bib.tex
+[64] (bibliography/bib.tex
 Underfull \hbox (badness 10000) in paragraph at lines 4--5
 []\T1/lmr/m/n/12 AGENCE NA-TIO-NALE DE LA RE-CHERCHE (ANR). Rè-gle-ment gé-né-
  []
@@ -4414,7 +4413,7 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
-[64]
+[65]
 Underfull \hbox (badness 10000) in paragraph at lines 73--74
 []\T1/lmr/m/n/12 LENGAGNE S. Cor-rec-tion des sys-tèmes li-néaires échan-tillon-nés [En
  []
@@ -4497,7 +4496,7 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
-[65]
+[66]
 bibliography/bib.tex:106: Missing $ inserted.
 <inserted text> 
                 $
@@ -4556,6 +4555,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 109--110
 []\T1/lmr/m/n/12 UTEXAS BWI. Eband Lo-cal Plan-ner. [En ligne]. Dis-po-nible sur :
  []
 
+
+Underfull \hbox (badness 6078) in paragraph at lines 112--113
+[]\T1/lmr/m/n/12 Disponible sur : <[]https://www.sae.org/standards/j3016-taxonomy-definitions-terms-
+ []
+
 )
 File: logos/logo_sherpa.png Graphic file (type png)
 <use logos/logo_sherpa.png>
@@ -4577,7 +4581,7 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
-[66] (main.toc
+[67] (main.toc
 Package tocbasic Info: Using my definition of `\numberline' on input line 2.
 Package tocbasic Info: Using my definition of `\numberline' on input line 3.
 Package tocbasic Info: Using my definition of `\numberline' on input line 4.
@@ -4644,7 +4648,7 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
-[67]
+[68]
 Package tocbasic Info: Using my definition of `\numberline' on input line 48.
 Package tocbasic Info: Using my definition of `\numberline' on input line 49.
 Package tocbasic Info: Using my definition of `\numberline' on input line 50.
@@ -4702,7 +4706,7 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
-[68] (Appendix/appendix.tex [69]
+[69] (Appendix/appendix.tex [70]
 
 LaTeX Warning: Hyper reference `sec:annexe1' on page  undefined on input line 14.
 
@@ -4728,21 +4732,19 @@ LaTeX Warning: Hyper reference `sec:annexe7' on page  undefined on input line 20
 LaTeX Warning: Hyper reference `sec:annexe8' on page  undefined on input line 21.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 13--22
-
- []
+LaTeX Warning: Hyper reference `sec:annexe9' on page  undefined on input line 22.
 
 File: logos/logo_sherpa.png Graphic file (type png)
 <use logos/logo_sherpa.png>
-Package pdftex.def Info: logos/logo_sherpa.png  used on input line 23.
+Package pdftex.def Info: logos/logo_sherpa.png  used on input line 24.
 (pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
 File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
 <use logos/lhead_logos/logo_polytech_resized.png>
-Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 23.
+Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 24.
 (pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
 File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
 <use logos/lhead_logos/eupi_long_resized.png>
-Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 23.
+Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 24.
 (pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
 
 Package fancyhdr Warning: \headheight is too small (42.67912pt): 
@@ -4755,39 +4757,18 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.23 \newpage
-              [70]
-<Appendix/gazebo_sim_graph.png, id=1128, 1938.49219pt x 587.94656pt>
+l.24 \newpage
+              [71]
+<Appendix/gazebo_sim_graph.png, id=1148, 1938.49219pt x 587.94656pt>
 File: Appendix/gazebo_sim_graph.png Graphic file (type png)
 <use Appendix/gazebo_sim_graph.png>
-Package pdftex.def Info: Appendix/gazebo_sim_graph.png  used on input line 29.
+Package pdftex.def Info: Appendix/gazebo_sim_graph.png  used on input line 30.
 (pdftex.def)             Requested size: 542.77412pt x 164.62392pt.
-File: logos/logo_sherpa.png Graphic file (type png)
-<use logos/logo_sherpa.png>
-Package pdftex.def Info: logos/logo_sherpa.png  used on input line 33.
-(pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
-File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
-<use logos/lhead_logos/logo_polytech_resized.png>
-Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 33.
-(pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
-File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
-<use logos/lhead_logos/eupi_long_resized.png>
-Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 33.
-(pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
-
-
-Package fancyhdr Warning: \headheight is too small (42.67912pt): 
-(fancyhdr)                Make it at least 45.32773pt, for example:
-(fancyhdr)                \setlength{\headheight}{45.32773pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
-
-[1 <./Appendix/gazebo_sim_graph.png>]
-<Appendix/checklist.png, id=1135, 662.97687pt x 638.88687pt>
-File: Appendix/checklist.png Graphic file (type png)
-<use Appendix/checklist.png>
-Package pdftex.def Info: Appendix/checklist.png  used on input line 37.
-(pdftex.def)             Requested size: 483.69687pt x 466.12032pt.
+<Appendix/checklist.jpg, id=1149, 597.9138pt x 845.559pt>
+File: Appendix/checklist.jpg Graphic file (type jpg)
+<use Appendix/checklist.jpg>
+Package pdftex.def Info: Appendix/checklist.jpg  used on input line 38.
+(pdftex.def)             Requested size: 483.69687pt x 684.0346pt.
 File: logos/logo_sherpa.png Graphic file (type png)
 <use logos/logo_sherpa.png>
 Package pdftex.def Info: logos/logo_sherpa.png  used on input line 41.
@@ -4808,33 +4789,56 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
-[2 <./Appendix/checklist.png>]
-<Appendix/scenario1.png, id=1141, 926.46124pt x 546.04pt>
-File: Appendix/scenario1.png Graphic file (type png)
-<use Appendix/scenario1.png>
-Package pdftex.def Info: Appendix/scenario1.png  used on input line 46.
-(pdftex.def)             Requested size: 483.69934pt x 285.0839pt.
-<Appendix/scenario2.png, id=1142, 902.37125pt x 676.5275pt>
-File: Appendix/scenario2.png Graphic file (type png)
-<use Appendix/scenario2.png>
-Package pdftex.def Info: Appendix/scenario2.png  used on input line 49.
-(pdftex.def)             Requested size: 468.71252pt x 351.40404pt.
-<Appendix/scenario3.png, id=1143, 911.405pt x 607.26875pt>
-File: Appendix/scenario3.png Graphic file (type png)
-<use Appendix/scenario3.png>
-Package pdftex.def Info: Appendix/scenario3.png  used on input line 52.
-(pdftex.def)             Requested size: 474.64258pt x 316.25415pt.
+[1 <./Appendix/gazebo_sim_graph.png>]
+Overfull \vbox (40.63197pt too high) has occurred while \output is active []
+
 File: logos/logo_sherpa.png Graphic file (type png)
 <use logos/logo_sherpa.png>
-Package pdftex.def Info: logos/logo_sherpa.png  used on input line 53.
+Package pdftex.def Info: logos/logo_sherpa.png  used on input line 41.
 (pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
 File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
 <use logos/lhead_logos/logo_polytech_resized.png>
-Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 53.
+Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 41.
 (pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
 File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
 <use logos/lhead_logos/eupi_long_resized.png>
-Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 53.
+Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 41.
+(pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
+
+
+Package fancyhdr Warning: \headheight is too small (42.67912pt): 
+(fancyhdr)                Make it at least 45.32773pt, for example:
+(fancyhdr)                \setlength{\headheight}{45.32773pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
+
+[2 <./Appendix/checklist.jpg>]
+<Appendix/scenario1.png, id=1159, 926.46124pt x 546.04pt>
+File: Appendix/scenario1.png Graphic file (type png)
+<use Appendix/scenario1.png>
+Package pdftex.def Info: Appendix/scenario1.png  used on input line 47.
+(pdftex.def)             Requested size: 483.69934pt x 285.0839pt.
+<Appendix/scenario2.png, id=1160, 902.37125pt x 676.5275pt>
+File: Appendix/scenario2.png Graphic file (type png)
+<use Appendix/scenario2.png>
+Package pdftex.def Info: Appendix/scenario2.png  used on input line 50.
+(pdftex.def)             Requested size: 468.71252pt x 351.40404pt.
+<Appendix/scenario3.png, id=1161, 911.405pt x 607.26875pt>
+File: Appendix/scenario3.png Graphic file (type png)
+<use Appendix/scenario3.png>
+Package pdftex.def Info: Appendix/scenario3.png  used on input line 53.
+(pdftex.def)             Requested size: 474.64258pt x 316.25415pt.
+File: logos/logo_sherpa.png Graphic file (type png)
+<use logos/logo_sherpa.png>
+Package pdftex.def Info: logos/logo_sherpa.png  used on input line 54.
+(pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
+File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
+<use logos/lhead_logos/logo_polytech_resized.png>
+Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 54.
+(pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
+File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
+<use logos/lhead_logos/eupi_long_resized.png>
+Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 54.
 (pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
 
 
@@ -4845,18 +4849,18 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [3 <./Appendix/scenario1.png> <./Appendix/scenario2.png>]
-<Appendix/scenarioM.png, id=1150, 918.43124pt x 721.69624pt>
+<Appendix/scenarioM.png, id=1168, 918.43124pt x 721.69624pt>
 File: Appendix/scenarioM.png Graphic file (type png)
 <use Appendix/scenarioM.png>
-Package pdftex.def Info: Appendix/scenarioM.png  used on input line 55.
+Package pdftex.def Info: Appendix/scenarioM.png  used on input line 56.
 (pdftex.def)             Requested size: 447.17636pt x 351.38777pt.
 
 
 pdfTeX warning: pdflatex (file ./Appendix/test_checklist.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<Appendix/test_checklist.pdf, id=1151, 614.295pt x 794.97pt>
+<Appendix/test_checklist.pdf, id=1169, 614.295pt x 794.97pt>
 File: Appendix/test_checklist.pdf Graphic file (type pdf)
 <use Appendix/test_checklist.pdf>
-Package pdftex.def Info: Appendix/test_checklist.pdf  used on input line 58.
+Package pdftex.def Info: Appendix/test_checklist.pdf  used on input line 59.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
 
 
@@ -4864,26 +4868,26 @@ pdfTeX warning: pdflatex (file ./Appendix/test_checklist.pdf): PDF inclusion: fo
 
 
 pdfTeX warning: pdflatex (file ./Appendix/test_checklist.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<Appendix/test_checklist.pdf, id=1153, page=1, 614.295pt x 794.97pt>
+<Appendix/test_checklist.pdf, id=1171, page=1, 614.295pt x 794.97pt>
 File: Appendix/test_checklist.pdf Graphic file (type pdf)
 <use Appendix/test_checklist.pdf, page 1>
-Package pdftex.def Info: Appendix/test_checklist.pdf , page1 used on input line 58.
+Package pdftex.def Info: Appendix/test_checklist.pdf , page1 used on input line 59.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
 File: Appendix/test_checklist.pdf Graphic file (type pdf)
 <use Appendix/test_checklist.pdf, page 1>
-Package pdftex.def Info: Appendix/test_checklist.pdf , page1 used on input line 58.
+Package pdftex.def Info: Appendix/test_checklist.pdf , page1 used on input line 59.
 (pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
 File: logos/logo_sherpa.png Graphic file (type png)
 <use logos/logo_sherpa.png>
-Package pdftex.def Info: logos/logo_sherpa.png  used on input line 58.
+Package pdftex.def Info: logos/logo_sherpa.png  used on input line 59.
 (pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
 File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
 <use logos/lhead_logos/logo_polytech_resized.png>
-Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 58.
+Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 59.
 (pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
 File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
 <use logos/lhead_logos/eupi_long_resized.png>
-Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 58.
+Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 59.
 (pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
 
 Package fancyhdr Warning: \headheight is too small (42.67912pt): 
@@ -4895,23 +4899,23 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 [4 <./Appendix/scenario3.png> <./Appendix/scenarioM.png>]
 File: Appendix/test_checklist.pdf Graphic file (type pdf)
 <use Appendix/test_checklist.pdf, page 1>
-Package pdftex.def Info: Appendix/test_checklist.pdf , page1 used on input line 58.
+Package pdftex.def Info: Appendix/test_checklist.pdf , page1 used on input line 59.
 (pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
 File: Appendix/test_checklist.pdf Graphic file (type pdf)
 <use Appendix/test_checklist.pdf, page 1>
-Package pdftex.def Info: Appendix/test_checklist.pdf , page1 used on input line 58.
+Package pdftex.def Info: Appendix/test_checklist.pdf , page1 used on input line 59.
 (pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
 File: logos/logo_sherpa.png Graphic file (type png)
 <use logos/logo_sherpa.png>
-Package pdftex.def Info: logos/logo_sherpa.png  used on input line 58.
+Package pdftex.def Info: logos/logo_sherpa.png  used on input line 59.
 (pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
 File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
 <use logos/lhead_logos/logo_polytech_resized.png>
-Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 58.
+Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 59.
 (pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
 File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
 <use logos/lhead_logos/eupi_long_resized.png>
-Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 58.
+Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 59.
 (pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
 
 
@@ -4923,14 +4927,14 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 
 File: Appendix/test_checklist.pdf Graphic file (type pdf)
 <use Appendix/test_checklist.pdf, page 1>
-Package pdftex.def Info: Appendix/test_checklist.pdf , page1 used on input line 58.
+Package pdftex.def Info: Appendix/test_checklist.pdf , page1 used on input line 59.
 (pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
 [5
 
  <./Appendix/test_checklist.pdf>]
 File: Appendix/test_checklist.pdf Graphic file (type pdf)
 <use Appendix/test_checklist.pdf>
-Package pdftex.def Info: Appendix/test_checklist.pdf  used on input line 59.
+Package pdftex.def Info: Appendix/test_checklist.pdf  used on input line 60.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
 
 
@@ -4938,46 +4942,46 @@ pdfTeX warning: pdflatex (file ./Appendix/test_checklist.pdf): PDF inclusion: fo
 
 
 pdfTeX warning: pdflatex (file ./Appendix/test_checklist.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<Appendix/test_checklist.pdf, id=1196, page=2, 614.295pt x 794.97pt>
+<Appendix/test_checklist.pdf, id=1214, page=2, 614.295pt x 794.97pt>
 File: Appendix/test_checklist.pdf Graphic file (type pdf)
 <use Appendix/test_checklist.pdf, page 2>
-Package pdftex.def Info: Appendix/test_checklist.pdf , page2 used on input line 59.
+Package pdftex.def Info: Appendix/test_checklist.pdf , page2 used on input line 60.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
 File: Appendix/test_checklist.pdf Graphic file (type pdf)
 <use Appendix/test_checklist.pdf, page 2>
-Package pdftex.def Info: Appendix/test_checklist.pdf , page2 used on input line 59.
+Package pdftex.def Info: Appendix/test_checklist.pdf , page2 used on input line 60.
 (pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
 File: Appendix/test_checklist.pdf Graphic file (type pdf)
 <use Appendix/test_checklist.pdf, page 2>
-Package pdftex.def Info: Appendix/test_checklist.pdf , page2 used on input line 59.
+Package pdftex.def Info: Appendix/test_checklist.pdf , page2 used on input line 60.
 (pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
 File: Appendix/test_checklist.pdf Graphic file (type pdf)
 <use Appendix/test_checklist.pdf, page 2>
-Package pdftex.def Info: Appendix/test_checklist.pdf , page2 used on input line 59.
+Package pdftex.def Info: Appendix/test_checklist.pdf , page2 used on input line 60.
 (pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
 File: Appendix/test_checklist.pdf Graphic file (type pdf)
 <use Appendix/test_checklist.pdf, page 2>
-Package pdftex.def Info: Appendix/test_checklist.pdf , page2 used on input line 59.
+Package pdftex.def Info: Appendix/test_checklist.pdf , page2 used on input line 60.
 (pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
 [6
 
  <./Appendix/test_checklist.pdf>]
-<Appendix/Traj_Dlio_vs_kitware.png, id=1206, 1204.5pt x 562.1pt>
+<Appendix/Traj_Dlio_vs_kitware.png, id=1225, 1204.5pt x 562.1pt>
 File: Appendix/Traj_Dlio_vs_kitware.png Graphic file (type png)
 <use Appendix/Traj_Dlio_vs_kitware.png>
-Package pdftex.def Info: Appendix/Traj_Dlio_vs_kitware.png  used on input line 65.
+Package pdftex.def Info: Appendix/Traj_Dlio_vs_kitware.png  used on input line 66.
 (pdftex.def)             Requested size: 483.69687pt x 225.72801pt.
 File: logos/logo_sherpa.png Graphic file (type png)
 <use logos/logo_sherpa.png>
-Package pdftex.def Info: logos/logo_sherpa.png  used on input line 69.
+Package pdftex.def Info: logos/logo_sherpa.png  used on input line 70.
 (pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
 File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
 <use logos/lhead_logos/logo_polytech_resized.png>
-Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 69.
+Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 70.
 (pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
 File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
 <use logos/lhead_logos/eupi_long_resized.png>
-Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 69.
+Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 70.
 (pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
 
 
@@ -4988,27 +4992,27 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [7 <./Appendix/Traj_Dlio_vs_kitware.png>]
-<Appendix/dlio_APE_plot_raw.png, id=1213, 730.6497pt x 723.4227pt>
+<Appendix/dlio_APE_plot_raw.png, id=1231, 730.6497pt x 723.4227pt>
 File: Appendix/dlio_APE_plot_raw.png Graphic file (type png)
 <use Appendix/dlio_APE_plot_raw.png>
-Package pdftex.def Info: Appendix/dlio_APE_plot_raw.png  used on input line 75.
+Package pdftex.def Info: Appendix/dlio_APE_plot_raw.png  used on input line 76.
 (pdftex.def)             Requested size: 241.84843pt x 239.44772pt.
-<Appendix/kitware_APE_plot_raw.png, id=1214, 730.6497pt x 723.4227pt>
+<Appendix/kitware_APE_plot_raw.png, id=1232, 730.6497pt x 723.4227pt>
 File: Appendix/kitware_APE_plot_raw.png Graphic file (type png)
 <use Appendix/kitware_APE_plot_raw.png>
-Package pdftex.def Info: Appendix/kitware_APE_plot_raw.png  used on input line 82.
+Package pdftex.def Info: Appendix/kitware_APE_plot_raw.png  used on input line 83.
 (pdftex.def)             Requested size: 241.84843pt x 239.44772pt.
 File: logos/logo_sherpa.png Graphic file (type png)
 <use logos/logo_sherpa.png>
-Package pdftex.def Info: logos/logo_sherpa.png  used on input line 89.
+Package pdftex.def Info: logos/logo_sherpa.png  used on input line 90.
 (pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
 File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
 <use logos/lhead_logos/logo_polytech_resized.png>
-Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 89.
+Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 90.
 (pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
 File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
 <use logos/lhead_logos/eupi_long_resized.png>
-Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 89.
+Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 90.
 (pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
 
 
@@ -5019,27 +5023,27 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [8 <./Appendix/dlio_APE_plot_raw.png> <./Appendix/kitware_APE_plot_raw.png>]
-<Appendix/ouster_cmp_z.png, id=1221, 626.34pt x 377.41pt>
+<Appendix/ouster_cmp_z.png, id=1239, 626.34pt x 377.41pt>
 File: Appendix/ouster_cmp_z.png Graphic file (type png)
 <use Appendix/ouster_cmp_z.png>
-Package pdftex.def Info: Appendix/ouster_cmp_z.png  used on input line 95.
+Package pdftex.def Info: Appendix/ouster_cmp_z.png  used on input line 96.
 (pdftex.def)             Requested size: 386.95897pt x 233.17403pt.
-<Appendix/xsens_cmp_z.png, id=1222, 626.34pt x 377.41pt>
+<Appendix/xsens_cmp_z.png, id=1240, 626.34pt x 377.41pt>
 File: Appendix/xsens_cmp_z.png Graphic file (type png)
 <use Appendix/xsens_cmp_z.png>
-Package pdftex.def Info: Appendix/xsens_cmp_z.png  used on input line 102.
+Package pdftex.def Info: Appendix/xsens_cmp_z.png  used on input line 103.
 (pdftex.def)             Requested size: 386.95897pt x 233.17403pt.
 File: logos/logo_sherpa.png Graphic file (type png)
 <use logos/logo_sherpa.png>
-Package pdftex.def Info: logos/logo_sherpa.png  used on input line 112.
+Package pdftex.def Info: logos/logo_sherpa.png  used on input line 113.
 (pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
 File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
 <use logos/lhead_logos/logo_polytech_resized.png>
-Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 112.
+Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 113.
 (pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
 File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
 <use logos/lhead_logos/eupi_long_resized.png>
-Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 112.
+Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 113.
 (pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
 
 
@@ -5050,58 +5054,57 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
 [9 <./Appendix/ouster_cmp_z.png> <./Appendix/xsens_cmp_z.png>]
-<Appendix/0.png, id=1229, 578.16pt x 289.08pt>
+<Appendix/0.png, id=1247, 578.16pt x 289.08pt>
 File: Appendix/0.png Graphic file (type png)
 <use Appendix/0.png>
-Package pdftex.def Info: Appendix/0.png  used on input line 118.
+Package pdftex.def Info: Appendix/0.png  used on input line 119.
 (pdftex.def)             Requested size: 217.66211pt x 108.82819pt.
-<Appendix/1.png, id=1230, 578.16pt x 289.08pt>
+<Appendix/1.png, id=1248, 578.16pt x 289.08pt>
 File: Appendix/1.png Graphic file (type png)
 <use Appendix/1.png>
-Package pdftex.def Info: Appendix/1.png  used on input line 123.
+Package pdftex.def Info: Appendix/1.png  used on input line 124.
 (pdftex.def)             Requested size: 217.66211pt x 108.82819pt.
-<Appendix/2.png, id=1231, 578.16pt x 289.08pt>
+<Appendix/2.png, id=1249, 578.16pt x 289.08pt>
 File: Appendix/2.png Graphic file (type png)
 <use Appendix/2.png>
-Package pdftex.def Info: Appendix/2.png  used on input line 130.
+Package pdftex.def Info: Appendix/2.png  used on input line 131.
 (pdftex.def)             Requested size: 217.66211pt x 108.82819pt.
-<Appendix/3.png, id=1232, 578.16pt x 289.08pt>
+<Appendix/3.png, id=1250, 578.16pt x 289.08pt>
 File: Appendix/3.png Graphic file (type png)
 <use Appendix/3.png>
-Package pdftex.def Info: Appendix/3.png  used on input line 135.
+Package pdftex.def Info: Appendix/3.png  used on input line 136.
 (pdftex.def)             Requested size: 217.66211pt x 108.82819pt.
-<Appendix/4.png, id=1233, 578.16pt x 289.08pt>
+<Appendix/4.png, id=1251, 578.16pt x 289.08pt>
 File: Appendix/4.png Graphic file (type png)
 <use Appendix/4.png>
-Package pdftex.def Info: Appendix/4.png  used on input line 142.
+Package pdftex.def Info: Appendix/4.png  used on input line 143.
 (pdftex.def)             Requested size: 217.66211pt x 108.82819pt.
-<Appendix/5.png, id=1234, 578.16pt x 289.08pt>
+<Appendix/5.png, id=1252, 578.16pt x 289.08pt>
 File: Appendix/5.png Graphic file (type png)
 <use Appendix/5.png>
-Package pdftex.def Info: Appendix/5.png  used on input line 147.
+Package pdftex.def Info: Appendix/5.png  used on input line 148.
 (pdftex.def)             Requested size: 217.66211pt x 108.82819pt.
-<Appendix/8.png, id=1235, 578.16pt x 289.08pt>
+<Appendix/8.png, id=1253, 578.16pt x 289.08pt>
 File: Appendix/8.png Graphic file (type png)
 <use Appendix/8.png>
-Package pdftex.def Info: Appendix/8.png  used on input line 154.
+Package pdftex.def Info: Appendix/8.png  used on input line 155.
 (pdftex.def)             Requested size: 217.66211pt x 108.82819pt.
-<Appendix/9.png, id=1236, 578.16pt x 289.08pt>
+<Appendix/9.png, id=1254, 578.16pt x 289.08pt>
 File: Appendix/9.png Graphic file (type png)
 <use Appendix/9.png>
-Package pdftex.def Info: Appendix/9.png  used on input line 159.
+Package pdftex.def Info: Appendix/9.png  used on input line 160.
 (pdftex.def)             Requested size: 217.66211pt x 108.82819pt.
-)
 File: logos/logo_sherpa.png Graphic file (type png)
 <use logos/logo_sherpa.png>
-Package pdftex.def Info: logos/logo_sherpa.png  used on input line 146.
+Package pdftex.def Info: logos/logo_sherpa.png  used on input line 170.
 (pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
 File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
 <use logos/lhead_logos/logo_polytech_resized.png>
-Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 146.
+Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 170.
 (pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
 File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
 <use logos/lhead_logos/eupi_long_resized.png>
-Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 146.
+Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 170.
 (pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
 
 
@@ -5111,7 +5114,55 @@ Package fancyhdr Warning: \headheight is too small (42.67912pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
 
-[10 <./Appendix/0.png> <./Appendix/1.png> <./Appendix/2.png> <./Appendix/3.png> <./Appendix/4.png> <./Appendix/5.png> <./Appendix/8.png> <./Appendix/9.png>] 
+[10 <./Appendix/0.png> <./Appendix/1.png> <./Appendix/2.png> <./Appendix/3.png> <./Appendix/4.png> <./Appendix/5.png> <./Appendix/8.png> <./Appendix/9.png>]
+File: Appendix/checklist.jpg Graphic file (type jpg)
+<use Appendix/checklist.jpg>
+Package pdftex.def Info: Appendix/checklist.jpg  used on input line 174.
+(pdftex.def)             Requested size: 483.69687pt x 684.0346pt.
+File: logos/logo_sherpa.png Graphic file (type png)
+<use logos/logo_sherpa.png>
+Package pdftex.def Info: logos/logo_sherpa.png  used on input line 177.
+(pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
+File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
+<use logos/lhead_logos/logo_polytech_resized.png>
+Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 177.
+(pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
+File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
+<use logos/lhead_logos/eupi_long_resized.png>
+Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 177.
+(pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
+
+
+Package fancyhdr Warning: \headheight is too small (42.67912pt): 
+(fancyhdr)                Make it at least 45.32773pt, for example:
+(fancyhdr)                \setlength{\headheight}{45.32773pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
+
+[11]
+Overfull \vbox (62.63197pt too high) has occurred while \output is active []
+
+File: logos/logo_sherpa.png Graphic file (type png)
+<use logos/logo_sherpa.png>
+Package pdftex.def Info: logos/logo_sherpa.png  used on input line 177.
+(pdftex.def)             Requested size: 101.56209pt x 33.86768pt.
+File: logos/lhead_logos/logo_polytech_resized.png Graphic file (type png)
+<use logos/lhead_logos/logo_polytech_resized.png>
+Package pdftex.def Info: logos/lhead_logos/logo_polytech_resized.png  used on input line 177.
+(pdftex.def)             Requested size: 120.30582pt x 37.49619pt.
+File: logos/lhead_logos/eupi_long_resized.png Graphic file (type png)
+<use logos/lhead_logos/eupi_long_resized.png>
+Package pdftex.def Info: logos/lhead_logos/eupi_long_resized.png  used on input line 177.
+(pdftex.def)             Requested size: 208.9357pt x 40.97769pt.
+
+
+Package fancyhdr Warning: \headheight is too small (42.67912pt): 
+(fancyhdr)                Make it at least 45.32773pt, for example:
+(fancyhdr)                \setlength{\headheight}{45.32773pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.6486pt}.
+
+[12]) 
 enddocument/afterlastpage (AED): lastpage setting LastPage.
 (main.aux)
  ***********
@@ -5129,17 +5180,17 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 2E859E0828D4FC88C169416B55482282;10128.
  ) 
 Here is how much of TeX's memory you used:
- 64597 strings out of 467509
- 1519827 string characters out of 5409259
- 2315321 words of memory out of 5000000
- 92717 multiletter control sequences out of 15000+600000
+ 64649 strings out of 467509
+ 1520880 string characters out of 5409259
+ 2316161 words of memory out of 5000000
+ 92761 multiletter control sequences out of 15000+600000
  723132 words of font info for 93 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  125i,17n,121p,2519b,1313s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\mapo\AppData\Local\MiKTeX\fonts/pk/ljfour/public/mathabx/dpi720\mathb12.pk> <C:\Users\mapo\AppData\Local\MiKTeX\fonts/pk/ljfour/public/mathabx/dpi600\matha8.pk> <C:\Users\mapo\AppData\Local\MiKTeX\fonts/pk/ljfour/public/mathabx/dpi720\mathx10.pk> <C:\Users\mapo\AppData\Local\MiKTeX\fonts/pk/ljfour/public/mathabx/dpi600\matha12.pk><C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbxi10.pfb><C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi12.pfb><C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri12.pfb><C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy8.pfb><C:/Users/mapo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt12.pfb>
-Output written on main.pdf (88 pages, 34160689 bytes).
+Output written on main.pdf (91 pages, 34775091 bytes).
 PDF statistics:
- 1444 PDF objects out of 1728 (max. 8388607)
- 303 named destinations out of 1000 (max. 500000)
- 814 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1472 PDF objects out of 1728 (max. 8388607)
+ 311 named destinations out of 1000 (max. 500000)
+ 819 words of extra memory for PDF output out of 10000 (max. 10000000)
 
